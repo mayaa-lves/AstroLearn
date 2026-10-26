@@ -1,420 +1,108 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="referrer" content="no-referrer">
-    <script src="public/js/components/recuperacao-link.js"></script>
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta
-      name="description"
-      content="AstroLearn: uma jornada de aprendizagem STEAM com missões, robótica, cooperação e descobertas sobre o universo."
-    />
-    <meta name="theme-color" content="#faf6f0" />
-    <title>AstroLearn · Aprender é explorar</title>
-    
-    <link rel="stylesheet" href="public/css/pages/landing.css" />
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <meta name="theme-color" content="#fbf9ff">
+  <meta name="description" content="Conheça o AstroLearn: um projeto educacional STEAM com atividades, descobertas e uma aventura de aprendizagem pelo universo.">
+  <title>AstroLearn · Aprender é explorar novos mundos</title>
+  <script src="public/js/components/recuperacao-link.js"></script>
   <link rel="icon" type="image/png" href="public/assets/imagens/marca/astrolearn-simbolo.png">
+  <link rel="stylesheet" href="public/css/pages/landing.css">
+  <link rel="stylesheet" href="public/css/pages/landing-movimento.css">
+  <script defer src="public/js/pages/landing.js"></script>
+  <script defer src="public/js/pages/landing-movimento.js"></script>
+  <link rel="stylesheet" href="public/css/pages/landing-percurso.css">
+  <script defer src="public/js/pages/landing-percurso.js"></script>
+  <link rel="stylesheet" href="public/css/pages/landing-steam.css">
+  <script defer src="public/js/pages/landing-steam.js"></script>
+  <link rel="stylesheet" href="public/css/pages/landing-mundos.css">
+  <script defer src="public/js/pages/landing-mundos.js"></script>
 </head>
-  <body>
-    <a class="skip" href="#main">Pular para o conteúdo</a
-    ><canvas id="landingStars" aria-hidden="true"></canvas>
-    <header class="site-header">
-      <a class="brand" href="index.html" aria-label="AstroLearn, início"
-        ><img src="public/assets/imagens/marca/astrolearn-livro-completa.svg" alt="AstroLearn" width="190" height="44" style="display:block;width:190px;max-width:100%;height:44px;object-fit:contain"></a
-      ><button
-        id="mobileNavToggle"
-        class="nav-toggle"
-        aria-controls="siteNav"
-        aria-expanded="false"
-        aria-label="Abrir menu"
-      >
-        ☰
-      </button>
-      <nav id="siteNav" aria-label="Navegação do site">
-        <a href="#proposta">A proposta</a
-        ><a href="#experiencia">Como funciona</a
-        ><a href="#professores">Para professores</a
-        ><a href="auth/login.html" class="login-link">Entrar →</a>
-      </nav>
-    </header>
-    <main id="main" tabindex="-1">
-      <section class="hero" aria-labelledby="heroTitle">
-        <div class="hero-copy">
-          <span class="eyebrow"
-            ><span class="status-dot" aria-hidden="true"></span>UM UNIVERSO DE
-            POSSIBILIDADES</span
-          >
-          <h1 id="heroTitle">Aprender é<br />uma <span>descoberta.</span></h1>
-          <p>
-            Transforme a curiosidade em ideias. Investigue, crie e aprenda com
-            sua equipe em uma jornada pelo universo STEAM.
-          </p>
-          <div class="hero-actions">
-            <a class="primary" href="auth/cadastro-aluno.html"
-              >Começar minha jornada <span aria-hidden="true">↗</span></a
-            ><button class="secondary" data-demo>Explorar a plataforma</button>
-          </div>
-          <div class="hero-caption">
-            <span class="tiny-orbit" aria-hidden="true">✦</span>Ciência,
-            tecnologia e criatividade na mesma órbita.
-          </div>
-        </div>
-        <div
-          class="hero-scene"
-          id="heroScene"
-          aria-label="Ilustração da expedição espacial"
-        >
-          <div class="scene-horizon"></div>
-          <div class="scene-orbit" aria-hidden="true"></div>
-          <div class="earth" aria-hidden="true"></div>
-          <div class="scene-card mission-tag">
-            <span class="small-caps">PRÓXIMA DESCOBERTA</span
-            ><strong>Órbita das ideias</strong
-            ><span>Observe. Pergunte. Experimente.</span>
-            <div class="tag-progress" aria-hidden="true"><i></i></div>
-          </div>
-          <button
-            id="landingMascot"
-            class="landing-mascot"
-            aria-label="Descobrir uma dica do explorador"
-          >
-            <span aria-hidden="true"></span>
-          </button>
-          <div class="scene-card science-tag">
-            <span aria-hidden="true">✧</span>
-            <div>
-              <strong>Uma pergunta muda tudo.</strong
-              ><span>O que você quer descobrir hoje?</span>
-            </div>
-          </div>
-          <p id="mascotTip" class="mascot-tip" role="status" hidden></p>
-          <span class="scene-caption">Uma descoberta de cada vez.</span>
-        </div>
-      </section>
-      <div class="steam-strip" aria-label="Áreas STEAM">
-        <span>CIÊNCIA</span><i aria-hidden="true">✦</i><span>TECNOLOGIA</span
-        ><i aria-hidden="true">✦</i><span>ENGENHARIA</span
-        ><i aria-hidden="true">✦</i><span>ARTE</span><i aria-hidden="true">✦</i
-        ><span>MATEMÁTICA</span>
+<body>
+<a class="skip" href="#main">Pular para o conteúdo</a>
+<canvas id="landingStars" aria-hidden="true"></canvas>
+<header class="site-header shell">
+  <a class="brand" href="#inicio" aria-label="AstroLearn, início"><img src="public/assets/imagens/marca/astrolearn-livro-completa.svg" alt="AstroLearn" width="190" height="44"></a>
+  <button class="nav-toggle" id="mobileNavToggle" aria-label="Abrir navegação" aria-expanded="false" aria-controls="siteNav" type="button"><span></span><span></span></button>
+  <nav id="siteNav" aria-label="Navegação principal">
+    <a href="#sobre">O projeto</a><a href="#como-funciona">Como funciona</a><a href="#dois-estilos">Dois estilos</a><a href="#equipe">Equipe</a><a href="#planos">Planos</a>
+  </nav>
+  <div class="header-actions"><a href="auth/login.html" class="login-link">Entrar</a><a class="button primary small" href="auth/cadastro.html">Começar <span aria-hidden="true">↗</span></a></div>
+</header>
+<main id="main" tabindex="-1">
+  <section class="hero shell" id="inicio" aria-labelledby="heroTitle">
+    <div class="hero-copy"><p class="eyebrow">CURIOSIDADE EM ÓRBITA</p>
+      <h1 id="heroTitle">Aprender é<br>explorar<br><span class="orbit-word">novos mundos.</span></h1>
+      <p class="hero-description">Ciência, criatividade e desafios<br class="desktop-break"> para transformar o jeito de aprender.</p>
+      <div class="actions"><a class="button primary" href="auth/cadastro.html">Começar aventura <span aria-hidden="true">↗</span></a><a class="button secondary" href="#sobre">Conhecer o projeto</a></div>
+    </div>
+    <div class="hero-art"><span class="orbit-line" aria-hidden="true"></span><img id="heroIllustration" src="public/assets/imagens/landing-v2/hero.webp" width="1000" height="831" fetchpriority="high" alt="Exploradora turquesa em uma pequena ilha espacial, com a Terra e um satélite ao fundo."><span class="spark spark-one" aria-hidden="true">✦</span><span class="spark spark-two" aria-hidden="true">✦</span></div>
+  </section>
+  <section class="steam-strip shell" aria-label="Cinco áreas, muitas possibilidades">
+    <button type="button" data-steam="ciencia"><span class="line-icon" data-icon="science" aria-hidden="true"></span>Ciência</button>
+    <button type="button" data-steam="tecnologia"><span class="line-icon" data-icon="technology" aria-hidden="true"></span>Tecnologia</button>
+    <button type="button" data-steam="engenharia"><span class="line-icon" data-icon="engineering" aria-hidden="true"></span>Engenharia</button>
+    <button type="button" data-steam="artes"><span class="line-icon" data-icon="art" aria-hidden="true"></span>Artes</button>
+    <button type="button" data-steam="matematica"><span class="line-icon" data-icon="math" aria-hidden="true"></span>Matemática</button>
+  </section>
+  <section id="steamLab" class="steam-lab" aria-labelledby="steamLabTitle" hidden>
+    <div class="shell steam-lab-inner">
+      <button type="button" class="steam-close" aria-label="Recolher experiência STEAM">×</button>
+      <div id="steamVisual" class="steam-visual"></div>
+      <div class="steam-lab-copy"><p class="eyebrow" id="steamLabArea"></p><h2 id="steamLabTitle"></h2><p id="steamLabIntro"></p><div id="steamControls"></div><p id="steamResult" class="steam-result" role="status" aria-live="polite"></p></div>
+    </div>
+  </section>
+  <section class="style-section" id="dois-estilos" aria-labelledby="styleTitle">
+    <div class="shell"><header class="section-heading centered reveal"><p class="eyebrow">VOCÊ DÁ O SEU TOQUE</p><h2 id="styleTitle">Um universo, <span>dois estilos.</span></h2><p>Passe o mouse e pinte uma nova versão do AstroLearn.</p></header>
+      <div class="paint-scene" id="paintScene" aria-busy="true">
+        <img id="realScene" src="public/assets/imagens/landing-v2/cena-realista.webp" width="1536" height="768" loading="lazy" alt="Explorador de três olhos em um cenário espacial. Use os botões abaixo para comparar realismo e pixel art.">
+        <canvas id="paintCanvas" width="1200" height="600" aria-label="Área de pintura: no computador, mova o mouse; no celular, arraste um dedo." role="img"></canvas>
+        <div class="style-labels" aria-hidden="true"><span><i></i> Realismo</span><span><i></i> Pixel art</span></div>
+        <span id="brushCursor" class="brush-cursor" aria-hidden="true"></span><p class="paint-loading" id="paintLoading" role="status">Preparando seu universo…</p>
       </div>
-      <section
-        id="proposta"
-        class="section proposal"
-        aria-labelledby="proposalTitle"
-      >
-        <div class="section-heading">
-          <span class="eyebrow">CURIOSIDADE É O PONTO DE PARTIDA</span>
-          <h2 id="proposalTitle">
-            Mais que estudar.<br /><span>Experimentar o mundo.</span>
-          </h2>
-          <p>
-            O AstroLearn aproxima o conhecimento da prática, com atividades que
-            convidam os alunos a pensar, construir e colaborar.
-          </p>
-        </div>
-        <div class="feature-grid">
-          <article class="feature-card">
-            <span class="feature-symbol" aria-hidden="true"
-              ><svg viewBox="0 0 24 24">
-                <path
-                  d="M6 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6Zm12 12a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM6 9v3h12v3"
-                /></svg
-            ></span>
-            <h3>Sua própria jornada</h3>
-            <p>
-              Missões organizadas em uma trilha de planetas, com um próximo
-              passo claro para começar.
-            </p>
-          </article>
-          <article class="feature-card">
-            <span class="feature-symbol green" aria-hidden="true"
-              ><svg viewBox="0 0 24 24">
-                <circle cx="8" cy="7" r="3" />
-                <circle cx="17" cy="8" r="3" />
-                <path d="M2 21v-5a6 6 0 0 1 12 0v5m1-7a5 5 0 0 1 7 5v2" /></svg
-            ></span>
-            <h3>Ideias que se encontram</h3>
-            <p>
-              Equipes para dividir tarefas, investigar problemas e aprender com
-              as contribuições de cada um.
-            </p>
-          </article>
-          <article class="feature-card">
-            <span class="feature-symbol amber" aria-hidden="true"
-              ><svg viewBox="0 0 24 24">
-                <path d="M9 3h6m-5 0v7L4 21h16l-6-11V3M7 15h10" /></svg
-            ></span>
-            <h3>Conhecimento em ação</h3>
-            <p>
-              Biblioteca, desafios de lógica e jogos educativos para testar o
-              que foi aprendido.
-            </p>
-          </article>
-        </div>
-      </section>
-      <section
-        id="experiencia"
-        class="section experience"
-        aria-labelledby="experienceTitle"
-      >
-        <div class="journey-preview" aria-hidden="true">
-          <div class="mini-node node-one"></div>
-          <div class="mini-path"></div>
-          <div class="mini-node node-two"></div>
-          <div class="mini-lock">✦</div>
-          <span class="preview-label">Sua próxima descoberta começa aqui.</span>
-        </div>
-        <div class="experience-copy">
-          <span class="eyebrow">DO PRIMEIRO CONTATO À NOVA IDEIA</span>
-          <h2 id="experienceTitle">
-            Uma missão.<br />Várias formas de aprender.
-          </h2>
-          <ol class="steps">
-            <li>
-              <span>01</span>
-              <div>
-                <h3>Descubra o desafio</h3>
-                <p>Leia a proposta e explore os materiais da atividade.</p>
-              </div>
-            </li>
-            <li>
-              <span>02</span>
-              <div>
-                <h3>Investigue e crie</h3>
-                <p>
-                  Registre suas ideias, teste hipóteses e construa com a equipe.
-                </p>
-              </div>
-            </li>
-            <li>
-              <span>03</span>
-              <div>
-                <h3>Compartilhe e evolua</h3>
-                <p>
-                  Prepare sua entrega e aprenda com a orientação do professor.
-                </p>
-              </div>
-            </li>
+      <div class="paint-controls"><p id="paintStatus" aria-live="polite">O mesmo universo. Novas formas de explorar.</p><div class="actions"><button type="button" class="button text-button" id="resetPaint" disabled><span aria-hidden="true">↺</span> Recomeçar</button><button type="button" class="button primary" id="completePaint" disabled>Ver transformação <span aria-hidden="true">↗</span></button></div></div>
+      <p class="interaction-hint">No celular, pinte com o dedo. Você também pode comparar os estilos pelos botões, sem precisar desenhar.</p>
+    </div>
+  </section>
+  <section class="journey-section shell" id="como-funciona" aria-labelledby="journeyTitle">
+    <div class="journey-stage">
+      <div class="journey-inner shell">
+        <header class="journey-heading">
+          <div><p class="eyebrow">UMA DESCOBERTA DE CADA VEZ</p><h2 id="journeyTitle">Sua próxima <span>descoberta</span><br>começa aqui.</h2></div>
+          <a class="journey-skip inline-link" href="#sobre">Continuar a página <span aria-hidden="true">↓</span></a>
+        </header>
+        <div class="journey-window">
+          <svg class="journey-orbit" viewBox="0 0 1200 360" preserveAspectRatio="none" aria-hidden="true"><path class="orbit-guide" d="M-40 280 C180 50 350 310 550 180 S950 40 1240 160"/><path class="orbit-progress" pathLength="1" d="M-40 280 C180 50 350 310 550 180 S950 40 1240 160"/></svg>
+          <ol class="journey" id="journeyTrack">
+            <li><div class="journey-world"><span class="planet-halo" aria-hidden="true"></span><button class="planet student-world world-0" data-planet="0" data-world="0" aria-label="Explore: conhecer o primeiro passo" type="button"></button></div><div class="journey-caption"><span class="step-number">01 / EXPLORE</span><h3>O próximo passo<br>fica claro.</h3><p>O aluno entra na turma com o código do professor e encontra as missões em uma trilha de planetas. Vê o que já concluiu e qual atividade está disponível para continuar.</p><button type="button" class="inline-link journey-details" data-planet="0">Conhecer este passo <span aria-hidden="true">↗</span></button></div></li>
+            <li><div class="journey-world"><span class="planet-halo" aria-hidden="true"></span><button class="planet student-world world-1" data-planet="1" data-world="1" aria-label="Experimente: conhecer o segundo passo" type="button"></button></div><div class="journey-caption"><span class="step-number">02 / EXPERIMENTE</span><h3>Da proposta<br>à entrega.</h3><p>Instruções, materiais de apoio e o que entregar ficam na atividade. O aluno envia texto, fotos ou arquivos e pode revisar seu trabalho antes de enviá-lo.</p><button type="button" class="inline-link journey-details" data-planet="1">Conhecer este passo <span aria-hidden="true">↗</span></button></div></li>
+            <li><div class="journey-world"><span class="planet-halo" aria-hidden="true"></span><button class="planet student-world world-2" data-planet="2" data-world="2" aria-label="Crie: explorar o terceiro mundo" type="button"></button></div><div class="journey-caption"><span class="step-number">03 / CRIE</span><h3>Trabalho em equipe<br>com direção.</h3><p>Integrantes dividem tarefas, definem responsáveis e acompanham avisos em um espaço compartilhado. Cada aluno consegue enxergar como pode contribuir para o projeto.</p><button type="button" class="inline-link journey-details" data-planet="2">Conhecer este passo <span aria-hidden="true">↗</span></button></div></li>
+            <li><div class="journey-world"><span class="planet-halo" aria-hidden="true"></span><button class="planet student-world world-3" data-planet="3" data-world="3" aria-label="Compartilhe: explorar o quarto mundo" type="button"></button></div><div class="journey-caption"><span class="step-number">04 / COMPARTILHE</span><h3>Uma devolutiva.<br>Um próximo passo.</h3><p>O professor consulta o trabalho e os anexos, registra a nota e orienta o aluno. Entregas e devolutivas ficam no mesmo fluxo, ajudando a acompanhar o que foi feito e o que melhorar.</p><button type="button" class="inline-link journey-details" data-planet="3">Conhecer este passo <span aria-hidden="true">↗</span></button></div></li>
           </ol>
-          <button class="text-link" data-demo>
-            Conhecer as telas <span aria-hidden="true">→</span>
-          </button>
         </div>
-      </section>
-      <section class="section steam-lab" aria-labelledby="labTitle">
-        <div class="section-heading">
-          <span class="eyebrow">ESCOLHA UMA ÓRBITA</span>
-          <h2 id="labTitle">Tudo está conectado.</h2>
-          <p>Clique em uma área e descubra uma ideia de investigação.</p>
-        </div>
-        <div
-          class="steam-tabs"
-          role="tablist"
-          aria-label="Áreas da aprendizagem STEAM"
-        >
-          <button
-            role="tab"
-            id="tabScience"
-            aria-selected="true"
-            aria-controls="steamPanel"
-            data-topic="science"
-          >
-            Ciência</button
-          ><button
-            role="tab"
-            id="tabTech"
-            aria-selected="false"
-            aria-controls="steamPanel"
-            data-topic="tech"
-            tabindex="-1"
-          >
-            Tecnologia</button
-          ><button
-            role="tab"
-            id="tabEngineering"
-            aria-selected="false"
-            aria-controls="steamPanel"
-            data-topic="engineering"
-            tabindex="-1"
-          >
-            Engenharia</button
-          ><button
-            role="tab"
-            id="tabArt"
-            aria-selected="false"
-            aria-controls="steamPanel"
-            data-topic="art"
-            tabindex="-1"
-          >
-            Arte</button
-          ><button
-            role="tab"
-            id="tabMath"
-            aria-selected="false"
-            aria-controls="steamPanel"
-            data-topic="math"
-            tabindex="-1"
-          >
-            Matemática
-          </button>
-        </div>
-        <div
-          id="steamPanel"
-          class="steam-panel"
-          role="tabpanel"
-          aria-labelledby="tabScience"
-          tabindex="0"
-        >
-          <span id="topicWord" class="topic-word" aria-hidden="true">S</span>
-          <div>
-            <span id="topicTag" class="eyebrow">OBSERVAR + INVESTIGAR</span>
-            <h3 id="topicTitle">Uma pergunta pode virar uma experiência.</h3>
-            <p id="topicText">
-              Compare como duas plantas crescem com diferentes quantidades de
-              luz, mantendo as outras condições iguais. O que você precisa
-              medir?
-            </p>
+        <div class="journey-bottom">
+          <div class="journey-controls" role="group" aria-label="Etapas do percurso">
+            <button type="button" class="journey-dot" data-step="0" aria-label="Ir para Explore" aria-current="step"><span>01</span><i aria-hidden="true"></i></button>
+            <button type="button" class="journey-dot" data-step="1" aria-label="Ir para Experimente"><span>02</span><i aria-hidden="true"></i></button>
+            <button type="button" class="journey-dot" data-step="2" aria-label="Ir para Crie"><span>03</span><i aria-hidden="true"></i></button>
+            <button type="button" class="journey-dot" data-step="3" aria-label="Ir para Compartilhe"><span>04</span><i aria-hidden="true"></i></button>
           </div>
-          <a class="secondary" href="aluno/jogos/index.html"
-            >Explorar desafios ↗</a
-          >
+          <p class="journey-scroll-hint" aria-hidden="true">Continue rolando <span>↓</span></p>
         </div>
-      </section>
-      <section
-        id="professores"
-        class="section teacher-section"
-        aria-labelledby="teacherTitle"
-      >
-        <div class="teacher-copy">
-          <span class="eyebrow">PARA QUEM GUIA A EXPEDIÇÃO</span>
-          <h2 id="teacherTitle">Ensinar com espaço<br />para cada aluno.</h2>
-          <p>
-            Uma estação organizada para planejar propostas, acompanhar turmas e
-            oferecer uma devolutiva que ajude a avançar.
-          </p>
-          <ul class="check-list">
-            <li>Turmas e desenvolvimento individual</li>
-            <li>Atividades com materiais de apoio</li>
-            <li>Equipes, entregas, perguntas e correções</li>
-          </ul>
-          <a class="primary" href="auth/cadastro-professor.html"
-            >Sou professor <span aria-hidden="true">↗</span></a
-          >
-        </div>
-        <div class="teacher-preview">
-          <div class="mock-top">
-            <span>ESTAÇÃO DO PROFESSOR</span
-            ><span class="mock-dots" aria-hidden="true">•••</span>
-          </div>
-          <h3>Cada sala, uma expedição.</h3>
-          <div class="mock-room">
-            <span class="mock-icon" aria-hidden="true">◎</span>
-            <div>
-              <strong>Turma exploradora</strong
-              ><span>Atividades · Equipes · Desenvolvimento</span>
-            </div>
-            <span aria-hidden="true">→</span>
-          </div>
-          <div class="mock-chart" aria-hidden="true">
-            <i></i><i></i><i></i><i></i><i></i>
-          </div>
-          <p>Visual ilustrativo da área do professor.</p>
-          <a class="text-link" href="professor/home.html"
-            >Abrir demonstração do professor →</a
-          >
-        </div>
-      </section>
-      <section class="section faq" aria-labelledby="faqTitle">
-        <div class="section-heading">
-          <span class="eyebrow">ANTES DE PARTIR</span>
-          <h2 id="faqTitle">Algumas respostas.</h2>
-        </div>
-        <div class="faq-list">
-          <details>
-            <summary>O que significa STEAM?</summary>
-            <p>
-              STEAM reúne ciência, tecnologia, engenharia, arte e matemática em
-              propostas que conectam investigação, criatividade e resolução de
-              problemas.
-            </p>
-          </details>
-          <details>
-            <summary>Como posso conhecer a plataforma?</summary>
-            <p>
-              Use “Explorar a plataforma” para visitar as demonstrações do aluno
-              e do professor. As ações desta versão ficam neste navegador, com
-              dados de exemplo.
-            </p>
-          </details>
-          <details>
-            <summary>Funciona no computador e no celular?</summary>
-            <p>
-              As telas se adaptam ao tamanho da tela. No computador, a navegação
-              fica na lateral; no celular, os atalhos ficam embaixo. Os jogos
-              também têm controles por toque.
-            </p>
-          </details>
-          <details>
-            <summary>O que já funciona nesta versão?</summary>
-            <p>
-              As interfaces, jogos e fluxos locais de atividades e correção
-              estão disponíveis para demonstração. Contas, turmas reais, envios
-              à escola e multiplayer em computadores separados precisam da
-              integração com o backend.
-            </p>
-          </details>
-          <details>
-            <summary>Posso reduzir as animações?</summary>
-            <p>
-              Sim. Nesta página, use “Pausar animações” no rodapé. Na área do
-              aluno, o perfil e as configurações permitem ajustar movimento,
-              texto e contraste. A preferência do aparelho por menos movimento é
-              respeitada.
-            </p>
-          </details>
-        </div>
-      </section>
-      <section class="final-cta">
-        <span class="eyebrow">SUA PRÓXIMA DESCOBERTA</span>
-        <h2>O universo começa<br />com a sua curiosidade.</h2>
-        <a class="primary" href="auth/login.html"
-          >Vamos explorar <span aria-hidden="true">↗</span></a
-        >
-      </section>
-    </main>
-    <footer class="site-footer">
-      <a class="brand" href="#"
-        ><img src="public/assets/imagens/marca/astrolearn-livro-completa.svg" alt="AstroLearn" width="190" height="44" style="display:block;width:190px;max-width:100%;height:44px;object-fit:contain"></a
-      >
-      <p>Projeto educacional STEAM · Uma descoberta de cada vez.</p>
-      <button id="landingMotion" class="text-link" aria-pressed="false">
-        Pausar animações</button
-      ><span class="demo-disclosure">Frontend de demonstração</span>
-    </footer>
-    <dialog id="demoDialog" aria-labelledby="demoTitle">
-      <button
-        class="dialog-close"
-        id="closeDemo"
-        aria-label="Fechar escolha de perfil"
-      >
-        ×</button
-      ><span class="eyebrow">CONHEÇA O ASTROLEARN</span>
-      <h2 id="demoTitle">Qual órbita você quer explorar?</h2>
-      <p>
-        Escolha uma prévia. Os dados são demonstrativos e as ações ficam neste
-        navegador.
-      </p>
-      <div class="demo-options">
-        <a href="aluno/home.html"
-          ><strong>Sou aluno <span aria-hidden="true">↗</span></strong
-          ><span>Trilha, atividades, biblioteca e jogos.</span></a
-        ><a href="professor/home.html"
-          ><strong>Sou professor <span aria-hidden="true">↗</span></strong
-          ><span>Turmas, atividades e acompanhamento.</span></a
-        >
       </div>
-      <a href="auth/login.html" class="text-link">Ir para a tela de login →</a>
-    </dialog>
-    <script src="public/js/pages/landing.js"></script>
-  </body>
+    </div>
+  </section>
+  <section class="about-section" id="sobre" aria-labelledby="aboutTitle"><div class="shell about-layout"><div class="reveal"><p class="eyebrow">SOBRE O ASTROLEARN</p><h2 id="aboutTitle">Curiosidade que vira<br><span>aprendizagem.</span></h2></div><div class="about-text reveal"><p>O AstroLearn nasceu para aproximar Ciência, Tecnologia, Engenharia, Artes e Matemática da vida dos alunos. Em um universo de personagens e planetas, aprender começa com observar, perguntar e experimentar.</p><p>É um projeto acadêmico desenvolvido no SENAI para tornar a aprendizagem mais participativa, com atividades, materiais e acompanhamento do professor.</p><a class="inline-link" href="#equipe">Conheça quem está nessa missão <span aria-hidden="true">↗</span></a></div></div></section>
+  <section class="audience-section shell" aria-labelledby="audienceTitle"><header class="section-heading reveal"><p class="eyebrow">CADA PESSOA TEM SEU ESPAÇO</p><h2 id="audienceTitle">Uma jornada.<br><span>Muitas possibilidades.</span></h2></header><div class="audience-layout"><div class="audience-choices" role="tablist" aria-label="Conheça os dois perfis"><button role="tab" id="studentTab" aria-selected="true" aria-controls="studentPanel" type="button">Para quem aprende <span aria-hidden="true">↗</span></button><button role="tab" id="teacherTab" aria-selected="false" aria-controls="teacherPanel" tabindex="-1" type="button">Para quem ensina <span aria-hidden="true">↗</span></button></div><div class="audience-panel" id="studentPanel" role="tabpanel" aria-labelledby="studentTab" tabindex="0"><h3>Seu próximo desafio está na trilha.</h3><p>Encontre as atividades da turma, consulte materiais e envie suas descobertas ao professor.</p><ul><li>Trilha de atividades em planetas</li><li>Entregas com texto, fotos e arquivos</li><li>Biblioteca e espaço para trabalhar em equipe</li></ul><a href="auth/cadastro-aluno.html" class="inline-link">Criar minha conta de aluno ↗</a></div><div class="audience-panel" id="teacherPanel" role="tabpanel" aria-labelledby="teacherTab" tabindex="0" hidden><h3>Mais espaço para acompanhar cada descoberta.</h3><p>Organize turmas e atividades, compartilhe materiais, consulte entregas e registre suas devolutivas.</p><ul><li>Turmas e acompanhamento das atividades</li><li>Materiais e organização de equipes</li><li>Correções e visualização de desempenho</li></ul><a href="auth/cadastro-professor.html" class="inline-link">Criar minha conta de professor ↗</a></div></div></section>
+  <section class="team-section" id="equipe" aria-labelledby="teamTitle"><div class="shell"><header class="section-heading centered reveal"><p class="eyebrow">QUEM SOMOS</p><h2 id="teamTitle">Por trás desse universo,<br><span>uma equipe curiosa.</span></h2><p>Conectamos tecnologia, criatividade e educação para construir o AstroLearn.</p></header><ul class="team-list"><li><span class="initials" aria-hidden="true">MA</span><h3>Mayara Alves</h3></li><li><span class="initials" aria-hidden="true">IJ</span><h3>Isadora Jucá</h3></li><li><span class="initials" aria-hidden="true">YP</span><h3>Yan Proença</h3></li><li><span class="initials" aria-hidden="true">DP</span><h3>Daniel Pupo</h3></li></ul><div class="team-credit"><span>Projeto acadêmico · <strong>SENAI</strong></span><p>Instrutores: Rafael Ribas e João Paulo Lepinsk.</p></div></div></section>
+  <section class="plans-section shell" id="planos" aria-labelledby="plansTitle"><header class="section-heading centered reveal"><p class="eyebrow">ESPAÇO PARA CRESCER</p><h2 id="plansTitle">Uma nova órbita<br><span>para sua escola.</span></h2><p>Uma proposta para experimentar, aprender e crescer junto.</p><p class="planning-badge">Planos em planejamento · valores e condições em validação</p></header><div class="plans"><article class="plan"><p class="eyebrow">EXPLORAÇÃO</p><h3>Comece uma descoberta.</h3><p class="price">Grátis <span>por 60 dias</span></p><p>Um piloto para conhecer o projeto e compartilhar seu feedback.</p><ul><li>1 professor responsável</li><li>Até 2 turmas</li><li>Até 40 alunos no total</li><li>Experimentação dos recursos disponíveis</li></ul><a href="#contato" class="button secondary">Conhecer a proposta</a></article><article class="plan featured"><p class="eyebrow">ÓRBITA</p><h3>Uma escola em movimento.</h3><p class="price"><span>R$</span> 149 <span>/mês por escola</span></p><p>Proposta para escolas que querem começar com suas turmas.</p><ul><li>Até 100 alunos ativos</li><li>Até 5 turmas</li><li>1 professor responsável por turma</li><li>Um professor pode ter várias turmas</li><li>Contato por e-mail</li></ul><a href="#contato" class="button primary">Conhecer a proposta ↗</a></article><article class="plan"><p class="eyebrow">GALÁXIA</p><h3>Mais turmas, novas órbitas.</h3><p class="price"><span>R$</span> 299 <span>/mês por escola</span></p><p>Proposta para ampliar a experiência na comunidade escolar.</p><ul><li>Até 300 alunos ativos</li><li>Até 15 turmas</li><li>1 professor responsável por turma</li><li>Mesma base de recursos pedagógicos</li><li>Apresentação remota inicial para a escola</li></ul><a href="#contato" class="button secondary">Conhecer a proposta</a></article></div><p class="plans-note">Os alunos não pagam individualmente. Planos propostos para uma etapa futura: ainda não há contratação ou pagamento pelo site. A disponibilidade de cada recurso depende da conclusão e validação do projeto.</p></section>
+  <section class="faq-section shell" aria-labelledby="faqTitle"><div class="reveal"><p class="eyebrow">ANTES DE DECOLAR</p><h2 id="faqTitle">Ficou com<br><span>alguma dúvida?</span></h2><div class="support-mascot cyclops" aria-hidden="true"></div></div><div class="faq-list"><details><summary>O que significa STEAM?</summary><p>É uma abordagem que conecta Ciência, Tecnologia, Engenharia, Artes e Matemática. No AstroLearn, essas áreas inspiram atividades e desafios que aproximam ideias e prática.</p></details><details><summary>Como o aluno entra em uma turma?</summary><p>O aluno cria sua conta e usa o código de acesso compartilhado pelo professor. Cada turma tem um professor responsável, que pode acompanhar várias turmas.</p></details><details><summary>Preciso instalar algum aplicativo?</summary><p>A plataforma é acessada pelo navegador. O foco da experiência é computador, com adaptação para celular. Para acessar a conta e enviar atividades, é necessária conexão com a internet.</p></details><details><summary>A pintura muda o estilo da plataforma inteira?</summary><p>Por enquanto, não. A experiência de realismo e pixel art desta página é uma demonstração interativa dos estilos visuais do projeto.</p></details><details><summary>Já posso contratar um dos planos?</summary><p>Ainda não. Os planos e valores são uma proposta em validação com a equipe. Não há cobrança nem contratação automática. O projeto segue em desenvolvimento e avaliação.</p></details><details><summary>Todos os recursos já estão disponíveis?</summary><p>O projeto está em desenvolvimento. Notificações, dúvidas dentro das atividades e outras integrações ainda estão sendo concluídas. A apresentação de um recurso não substitui a validação com a equipe antes de seu uso pela escola.</p></details></div></section>
+  <section class="contact-section" id="contato" aria-labelledby="contactTitle"><div class="shell contact-layout"><div><p class="eyebrow">VAMOS CONSTRUIR ESSA ÓRBITA?</p><h2 id="contactTitle">Sua curiosidade pode<br>levar você <span>mais longe.</span></h2><div class="actions"><a class="button primary" href="auth/cadastro.html">Começar aventura ↗</a><a class="button secondary" href="auth/login.html">Já tenho conta</a></div></div><div class="contact-info"><h3>Fale com a equipe</h3><p>Nosso canal oficial de contato está sendo preparado. Em breve, divulgaremos aqui o endereço para conversar sobre o projeto e o piloto escolar.</p><span class="contact-status"><i></i> Contato em preparação</span></div></div></section>
+</main>
+<footer class="site-footer shell"><div class="footer-top"><a class="brand" href="#inicio" aria-label="AstroLearn, voltar ao início"><img src="public/assets/imagens/marca/astrolearn-livro-completa.svg" alt="AstroLearn" width="190" height="44" loading="lazy"></a><nav aria-label="Navegação do rodapé"><a href="#sobre">O projeto</a><a href="#equipe">Equipe</a><a href="#planos">Planos</a><a href="#contato">Contato</a></nav><p>Ciência para um futuro mais curioso.</p></div><div class="footer-credits"><p>Mayara Alves · Isadora Jucá · Yan Proença · Daniel Pupo</p><p>Projeto acadêmico desenvolvido no SENAI.<br>Instrutores: Rafael Ribas e João Paulo Lepinsk.</p><p class="muted">Os links profissionais da equipe serão adicionados em breve.</p></div><div class="footer-bottom"><p>© <span id="year">2026</span> AstroLearn.</p><div><button data-info="privacidade" type="button">Privacidade deste site</button><button data-info="uso" type="button">Sobre o uso</button><button data-info="acessibilidade" type="button">Acessibilidade</button><button id="motionToggle" type="button" aria-pressed="false">Reduzir movimentos</button></div></div><p class="planet-texture-credit">Textura de Mercúrio: <a href="https://www.solarsystemscope.com/textures/" target="_blank" rel="noopener noreferrer">Solar System Scope</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.</p></footer>
+<dialog id="infoDialog" aria-labelledby="dialogTitle"><button class="dialog-close" type="button" aria-label="Fechar janela">×</button><p class="eyebrow" id="dialogEyebrow">UMA NOVA DESCOBERTA</p><h2 id="dialogTitle"></h2><div id="dialogBody"></div><button type="button" class="button primary dialog-ok">Entendi</button></dialog>
+<noscript><p class="noscript">A navegação e as informações estão disponíveis sem JavaScript. A pintura interativa e alguns controles precisam dele.</p></noscript>
+</body>
 </html>

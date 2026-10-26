@@ -1,250 +1,244 @@
-/* Landing sem dependências: navegação, tabs por teclado, mascote e estrelas discretas. */
+/* AstroLearn — apresentação pública. Não modifica contas, turmas ou permissões. */
 (() => {
-  "use strict";
-  const $ = (id) => document.getElementById(id),
-    media = matchMedia("(prefers-reduced-motion:reduce)");
-  let paused = false,
-    lastReduced = media.matches;
-  try {
-    paused = sessionStorage.getItem("astrolearn-landing-motion") === "off";
-  } catch {}
-  let frame = 0,
-    last = 0,
-    t = 0,
-    w = 0,
-    h = 0;
-  const canvas = $("landingStars"),
-    ctx = canvas.getContext("2d"),
-    pointer = { x: -999, y: -999 },
-    stars = Array.from({ length: 32 }, (_, i) => ({
-      u: (i * 0.618 + 0.13) % 1,
-      v: (i * 0.414 + 0.09) % 1,
-      dx: 0,
-      dy: 0,
-      phase: i * 1.3,
-    }));
-  const stopped = () => paused || media.matches || document.hidden;
-  function draw(dt) {
-    if (!ctx) return;
-    ctx.clearRect(0, 0, w, h);
-    for (const p of stars) {
-      const bx = p.u * w + Math.sin(t * 0.14 + p.phase) * 11,
-        by = p.v * h + Math.cos(t * 0.12 + p.phase) * 10,
-        d = Math.hypot(bx + p.dx - pointer.x, by + p.dy - pointer.y);
-      if (!stopped()) {
-        let ax = 0,
-          ay = 0;
-        if (d < 95) {
-          ax = ((bx + p.dx - pointer.x) / (d || 1)) * (95 - d) * 0.16;
-          ay = ((by + p.dy - pointer.y) / (d || 1)) * (95 - d) * 0.16;
-        }
-        p.dx += (ax - p.dx * 0.08) * dt;
-        p.dy += (ay - p.dy * 0.08) * dt;
-      }
-      ctx.fillStyle = "#b6a1c8";
-      ctx.beginPath();
-      ctx.arc(bx + p.dx, by + p.dy, 1 + (p.phase % 2) * 0.3, 0, Math.PI * 2);
-      ctx.fill();
-    }
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  let manualMotion = false;
+  try { manualMotion = localStorage.getItem('astrolearn-landing-reduced-motion') === 'true'; } catch {}
+  const noMotion = () => reduced.matches || manualMotion;
+  const motionButton = $('motionToggle');
+  function syncMotion() {
+    document.body.classList.toggle('motion-off', noMotion());
+    motionButton.setAttribute('aria-pressed', String(noMotion()));
+    motionButton.textContent = reduced.matches ? 'Movimento reduzido pelo sistema' : manualMotion ? 'Ativar movimentos' : 'Reduzir movimentos';
+    motionButton.disabled = reduced.matches;
+    document.dispatchEvent(new Event('landing:motion'));
   }
-  function tick(now) {
-    frame = 0;
-    if (media.matches !== lastReduced) {
-      sync();
-      return;
-    }
-    if (stopped()) return;
-    const dt = Math.min(2, (now - (last || now)) / 16.67);
-    last = now;
-    t += dt / 60;
-    draw(dt);
-    frame = requestAnimationFrame(tick);
-  }
-  function sync() {
-    lastReduced = media.matches;
-    if (stopped()) document.getAnimations().forEach((a) => a.cancel());
-    cancelAnimationFrame(frame);
-    last = 0;
-    document.body.classList.toggle("motion-off", paused || media.matches);
-    $("landingMotion").disabled = media.matches;
-    $("landingMotion").textContent = media.matches
-      ? "Movimento reduzido"
-      : paused
-        ? "Permitir animações"
-        : "Pausar animações";
-    $("landingMotion").setAttribute(
-      "aria-pressed",
-      String(paused || media.matches),
-    );
-    draw(0);
-    if (!stopped() && ctx) frame = requestAnimationFrame(tick);
-  }
-  function resize() {
-    w = innerWidth;
-    h = innerHeight;
-    const dpr = Math.min(devicePixelRatio || 1, 1.5);
-    canvas.width = w * dpr;
-    canvas.height = h * dpr;
-    canvas.style.width = w + "px";
-    canvas.style.height = h + "px";
-    ctx?.setTransform(dpr, 0, 0, dpr, 0, 0);
-    draw(0);
-  }
-  window.addEventListener(
-    "pointermove",
-    (e) => {
-      if (e.pointerType === "touch" || stopped()) return;
-      pointer.x = e.clientX;
-      pointer.y = e.clientY;
-      const rect = $("heroScene").getBoundingClientRect();
-      if (rect.bottom > 0 && innerWidth > 760) {
-        $("heroScene").style.setProperty(
-          "--scene-x",
-          (e.clientX / innerWidth - 0.5) * 7 + "px",
-        );
-        $("heroScene").style.setProperty(
-          "--scene-y",
-          (e.clientY / innerHeight - 0.5) * 5 + "px",
-        );
-      }
-    },
-    { passive: true },
-  );
-  document.documentElement.addEventListener(
-    "pointerleave",
-    () => (pointer.x = pointer.y = -999),
-  );
-  window.addEventListener("resize", resize);
-  window.addEventListener("focus", sync);
-  window.addEventListener("pageshow", sync);
-  document.addEventListener("visibilitychange", sync);
-  media.addEventListener("change", sync);
-  window.addEventListener("pagehide", () => cancelAnimationFrame(frame));
-  $("landingMotion").onclick = () => {
-    paused = !paused;
-    try {
-      sessionStorage.setItem(
-        "astrolearn-landing-motion",
-        paused ? "off" : "on",
-      );
-    } catch {}
-    sync();
-  };
-  resize();
-  sync();
-  const menu = $("siteNav"),
-    toggle = $("mobileNavToggle");
-  function closeMenu() {
-    menu.classList.remove("open");
-    toggle.setAttribute("aria-expanded", "false");
-    toggle.setAttribute("aria-label", "Abrir menu");
-  }
-  toggle.onclick = () => {
-    const open = menu.classList.toggle("open");
-    toggle.setAttribute("aria-expanded", String(open));
-    toggle.setAttribute("aria-label", open ? "Fechar menu" : "Abrir menu");
-  };
-  menu
-    .querySelectorAll("a")
-    .forEach((a) => a.addEventListener("click", closeMenu));
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && menu.classList.contains("open")) {
-      closeMenu();
-      toggle.focus();
-    }
+  motionButton.addEventListener('click', () => {
+    manualMotion = !manualMotion;
+    try { localStorage.setItem('astrolearn-landing-reduced-motion', String(manualMotion)); } catch {}
+    syncMotion();
   });
-  document.addEventListener("pointerdown", (e) => {
-    if (!e.target.closest(".site-header")) closeMenu();
+  reduced.addEventListener('change', syncMotion);
+  syncMotion();
+  $('year').textContent = String(new Date().getFullYear());
+
+  const nav = $('siteNav'), toggle = $('mobileNavToggle');
+  function closeNav() { nav.classList.remove('is-open'); toggle.setAttribute('aria-expanded', 'false'); toggle.setAttribute('aria-label', 'Abrir navegação'); }
+  toggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('is-open');
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Fechar navegação' : 'Abrir navegação');
   });
-  matchMedia("(min-width:761px)").addEventListener("change", (e) => {
-    if (e.matches) closeMenu();
+  nav.addEventListener('click', event => { if (event.target.closest('a')) closeNav(); });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape' && nav.classList.contains('is-open')) { closeNav(); toggle.focus(); } });
+  document.addEventListener('click', event => { if (!event.target.closest('.site-header')) closeNav(); });
+  matchMedia('(min-width: 901px)').addEventListener('change', event => { if (event.matches) closeNav(); });
+
+  if ('IntersectionObserver' in window && !noMotion()) {
+    document.body.classList.add('js-motion');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } });
+    }, {threshold: .1});
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }
+
+  const iconPaths = {
+    science: 'M9 3h6M10 3v7L4 20h16l-6-10V3M7 15h10',
+    technology: 'M5 4h14v12H5zM9 20h6m-3-4v4M8 8h8m-8 4h5',
+    engineering: 'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8ZM10 2h4l1 3 3 1 3-1 2 4-2 2v3l2 2-2 4-3-1-3 1-1 3h-4l-1-3-3-1-3 1-2-4 2-2v-3L1 9l2-4 3 1 3-1Z',
+    art: 'M15 3 21 9 8 22H2v-6ZM12 6l6 6M3 15l6 6',
+    math: 'M3 3h18v18H3ZM7 8h4M9 6v4m5-2h4M7 15l4 4m0-4-4 4m7-3h4m-4 2h4',
+  };
+  document.querySelectorAll('[data-icon]').forEach(el => {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    const path = document.createElementNS(svg.namespaceURI, 'path');
+    path.setAttribute('d', iconPaths[el.dataset.icon]); svg.append(path); el.append(svg);
   });
-  let origin = null;
-  document.querySelectorAll("[data-demo]").forEach(
-    (b) =>
-      (b.onclick = () => {
-        origin = b;
-        $("demoDialog").showModal();
-      }),
-  );
-  $("closeDemo").onclick = () => $("demoDialog").close();
-  $("demoDialog").addEventListener("close", () => origin?.focus());
-  const tips = [
-    "Uma boa investigação começa com uma pergunta que você consegue testar.",
-    "No robô, planeje os comandos antes de executar. Errar também faz parte de aprender.",
-    "Uma equipe funciona melhor quando todos entendem a tarefa e conseguem contribuir.",
-  ];
-  let tip = 0;
-  $("landingMascot").onclick = () => {
-    $("mascotTip").textContent = tips[tip++ % tips.length];
-    $("mascotTip").hidden = false;
-    if (!stopped())
-      $("landingMascot").animate?.(
-        [
-          { transform: "rotate(0deg)" },
-          { transform: "rotate(-8deg) translateY(-8px)" },
-          { transform: "rotate(5deg)" },
-          { transform: "rotate(0deg)" },
-        ],
-        { duration: 750, easing: "ease-in-out" },
-      );
+
+  const dialog = $('infoDialog');
+  let previousFocus;
+  function openInfo(title, paragraphs, eyebrow = 'UMA NOVA DESCOBERTA') {
+    previousFocus = document.activeElement;
+    $('dialogTitle').textContent = title; $('dialogEyebrow').textContent = eyebrow;
+    $('dialogBody').replaceChildren(...paragraphs.map(text => { const p = document.createElement('p'); p.textContent = text; return p; }));
+    dialog.showModal();
+  }
+  dialog.querySelectorAll('.dialog-close,.dialog-ok').forEach(button => button.addEventListener('click', () => dialog.close()));
+  dialog.addEventListener('close', () => previousFocus?.focus());
+  dialog.addEventListener('click', event => { if (event.target === dialog) { const rect = dialog.getBoundingClientRect(); if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close(); } });
+  const info = {
+    privacidade: ['Privacidade deste site', [
+      'Esta página de apresentação não possui formulário de coleta, checkout nem ferramenta de análise adicionada por esta implementação. As preferências de movimento são guardadas somente neste navegador.',
+      'Ao acessar login, cadastro ou a plataforma, você passa a usar os serviços de conta e dados do projeto. As informações completas sobre responsáveis pelo tratamento, finalidades, retenção e direitos dos usuários ainda precisam ser definidas e publicadas pela equipe.',
+      'Este resumo descreve a landing page e não substitui uma política de privacidade completa da plataforma.',
+    ]],
+    uso: ['Sobre o uso do AstroLearn', [
+      'O AstroLearn é um projeto acadêmico em desenvolvimento no SENAI. Os planos e valores apresentados são propostas em validação; esta página não realiza contratação nem recebe pagamentos.',
+      'A experiência de realismo e pixel art é uma demonstração visual local e não altera o estilo da plataforma inteira. Os recursos devem ser validados com a equipe antes de uma adoção pela escola.',
+      'As condições completas de uso serão publicadas quando forem definidas pela equipe. Este texto não apresenta uma oferta comercial definitiva.',
+    ]],
+    acessibilidade: ['Uma experiência para explorar com autonomia', [
+      'Use Tab e Shift + Tab para navegar, Enter ou Espaço para acionar botões e Escape para fechar esta janela. O menu e a comparação de estilos podem ser usados pelo teclado.',
+      'A opção Reduzir movimentos fica no rodapé e a preferência do sistema também é respeitada. O conteúdo continua disponível sem animações.',
+      'A pintura tem botões alternativos para comparar os estilos. Este projeto ainda não passou por uma auditoria formal de acessibilidade.',
+    ]],
   };
-  const topics = {
-    science: [
-      "S",
-      "OBSERVAR + INVESTIGAR",
-      "Uma pergunta pode virar uma experiência.",
-      "Compare como duas plantas crescem com diferentes quantidades de luz, mantendo as outras condições iguais. O que você precisa medir?",
-    ],
-    tech: [
-      "T",
-      "LÓGICA + CRIATIVIDADE",
-      "Uma sequência de comandos abre caminhos.",
-      "Como você programaria um robô para desviar de rochas? Planeje os passos, teste sua sequência e ajuste o que precisar.",
-    ],
-    engineering: [
-      "E",
-      "PLANEJAR + CONSTRUIR",
-      "Toda solução começa com um protótipo.",
-      "Desenhe um explorador para um terreno irregular. Que rodas, materiais e instrumentos você escolheria? Justifique seu projeto.",
-    ],
-    art: [
-      "A",
-      "EXPRESSAR + IMAGINAR",
-      "Uma ideia também pode ser vista.",
-      "Crie uma representação de um mundo que você investigou. Combine formas, cores e informação para contar o que descobriu.",
-    ],
-    math: [
-      "M",
-      "MEDIR + COMPARAR",
-      "Os números ajudam a fazer perguntas.",
-      "Registre os resultados de um experimento e compare as medidas. Qual gráfico deixa as diferenças mais claras?",
-    ],
-  };
-  const tabs = [...document.querySelectorAll("[data-topic]")];
-  function topic(b) {
-    const v = topics[b.dataset.topic];
-    tabs.forEach((t) => {
-      t.setAttribute("aria-selected", String(t === b));
-      t.tabIndex = t === b ? 0 : -1;
+  document.querySelectorAll('[data-info]').forEach(button => button.addEventListener('click', () => {
+    const [title, paragraphs] = info[button.dataset.info]; openInfo(title, paragraphs, 'INFORMAÇÕES DO PROJETO');
+  }));
+
+  const tabs = [$('studentTab'), $('teacherTab')];
+  const panels = [$('studentPanel'), $('teacherPanel')];
+  function selectTab(index, focus = false) {
+    tabs.forEach((tab, i) => { tab.setAttribute('aria-selected', String(i === index)); tab.tabIndex = i === index ? 0 : -1; panels[i].hidden = i !== index; });
+    if (focus) tabs[index].focus();
+  }
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => selectTab(index));
+    tab.addEventListener('keydown', event => {
+      let next;
+      if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = (index + 1) % tabs.length;
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = (index + tabs.length - 1) % tabs.length;
+      if (event.key === 'Home') next = 0;
+      if (event.key === 'End') next = tabs.length - 1;
+      if (next !== undefined) { event.preventDefault(); selectTab(next, true); }
     });
-    $("steamPanel").setAttribute("aria-labelledby", b.id);
-    ["topicWord", "topicTag", "topicTitle", "topicText"].forEach(
-      (id, i) => ($(id).textContent = v[i]),
-    );
-  }
-  tabs.forEach((b, i) => {
-    b.onclick = () => topic(b);
-    b.onkeydown = (e) => {
-      let n;
-      if (e.key === "ArrowRight") n = (i + 1) % tabs.length;
-      else if (e.key === "ArrowLeft") n = (i + tabs.length - 1) % tabs.length;
-      else if (e.key === "Home") n = 0;
-      else if (e.key === "End") n = tabs.length - 1;
-      else return;
-      e.preventDefault();
-      tabs[n].focus();
-      topic(tabs[n]);
-    };
   });
+
+  // Two aligned layers; the mask records strokes instead of moving a divider.
+  const scene = $('paintScene'), canvas = $('paintCanvas'), ctx = canvas.getContext('2d');
+  const cursor = $('brushCursor'), real = $('realScene'), pixel = new Image();
+  const mask = document.createElement('canvas');
+  mask.width = canvas.width; mask.height = canvas.height;
+  const maskCtx = mask.getContext('2d');
+  const reset = $('resetPaint'), complete = $('completePaint');
+  let paintReady = false, pixelMode = false, lastPoint = null, drawingTouch = false, paintFrame = 0;
+  function renderPaint() {
+    paintFrame = 0;
+    if (!paintReady || !ctx || !maskCtx) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.drawImage(pixel, 0, 0, canvas.width, canvas.height);
+    ctx.globalCompositeOperation = 'destination-in';
+    ctx.drawImage(mask, 0, 0);
+    ctx.globalCompositeOperation = 'source-over';
+  }
+  function schedulePaint() { if (!paintFrame) paintFrame = requestAnimationFrame(renderPaint); }
+  function beginReady() {
+    if (paintReady || !real.complete || !real.naturalWidth || !pixel.complete || !pixel.naturalWidth || !ctx || !maskCtx) return;
+    const ratio = real.naturalWidth / real.naturalHeight;
+    // Keep a bounded drawing surface and the same aspect ratio on every screen.
+    canvas.height = Math.round(canvas.width / ratio);
+    mask.height = canvas.height;
+    scene.style.aspectRatio = String(ratio);
+    paintReady = true; reset.disabled = false; complete.disabled = false;
+    // A quiet initial preview makes the two styles visible before painting.
+    maskCtx.fillStyle = '#fff'; maskCtx.beginPath();
+    maskCtx.moveTo(canvas.width * .72, 0);
+    maskCtx.lineTo(canvas.width, 0); maskCtx.lineTo(canvas.width, canvas.height);
+    maskCtx.lineTo(canvas.width * .58, canvas.height);
+    maskCtx.lineTo(canvas.width * .63, canvas.height * .74);
+    maskCtx.lineTo(canvas.width * .59, canvas.height * .52);
+    maskCtx.lineTo(canvas.width * .68, canvas.height * .27);
+    maskCtx.closePath(); maskCtx.fill();
+    $('paintLoading').hidden = true; scene.setAttribute('aria-busy', 'false');
+    renderPaint();
+  }
+  function imageFailed() {
+    $('paintLoading').textContent = 'A comparação não carregou. Atualize a página para tentar novamente.';
+    scene.setAttribute('aria-busy', 'false');
+  }
+  function point(event) {
+    const rect = canvas.getBoundingClientRect();
+    cursor.style.left = (event.clientX - rect.left) + 'px'; cursor.style.top = (event.clientY - rect.top) + 'px';
+    return {x: (event.clientX - rect.left) / rect.width * canvas.width, y: (event.clientY - rect.top) / rect.height * canvas.height};
+  }
+  function paint(event) {
+    if (!paintReady || pixelMode) return;
+    const p = point(event), rect = canvas.getBoundingClientRect();
+    const radius = Math.min(90, Math.max(38, 42 / rect.width * canvas.width));
+    maskCtx.strokeStyle = '#fff'; maskCtx.fillStyle = '#fff'; maskCtx.lineWidth = radius * 2;
+    maskCtx.lineCap = 'round'; maskCtx.lineJoin = 'round';
+    if (lastPoint) { maskCtx.beginPath(); maskCtx.moveTo(lastPoint.x, lastPoint.y); maskCtx.lineTo(p.x, p.y); maskCtx.stroke(); }
+    else { maskCtx.beginPath(); maskCtx.arc(p.x, p.y, radius, 0, Math.PI * 2); maskCtx.fill(); }
+    lastPoint = p; cursor.classList.add('visible'); schedulePaint();
+  }
+  canvas.addEventListener('pointermove', event => {
+    if (event.pointerType !== 'touch' || drawingTouch) {
+      if (drawingTouch) event.preventDefault();
+      paint(event);
+    }
+  });
+  canvas.addEventListener('pointerdown', event => {
+    lastPoint = null;
+    if (event.pointerType === 'touch') { drawingTouch = true; canvas.setPointerCapture(event.pointerId); }
+    paint(event);
+  });
+  function endPointer() { lastPoint = null; drawingTouch = false; cursor.classList.remove('visible'); }
+  canvas.addEventListener('pointerleave', endPointer);
+  canvas.addEventListener('pointerup', event => { if (event.pointerType === 'touch') endPointer(); });
+  canvas.addEventListener('pointercancel', endPointer);
+  reset.addEventListener('click', () => {
+    maskCtx.clearRect(0, 0, mask.width, mask.height); pixelMode = false; lastPoint = null;
+    complete.textContent = 'Ver transformação ↗';
+    $('paintStatus').textContent = 'Tudo pronto para pintar de novo.';
+    renderPaint();
+  });
+  complete.addEventListener('click', () => {
+    pixelMode = !pixelMode; lastPoint = null;
+    maskCtx.clearRect(0, 0, mask.width, mask.height);
+    if (pixelMode) maskCtx.fillRect(0, 0, mask.width, mask.height);
+    complete.textContent = pixelMode ? 'Ver realismo ↗' : 'Ver transformação ↗';
+    $('paintStatus').textContent = pixelMode ? 'Cena completa em pixel art.' : 'Cena completa em realismo.';
+    cursor.classList.remove('visible'); renderPaint();
+  });
+  real.addEventListener('load', beginReady); real.addEventListener('error', imageFailed);
+  pixel.onload = beginReady; pixel.onerror = imageFailed;
+  pixel.src = 'public/assets/imagens/landing-v2/cena-pixel.webp';
+  beginReady();
+  // A gesture inside the scene paints on touch; scroll outside the scene.
+  // The buttons provide the same comparison without requiring gestures.
+
+  // Sparse decorative stars. Canvas is capped to the opening section, not the full document.
+  const stars = $('landingStars'), starCtx = stars.getContext('2d');
+  let width = 0, height = 0, starFrame = 0, lastTime = 0;
+  const particles = [], mouse = {x: -1000, y: -1000};
+  function resizeStars() {
+    width = window.innerWidth; height = Math.min(850, window.innerHeight + 160);
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    stars.width = Math.round(width * dpr); stars.height = Math.round(height * dpr);
+    stars.style.height = height + 'px';
+    if (starCtx) starCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  function newStar(x = Math.random() * width, y = Math.random() * height) { return {x, y, vx: .1 + Math.random() * .18, vy: .03 + Math.random() * .1, r: .6 + Math.random() * 1.5}; }
+  resizeStars();
+  for (let i = 0; i < 28; i++) particles.push(newStar());
+  function drawStars(time = 0) {
+    starFrame = 0;
+    if (!starCtx || document.hidden || stars.hidden) return;
+    const elapsed = Math.min(2, (time - lastTime) / 16.67 || 1); lastTime = time;
+    starCtx.clearRect(0, 0, width, height);
+    particles.forEach(p => {
+      if (!noMotion()) {
+        const dx = p.x - mouse.x, dy = p.y - mouse.y, distance = Math.hypot(dx, dy);
+        if (distance > 0 && distance < 90) { p.x += dx / distance * .7; p.y += dy / distance * .7; }
+        p.x = (p.x + p.vx * elapsed + width) % width; p.y = (p.y + p.vy * elapsed + height) % height;
+      }
+      starCtx.fillStyle = '#a998d24d'; starCtx.beginPath(); starCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2); starCtx.fill();
+    });
+    if (!noMotion() && window.scrollY < height) starFrame = requestAnimationFrame(drawStars);
+  }
+  function refreshStars() { if (!starFrame && !document.hidden && !stars.hidden) { lastTime = performance.now(); starFrame = requestAnimationFrame(drawStars); } }
+  window.addEventListener('resize', () => { resizeStars(); refreshStars(); }, {passive: true});
+  document.addEventListener('pointermove', event => { mouse.x = event.clientX; mouse.y = event.clientY + scrollY; }, {passive: true});
+  document.addEventListener('click', event => {
+    if (event.target.closest('a,button,input,textarea,summary,dialog,.paint-scene') || event.clientY + scrollY > height) return;
+    particles.push(newStar(event.clientX, event.clientY + scrollY)); if (particles.length > 65) particles.shift(); refreshStars();
+  });
+  document.addEventListener('visibilitychange', () => { if (document.hidden && starFrame) { cancelAnimationFrame(starFrame); starFrame = 0; } else refreshStars(); });
+  document.addEventListener('landing:motion', refreshStars);
+  window.addEventListener('scroll', refreshStars, {passive: true});
+  refreshStars();
 })();

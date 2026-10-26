@@ -6,6 +6,7 @@ export function montarJogo({frame,status,src}) {
  frame.addEventListener('load',()=>{clearTimeout(timer);});
  const stop=acompanharAcessoJogos(state=>{
   if(!state.liberado){
+   clearTimeout(timer);
    if(loaded){frame.src='about:blank';loaded=false;}
    frame.hidden=true;status.textContent=state.mensagem;return;
   }

@@ -1,0 +1,59 @@
+/* AstroLearn · percurso editorial. Sem bibliotecas e sem capturar a rolagem. */
+.journey-section{display:block;width:100%;max-width:none;margin:0;padding:0;background:#f8f5ff;position:relative;--journey-progress:0;--journey-height:680px}
+.journey-stage{padding:64px 0 30px;overflow:clip;position:relative;background:linear-gradient(145deg,#fcfaff,#f1ebff)}
+.journey-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:28px;position:relative;z-index:2}
+.journey-heading h2{font-size:clamp(34px,4vw,56px);max-width:850px;line-height:1.06}
+.journey-heading .eyebrow{margin-bottom:13px}
+.journey-skip{font-size:12px;white-space:nowrap;margin-top:9px;text-decoration:none;padding-block:10px}
+.journey-window{position:relative;overflow:clip}
+.journey-orbit{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;fill:none;stroke:#d9c9f3;stroke-width:1}
+.orbit-guide{stroke-dasharray:4 8;opacity:.7}.orbit-progress{stroke:#9d7cdd;stroke-width:1.5;stroke-dasharray:1;stroke-dashoffset:calc(1 - var(--journey-progress))}
+.journey{width:100%;max-width:none;margin:0;padding:0;list-style:none}
+.journey:before{display:none}
+.journey li,.journey li:nth-child(2),.journey li:nth-child(3){display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:48px;margin:0;padding:25px 35px;min-height:370px}
+.journey li>div{padding:0;min-width:0}.journey li .journey-world{position:relative;display:grid;place-items:center;isolation:isolate}
+.planet-halo{position:absolute;width:70%;aspect-ratio:1;border:1px solid #d9cbf0;border-radius:50%;transform:rotateX(62deg) rotate(-18deg);pointer-events:none}
+.planet-halo:after{content:'';position:absolute;inset:-22px;border:1px dashed #dfd4f1;border-radius:50%}
+.journey .planet,.journey .planet.saturn{width:clamp(220px,27vw,360px);height:auto;aspect-ratio:1;max-width:100%;border-radius:0;filter:drop-shadow(0 24px 20px #48266e15)}
+.journey-caption{position:relative;z-index:2;max-width:440px}.journey .step-number{display:block;position:static;width:auto;height:auto;line-height:1.5;text-align:left;background:none;font-size:10px;letter-spacing:.22em;margin-bottom:17px;color:var(--purple)}
+.journey h3{font-size:clamp(29px,3.2vw,46px);line-height:1.07;letter-spacing:-.05em;margin-bottom:18px}
+.journey p{font-size:16px;line-height:1.6;max-width:350px}
+.journey-details{background:none;border:0;padding:8px 0;min-height:44px;margin-top:14px;font:700 13px var(--font);cursor:pointer}
+.journey-bottom{display:flex;align-items:center;justify-content:space-between;gap:24px;position:relative;min-height:90px}
+.journey-bottom .support-mascot.explorer{position:relative;inset:auto;margin:0;width:95px;height:95px;flex:none;opacity:1}
+.journey-bottom .mascot-tip{left:0;right:auto;translate:0 6px;max-width:210px}
+.journey-bottom .mascot-interactive:hover .mascot-tip,.journey-bottom .mascot-interactive:focus-visible .mascot-tip,.journey-bottom .mascot-interactive.is-greeting .mascot-tip{translate:0 0}
+.journey-controls{display:none;gap:9px}.journey-dot{display:flex;gap:9px;align-items:center;border:0;background:none;min-width:54px;min-height:44px;padding:10px;color:#8d7ca3;font-size:11px}
+.journey-dot i{display:block;width:24px;height:3px;background:#d5c5ed;border-radius:4px;transition:width .25s,background .25s}
+.journey-dot[aria-current]{color:var(--purple);font-weight:700}.journey-dot[aria-current] i{width:48px;background:var(--purple)}
+.journey-scroll-hint{display:none;font-size:11px;color:#78628d}.journey-scroll-hint span{display:inline-block;margin-left:12px;animation:journey-nudge 1.8s ease-in-out infinite}
+@keyframes journey-nudge{50%{translate:0 4px}}
+/* The pin exists only after geometry is measured and motion is permitted. */
+.journey-section.is-horizontal{height:var(--journey-total)}
+.is-horizontal .journey-stage{position:sticky;top:100px;height:var(--journey-height);padding:26px 0 10px;display:flex;align-items:center}
+.is-horizontal .journey-inner{display:flex;flex-direction:column;height:100%}
+.is-horizontal .journey-heading h2{font-size:clamp(32px,3.3vw,49px)}
+.is-horizontal .journey-window{flex:1;min-height:0;margin-top:10px}
+.is-horizontal .journey{display:flex;align-items:stretch;height:100%;will-change:transform}
+.is-horizontal .journey li,.is-horizontal .journey li:nth-child(2),.is-horizontal .journey li:nth-child(3){flex:0 0 100%;min-width:0;min-height:0;padding:0 40px;transform:none!important;opacity:1!important;transition:none!important}
+.is-horizontal .journey .planet{width:min(28vw,36vh,345px)}
+.is-horizontal .journey-controls,.is-horizontal .journey-scroll-hint{display:flex}
+.is-horizontal .journey-bottom{min-height:72px}.is-horizontal .journey-bottom .support-mascot{width:78px;height:78px}
+/* Different section entrances, rather than repeating the same upward fade. */
+body.scroll-story .scene-enter{clip-path:inset(8% 6% 8% 6% round 34px);opacity:.4;transition:clip-path 1.15s cubic-bezier(.18,.7,.22,1),opacity .75s}
+body.scroll-story .scene-enter.scene-shown{clip-path:inset(0 round 24px);opacity:1}
+body.scroll-story .about-section{position:relative;isolation:isolate;background:transparent;overflow:clip}
+body.scroll-story .about-section:before{content:'';position:absolute;inset:0;background:var(--mint);z-index:-1;transform:scaleX(.04);transform-origin:left center;transition:transform 1.05s cubic-bezier(.2,.75,.25,1)}
+body.scroll-story .about-section.scene-shown:before{transform:scaleX(1)}
+body.scroll-story .audience-panel{animation:panel-switch .45s cubic-bezier(.2,.75,.25,1)}
+@keyframes panel-switch{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+body.scroll-story .contact-section{position:relative;isolation:isolate;background:transparent;overflow:clip}
+body.scroll-story .contact-section:before{content:'';position:absolute;inset:0;background:var(--lavender);z-index:-1;clip-path:circle(0 at 50% 100%);transition:clip-path 1.1s cubic-bezier(.2,.7,.25,1)}
+body.scroll-story .contact-section.scene-shown:before{clip-path:circle(150% at 50% 100%)}
+@media(max-width:999px){.journey-stage{padding-block:40px 25px}.journey-heading{display:block}.journey-skip{display:inline-block;margin-top:12px}.journey li,.journey li:nth-child(2),.journey li:nth-child(3){gap:25px;padding:30px 0;min-height:310px}.journey .planet,.journey .planet.saturn{width:230px}.journey h3{font-size:32px}.journey-orbit{opacity:.45}.journey-bottom{justify-content:flex-start}.journey-heading h2{font-size:40px}}
+@media(max-width:650px){.journey-heading h2{font-size:34px}.journey-heading .eyebrow{font-size:9px}.journey li,.journey li:nth-child(2),.journey li:nth-child(3){grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:18px;min-height:250px;padding-block:24px}.journey .planet,.journey .planet.saturn{width:100%;max-width:210px}.journey h3{font-size:26px}.journey p{font-size:13px}.journey .step-number{font-size:8px;letter-spacing:.16em;margin-bottom:12px}.journey-details{font-size:11px;text-align:left}.journey-bottom .support-mascot.explorer{width:80px;height:80px;position:relative;inset:auto}.planet-halo:after{inset:-10px}.journey-caption{padding-right:3px!important}}
+@media(max-width:380px){.journey li,.journey li:nth-child(2),.journey li:nth-child(3){gap:12px}.journey h3{font-size:23px}.journey-heading h2{font-size:31px}}
+body.motion-off .scene-enter,body.motion-off .scene-enter.scene-shown{clip-path:none!important;opacity:1!important;transition:none!important}
+body.motion-off .about-section:before{transform:none!important;transition:none!important}
+body.motion-off .contact-section:before{clip-path:none!important;transition:none!important}
+@media(prefers-reduced-motion:reduce){body.scroll-story .scene-enter{clip-path:none;opacity:1;transition:none}body.scroll-story .about-section:before{transform:none;transition:none}body.scroll-story .contact-section:before{clip-path:none;transition:none}}
