@@ -378,28 +378,28 @@ const regras = [
 
 ];
 
-const resumo = document.createElement("p");
-
+const resumo = document.createElement("ul");
 resumo.id = "passwordSummary";
-
-resumo.className = "password-summary";
-
+resumo.className = "password-checks";
+resumo.setAttribute("aria-label", "Requisitos da senha");
+const itensRequisitos = regras.map(([nome]) => {
+  const item = document.createElement("li");
+  const estado = document.createElement("span");
+  estado.setAttribute("aria-hidden", "true");
+  const texto = document.createElement("span"); texto.textContent = nome;
+  const acessivel = document.createElement("span"); acessivel.className = "password-check-status";
+  item.append(estado, texto, acessivel); resumo.append(item);
+  return {item, estado, acessivel};
+});
 senha.closest(".password-row").after(resumo);
-
 senha.setAttribute("aria-describedby", "passwordSummary senha-erro");
-
 function atualizarRequisitos() {
-
-  const faltam = regras.filter(([, ok]) => !ok(senha.value)).map(([nome]) => nome);
-
-  resumo.classList.toggle("is-valid", faltam.length === 0);
-
-  resumo.textContent = faltam.length
-
-    ? "Use " + faltam.join(", ") + "."
-
-    : "✓ A senha atende aos requisitos.";
-
+  regras.forEach(([, teste], index) => {
+    const ok = teste(senha.value), {item, estado, acessivel} = itensRequisitos[index];
+    item.dataset.met = String(ok);
+    estado.textContent = ok ? "✓" : "○";
+    acessivel.textContent = ok ? ": atendido" : ": pendente";
+  });
 }
 
 senha.addEventListener("input", atualizarRequisitos);

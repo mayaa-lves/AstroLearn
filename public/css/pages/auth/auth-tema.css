@@ -1,0 +1,49 @@
+/* Ajustes locais da área de acesso: tipografia e serviços permanecem os mesmos. */
+.auth-appearance-actions{display:flex;align-items:center;justify-content:flex-end;gap:20px;min-width:0}
+.auth-appearance-actions a{white-space:nowrap}
+button.auth-style-toggle{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:40px;padding:8px 12px;border:1px solid #b69ac880;border-radius:24px;background:#fff9;color:#583481;font:600 12px Astro,Arial,sans-serif;cursor:pointer;white-space:nowrap;backdrop-filter:blur(8px)}
+.auth-style-toggle:hover{background:#f5eafa;border-color:#9b72bb}
+.auth-style-toggle:focus-visible{outline:3px solid #7846bd;outline-offset:4px}
+.auth-style-toggle:disabled{opacity:.65;cursor:wait}
+.auth-style-toggle .auth-style-icon{width:23px;height:23px;display:inline-flex;flex-shrink:0}
+.auth-style-icon svg{width:100%;height:100%;display:block}
+.auth-style-icon .pixel-icon{display:none}
+html[data-visual-style=pixel] .auth-style-icon .real-icon{display:none}
+html[data-visual-style=pixel] .auth-style-icon .pixel-icon{display:block}
+.auth-theme-status{position:absolute;right:5vw;top:80px;max-width:280px;color:#743e59;font:12px/1.5 Astro,Arial,sans-serif}
+.auth-theme-status:empty{display:none}
+.cadastro-page .cadastro-header .marca{padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.cadastro-page .cadastro-header .marca img{filter:drop-shadow(0 1px 3px #fff9)}
+.cadastro-page .cadastro-header .marca{filter:drop-shadow(0 0 2px #fff9)}
+/* Retorno simples e consistente, sem a cápsula solta sobre o cenário. */
+body.auth-recovery .login-link{display:inline-flex;align-items:center;gap:8px;padding:8px 0;min-height:40px;border:0;border-radius:0;background:transparent;font:500 13px Astro,Arial,sans-serif;color:#503277;text-decoration:none;text-underline-offset:5px}
+body.auth-recovery .login-link svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+body.auth-recovery .login-link:hover{text-decoration:underline}
+@media(min-width:651px){body.auth-recovery .login-link{color:#fff;text-shadow:0 1px 3px #25123f,0 0 8px #25123f}}
+body.auth-recovery .login-link:focus-visible{outline:3px solid #7846bd;outline-offset:4px}
+/* Requisitos visíveis em cartões compactos. O texto informa o estado além da cor. */
+.password-checks,.auth-recovery .password-requirements{display:flex;flex-wrap:wrap;gap:5px;list-style:none;padding:0;margin:9px 0 4px;color:#695776;font:11px/1.4 Astro,Arial,sans-serif}
+.password-checks li,.auth-recovery .password-requirements li{display:flex;align-items:center;gap:5px;min-height:27px;padding:4px 8px;border:1px solid #cdbbd5;border-radius:7px;background:#fff8}
+.password-checks [data-met=true],.auth-recovery .password-requirements [data-met=true]{color:#246145;background:#edf7edcc;border-color:#8fbca0;font-weight:600}
+.password-check-status{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+html[data-visual-style=pixel] .scene-image{background-image:url('../../../assets/imagens/login/pixel/scene.webp');image-rendering:pixelated}
+html[data-visual-style=pixel] .mascot-sprite{background-image:url('../../../assets/imagens/login/pixel/alien.webp');image-rendering:pixelated}
+html[data-visual-style=pixel] .cenario-neutro{background-image:url('../../../assets/imagens/login/pixel/observatory-neutral.webp');image-rendering:pixelated}
+html[data-visual-style=pixel] .cenario-timido{background-image:url('../../../assets/imagens/login/pixel/observatory-shy.webp');image-rendering:pixelated}
+html[data-visual-style=pixel] .recovery-scene{background-image:linear-gradient(90deg,#faf5edeb 0%,#faf5edc7 43%,#f1e9f533 78%),url('../../../assets/imagens/login/pixel/scene.webp');image-rendering:pixelated}
+html[data-visual-style=pixel] .rocket img,html[data-visual-style=pixel] .planet-light img{image-rendering:pixelated}
+html[data-visual-style=pixel] .mascot-pupil,html[data-visual-style=pixel] .olho{border-radius:30%;box-shadow:inset 2px 2px 0 #fff4,inset -2px -2px 0 #163b40}
+html[data-visual-style=pixel] .mascot-pupil,html[data-visual-style=pixel] .mascot-eyelid{left:47.3%;top:45.1%}
+html[data-visual-style=pixel] .auth-style-toggle,html[data-visual-style=pixel] .role-card,html[data-visual-style=pixel] .password-checks li,html[data-visual-style=pixel] .password-requirements li{border-radius:5px}
+@media(max-width:650px){.auth-appearance-actions{gap:10px}.auth-style-toggle{font-size:11px!important;padding:6px 9px!important;min-height:38px!important}.auth-style-toggle .auth-style-icon{width:19px;height:19px}.login-header .brand img,.cadastro-header .marca img,.auth-recovery .brand img{width:140px!important;height:36px!important}.cadastro-page .cadastro-header .marca{padding:0}.auth-recovery header{gap:12px;padding:18px 5vw}.auth-recovery .login-link{font-size:11px!important}.auth-recovery .recovery-scene{background-image:linear-gradient(180deg,#fbf6efe8,#fbf6efef),var(--recovery-art,url('../../../assets/imagens/login/cenarios-e-personagens/scene-cinematic-v5.png'))}
+@media(max-width:650px){html[data-visual-style=pixel]{--recovery-art:url('../../../assets/imagens/login/pixel/scene.webp')}}
+@media(max-width:390px){.auth-appearance-actions{gap:7px}.auth-style-toggle{gap:4px!important;padding:6px!important}.auth-style-toggle .auth-style-icon{width:17px;height:17px}.cadastro-header .marca img,.login-header .brand img,.auth-recovery .brand img{width:114px!important}.auth-recovery .login-link{max-width:67px;line-height:1.3;white-space:normal}}
+@media(min-width:801px) and (max-height:750px){
+ .cadastro-page .cadastro-conteudo{margin-top:12px}
+ .cadastro-page .cadastro-header{padding-top:10px;padding-bottom:6px}
+ .cadastro-page .cadastro-header .marca img{height:38px!important;width:164px!important}
+ .cadastro-page #etapaDados h1{font-size:29px}
+ .cadastro-page .password-checks{gap:4px;margin-top:6px;font-size:10px}
+ .cadastro-page .password-checks li{min-height:23px;padding:3px 7px}
+ .cadastro-page .cadastro-footer{padding-top:7px;padding-bottom:9px}
+}

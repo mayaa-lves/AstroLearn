@@ -96,6 +96,7 @@ uniform float angle;
 uniform float cloudAngle;
 uniform float kind;
 uniform float worldOpacity;
+uniform float pixelStyle;
 const float PI=3.14159265359;
 float hash3(vec3 p){return fract(sin(dot(p,vec3(127.1,311.7,74.7)))*43758.5453);}
 float noise3(vec3 p){
@@ -106,7 +107,7 @@ float clouds3(vec3 p){return noise3(p)*.55+noise3(p*2.03+7.)*.27+noise3(p*4.09+1
 vec3 rotateY(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(c*p.x+s*p.z,p.y,-s*p.x+c*p.z);}
 vec3 rotateZ(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(c*p.x-s*p.y,s*p.x+c*p.y,p.z);}
 void main(){
- vec2 xy=point*extent;vec2 bodyXY=xy;float rr=dot(bodyXY,bodyXY);float z=-100.;float alpha=0.;vec3 color=vec3(0.);
+ vec2 xy=(pixelStyle>.5?floor(point*48.)/48.:point)*extent;vec2 bodyXY=xy;float rr=dot(bodyXY,bodyXY);float z=-100.;float alpha=0.;vec3 color=vec3(0.);
  bool sphere=rr<=1.;
  if(sphere){
   z=sqrt(max(0.,1.-rr));vec3 n=vec3(bodyXY,z);
@@ -162,6 +163,7 @@ void main(){
   }
  }
  if(alpha<.001)discard;
+ if(pixelStyle>.5){color=floor(color*14.+.5)/14.;alpha=step(.5,alpha);}
  gl_FragColor=vec4(color*alpha,alpha)*worldOpacity;
 }`;
  let program,uniforms,texture,moonTexture,mercuryTexture,buffer,ready=false,visible=true,frame=0,last=0,elapsed=0,dpr=1;
@@ -171,7 +173,7 @@ void main(){
   program=gl.createProgram();gl.attachShader(program,compile(gl.VERTEX_SHADER,vertex));gl.attachShader(program,compile(gl.FRAGMENT_SHADER,fragment));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error('Program unavailable');
   gl.useProgram(program);buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
   const position=gl.getAttribLocation(program,'position');gl.enableVertexAttribArray(position);gl.vertexAttribPointer(position,2,gl.FLOAT,false,0,0);
-  uniforms=Object.fromEntries(['extent','angle','cloudAngle','kind','atlas','moonAtlas','mercuryAtlas','worldOpacity'].map(name=>[name,gl.getUniformLocation(program,name)]));
+  uniforms=Object.fromEntries(['extent','angle','cloudAngle','kind','atlas','moonAtlas','mercuryAtlas','worldOpacity','pixelStyle'].map(name=>[name,gl.getUniformLocation(program,name)]));
   let loaded=0;const loadedOne=()=>{loaded++;if(loaded===3){ready=true;document.body.classList.add('worlds-rendered');resize();sync();}};
   function loadMap(src,unit,name,setTexture){
    const image=new Image();image.onload=()=>{
@@ -206,7 +208,7 @@ void main(){
    const x=centerX-size/2,y=centerY-renderHeight/2;
    gl.viewport(Math.round(x*dpr),Math.round((parent.height-y-renderHeight)*dpr),Math.round(size*dpr),Math.round(renderHeight*dpr));
    const kind=index,extent=index===0?1.18:1.35;
-   gl.uniform2f(uniforms.extent,extent,extent*renderHeight/size);gl.uniform1f(uniforms.kind,kind);gl.uniform1f(uniforms.worldOpacity,Number(getComputedStyle(element).opacity));
+   gl.uniform2f(uniforms.extent,extent,extent*renderHeight/size);gl.uniform1f(uniforms.kind,kind);gl.uniform1f(uniforms.pixelStyle,document.documentElement.dataset.visualStyle==='pixel'?1:0);gl.uniform1f(uniforms.worldOpacity,Number(getComputedStyle(element).opacity));
    gl.uniform1f(uniforms.angle,elapsed*Math.PI*2/120+index*.71+Number(element.dataset.rotation||0)*Math.PI/180);
    gl.uniform1f(uniforms.cloudAngle,index===2?-1:-elapsed*Math.PI*2/90+index*.71);
    gl.drawArrays(gl.TRIANGLES,0,6);
@@ -218,7 +220,7 @@ void main(){
  repaint=draw;
  const resizeObserver=new ResizeObserver(resize);resizeObserver.observe(windowEl);
  const visibility=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;sync();});visibility.observe(windowEl);
- document.addEventListener('landing:motion',sync);document.addEventListener('visibilitychange',sync);document.addEventListener('landing:layout',resize);window.addEventListener('resize',resize,{passive:true});window.addEventListener('scroll',()=>{if(off())draw();},{passive:true});reduced.addEventListener('change',sync);
+ document.addEventListener('landing:style',sync);document.addEventListener('landing:motion',sync);document.addEventListener('visibilitychange',sync);document.addEventListener('landing:layout',resize);window.addEventListener('resize',resize,{passive:true});window.addEventListener('scroll',()=>{if(off())draw();},{passive:true});reduced.addEventListener('change',sync);
  window.addEventListener('pagehide',event=>{cancelAnimationFrame(frame);if(!event.persisted){disposed=true;resizeObserver.disconnect();visibility.disconnect();gl.deleteTexture(texture);gl.deleteTexture(moonTexture);gl.deleteTexture(mercuryTexture);gl.deleteBuffer(buffer);gl.deleteProgram(program);}});window.addEventListener('pageshow',sync);
  canvas.addEventListener('webglcontextlost',event=>{event.preventDefault();fallback();});canvas.addEventListener('webglcontextrestored',()=>{try{init();}catch{fallback();}});
  try{init();}catch{fallback();}

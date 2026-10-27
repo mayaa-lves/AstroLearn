@@ -1,0 +1,25 @@
+.visual-style-toggle{display:inline-flex;align-items:center;gap:7px;border:1px solid #d9c8f1;border-radius:99px;padding:8px 12px;min-height:38px;background:#f7f1ff;color:#6639a5;font:700 11px var(--font);white-space:nowrap;cursor:pointer}
+.visual-style-toggle[aria-pressed=true]{background:#eee4ff;border-color:#9e73df;box-shadow:3px 3px 0 #b9a3da50;border-radius:5px}
+.visual-style-toggle .style-planet{display:inline-flex;width:24px;height:24px;flex:0 0 24px;align-items:center;justify-content:center}
+.style-planet svg{display:block;width:24px;height:24px;overflow:visible}
+.style-planet .style-planet-pixel{display:none}
+html[data-visual-style=pixel] .style-planet .style-planet-smooth{display:none}
+html[data-visual-style=pixel] .style-planet .style-planet-pixel{display:block}
+html[data-visual-style=pixel] .hero-art>img,html[data-visual-style=pixel] .faq-mascot img,html[data-visual-style=pixel] .journey-planet-system,html[data-visual-style=pixel] .demo-trail-canvas,html[data-visual-style=pixel] #landingOrbits,html[data-visual-style=pixel] .demo-stars{image-rendering:pixelated}
+html[data-visual-style=pixel] .audience-demo:before{background-image:url('../../assets/imagens/landing-pixel/fundo-demonstracao.webp');image-rendering:pixelated}
+html[data-visual-style=pixel] .demo-info,html[data-visual-style=pixel] .demo-delivery,html[data-visual-style=pixel] .plan,html[data-visual-style=pixel] .footer-person{border-radius:5px;box-shadow:4px 4px 0 #b5a0d51a}
+html[data-visual-style=pixel] .demo-rolebar,html[data-visual-style=pixel] .demo-rolebar button,html[data-visual-style=pixel] .button{border-radius:6px}
+html[data-visual-style=pixel] .demo-node-label{border-radius:3px;box-shadow:2px 2px 0 #d5c2ef55}
+html[data-visual-style=pixel] .steam-sample-cell{border-radius:2px!important}
+.steam-pixel-render{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;image-rendering:pixelated;z-index:5}
+html[data-visual-style=pixel] .steam-visual[data-pixel-rendered] .microscope-object>svg,html[data-visual-style=pixel] .steam-visual[data-pixel-rendered]>svg,html[data-visual-style=pixel] .steam-visual[data-pixel-rendered] .lab-paint-orb{opacity:0}
+html[data-visual-style=pixel] .steam-visual:focus-within .steam-pixel-render{outline:2px solid #6b42b6;outline-offset:3px;border-radius:4px}
+@media(max-width:1100px){.site-header nav{gap:13px}.header-actions{gap:10px}.visual-style-toggle{padding:8px 9px}}
+@media(max-width:650px){.visual-style-toggle{font-size:10px;min-height:36px;padding:7px 8px;gap:4px}.visual-style-toggle .style-planet{width:20px;height:20px;flex-basis:20px}.style-planet svg{width:20px;height:20px}.header-actions{gap:7px}.site-header{gap:5px}.site-header .brand img{width:122px}.header-actions .login-link{font-size:10px}}
+/* Pixel sprites also work when WebGL is unavailable. */
+html[data-visual-style=pixel] body:not(.worlds-rendered) .journey .student-world,html[data-visual-style=pixel] .audience-demo:not(.demo-rendered) .demo-planet{background-image:url('../../assets/imagens/landing-pixel/planetas.webp');background-size:200% 200%;background-color:transparent;background-blend-mode:normal;image-rendering:pixelated;border-radius:0;box-shadow:none;filter:none}
+html[data-visual-style=pixel] body:not(.worlds-rendered) .journey .world-0,html[data-visual-style=pixel] .audience-demo:not(.demo-rendered) [data-demo-mission="0"]{background-position:0% 0%}
+html[data-visual-style=pixel] body:not(.worlds-rendered) .journey .world-1,html[data-visual-style=pixel] .audience-demo:not(.demo-rendered) [data-demo-mission="1"]{background-position:100% 0%}
+html[data-visual-style=pixel] body:not(.worlds-rendered) .journey .world-2,html[data-visual-style=pixel] .audience-demo:not(.demo-rendered) [data-demo-mission="2"]{background-position:0% 100%}
+html[data-visual-style=pixel] body:not(.worlds-rendered) .journey .world-3{background-position:100% 100%}
+@media(max-width:650px){.site-header .header-actions .button.primary{display:none}}

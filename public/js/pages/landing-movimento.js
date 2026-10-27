@@ -134,7 +134,7 @@
   const positions=[[.1,.12,.42],[.44,.72,.85],[.83,.12,.28],[.95,.64,.6],[.21,.88,.62],[.55,.3,.2],[.04,.56,1]];
   function resize() {
     const rect=hero.getBoundingClientRect();width=rect.width;height=rect.height;
-    const dpr=Math.min(devicePixelRatio||1,1.5);
+    const dpr=document.documentElement.dataset.visualStyle==='pixel'?.3:Math.min(devicePixelRatio||1,1.5);
     canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);
     ctx.setTransform(dpr,0,0,dpr,0,0);
     seed=421;spheres.length=0;stars.length=0;created.length=0;
@@ -265,7 +265,7 @@
     if(!visible&&frame){cancelAnimationFrame(frame);frame=0;}else schedule();
   });heroObserver.observe(hero);}
   const observer=new ResizeObserver(resize);observer.observe(hero);
-  document.addEventListener('landing:motion',syncMotion);
+  document.addEventListener('landing:style',resize);document.addEventListener('landing:motion',syncMotion);
   reduced.addEventListener('change',syncMotion);
   document.addEventListener('visibilitychange',()=>{if(document.hidden&&frame){cancelAnimationFrame(frame);frame=0;}else schedule();});
   window.addEventListener('pagehide',event=>{if(!event.persisted){disposed=true;if(frame)cancelAnimationFrame(frame);entries?.disconnect();mascotObserver?.disconnect();heroObserver?.disconnect();observer.disconnect();mascotAnimations.forEach(a=>a.cancel());}});

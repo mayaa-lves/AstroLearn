@@ -76,7 +76,7 @@
     ]],
     uso: ['Sobre o uso do AstroLearn', [
       'O AstroLearn é um projeto acadêmico em desenvolvimento no SENAI. Os planos e valores apresentados são propostas em validação; esta página não realiza contratação nem recebe pagamentos.',
-      'A experiência de realismo e pixel art é uma demonstração visual local e não altera o estilo da plataforma inteira. Os recursos devem ser validados com a equipe antes de uma adoção pela escola.',
+      'O seletor Realista / Pixel art altera as ilustrações desta landing page. As páginas internas ainda mantêm seu estilo atual. Os recursos devem ser validados com a equipe antes de uma adoção pela escola.',
       'As condições completas de uso serão publicadas quando forem definidas pela equipe. Este texto não apresenta uma oferta comercial definitiva.',
     ]],
     acessibilidade: ['Uma experiência para explorar com autonomia', [
@@ -190,14 +190,28 @@
     pixelMode = !pixelMode; lastPoint = null;
     maskCtx.clearRect(0, 0, mask.width, mask.height);
     if (pixelMode) maskCtx.fillRect(0, 0, mask.width, mask.height);
-    complete.textContent = pixelMode ? 'Ver realismo ↗' : 'Ver transformação ↗';
-    $('paintStatus').textContent = pixelMode ? 'Cena completa em pixel art.' : 'Cena completa em realismo.';
+    complete.textContent = pixelMode ? (document.documentElement.dataset.visualStyle==='pixel'?'Ver pixel art ↗':'Ver realismo ↗') : 'Ver transformação ↗';
+    const reversed=document.documentElement.dataset.visualStyle==='pixel';
+    $('paintStatus').textContent = 'Cena completa em '+(pixelMode?(reversed?'realismo':'pixel art'):(reversed?'pixel art':'realismo'))+'.';
     cursor.classList.remove('visible'); renderPaint();
   });
   real.addEventListener('load', beginReady); real.addEventListener('error', imageFailed);
   pixel.onload = beginReady; pixel.onerror = imageFailed;
   pixel.src = 'public/assets/imagens/landing-v2/cena-pixel.webp';
-  beginReady();
+  function syncPaintingStyle(){
+    const reversed=document.documentElement.dataset.visualStyle==='pixel';
+    paintReady=false;pixelMode=false;lastPoint=null;reset.disabled=true;complete.disabled=true;
+    maskCtx.clearRect(0,0,mask.width,mask.height);ctx.clearRect(0,0,canvas.width,canvas.height);
+    real.src='public/assets/imagens/landing-v2/'+(reversed?'cena-pixel.webp':'cena-realista.webp');
+    pixel.src='public/assets/imagens/landing-v2/'+(reversed?'cena-realista.webp':'cena-pixel.webp');
+    real.alt='Explorador de três olhos em um cenário espacial, em '+(reversed?'pixel art':'realismo')+'.';
+    const labels=scene.querySelectorAll('.style-labels>span');
+    labels[0].lastChild.textContent=reversed?' Pixel art':' Realismo';labels[1].lastChild.textContent=reversed?' Realismo':' Pixel art';
+    complete.textContent='Ver transformação ↗';$('paintStatus').textContent='Pinte para revelar '+(reversed?'o realismo.':'a pixel art.');
+    beginReady();
+  }
+  document.addEventListener('landing:style',syncPaintingStyle);
+  if(document.documentElement.dataset.visualStyle==='pixel')syncPaintingStyle();else beginReady();
   // A gesture inside the scene paints on touch; scroll outside the scene.
   // The buttons provide the same comparison without requiring gestures.
 
