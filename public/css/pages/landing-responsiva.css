@@ -1,0 +1,45 @@
+/* Landing only: fluid layout, touch targets and narrow-screen content. */
+@media(max-width:900px){
+*,*::before,*::after{box-sizing:border-box}
+body{min-width:0}.shell{width:min(1280px,calc(100% - 48px))}
+img,video{max-width:100%}button,input,textarea,select{font:inherit}
+main,section,.hero-copy,.hero-art,.steam-lab-copy,.demo-workspace>*,.contact-layout>*,.footer-person>div{min-width:0}
+h1,h2,h3,p,a,summary{overflow-wrap:break-word}
+button,a,input,summary{touch-action:manipulation}
+:focus-visible{outline:3px solid #7950cd;outline-offset:4px}
+section[id]{scroll-margin-top:110px}.paint-scene{max-width:100%}
+.footer-person-link{color:#c9a6ff!important}.footer-person-photo{flex-shrink:0}
+}
+@media(max-width:900px){
+ .site-header{width:calc(100% - 32px);margin-inline:auto;gap:12px}.site-header .brand img{width:160px;height:auto}
+ .site-header nav{max-height:calc(100svh - 110px);overflow-y:auto;overscroll-behavior:contain}
+ .site-header nav a,.site-header nav button{min-height:44px}
+ .hero{gap:28px}.hero h1{font-size:clamp(40px,6.2vw,64px)}
+ .about-layout,.contact-layout{gap:30px}.demo-workspace{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px}
+ .plans{gap:14px}.plan{padding:24px 18px}.plan h3{font-size:23px}.plan .price{font-size:36px}
+ .faq-section{gap:30px}.footer-person{flex-wrap:wrap;gap:12px}.footer-person h3{font-size:16px}
+}
+@media(max-width:700px){.demo-workspace{grid-template-columns:minmax(0,1fr)}.demo-info,.demo-class{width:100%}.demo-rolebar{max-width:100%}.demo-rolebar button{min-width:0}.demo-footer{flex-wrap:wrap}}
+@media(max-width:650px){
+ .shell{width:calc(100% - 32px)}.site-header{top:10px;width:calc(100% - 24px);min-height:60px}.site-header .brand img{width:145px}
+ .hero{padding-top:105px;grid-template-columns:minmax(0,1fr);gap:20px}.hero h1{font-size:clamp(38px,10vw,58px);line-height:1.06}.hero-copy>p{font-size:16px;line-height:1.6}.hero-art{width:100%;max-width:480px;margin:auto}.hero-art>img{width:100%;height:auto;object-fit:contain}
+ .actions{flex-wrap:wrap;gap:10px}.actions>a,.actions>button{min-height:44px}.hero .actions>*{flex:1 1 140px;text-align:center;justify-content:center}
+ .steam-strip{display:flex;overflow-x:auto;overscroll-behavior-x:contain;gap:8px;padding-block:8px;scrollbar-width:thin}.steam-strip button{flex:0 0 auto;min-height:48px;padding-inline:16px}.steam-strip button+button:before{display:none}
+ .steam-lab-inner{grid-template-columns:minmax(0,1fr)}.steam-visual{width:100%;max-width:420px;height:clamp(220px,65vw,280px)}.steam-actions{flex-wrap:wrap;gap:10px}.steam-actions button{min-height:44px;flex:1 1 130px}.steam-control input[type=range]{width:100%;min-height:40px}.steam-lab-copy h2{font-size:clamp(28px,8vw,36px)}
+ .paint-scene{width:100%;max-width:440px;aspect-ratio:2/3}.paint-controls{width:100%}.paint-controls .actions{flex-wrap:wrap}.paint-controls button{min-height:44px}.interaction-hint{font-size:12px;line-height:1.6}
+ .journey-heading h2,.section-heading h2,.about-text h2,.faq-section h2{font-size:clamp(30px,8.5vw,40px)}
+ .demo-trail{max-width:420px;width:100%;height:320px}.demo-node-label{max-width:130px;white-space:normal;text-align:center}.demo-info{padding:22px}.demo-rolebar button{font-size:13px;min-height:48px}.demo-grade-row{flex-wrap:wrap}.demo-info input,.demo-info textarea{max-width:100%;font-size:16px}
+ .faq-section h2{max-width:100%}.faq-list summary{min-height:48px;align-items:center;font-size:16px;gap:16px}.faq-list p{font-size:15px;padding-right:0}.faq-mascot{max-width:220px}
+ .contact-layout{grid-template-columns:minmax(0,1fr)}.contact-layout h2{font-size:clamp(30px,8.5vw,40px)}.contact-layout .actions>*{flex:1 1 140px;justify-content:center}
+ .footer-orbit .shell{width:calc(100% - 32px)}.footer-person{max-width:100%;padding-right:34px}.footer-person h3{font-size:16px}.footer-person-link{min-height:36px;display:inline-flex;align-items:center}.footer-orbit-team button{min-height:44px}
+ dialog{width:calc(100% - 24px);max-height:85svh;padding:44px 20px 24px}dialog h2{font-size:28px}
+}
+@media(max-width:480px){
+ .journey li,.journey li:nth-child(2),.journey li:nth-child(3){grid-template-columns:minmax(0,1fr);gap:12px;padding:25px 0;min-height:0;text-align:left}.journey .journey-world{max-width:210px;width:100%;margin-inline:auto}.journey-caption{width:100%;max-width:none}.journey h3{font-size:28px}.journey p{font-size:15px}.journey .planet{width:100%;max-width:210px}.journey .step-number{margin-bottom:8px}
+ .demo-planet{width:94px;height:94px}.demo-planet[data-demo-mission="1"]{width:84px;height:84px}.demo-planet[data-demo-mission="2"]{width:72px;height:72px}.demo-trail{height:290px}
+ .plan{padding:24px!important}.plan li{font-size:14px}.plans>.plan{flex-basis:calc(100% - 20px)}
+ .footer-person-photo{width:64px;height:64px;flex-basis:64px}
+}
+@media(max-width:359px){.shell{width:calc(100% - 24px)}.site-header .brand img{width:128px}.site-header{padding-inline:10px}.hero h1{font-size:36px}.hero .actions>*{flex-basis:100%}.demo-rolebar button{gap:5px;font-size:12px}.demo-rolebar svg{width:18px}.plan .price{font-size:34px}.paint-controls .button{padding-inline:10px}.footer-person{gap:8px}}
+@media(hover:none){.brush-cursor{display:none!important}.planet:hover,.plan:hover{transform:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1!important;transform:none!important}}

@@ -49,3 +49,7 @@ html[data-visual-style=pixel] .faq-mascot img{filter:none;transform:none}
 #faqMascot .faq-pixel-blink{display:none!important;animation:none!important}
 #faqMascot img{object-fit:contain;object-position:center;transform:none}
 .footer-person-link{display:inline-block;margin-top:7px;font:inherit;font-size:13px;color:var(--purple);text-underline-offset:3px}.footer-person-link[hidden]{display:none}
+
+.footer-person-photo{width:80px;height:80px;flex:0 0 80px;object-fit:cover;object-position:50% 35%;border-radius:18px;display:block;border:1px solid #b99add55}
+.footer-person-photo[hidden],.footer-person-initials[hidden]{display:none!important}
+@media(max-width:480px){.footer-person-photo{width:64px;height:64px;flex-basis:64px}}
