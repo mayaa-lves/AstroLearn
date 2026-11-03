@@ -1,3 +1,18 @@
+/* FAQ: keep only one answer open, in both visual themes. */
+(() => {
+  'use strict';
+  const questions = [...document.querySelectorAll('.faq-list details')];
+  questions.forEach(question => {
+    question.setAttribute('name', 'astrolearn-landing-faq');
+    question.addEventListener('toggle', () => {
+      if (!question.open) return;
+      questions.forEach(other => {
+        if (other !== question && other.open) other.open = false;
+      });
+    });
+  });
+})();
+
 /* AstroLearn — apresentação pública. Não modifica contas, turmas ou permissões. */
 (() => {
   'use strict';
