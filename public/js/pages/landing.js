@@ -1,18 +1,3 @@
-/* FAQ: keep only one answer open, in both visual themes. */
-(() => {
-  'use strict';
-  const questions = [...document.querySelectorAll('.faq-list details')];
-  questions.forEach(question => {
-    question.setAttribute('name', 'astrolearn-landing-faq');
-    question.addEventListener('toggle', () => {
-      if (!question.open) return;
-      questions.forEach(other => {
-        if (other !== question && other.open) other.open = false;
-      });
-    });
-  });
-})();
-
 /* AstroLearn — apresentação pública. Não modifica contas, turmas ou permissões. */
 (() => {
   'use strict';
@@ -135,6 +120,7 @@
     if (!paintReady || !ctx || !maskCtx) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.globalCompositeOperation = 'source-over';
+    ctx.imageSmoothingEnabled = document.documentElement.dataset.visualStyle === 'pixel';
     ctx.drawImage(pixel, 0, 0, canvas.width, canvas.height);
     ctx.globalCompositeOperation = 'destination-in';
     ctx.drawImage(mask, 0, 0);
@@ -212,21 +198,25 @@
   });
   real.addEventListener('load', beginReady); real.addEventListener('error', imageFailed);
   pixel.onload = beginReady; pixel.onerror = imageFailed;
-  pixel.src = 'public/assets/imagens/landing-v2/cena-pixel.webp';
+  const portraitPainting = matchMedia('(max-width:650px)');
   function syncPaintingStyle(){
     const reversed=document.documentElement.dataset.visualStyle==='pixel';
     paintReady=false;pixelMode=false;lastPoint=null;reset.disabled=true;complete.disabled=true;
     maskCtx.clearRect(0,0,mask.width,mask.height);ctx.clearRect(0,0,canvas.width,canvas.height);
-    real.src='public/assets/imagens/landing-v2/'+(reversed?'cena-pixel.webp':'cena-realista.webp');
-    pixel.src='public/assets/imagens/landing-v2/'+(reversed?'cena-realista.webp':'cena-pixel.webp');
-    real.alt='Explorador de três olhos em um cenário espacial, em '+(reversed?'pixel art':'realismo')+'.';
+    const assetBase=portraitPainting.matches?'public/assets/imagens/landing-mobile/':'public/assets/imagens/landing-v2/';
+    real.src=assetBase+(reversed?'cena-pixel.webp':'cena-realista.webp');
+    pixel.src=assetBase+(reversed?'cena-realista.webp':'cena-pixel.webp');
+    real.alt=(portraitPainting.matches?'Os quatro mascotes do AstroLearn explorando juntos, em ':'Explorador de três olhos em um cenário espacial, em ')+(reversed?'pixel art':'realismo')+'.';
+    const instruction=document.querySelector('#dois-estilos .section-heading>p:last-child');
+    if(instruction)instruction.textContent=(portraitPainting.matches?'Passe o dedo':'Passe o mouse')+' e pinte uma nova versão do AstroLearn.';
     const labels=scene.querySelectorAll('.style-labels>span');
     labels[0].lastChild.textContent=reversed?' Pixel art':' Realismo';labels[1].lastChild.textContent=reversed?' Realismo':' Pixel art';
     complete.textContent='Ver transformação ↗';$('paintStatus').textContent='Pinte para revelar '+(reversed?'o realismo.':'a pixel art.');
     beginReady();
   }
   document.addEventListener('landing:style',syncPaintingStyle);
-  if(document.documentElement.dataset.visualStyle==='pixel')syncPaintingStyle();else beginReady();
+  portraitPainting.addEventListener('change',syncPaintingStyle);
+  syncPaintingStyle();
   // A gesture inside the scene paints on touch; scroll outside the scene.
   // The buttons provide the same comparison without requiring gestures.
 
