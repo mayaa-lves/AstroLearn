@@ -1,4 +1,4 @@
-import {notificacoes,lerNotificacoes} from '../../services/comunicacao.js';
+import {notificacoes,lerNotificacoes,destinoNotificacao} from '../../services/comunicacao.js';
 const feed=document.getElementById('notificationFeed'), status=document.getElementById('notificationStatus'), bell=document.getElementById('notifications');
 let rows=[],filter='all',busy=false;
 const badge=document.createElement('span');badge.className='badge';badge.hidden=true;bell.append(badge);
@@ -9,7 +9,8 @@ function render(){
  for(const n of shown){
   const article=make('article','');article.className='notification-card';
   article.append(make('h3',n.titulo),make('p',n.mensagem),make('small',new Date(n.criado_em).toLocaleString('pt-BR')));
-  if(n.missao_id){const a=make('a','Abrir atividade →');const q=new URLSearchParams({atividade:n.missao_id});if(n.pergunta_id)q.set('pergunta',n.pergunta_id);a.href='atividade.html?'+q;a.className='secondary';article.append(a);}
+  const destino=destinoNotificacao(n,'aluno');
+  if(destino){const a=make('a','Abrir →');a.href=destino;a.className='secondary';article.append(a);}
   if(!n.lida_em){const button=make('button','Marcar como lida');button.type='button';button.className='text-button';button.onclick=async()=>{
     button.disabled=true;try{await lerNotificacoes([n.id]);n.lida_em=new Date().toISOString();render();await load();}catch(error){status.textContent=error.message;button.disabled=false;}
   };article.append(button);}

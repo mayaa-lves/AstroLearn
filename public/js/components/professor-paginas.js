@@ -495,7 +495,8 @@ async function G() {
     if (r = await e.rooms(), s !== l) return;
     if ("rooms" === o) n = null, D(), await L(s);
     else if ("notifications" === o) n = null, D(), await async function (t) {
-      w("Sua caixa de avisos.", "Entregas e perguntas das suas turmas, organizadas em um só lugar.");
+      w("Sua caixa de avisos.", "Avisos das suas turmas, organizados em um só lugar.");
+      const {destinoNotificacao} = await import("../services/comunicacao.js");
       const o = await e.notifications(!1); if (t !== l) return;
       const i = c("div", "", "filters"), n = c("select"), r = c("select");
       n.setAttribute("aria-label", "Situação da notificação"), r.setAttribute("aria-label", "Tipo da notificação"), q(n, "Não lidas", "unread"), q(n, "Todas", "all"), q(r, "Todos os tipos", ""), q(r, "Entregas", "entrega"), q(r, "Perguntas", "pergunta"), i.append(n, r);
@@ -517,11 +518,17 @@ async function G() {
         for (const t of a) {
           const a = y(t.titulo, t.mensagem);
           a.classList.add("notification-card"), a.append(c("span", t.lida_em ? "Lida" : "Não lida", t.lida_em ? "badge" : "badge gold"), c("p", X(t.criado_em), "hint"));
-          const o = { sala: t.sala_id };
-          "entrega" === t.tipo ? o.entrega = t.entrega_id : o.pergunta = t.pergunta_id;
-          const i = v("entrega" === t.tipo ? "Abrir entrega →" : "Ver pergunta →", "entrega" === t.tipo ? "correcao/" : "perguntas/", o);
-          i.onclick = async a => { a.preventDefault(); try { await e.readNotifications([t.id]), location.assign(i.href) } catch (a) { h(a) } };
-          a.append(i), d.append(a)
+          const destino = destinoNotificacao(t, "professor");
+          if (destino) { const link = c("a", "Abrir →", "secondary"); link.href = destino; a.append(link); }
+          if (!t.lida_em) {
+            const button = g("Marcar como lida", async () => {
+              button.disabled = true;
+              try { await e.readNotifications([t.id]); t.lida_em = true; u(); window.dispatchEvent(new Event("astro-notifications-refresh")); }
+              catch (error) { h(error); button.disabled = false; }
+            }, "secondary");
+            a.append(button);
+          }
+          d.append(a)
         }
         a.length || d.append(c("p", "Tudo em dia. Nenhum aviso corresponde a este filtro.", "empty"))
       }

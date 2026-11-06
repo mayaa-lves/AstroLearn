@@ -6,6 +6,7 @@
     c.sessaoObrigatoria("professor");
     return c.api(path, method, data);
   };
+  const comunicacao = import("../services/comunicacao.js");
   const atividades = import("../services/atividades.js");
   const part = (x) => encodeURIComponent(String(x));
   const base = (s) => "/api/professor/salas/" + part(s);
@@ -146,8 +147,8 @@
         nota,
         feedback_professor: feedback,
       }),
-    notifications: async () => {const d=await call("/api/notificacoes"); return {...d,notificacoes:(d.notificacoes || []).map(n=>({...n,tipo:n.tipo==="duvida"?"pergunta":n.tipo,entrega_id:n.progresso_id}))};},
-    readNotifications: ids => call("/api/notificacoes/lidas","PUT",{ids}),
+    notifications: async () => {const d=await (await comunicacao).notificacoes(); return {...d,notificacoes:(d.notificacoes || []).map(n=>({...n,tipo:n.tipo==="duvida"?"pergunta":n.tipo,entrega_id:n.progresso_id}))};},
+    readNotifications: async ids => (await comunicacao).lerNotificacoes(ids),
     simulateDelivery: () => blocked("A simulação de entrega"),
     questions: async s => (await call(base(s)+"/perguntas")).perguntas || [],
     studentQuestions: () => blocked("As perguntas ao professor"),
