@@ -40,9 +40,8 @@ function element(tag, text = '', className = '') {
 }
 
 function resources(material) {
-  const list = Array.isArray(material.links)
-    ? material.links
-    : [];
+  const list = [...(Array.isArray(material.links) ? material.links : [])];
+  if (material.anexo_url) list.unshift({ url: material.anexo_url, titulo: material.anexo_nome || "Abrir anexo" });
 
   return list.flatMap(raw => {
     try {

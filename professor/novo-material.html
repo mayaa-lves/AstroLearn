@@ -177,13 +177,12 @@
         <input
           id="files"
           type="file"
-          disabled
+          accept=".pdf,.png,.jpg,.jpeg"
           aria-describedby="uploadHint"
         >
 
         <p id="uploadHint" class="hint">
-          Upload indisponível até a implementação no backend.
-          Por enquanto, compartilhe o link do arquivo.
+          Um PDF ou imagem (PNG/JPG/JPEG), até 20 MB. Na edição, selecionar um arquivo substitui o anexo anterior; deixar vazio o mantém.
         </p>
 
         <button
@@ -213,7 +212,9 @@
       sessaoObrigatoria
     } from "../public/js/services/conexao.js";
 
+    import { prepararMaterial } from "../public/js/services/biblioteca-anexos.js";
     sessaoObrigatoria("professor");
+    // Anexos são enviados pela API autenticada, sem chave de Storage no navegador.
 
     const $ = id => document.getElementById(id);
     const params = new URLSearchParams(location.search);
@@ -396,6 +397,10 @@
         return;
       }
 
+      let corpo;
+      try {
+        corpo = prepararMaterial({ titulo, descricao: $("description").value.trim(), missao_id: $("mission").value || null, links }, $("files").files[0]);
+      } catch (erro) { $("error").textContent = erro.message; $("files").focus(); return; }
       ocupado = true;
 
       $("save").disabled = true;
@@ -416,12 +421,7 @@
         const salvo = await api(
           caminho,
           editando ? "PUT" : "POST",
-          {
-            titulo,
-            descricao: $("description").value.trim(),
-            missao_id: $("mission").value || null,
-            links
-          }
+          corpo
         );
 
         if (!salvo?.id) {

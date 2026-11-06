@@ -303,7 +303,7 @@
 
       const links = elemento("div", "", "material-links");
 
-      (material.links || []).forEach((raw, index) => {
+      [...(material.anexo_url ? [{ url: material.anexo_url }] : []), ...(material.links || [])].forEach((raw, index) => {
         try {
           const url = new URL(
             typeof raw === "string" ? raw : raw.url
