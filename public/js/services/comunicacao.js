@@ -15,7 +15,9 @@ export async function lerNotificacoes(ids) {
 }
 export function destinoNotificacao(n, role) {
   const link = typeof n.link === 'string' ? n.link : '';
-  const mission = /^\/missoes\/([^/?#]+)$/.exec(link);
+  const questions = /^\/professor\/salas\/([^/?#]+)\/perguntas$/.exec(link);
+  if (questions && role === 'professor') return 'perguntas.html?sala='+part(decodeURIComponent(questions[1]));
+  const mission = /^\/(?:aluno\/)?missoes\/([^/?#]+)$/.exec(link);
   if (mission && role === 'aluno') return 'atividade.html?atividade='+part(decodeURIComponent(mission[1]));
   if (/^\/equipes\/[^/?#]+\/tarefas$/.test(link) && role === 'aluno') return 'equipe.html';
   if (link.startsWith('/professor/biblioteca?') && role === 'professor' && n.sala_id) {
