@@ -106,9 +106,11 @@ const serverStatus = {todo:'pendente', doing:'em_andamento', done:'concluida'};
 const localStatus = {pendente:'todo', em_andamento:'doing', concluida:'done'};
 const teamRoute = suffix => '/api/aluno/equipes/' + encodeURIComponent(team.id) + '/' + suffix;
 function taskFromServer(t) {
+  if (!t || typeof t.id !== 'string') throw new Error('A tarefa não foi confirmada pelo servidor. Atualize para conferir.');
   return {id:t.id,title:t.titulo,owner:t.responsavel_id,status:localStatus[t.status] || 'todo',prazo:t.prazo};
 }
 function noteFromServer(n) {
+  if (!n || typeof n.id !== 'string') throw new Error('O aviso não foi confirmado pelo servidor. Atualize para conferir.');
   return {id:n.id,text:n.texto,kind:'notice',createdAt:n.criado_em,author:n.autor_id,authorName:n.autor?.nome || 'Integrante'};
 }
 async function refreshShared() {
@@ -117,10 +119,11 @@ async function refreshShared() {
   draft.notes = (notes.avisos || []).map(noteFromServer);
 }
 async function mutate(action, onSuccess) {
-  if (mutating || !ready) return false;
+  if (mutating || busy || !ready) { tell('Aguarde a atualização da equipe e tente novamente.'); return false; }
   mutating = true; controls(false);
   try {
     const data = await action();
+    if (!data || typeof data !== 'object') throw new Error('O servidor não confirmou a alteração. Atualize a equipe para conferir.');
     onSuccess(data);
     renderWorkspace();
     $('storageNotice').textContent = '';
@@ -368,7 +371,7 @@ function renderTasks() {
   });
 }
 
-/* Anotações do rascunho pessoal. */
+/* Mural compartilhado; somente o autor edita ou remove seus avisos. */
 function renderNotes() {
   $('wall').replaceChildren();
   $('wallEmpty').hidden = draft.notes.length > 0;
@@ -441,7 +444,7 @@ function renderMission(data) {
 }
 
 async function load() {
-  if (busy) return;
+  if (busy || mutating) return;
 
   busy = true;
   ready = false;
@@ -613,10 +616,10 @@ $('confirmRemove').addEventListener('click', async () => {
 });
 setInterval(async () => {
   if(document.hidden || !ready || busy || mutating || document.querySelector('dialog[open]') || editingNote) return;
-  busy=true;
+  busy=true; controls(false);
   try {await refreshShared(); renderWorkspace(); $('storageNotice').textContent='';}
   catch(error) {$('storageNotice').textContent='Atualização automática: '+error.message;}
-  finally {busy=false;}
+  finally {busy=false; controls(ready);}
 },30000);
 
 document.querySelectorAll('[data-close]').forEach(button => {
