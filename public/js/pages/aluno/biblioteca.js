@@ -392,7 +392,7 @@ async function load() {
     ).filter(
       material =>
         material &&
-        typeof material.id === 'string'
+        typeof material.id === 'string' && material.status !== 'arquivado'
     );
 
     render();

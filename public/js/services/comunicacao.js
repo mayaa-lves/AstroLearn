@@ -1,7 +1,8 @@
+import {observarNotificacoes} from './notificacoes-som.js';
 import {api} from './conexao.js';
 const part = encodeURIComponent;
 export async function notificacoes() {
-  try { const data = await api('/api/notificacoes'); const rows = (data.notificacoes || []).map(n => ({...n, lida_em: n.lida === true ? (n.lida_em || true) : null})); return {...data, notificacoes: rows, nao_lidas: rows.filter(n => !n.lida_em).length}; }
+  try { const data = await api('/api/notificacoes'); const rows = (data.notificacoes || []).map(n => ({...n, lida_em: n.lida === true ? (n.lida_em || true) : null})); observarNotificacoes(rows); return {...data, notificacoes: rows, nao_lidas: rows.filter(n => !n.lida_em).length}; }
   catch(error) {if(error.status===404) error.message='Os avisos dependem da publicação do complemento de comunicação no servidor.'; throw error;}
 }
 export async function lerNotificacoes(ids) {

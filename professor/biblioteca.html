@@ -161,10 +161,9 @@
       <label for="search">Buscar por título ou descrição</label>
       <input id="search" type="search" placeholder="Buscar material…">
 
-      <p class="hint">
-        Arquivar ainda não está disponível:
-        depende de uma atualização no backend.
-      </p>
+      <label for="materialStatus">Exibir materiais</label>
+      <select id="materialStatus"><option value="">Ativos</option><option value="arquivado">Arquivados</option></select>
+      <p class="hint">Arquivar guarda o material sem excluí-lo. Você pode republicá-lo na lista de arquivados.</p>
 
       <p id="count" class="hint" role="status"></p>
       <div id="materialList" aria-busy="true"></div>
@@ -490,10 +489,22 @@
         );
 
         archive.type = "button";
-        archive.disabled = true;
-
-        archive.title =
-          "Arquivamento ainda depende de implementação no backend.";
+        archive.textContent = material.status === "arquivado" ? "Republicar" : "Arquivar";
+        archive.onclick = async () => {
+          if (ocupado) return;
+          ocupado = true; archive.disabled = true;
+          $("error").textContent = "";
+          try {
+            await api(base + "/biblioteca/" + encodeURIComponent(material.id), "PUT", {
+              titulo: material.titulo, descricao: material.descricao || "",
+              missao_id: material.missao_id || null, links: material.links || [],
+              status: material.status === "arquivado" ? "aprovado" : "arquivado"
+            });
+            materiais = materiais.filter(item => item.id !== material.id);
+            renderizar();
+          } catch (error) { $("error").textContent = error.message; archive.disabled = false; }
+          finally { ocupado = false; }
+        };
 
         actions.append(
           button(
@@ -560,7 +571,7 @@
 
         const [turma, dados] = await Promise.all([
           api(base),
-          api(base + "/biblioteca")
+          api(base + "/biblioteca" + ($("materialStatus").value ? "?status=arquivado" : ""))
         ]);
 
         $("roomName").textContent = turma.sala.nome;
@@ -584,6 +595,7 @@
 
     $("search").oninput = renderizar;
     $("refresh").onclick = carregar;
+    $("materialStatus").onchange = carregar;
 
     carregar();
   </script>
