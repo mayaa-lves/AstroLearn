@@ -1,0 +1,13 @@
+body.auth-recovery .recovery-scene,html[data-visual-style] body.auth-recovery .recovery-scene{background:#292644;image-rendering:auto}
+.recovery-scene::before,.recovery-scene::after{content:"";position:absolute;inset:0;background:var(--veil),var(--art) center/cover no-repeat}
+.recovery-scene{--veil:linear-gradient(90deg,#fff8ed 1%,#fff8eef7 26%,#fff6eede 38%,#f8efe679 50%,transparent 67%);--art:url('../../../assets/imagens/recuperacao/observatorio.webp')}
+.recovery-scene::after{--art:url('../../../assets/imagens/recuperacao/observatorio-pixel.webp');image-rendering:pixelated;opacity:0;transition:opacity 1s ease-in-out}
+html[data-visual-style=pixel] .recovery-scene::after{opacity:1}
+body.auth-recovery #authStyleToggle{min-height:0!important;height:40px;width:40px;border-radius:999px!important;padding:0 9px!important;gap:0!important;overflow:hidden;background:#322949c4;border:1px solid #ffffff74;color:white;transition:width .28s ease}
+#authStyleToggle .auth-style-icon{width:20px!important;height:20px!important}
+#authStyleToggle [data-style-label]{max-width:0;opacity:0;overflow:hidden;transition:opacity .2s,max-width .28s}
+@media(hover:hover){body.auth-recovery #authStyleToggle:hover{width:100px}#authStyleToggle:hover [data-style-label]{max-width:65px;opacity:1;margin-left:6px}}
+body.auth-recovery #authStyleToggle:focus-visible{width:100px}#authStyleToggle:focus-visible [data-style-label]{max-width:65px;opacity:1;margin-left:6px}
+#submittedEmail{overflow-wrap:anywhere}
+@media(max-width:800px){.recovery-scene{--veil:linear-gradient(180deg,#fff8edf5 0%,#fff7eff2 62%,#fff7efbd 100%)}}
+@media(prefers-reduced-motion:reduce){.recovery-scene::after,body.auth-recovery #authStyleToggle,#authStyleToggle [data-style-label]{transition:none}}

@@ -1,0 +1,33 @@
+.cadastro-page .cadastro-header .marca{position:relative;isolation:isolate}
+.cadastro-page .cadastro-header .marca::before{content:"";position:absolute;inset:-4px -10px;border-radius:14px;z-index:-1;pointer-events:none;background:#fff8eef0;box-shadow:0 2px 9px #23193820}
+.cadastro-page .cadastro-header .marca img{filter:none}
+.cadastro-page #authStyleToggle{display:inline-flex;align-items:center;justify-content:center;flex:none;box-sizing:border-box;width:40px;height:40px;min-height:40px!important;border-radius:999px!important;padding:0!important;gap:0!important;background:#e9dff1a8;color:#51336d;border:1px solid #78558d55;overflow:hidden;transition:width .28s ease,background-color .22s}
+.cadastro-page #authStyleToggle .auth-style-icon{width:20px!important;height:20px!important;flex:none}
+.cadastro-page #authStyleToggle [data-style-label]{max-width:0;overflow:hidden;opacity:0;transition:max-width .28s ease,opacity .22s ease}
+@media(hover:hover){.cadastro-page #authStyleToggle:hover{width:96px;background:#f4eaf7}.cadastro-page #authStyleToggle:hover [data-style-label]{max-width:64px;opacity:1;margin-left:6px}}
+.cadastro-page #authStyleToggle:focus-visible{width:96px;background:#f4eaf7}
+.cadastro-page #authStyleToggle:focus-visible [data-style-label]{max-width:64px;opacity:1;margin-left:6px}
+@media(max-width:420px){.cadastro-page .cadastro-header{flex-wrap:wrap}.cadastro-page .cadastro-header .auth-appearance-actions{margin-left:auto}}
+@media(prefers-reduced-motion:reduce){.cadastro-page #authStyleToggle,.cadastro-page #authStyleToggle [data-style-label]{transition:none}}
+.cadastro-controles{position:fixed;z-index:15;right:max(24px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:flex-end;gap:8px}
+.cadastro-controles #movimento{position:static;min-height:40px;padding:0 15px;border:1px solid #78558d55;border-radius:999px;background:#fff8efde;color:#51336d;font:inherit;font-size:.82rem;cursor:pointer}
+.cadastro-controles .auth-theme-status{top:auto;bottom:100%;right:0}
+@media(max-width:800px),(max-height:620px){.cadastro-controles{position:relative;inset:auto;z-index:2;justify-content:flex-end;padding:10px 5vw max(16px,env(safe-area-inset-bottom))}}
+/* O nome acessível continua sendo o texto atualizado pelo cadastro-etapas.js. */
+.cadastro-controles #movimento{
+ position:relative;display:inline-flex;align-items:center;justify-content:flex-start;
+ box-sizing:border-box;flex:none;width:40px;height:40px;padding:0 0 0 38px;
+ overflow:hidden;white-space:nowrap;text-indent:8px;color:transparent;
+ font:600 12px Astro,Arial,sans-serif;background:#e9dff1a8;
+ transition:width .28s ease,color .2s ease,background-color .22s ease
+}
+.cadastro-controles #movimento::before{
+ content:"";position:absolute;left:11px;top:10px;width:16px;height:18px;
+ background:#51336d;mask:var(--mov-glyph) center/contain no-repeat;-webkit-mask:var(--mov-glyph) center/contain no-repeat;
+ --mov-glyph:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='5' y='3' width='5' height='18' rx='2'/%3E%3Crect x='14' y='3' width='5' height='18' rx='2'/%3E%3C/svg%3E")
+}
+.cadastro-controles #movimento[aria-pressed=true]:not(:disabled)::before{--mov-glyph:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 4q0-2 2-1l13 8q2 1 0 2L8 21q-2 1-2-1z'/%3E%3C/svg%3E")}
+@media(hover:hover){.cadastro-controles #movimento:hover{width:178px;background:#f4eaf7;color:#51336d}}
+.cadastro-controles #movimento:focus-visible{width:178px;background:#f4eaf7;color:#51336d;outline:3px solid #7846bd;outline-offset:4px}
+.cadastro-controles #movimento:disabled{cursor:default}
+@media(prefers-reduced-motion:reduce){.cadastro-controles #movimento{transition:none}}

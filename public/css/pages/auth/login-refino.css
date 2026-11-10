@@ -1,0 +1,169 @@
+/* Login: composição medida sobre a referência 1760 × 890. */
+html{overflow-x:clip;scrollbar-color:#a58acb #faf8fe;scrollbar-width:thin}
+html::-webkit-scrollbar{width:8px;height:0}
+html::-webkit-scrollbar-track{background:#faf8fe}
+html::-webkit-scrollbar-thumb{background:#ad95cf;border:2px solid #faf8fe;border-radius:20px}
+html::-webkit-scrollbar-thumb:hover{background:#8260b4}
+.login-page{--ref:min(.05681818vw,.11235955svh);display:block;min-height:100svh;color:#29134f;font-family:Arial,Helvetica,sans-serif;line-height:1.5}
+.login-page .login-header{position:absolute;inset:0 0 auto;padding:calc(25 * var(--ref)) 4.2vw 0;height:auto}
+.login-page .login-header .brand img{width:calc(214 * var(--ref))!important;height:calc(44 * var(--ref))!important}
+.login-page .signup-link{display:inline-flex;align-items:center;justify-content:center;padding:calc(5 * var(--ref)) calc(21 * var(--ref));border:1px solid #f3e4ff;border-radius:999px;color:#fff!important;background:transparent;text-decoration:none;text-shadow:none;font-size:calc(18 * var(--ref));line-height:1.5}
+.login-page .login-main{display:block;padding:calc(155 * var(--ref)) 4.2vw calc(55 * var(--ref));min-height:100svh}
+.login-page .login-content{width:33vw;max-width:none;min-width:0;margin:0}
+.login-page .login-content h1{font-family:Arial,Helvetica,sans-serif;font-size:calc(60 * var(--ref));font-weight:700;line-height:1.05;letter-spacing:calc(-2.1 * var(--ref));margin:0 0 calc(18 * var(--ref))}
+.login-page .login-content h1 span{color:#6832bc}
+.login-page .intro{color:#2d1756;font-size:calc(22 * var(--ref));line-height:1.52;margin:0 0 calc(23 * var(--ref))}
+.login-page #login-form>label{font-size:calc(18 * var(--ref));line-height:1.4;margin:calc(16 * var(--ref)) 0 calc(7 * var(--ref))}
+.login-page #login-form>label:first-child{margin-top:0}
+.login-page .input-wrap{background:none;border:0;box-shadow:none}
+.login-page .input-wrap input{height:calc(57 * var(--ref));border:1px solid #e6c8ba;border-radius:calc(22 * var(--ref));background:#fff9ef66;color:#29134f;font-family:Arial,Helvetica,sans-serif;font-size:calc(20 * var(--ref));padding:0 calc(60 * var(--ref))}
+.login-page .input-wrap input::placeholder{color:#9476a1;opacity:1}
+.login-page input:-webkit-autofill{-webkit-text-fill-color:#29134f;box-shadow:0 0 0 1000px #fff8ed inset}
+.login-page .input-wrap input:focus{outline:2px solid #8b5bb355;outline-offset:2px;border-color:#a57cbd}
+.login-page .input-symbol{left:calc(22 * var(--ref));width:calc(22 * var(--ref));height:calc(22 * var(--ref));color:#382066}
+.login-page .reveal-button{top:50%;transform:translateY(-50%);right:calc(8 * var(--ref));width:44px;height:44px;color:#382066}
+.login-page .reveal-button svg{width:calc(24 * var(--ref));height:calc(24 * var(--ref))}
+.login-page .form-options{justify-content:flex-end;font-size:calc(16 * var(--ref));line-height:1.4;margin:calc(15 * var(--ref)) 0 calc(17 * var(--ref))}
+.login-page .form-options a,.login-page .register-line a{color:#6431aa;font-weight:400}
+.login-page .primary-button{height:calc(60 * var(--ref));min-height:0;padding:0 calc(20 * var(--ref));border-radius:calc(23 * var(--ref));background:linear-gradient(180deg,#9247d9,#642caf);font-size:calc(20 * var(--ref));line-height:1.4;box-shadow:0 10px 25px #6935aa20}
+.login-page .register-line{font-size:calc(16 * var(--ref));line-height:1.5;margin:calc(15 * var(--ref)) 0 0;color:#2d1756}
+.login-page .login-footer{position:absolute;padding:0;margin:0;min-height:0;height:0;inset:auto 0 0}
+.login-page .login-footer>span{display:none}
+.login-page .login-scene-controls{position:fixed;right:calc(43 * var(--ref));bottom:calc(24 * var(--ref));display:flex;align-items:center;gap:calc(8 * var(--ref));z-index:40;pointer-events:auto}
+.login-page .login-scene-controls button{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;min-height:44px;padding:9px;border:0;border-radius:15px;background:#e9c1c251;box-shadow:none;backdrop-filter:blur(5px);color:#4c2c75;cursor:pointer}
+.login-page .login-scene-controls button:hover{background:#ead3e98c}
+.login-page .login-scene-controls button:focus-visible{outline:2px solid #74479d;outline-offset:3px}
+.login-page .auth-style-icon{display:inline-flex;width:27px;height:27px;flex-shrink:0;transform:none}
+.login-page .auth-style-icon svg{width:100%;height:100%;display:block}
+.login-page #authStyleToggle{width:44px;gap:0;transition:width .2s}
+.login-page #authStyleToggle [data-style-label]{max-width:0;opacity:0;overflow:hidden;white-space:nowrap;transition:max-width .2s,opacity .2s}
+
+.login-page #authStyleToggle:hover [data-style-label],.login-page #authStyleToggle:focus-visible [data-style-label]{max-width:85px;opacity:1}
+.login-page #pausar-movimentos svg{width:25px;height:25px;fill:currentColor}
+.login-page .play-glyph{display:none}
+.login-page #pausar-movimentos[aria-pressed=true] .pause-glyph{display:none}
+.login-page #pausar-movimentos[aria-pressed=true] .play-glyph{display:block}
+.login-page .auth-theme-status{position:absolute;top:auto;bottom:55px;right:0;background:#fff9;padding:4px 8px;border-radius:8px}
+.login-page .mascot{left:71.2%;top:43.4%;width:14.1%;clip-path:none;filter:brightness(.98) saturate(.96)}
+.login-page .contact-shadow{left:73.3%;top:68%;width:10.2%;height:.7%;background:#48224140;filter:blur(4px)}
+@media(max-width:760px){
+ .login-page{--ref:1px}
+ .login-page .login-header{position:relative;padding:18px 6% 0}
+ .login-page .login-header .brand img{width:140px!important;height:36px!important}
+ .login-page .signup-link{font-size:13px;color:#6940a5!important;border-color:#c9b4d6;padding:6px 12px}
+ .login-page .login-main{min-height:0;padding:48px 6% 100px}
+ .login-page .login-content{width:100%;max-width:430px;margin:auto}
+ .login-page .login-content h1{font-size:clamp(34px,8.5vw,48px);letter-spacing:-1.4px}
+ .login-page .intro{font-size:16px;line-height:1.5}
+ .login-page #login-form>label{font-size:15px}
+ .login-page .input-wrap input{height:54px;font-size:17px;padding:0 48px}
+ .login-page .primary-button{height:54px;font-size:17px}
+ .login-page .form-options,.login-page .register-line{font-size:14px}
+ .login-page .mascot{top:110px;right:0;left:auto;width:90px;opacity:.35}
+ .login-page .contact-shadow{display:none}
+ .login-page .login-scene-controls{right:16px;bottom:max(16px,env(safe-area-inset-bottom))}
+}
+@media(prefers-reduced-motion:reduce){.login-page #authStyleToggle,.login-page #authStyleToggle [data-style-label]{transition:none}}
+.login-page .login-scene-controls #pausar-movimentos{background:#e9c1c251;border-radius:15px;padding:9px;color:#4c2c75}
+.login-page .login-scene-controls #pausar-movimentos:hover{background:#ead3e98c}
+
+/* Botões da referência: duas superfícies suaves, ícones roxos cheios. */
+.login-page .login-scene-controls{gap:8px;right:calc(44 * var(--ref));bottom:calc(24 * var(--ref))}
+.login-page .login-scene-controls #authStyleToggle,
+.login-page .login-scene-controls #pausar-movimentos{width:48px;height:48px;min-height:44px;padding:10px;border-radius:16px;background:rgba(228,188,196,.65);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);color:#493075;box-shadow:inset 0 1px 0 #fff2}
+.login-page .login-scene-controls #authStyleToggle:hover,
+.login-page .login-scene-controls #pausar-movimentos:hover{background:rgba(238,209,216,.85)}
+
+.login-page .login-scene-controls #pausar-movimentos svg{width:25px;height:25px}
+.login-page .login-scene-controls .auth-style-icon{width:29px;height:29px}
+/* Mãos originais preservadas; o corpo termina sobre a borda da varanda. */
+@media(min-width:761px){
+ .login-page .mascot{left:71.2%;top:42.8%;width:14.1%;filter:brightness(.98) saturate(.94) drop-shadow(0 2px 1px #32133126)}
+ .login-page .contact-shadow{left:73.1%;top:67.8%;width:10.5%;height:.45%;background:#36192855;filter:blur(3px)}
+}
+.login-page .mascot-pupil{background:radial-gradient(circle at 31% 24%,#fff 0 10%,transparent 14%),radial-gradient(circle,#160b23 0 47%,#44226d 53%,#8758b2 72%,#b995d5 85%,#392049 100%)}
+/* Controles circulares discretos; área clicável de 44px preservada. */
+.login-page .login-scene-controls #authStyleToggle,
+.login-page .login-scene-controls #pausar-movimentos{position:relative;width:44px;height:44px;min-height:44px;padding:12px;border-radius:50%;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;isolation:isolate}
+.login-page .login-scene-controls #authStyleToggle::before,
+.login-page .login-scene-controls #pausar-movimentos::before{content:'';position:absolute;inset:5px;z-index:-1;border-radius:50%;background:rgba(238,216,232,.24);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);transition:background .2s}
+.login-page .login-scene-controls #authStyleToggle:hover,
+.login-page .login-scene-controls #pausar-movimentos:hover{background:transparent}
+.login-page .login-scene-controls #authStyleToggle:hover::before,
+.login-page .login-scene-controls #pausar-movimentos:hover::before{background:rgba(238,216,232,.4)}
+.login-page .login-scene-controls .auth-style-icon{width:21px;height:21px}
+.login-page .login-scene-controls #pausar-movimentos svg{width:18px;height:18px}
+.login-page .login-scene-controls{gap:0}
+.login-page #authStyleToggle:hover [data-style-label],
+.login-page #authStyleToggle:focus-visible [data-style-label]{max-width:0;opacity:0}
+.login-page #authStyleToggle:focus-visible{outline-offset:0}
+/* O apoio acompanha exatamente o mesmo plano de coordenadas do cenário. */
+@media(min-width:761px){
+ .login-page .mascot{left:71.05%;top:42.65%;width:14.1%;filter:brightness(.96) saturate(.9);clip-path:inset(0 0 .7%)}
+ .login-page .contact-shadow{left:72.65%;top:67.45%;width:11.2%;height:.35%;background:#30142670;filter:blur(2px);transform:rotate(2deg)}
+ .login-page .mascot::after{content:'';position:absolute;left:8%;right:8%;bottom:.7%;height:1.6%;border-radius:50%;background:#45213a35;filter:blur(1px);pointer-events:none}
+}
+
+/* Geometria invariável em todos os estados, sem expansão no hover. */
+.login-page .login-scene-controls #authStyleToggle,
+.login-page .login-scene-controls #authStyleToggle:hover,
+.login-page .login-scene-controls #authStyleToggle:focus,
+.login-page .login-scene-controls #authStyleToggle:focus-visible,
+.login-page .login-scene-controls #authStyleToggle:active,
+.login-page .login-scene-controls #pausar-movimentos{width:44px;min-width:44px;max-width:44px;height:44px;min-height:44px;max-height:44px;flex:0 0 44px;gap:0;padding:12px;border-radius:50%;transition:color .2s}
+.login-page .login-scene-controls #authStyleToggle [data-style-label]{display:none}
+.login-page .login-scene-controls button::before{width:34px;height:34px;inset:5px;border-radius:50%;pointer-events:none}
+
+/* Composição em camadas: corpo atrás do corrimão e mãos na frente. */
+@media(min-width:761px){
+ .login-page .mascot-rail{position:absolute;inset:0;background-image:url('../../../assets/imagens/login/cenarios-e-personagens/scene-cinematic-v5.png');background-size:var(--canvas-w) var(--canvas-h);background-position:calc(var(--canvas-w) * -.7105) calc(var(--canvas-h) * -.4265);clip-path:polygon(0 85.5%,100% 90%,100% 97%,0 92.5%);pointer-events:none}
+ .login-page .mascot-hands{position:absolute;inset:0;background:url('../../../assets/imagens/login/cenarios-e-personagens/alien-cinematic-v5.png') 0 0 / 300% 100% no-repeat;clip-path:polygon(0 85%,31% 85%,31% 100%,0 100%,0 85%,69% 85%,100% 85%,100% 100%,69% 100%,69% 85%);pointer-events:none}
+ .login-page .mascot[data-pose=aceno] .mascot-hands{background-position:50% 0;clip-path:inset(85% 0 0 68%)}
+ .login-page .mascot[data-pose=senha] .mascot-hands{display:none}
+ html[data-visual-style=pixel] .login-page .mascot-rail{background-image:url('../../../assets/imagens/login/pixel/scene.webp');image-rendering:pixelated}
+ html[data-visual-style=pixel] .login-page .mascot-hands{background-image:url('../../../assets/imagens/login/pixel/alien.webp');image-rendering:pixelated}
+}
+@media(min-width:761px){
+ .login-page .mascot-rail{clip-path:polygon(30% 87%,69% 88.7%,69% 94%,30% 92.3%)}
+ .login-page .mascot-hands{display:none}
+}
+
+/* Troca de estilo no cabeçalho, ao lado de Criar conta. */
+.login-page .auth-appearance-actions{gap:14px;pointer-events:auto}
+.login-page .auth-appearance-actions #authStyleToggle{display:inline-flex;align-items:center;justify-content:center;gap:7px;width:auto;min-width:44px;min-height:40px;padding:6px 12px;border-radius:999px;background:#eadaf12b;backdrop-filter:blur(5px);border:1px solid #eee1ff55;color:#fff;font:14px Arial,Helvetica,sans-serif}
+.login-page .auth-appearance-actions #authStyleToggle [data-style-label]{display:inline;max-width:none;opacity:1}
+.login-page .auth-appearance-actions #authStyleToggle .auth-style-icon{width:21px;height:21px}
+.login-page .auth-appearance-actions #authStyleToggle:hover{background:#eadaf14a}
+.login-page .mascot-rail,.login-page .mascot-hands,.login-page .mascot::after{display:none!important}
+@media(max-width:760px){.login-page .auth-appearance-actions{gap:6px}.login-page .auth-appearance-actions #authStyleToggle{color:#613294;border-color:#c9b4d6;font-size:11px!important;padding:6px 8px!important}.login-page .auth-appearance-actions #authStyleToggle .auth-style-icon{width:17px;height:17px}}
+
+/* Nova imagem: mãos relaxadas e corpo compacto para o apoio da varanda. */
+.login-page .mascot-sprite{background-image:url('../../../assets/imagens/login/cenarios-e-personagens/alien-integrado-v17.png')}
+.login-page .mascot-pupil,.login-page .mascot-eyelid{left:48.6%;top:40.2%}
+@media(min-width:761px){.login-page .mascot{top:42.65%;clip-path:none}.login-page .contact-shadow{top:67.1%;left:73.2%;width:10%;height:.5%;background:#35203460}}
+html[data-visual-style=pixel] .login-page .mascot-pupil,html[data-visual-style=pixel] .login-page .mascot-eyelid{left:47.3%;top:45.1%}
+/* Cabeçalho: ícone circular; legenda só no hover ou foco pelo teclado. */
+.login-page .auth-appearance-actions #authStyleToggle{position:relative;width:38px;min-width:38px;max-width:38px;height:38px;min-height:38px;padding:8px;border-radius:50%;gap:0;background:#eadaf12b;flex:0 0 38px}
+.login-page .auth-appearance-actions #authStyleToggle [data-style-label]{display:block;position:absolute;right:0;top:calc(100% + 8px);max-width:none;padding:5px 10px;border-radius:8px;background:#352147e8;color:#fff;font-size:12px;line-height:1.4;opacity:0;visibility:hidden;pointer-events:none;white-space:nowrap}
+.login-page .auth-appearance-actions #authStyleToggle:hover [data-style-label],
+.login-page .auth-appearance-actions #authStyleToggle:focus-visible [data-style-label]{opacity:1;visibility:visible}
+/* Tronco atrás do corrimão; dedos descem pela face da varanda. */
+@media(min-width:761px){
+ .login-page .mascot{top:44%;left:71.05%;width:14.1%;clip-path:none}
+ .login-page .mascot-rail{display:block!important;background-position:calc(var(--canvas-w) * -.7105) calc(var(--canvas-h) * -.44);clip-path:polygon(39% 83%,61% 84.2%,61% 100%,39% 100%)}
+ .login-page .contact-shadow{top:68.5%;left:73.2%;width:10%;height:.35%;background:#35203465;filter:blur(2px)}
+}
+/* Sem recortes sobre as mãos ou duplicações do cenário. */
+.login-page .mascot-rail,.login-page .mascot-hands{display:none!important}
+.login-page .mascot{clip-path:none!important}
+/* Hover expansível no cabeçalho, com texto dentro do próprio botão. */
+.login-page .auth-appearance-actions #authStyleToggle{width:38px;min-width:38px;max-width:none;flex:0 0 auto;border-radius:19px;overflow:hidden;transition:width .22s ease,background .22s ease;padding:8px;gap:0;justify-content:flex-start}
+.login-page .auth-appearance-actions #authStyleToggle .auth-style-icon{flex:0 0 20px;width:20px;height:20px}
+.login-page .auth-appearance-actions #authStyleToggle [data-style-label]{position:static;display:block;padding:0;border-radius:0;background:none;color:inherit;max-width:0;opacity:0;visibility:hidden;overflow:hidden;white-space:nowrap;line-height:20px;font-size:13px;transition:max-width .22s ease,opacity .16s ease}
+.login-page .auth-appearance-actions #authStyleToggle:hover,
+.login-page .auth-appearance-actions #authStyleToggle:focus-visible{width:112px;gap:8px}
+.login-page .auth-appearance-actions #authStyleToggle:hover [data-style-label],
+.login-page .auth-appearance-actions #authStyleToggle:focus-visible [data-style-label]{max-width:78px;opacity:1;visibility:visible}
+
+.login-page .mascot-sprite{background-image:url('../../../assets/imagens/login/cenarios-e-personagens/alien-original-v20.png')}
+@media(min-width:761px){.login-page .mascot{top:43%;left:71.05%;width:14.1%;clip-path:none!important;filter:brightness(.98) saturate(.94)}}

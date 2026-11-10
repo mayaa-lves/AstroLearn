@@ -13,7 +13,9 @@ form.onsubmit=async event=>{
   busy=true;submit.disabled=true;email.readOnly=true;form.setAttribute('aria-busy','true');
   status.textContent='Solicitando as instruções…';
   try {
-    await solicitarRecuperacao(email.value);
+    const enviado=email.value;
+    await solicitarRecuperacao(enviado);
+    $('submittedEmail').textContent=enviado;
     // O servidor usa resposta genérica; não comprova entrega do e-mail.
     form.hidden=true;result.hidden=false;status.textContent='';
     result.tabIndex=-1;result.focus();
@@ -24,4 +26,4 @@ form.onsubmit=async event=>{
   }
 };
 email.oninput=()=>{$('emailError').textContent='';email.removeAttribute('aria-invalid');};
-$('tryAgain').onclick=()=>{result.hidden=true;form.hidden=false;status.textContent='';email.focus();};
+$('tryAgain').onclick=()=>{result.hidden=true;$('submittedEmail').textContent='';form.hidden=false;status.textContent='';email.focus();email.select();};

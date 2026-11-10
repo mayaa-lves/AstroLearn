@@ -52,7 +52,7 @@ function atualizarPrivacidade() {
 
 senha.addEventListener('focus', () => {
   atualizarPrivacidade();
-  falar('Pode digitar. Eu não estou olhando!');
+
 });
 
 senha.addEventListener('input', atualizarPrivacidade);
@@ -78,7 +78,6 @@ mascote.addEventListener('click', () => {
   clearTimeout(timerPose);
 
   mascote.dataset.pose = 'aceno';
-  falar('Oi! Toda descoberta começa com uma pergunta.');
 
   timerPose = setTimeout(atualizarPrivacidade, 1800);
 });
@@ -94,7 +93,7 @@ function seguirPonteiro() {
   const caixa = mascote.getBoundingClientRect();
 
   const dx = ponteiro.x - (caixa.left + caixa.width * .486);
-  const dy = ponteiro.y - (caixa.top + caixa.height * .425);
+  const dy = ponteiro.y - (caixa.top + caixa.height * (document.documentElement.dataset.visualStyle === "pixel" ? .451 : .402));
 
   const distancia = Math.hypot(dx, dy) || 1;
   const deslocamento = Math.min(
@@ -161,11 +160,9 @@ function atualizarMovimentos() {
   movimento.setAttribute('aria-pressed', String(pausado));
   movimento.disabled = preferencia.matches;
 
-  movimento.textContent = preferencia.matches
-    ? 'Movimentos reduzidos'
-    : pausado
-      ? 'Ativar movimentos'
-      : 'Pausar movimentos';
+  const descricao = preferencia.matches ? 'Movimentos reduzidos conforme sua preferência' : pausado ? 'Ativar movimentos' : 'Pausar movimentos';
+  movimento.setAttribute('aria-label', descricao);
+  movimento.title = descricao;
 
   if (pausado) {
     centralizarOlhar();
