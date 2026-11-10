@@ -14,7 +14,7 @@ function unlock() {
 document.addEventListener('pointerdown', unlock, {passive:true});
 document.addEventListener('keydown', unlock);
 function control() {
-  if (toggle) return;
+  if (location.pathname.includes('/aluno/') || toggle) return;
   const anchor = document.getElementById('notifications') || document.getElementById('noticeBell') || document.getElementById('pageActions');
   if (!anchor) return;
   toggle = document.createElement('button');
@@ -25,6 +25,7 @@ function control() {
 }
 export function observarNotificacoes(rows) {
   control();
+  try{muted=localStorage.getItem(preference)==='off'}catch{}
   const user = obterSessao()?.usuario?.id;
   if (!user) return;
   const key = 'astrolearn-notificacoes-vistas:'+user;

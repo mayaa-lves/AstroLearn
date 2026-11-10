@@ -16,6 +16,7 @@ uniform vec2 extent;
 uniform float angle;
 uniform float cloudAngle;
 uniform float kind;
+uniform float variant;
 const float PI=3.14159265359;
 float hash3(vec3 p){return fract(sin(dot(p,vec3(127.1,311.7,74.7)))*43758.5453);}
 float noise3(vec3 p){
@@ -32,10 +33,20 @@ void main(){
   z=sqrt(max(0.,1.-rr));vec3 n=vec3(xy,z);
   vec3 surface=rotateY(rotateZ(n,kind>1.5?-.15:.06),angle);
   vec2 uv=vec2(fract(atan(surface.z,surface.x)/(2.*PI)+.5),acos(clamp(surface.y,-1.,1.))/PI);
+  float family=mod(variant,6.);
   float row=kind>1.5?2.:(kind>.5?1.:0.);
-  vec2 tex=vec2(uv.x,(row+clamp(uv.y,.002,.998))/3.);
-  color=texture2D(atlas,tex).rgb;
-  if(kind>.5&&kind<1.5&&cloudAngle<0.)color=mix(vec3(dot(color,vec3(.299,.587,.114))),color,.10);
+  if(variant>=0.)row=(family==2.||family==5.)?2.:((family==0.||family==3.)?0.:1.);
+  vec3 texel=texture2D(atlas,vec2(uv.x,(row+clamp(uv.y,.002,.998))/3.)).rgb;
+  color=texel;
+  if(variant>=0.){
+    float l=dot(texel,vec3(.299,.587,.114));
+    if(family==1.)color=mix(vec3(.24,.058,.028),vec3(1.,.59,.23),smoothstep(.085,.7,l));
+    if(family==2.)color=mix(vec3(.055,.19,.48),vec3(.58,.93,.98),smoothstep(.40,.82,l));
+    if(family==3.)color=mix(vec3(.18,.27,.47),vec3(.91,.98,1.),smoothstep(.1,.71,l));
+    if(family==4.){float lava=1.-smoothstep(.025,.105,abs(noise3(surface*5.)-.49));color=mix(vec3(.17,.1,.18)+texel*.29,vec3(.99,.38,.065),lava);}
+    if(family==5.)color=mix(vec3(.25,.08,.34),vec3(1.,.68,.75),smoothstep(.36,.84,l));
+    if(variant>=6.){float h=fract(floor(variant/6.)*.381966)*6.283185;vec3 axis=normalize(vec3(1.));color=clamp(color*cos(h)+cross(axis,color)*sin(h)+axis*dot(axis,color)*(1.-cos(h)),0.,1.);}
+  }
   float light=max(0.,dot(n,normalize(vec3(-.6,.7,1.2))));
   color*=.54+.57*light;
   color*=vec3(1.025,.99,.97);
@@ -81,7 +92,7 @@ function init(){
  gl.useProgram(program);
  const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
  const position=gl.getAttribLocation(program,'position');gl.enableVertexAttribArray(position);gl.vertexAttribPointer(position,2,gl.FLOAT,false,0,0);
- uniforms=Object.fromEntries(['extent','angle','cloudAngle','kind','atlas'].map(n=>[n,gl.getUniformLocation(program,n)]));
+ uniforms=Object.fromEntries(['extent','angle','cloudAngle','kind','atlas','variant'].map(n=>[n,gl.getUniformLocation(program,n)]));
  const image=new Image();
  image.onload=()=>{
   if(gl.isContextLost())return;
@@ -96,13 +107,14 @@ function init(){
  image.src=new URL('../../../assets/imagens/aluno/inicial/texturas-planetas.png',import.meta.url).href;
 }
 function resize(){dpr=Math.min(devicePixelRatio||1,1.35);canvas.width=Math.round(innerWidth*dpr);canvas.height=Math.round(innerHeight*dpr);draw();}
-function sphere(rect, kind, offset=0, moon=false){
+function sphere(rect, kind, offset=0, moon=false,variant=-1){
  if(rect.x+rect.w<0||rect.x>innerWidth||rect.y+rect.h<0||rect.y>innerHeight)return;
  gl.viewport(Math.round(rect.x*dpr),Math.round((innerHeight-rect.y-rect.h)*dpr),Math.round(rect.w*dpr),Math.round(rect.h*dpr));
+ const modPeriod=(Math.max(0,variant)*7)%24;
  const extent=kind===2?2.4:1.18;
  gl.uniform2f(uniforms.extent,extent,extent*rect.h/rect.w);
- gl.uniform1f(uniforms.kind,kind);
- gl.uniform1f(uniforms.angle,elapsed*Math.PI*2/(kind===2?180:100)+offset);
+ gl.uniform1f(uniforms.kind,kind);gl.uniform1f(uniforms.variant,variant);
+ gl.uniform1f(uniforms.angle,elapsed*Math.PI*2/(kind===2?180:42+modPeriod)+offset);
  gl.uniform1f(uniforms.cloudAngle,moon?-1:-elapsed*Math.PI*2/75+offset);
  gl.drawArrays(gl.TRIANGLES,0,6);
 }
@@ -113,8 +125,8 @@ function draw(){
  sphere({x:innerWidth-skyWidth*.76,y:innerWidth<801?-45:-38,w:skyWidth,h:skyWidth*.63},2);
  for(const element of planets){
   const rect=element.getBoundingClientRect();if(rect.bottom<0||rect.top>innerHeight)continue;
-  const i=Number(element.dataset.world),s=rect.width*1.04;
-  sphere({x:rect.left-rect.width*.02,y:rect.top+rect.height*.08,w:s,h:s},i===0||i===4?0:1,i*.71,i===2);
+  const i=Number(element.dataset.indice),s=rect.width*1.04;
+  sphere({x:rect.left-rect.width*.02,y:rect.top+rect.height*.08,w:s,h:s},i%6===0?0:1,i*.71,i===2,i);
 
  }
  canvas.dataset.angle=String(elapsed*3.6%360);

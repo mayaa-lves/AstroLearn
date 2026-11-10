@@ -10,6 +10,11 @@ $('activityAccountInitial').textContent=initial;$('activityProfileInitial').text
 $('activityProfileName').textContent=session.usuario.nome||'Explorador';$('activityProfileEmail').textContent=session.usuario.email||'';$('activityProfileEmail').hidden=!session.usuario.email;
 $('activityLogout').onclick=encerrar;
 if(preview){$('activityHome').href='../professor/turma.html?sala='+encodeURIComponent(params.get('sala')||'');$('activityHome').setAttribute('aria-label','Voltar à turma');$('activityHomeTip').textContent='Voltar à turma';$('activityProfileRole').textContent='Professor · AstroLearn';$('activityProfileLink').href='../professor/home.html';$('activityProfileLink').textContent='Minhas turmas →';$('activityPreferencesLink').hidden=true;}
+if(!preview){
+ const link=$('activityHome'),id=params.get('atividade');link.href=id?'home.html?missao='+encodeURIComponent(id)+'#journey':'home.html#journey';
+ link.textContent='← Voltar para a trilha';link.setAttribute('aria-label','Voltar para a trilha');link.removeAttribute('aria-describedby');
+ Object.assign(link.style,{display:'inline-flex',width:'auto',flexBasis:'auto',padding:'0 12px',borderRadius:'22px',whiteSpace:'nowrap',fontSize:'14px'});
+}
 let pinned=false,timer=0;
 function open(){clearTimeout(timer);panel.hidden=false;trigger.setAttribute('aria-expanded','true');}
 function close(restore=false){clearTimeout(timer);panel.hidden=true;pinned=false;trigger.setAttribute('aria-expanded','false');if(restore)trigger.focus();}

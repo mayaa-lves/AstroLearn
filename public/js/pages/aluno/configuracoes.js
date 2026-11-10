@@ -1,6 +1,8 @@
 /* Preferências com prévia; exclusão somente após confirmação explícita. */
 const $ = (id) => document.getElementById(id),
   prefs = window.AstroPrefs;
+const chaveSom='astrolearn-som-notificacoes';
+try{$("somNotificacoes").checked=localStorage.getItem(chaveSom)!=='off'}catch{}
 function values() {
   return {
     animations: prefs.systemReduced()
@@ -42,6 +44,7 @@ $("textSize").addEventListener("input", preview);
 $("preferencesForm").addEventListener("submit", (e) => {
   e.preventDefault();
   if (prefs.save(values())) {
+    try{localStorage.setItem(chaveSom,$("somNotificacoes").checked?'on':'off')}catch{$("pageError").textContent='Não foi possível salvar o som.';return}
     $("pageError").textContent = "";
     $("preferenceStatus").textContent = "Preferências salvas neste navegador.";
   } else
@@ -49,7 +52,7 @@ $("preferencesForm").addEventListener("submit", (e) => {
       "Não foi possível salvar. Permita o armazenamento e tente novamente.";
 });
 $("restore").onclick = () => {
-  controls(prefs.defaults);
+  controls(prefs.defaults);$("somNotificacoes").checked=true;
   prefs.preview(prefs.defaults);
   $("preferenceStatus").textContent =
     "Padrão restaurado em prévia. Salve para confirmar.";

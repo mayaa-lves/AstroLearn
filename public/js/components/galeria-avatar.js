@@ -1,7 +1,8 @@
+import {lerET,salvarET} from '../services/avatar-conta.js';
 const names=['Lilás astronauta','Verde cientista','Azul artista','Turquesa leitor','Lilás engenheiro','Verde astronauta','Azul explorador','Turquesa astronauta'];
 const sheet=new URL('../../assets/avatares/ets-perfil.png',import.meta.url).href;
 export function iniciarGaleria(user) {
- const key='astrolearn-avatar-local-v1:'+user.id;
+ let revision=0;
  const portrait=document.getElementById('avatarImage'), trigger=document.getElementById('changePhoto'), status=document.getElementById('avatarStatus');
  portrait.parentElement.style.position='relative';
  const style=document.createElement('style');
@@ -10,13 +11,13 @@ export function iniciarGaleria(user) {
  function paint(el,index){el.classList.add('et-avatar');el.style.backgroundPosition=`${index%4*100/3}% ${index<4?0:100}%`;}
  const dialog=document.createElement('dialog');dialog.className='et-gallery';dialog.setAttribute('aria-labelledby','avatarGalleryTitle');
  const heading=document.createElement('h2');heading.id='avatarGalleryTitle';heading.textContent='Escolha seu ET';
- const hint=document.createElement('p');hint.textContent='Sua escolha fica salva somente neste navegador, para esta conta.';
+ const hint=document.createElement('p');hint.textContent='Escolha o ET que vai aparecer na sua conta e na sua expedição.';
  const grid=document.createElement('div');grid.className='et-grid';
  let selected=null;
- const buttons=names.map((name,index)=>{const b=document.createElement('button');b.type='button';b.className='et-option';b.setAttribute('aria-label',name);const pic=document.createElement('span');pic.setAttribute('aria-hidden','true');paint(pic,index);const label=document.createElement('small');label.textContent=name;b.append(pic,label);b.onclick=()=>{try{localStorage.setItem(key,String(index));select(index);status.textContent='Avatar salvo neste navegador.';dialog.close();}catch{status.textContent='Não foi possível salvar o avatar neste navegador. Tente permitir o armazenamento.';}};grid.append(b);return b;});
+ const buttons=names.map((name,index)=>{const b=document.createElement('button');b.type='button';b.className='et-option';b.setAttribute('aria-label',name);const pic=document.createElement('span');pic.setAttribute('aria-hidden','true');paint(pic,index);const label=document.createElement('small');label.textContent=name;b.append(pic,label);b.onclick=async()=>{revision++;buttons.forEach(el=>el.disabled=true);hint.setAttribute('role','status');hint.textContent='Salvando…';try{await salvarET(index);select(index);status.textContent='ET salvo na sua conta.';dialog.close()}catch{hint.textContent='Não foi possível salvar. Tente novamente.'}finally{buttons.forEach(el=>el.disabled=false)}};grid.append(b);return b;});
  function select(index){selected=index;paint(portrait,index);portrait.hidden=false;portrait.setAttribute('role','img');portrait.setAttribute('aria-label',names[index]);document.getElementById('avatarInitials').hidden=true;buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===index)));}
  const close=document.createElement('button');close.type='button';close.className='secondary';close.textContent='Fechar';close.onclick=()=>dialog.close();dialog.append(heading,hint,grid,close);document.body.append(dialog);
- try{const saved=localStorage.getItem(key);if(saved!==null&&/^[0-7]$/.test(saved))select(Number(saved));}catch{}
+ lerET().then(i=>{if(!revision&&i>=0)select(i)}).catch(()=>{if(!revision)status.textContent='Não foi possível carregar o ET da conta.'});
  buttons.forEach((b,i)=>b.setAttribute('aria-pressed',String(i===selected)));
- trigger.setAttribute('aria-label','Escolher avatar');trigger.title='Escolher avatar';trigger.onclick=()=>{dialog.showModal();buttons[selected??0].focus();};dialog.addEventListener('close',()=>trigger.focus());
+ trigger.setAttribute('aria-label','Escolher avatar');trigger.title='Escolher avatar';trigger.onclick=()=>{hint.textContent='Escolha seu ET.';dialog.showModal();buttons[selected??0].focus();};dialog.addEventListener('close',()=>trigger.focus());
 }

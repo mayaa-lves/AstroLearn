@@ -1,0 +1,16 @@
+#profileInitial.et-escolhido,#accountInitial.et-escolhido{background-image:url('../../../assets/avatares/ets-perfil.png');background-position:var(--quadro-et);background-size:400% 200%;background-repeat:no-repeat}
+#profileInitial.et-escolhido,#accountInitial.et-escolhido{color:transparent;border-radius:50%}
+body:not(.planets-ready) .planet .planet-art{filter:hue-rotate(var(--matiz));animation:trilha-balanco var(--tempo) ease-in-out infinite alternate}
+.step.locked .mystery-world::before{animation:trilha-balanco var(--tempo) ease-in-out infinite alternate}
+@keyframes trilha-balanco{from{rotate:-5deg}to{rotate:5deg}}
+@media(prefers-reduced-motion:reduce){.planet *{animation:none!important}}
+:is(.astro-motion-off,.motion-reduced) .planet *{animation-play-state:paused!important}
+body:not(.planets-ready) .step:not(.locked) .planet-art{animation:none;inset:10% 4% auto;width:92%;height:auto;aspect-ratio:1;border-radius:50%;background-image:linear-gradient(120deg,#fff3,transparent 40%,#171224a3),url('../../../assets/imagens/aluno/inicial/texturas-planetas.png');background-size:100% 100%,200% 300%;background-position:0 0,0 var(--faixa);animation:longitude var(--tempo) linear infinite}
+body:not(.planets-ready) .planet[data-familia="2"] .planet-art{filter:hue-rotate(170deg) saturate(1.55)}
+body:not(.planets-ready) .planet[data-familia="3"] .planet-art{filter:saturate(.35) brightness(1.35)}
+@keyframes longitude{to{background-position:0 0,200% var(--faixa)}}
+@media(prefers-reduced-motion:reduce){body:not(.planets-ready) .step:not(.locked) .planet-art{animation:none}}
+/* Só o observatório possui uma construção já isolada do terreno. */
+.planets-ready .step:not(.locked) .planet:not([data-indice="0"]) .planet-art,
+.planets-ready .step:not(.locked) .planet:not([data-indice="0"])::before,
+.planets-ready .step:not(.locked) .planet:not([data-indice="0"])::after{display:none!important}

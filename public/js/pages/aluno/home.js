@@ -142,6 +142,13 @@ function montarTrilha() {
     );
     const planeta = elemento("button", "", "planet");
     planeta.type = "button";
+    item.id = "missao-" + m.id;
+    planeta.dataset.indice = String(i);
+    planeta.dataset.familia=String(i%6);
+    const row=[0,1,2,0,1,2][i%6];
+    planeta.style.setProperty('--faixa',row*50+'%');
+    planeta.style.setProperty("--matiz", (i < 3 ? 0 : i*137.508%360)+"deg");
+    planeta.style.setProperty("--tempo", (30+i%13)+"s");
     planeta.setAttribute(
       "aria-label",
       bloqueada
@@ -214,6 +221,8 @@ function montarTrilha() {
     lista.append(item);
   });
   document.dispatchEvent(new CustomEvent("astrolearn:planets"));
+  const destino = new URLSearchParams(location.search).get("missao");
+  if(destino){const step=document.getElementById("missao-"+destino);if(step)requestAnimationFrame(()=>{step.querySelector("button")?.focus({preventScroll:true});step.scrollIntoView({block:"center"})});}
 }
 async function carregar() {
   if (carregando) return;
@@ -357,11 +366,20 @@ const vistas = [
   "De perfil à direita",
   "Em três quartos à direita",
 ];
+const ajusteCentroET={"lilas": [[-11.426, 11.23], [-11.426, 11.328], [-11.426, 11.035]], "tres-olhos": [[-8.496, 8.398], [-8.594, 8.594], [-8.398, 8.496]], "turquesa": [[-9.766, 10.156], [-9.766, 10.156], [-10.059, 9.766]]};
+let corpoET=null;
 let anterior = 0,
   fade = null,
   reacao = null,
   reacaoTimer = 0;
 function girar() {
+  if(corpoET){
+    const slider=$("avatarRotation"),back=Number(slider.value)===1;
+    const render=$("avatarRender");render.style.backgroundImage="url("+new URL("../../../assets/imagens/aluno/loja/"+corpoET[0]+".png",import.meta.url).href+")";
+    render.style.backgroundSize="200% 300%";render.style.backgroundPosition=(back?"100%":"0%")+" "+(corpoET[1]*50)+"%";
+    render.style.setProperty("--frame-shift",ajusteCentroET[corpoET[0]][corpoET[1]][Number(back)]+"%");const vista=back?"De costas":"De frente";
+    slider.setAttribute("aria-valuetext",vista);$("avatarAngle").textContent=vista;$("avatarStage").setAttribute("aria-label","Interagir com "+corpoET[2]+", "+vista.toLowerCase());return;
+  }
   const angulo = Number($("avatarRotation").value),
     indice = Math.round(angulo / 45) % 8;
   const posicao = `${((indice % 4) * 100) / 3}% ${indice < 4 ? 0 : 100}%`;
@@ -382,11 +400,11 @@ function girar() {
 }
 $("avatarRotation").oninput = girar;
 $("avatarLeft").onclick = () => {
-  $("avatarRotation").value = (Number($("avatarRotation").value) - 45 + 360) % 360;
+  $("avatarRotation").value = corpoET ? 1-Number($("avatarRotation").value) : (Number($("avatarRotation").value) - 45 + 360) % 360;
   girar();
 };
 $("avatarRight").onclick = () => {
-  $("avatarRotation").value = (Number($("avatarRotation").value) + 45) % 360;
+  $("avatarRotation").value = corpoET ? 1-Number($("avatarRotation").value) : (Number($("avatarRotation").value) + 45) % 360;
   girar();
 };
 girar();
@@ -511,3 +529,21 @@ window.addEventListener("pagehide", () => {
   reacao?.cancel();
 });
 carregar();
+
+const expStyle=document.createElement('link');expStyle.rel='stylesheet';expStyle.href=new URL('../../../css/pages/aluno/expedicao.css',import.meta.url);document.head.append(expStyle);
+const nomesET=['Lilás astronauta','Verde cientista','Azul artista','Turquesa leitor','Lilás engenheiro','Verde astronauta','Azul explorador','Turquesa astronauta'];
+import {lerET} from "../../services/avatar-conta.js";
+let consultaET=0;
+async function mostrarEt(){
+ const atual=++consultaET;let n;try{n=await lerET()}catch{return}
+ if(atual!==consultaET)return;
+ const ok=n>=0;
+ const elements=[$("profileInitial"),$("accountInitial")];
+ elements.forEach(el=>{el.classList.toggle('et-escolhido',ok);if(ok)el.style.setProperty('--quadro-et', (n%4*100/3)+'% '+(n<4?0:100)+'%')});
+ const corpos=[['lilas',1],['tres-olhos',0],['turquesa',2],['turquesa',0],['lilas',2],null,['turquesa',1],['turquesa',1]];
+ const next=ok&&corpos[n]?[...corpos[n],nomesET[n]]:null;
+ const changed=JSON.stringify(next)!==JSON.stringify(corpoET);corpoET=next;
+ if(changed){const slider=$("avatarRotation");slider.max=corpoET?'1':'360';slider.value='0';const render=$("avatarRender");render.style.removeProperty('background-image');render.style.removeProperty('background-size');}
+ girar();
+}
+mostrarEt();window.addEventListener('pageshow',e=>{if(e.persisted)mostrarEt()});document.addEventListener('visibilitychange',()=>{if(!document.hidden)mostrarEt()});
