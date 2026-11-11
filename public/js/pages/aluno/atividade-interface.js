@@ -1,3 +1,4 @@
+import {atualizarPlanetaMissao} from '../../components/planeta-missao.js';
 /* Interface da atividade: não altera os handlers de entrega ou correção. */
 import {sessaoObrigatoria,api,encerrar} from '../../services/conexao.js';
 import {dashboard} from '../../services/aluno.js';
@@ -38,8 +39,9 @@ async function identify(){
   $('activityTeacher').textContent='Professor: '+(teacher||'não informado');
   $('activityTeacherDue').textContent=mission?.data_limite?'Prazo: '+formatarPrazo(mission.data_limite):'Sem prazo definido';
   if(index<0)return;
-  const world=index%5,planet=$('activityPlanet');planet.dataset.world=String(world);planet.style.setProperty('--world-x',world*25+'%');planet.hidden=false;document.body.dataset.activityWorld=String(world);
+  const planet=$('activityPlanet');atualizarPlanetaMissao(planet,index);planet.hidden=false;document.body.dataset.activityWorld=String([0,1,2,2,1,0][index%6]);document.body.dataset.activityFamily=String(index%6);
   document.dispatchEvent(new CustomEvent('astrolearn:planets'));
  }catch{$('activityTeacher').textContent='Professor: informação indisponível';$('activityTeacherDue').textContent='Não foi possível consultar os dados da turma.';}
 }
 identify();
+

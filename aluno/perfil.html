@@ -7,7 +7,7 @@
   <title>Meu perfil · AstroLearn</title>
 
   <link rel="stylesheet" href="../public/css/menu-pdf.css">
-  <link rel="stylesheet" href="../public/css/pages/aluno/perfil.css">
+  <link rel="stylesheet" href="../public/css/pages/aluno/perfil.css?v=seguranca-3">
   <link rel="stylesheet" href="../public/css/preferencias.css">
   <link rel="stylesheet" href="../public/css/menu-unificado.css">
   <script defer src="../public/js/components/menu-unificado.js"></script>
@@ -105,20 +105,20 @@
     <div class="profile-layout">
       <section class="identity-card" aria-labelledby="studentName">
         <div class="portrait-area">
-          <div class="portrait">
-            <span id="avatarInitials" aria-hidden="true">…</span>
-            <span id="avatarImage" hidden></span>
+          <div class="portrait-control">
+            <div class="portrait">
+              <span id="avatarInitials" aria-hidden="true">…</span>
+              <span id="avatarImage" hidden></span>
+            </div>
+
+            <button id="changePhoto" class="camera-button" type="button" aria-label="Alterar foto de perfil"
+              title="Alterar foto de perfil">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 6h5l2-3h4l2 3h5v15H3Z" />
+                <circle cx="12" cy="13" r="4" />
+              </svg>
+            </button>
           </div>
-
-          <button id="changePhoto" class="camera-button" type="button" aria-label="Alterar foto de perfil"
-            title="Alterar foto de perfil">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M3 6h5l2-3h4l2 3h5v15H3Z" />
-              <circle cx="12" cy="13" r="4" />
-            </svg>
-          </button>
-
-
         </div>
 
         <div class="identity-copy">
@@ -128,18 +128,6 @@
         </div>
 
         <p id="avatarStatus" class="feedback" role="status" aria-live="polite"></p>
-
-        <div class="identity-actions">
-          <button id="editName" class="primary" type="button" aria-describedby="nameHint" disabled>
-            Editar nome
-          </button>
-
-          <a class="secondary" href="loja.html">Mudar visual</a>
-        </div>
-
-        <p id="nameHint" class="hint">
-          A edição do nome ainda não está disponível.
-        </p>
 
         <section class="school-details" aria-labelledby="schoolTitle">
           <h3 id="schoolTitle">Minha turma</h3>
@@ -264,49 +252,30 @@
           <section id="securityPanel" role="tabpanel" aria-labelledby="securityTab" tabindex="0" hidden>
             <h2>Acesso e segurança</h2>
 
-            <p>
-              A alteração de senha ainda não está integrada a esta página.
-            </p>
+            <p>Cuide do seu acesso à plataforma.</p>
 
-            <p class="local-notice">
-              Nenhuma senha pode ser alterada por aqui neste momento.
-              Para ajuda com o acesso, fale com o responsável pela plataforma.
-            </p>
+            <div class="security-action">
+              <div>
+                <h3>Trocar senha</h3>
+                <p>Enviaremos um link para o e-mail da sua conta. Abra o link recebido para escolher uma nova senha.</p>
+                <p id="securityEmail" class="security-email"></p>
+              </div>
+              <button id="sendPasswordLink" class="primary" type="button" disabled>Enviar link para trocar senha</button>
+            </div>
+            <p id="securityStatus" class="feedback" role="status" aria-live="polite"></p>
+            <p id="securityError" class="error" role="alert"></p>
 
-            <h3>Dados da conta</h3>
-
-            <p>
-              Nome e e-mail são consultados na sua sessão.
-              O avatar escolhido fica salvo somente neste navegador.
-            </p>
-
-            <h3>Visual e preferências</h3>
-
-            <p>
-              As preferências e o visual da oficina ficam neste navegador.
-              Eles não são sincronizados entre dispositivos.
-            </p>
+            <div class="security-action">
+              <div>
+                <h3>Sair da conta</h3>
+                <p>Encerre seu acesso neste navegador. Para voltar, entre com seu e-mail e senha.</p>
+              </div>
+              <button id="logoutProfile" class="secondary" type="button">Sair da conta</button>
+            </div>
           </section>
         </section>
 
-        <section class="security-strip" aria-labelledby="securityTitle">
-          <span class="security-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path d="m12 2 8 3v6c0 5-4 8-8 11-4-3-8-6-8-11V5Z" />
-              <circle cx="12" cy="10" r="2" />
-              <path d="M12 12v4" />
-            </svg>
-          </span>
 
-          <div>
-            <h2 id="securityTitle">Segurança da conta</h2>
-            <p>Consulte as opções de acesso.</p>
-          </div>
-
-          <button id="openSecurity" class="secondary" type="button">
-            Ver opções
-          </button>
-        </section>
       </div>
     </div>
 
@@ -314,10 +283,10 @@
   </main>
 
   <script src="../public/js/components/preferencias.js"></script>
-  <script src="../public/js/pages/aluno/perfil.js"></script>
+  <script src="../public/js/pages/aluno/perfil.js?v=seguranca-3"></script>
   
   <script type="module" src="../public/js/components/sessao.js"></script>
-  <script type="module" src="../public/js/components/perfil-api.js"></script>
+  <script type="module" src="../public/js/components/perfil-api.js?v=seguranca-3"></script>
 </body>
 
 </html>

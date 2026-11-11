@@ -4,7 +4,9 @@ import {
 } from "../services/conexao.js";
 
 import { dashboard } from "../services/aluno.js";
-import { iniciarGaleria } from "./galeria-avatar.js";
+import { iniciarGaleria } from "./galeria-avatar.js?v=fotos-predefinidas-2";
+
+import { iniciarSeguranca } from "./seguranca-perfil.js?v=seguranca-3";
 
 const session = sessaoObrigatoria("aluno");
 const $ = id => document.getElementById(id);
@@ -24,6 +26,7 @@ $("avatarInitials").textContent = (user.nome || "Aluno")
   .toLocaleUpperCase("pt-BR");
 
 iniciarGaleria(user);
+iniciarSeguranca(user);
 
 async function loadSchool() {
   $("retrySchool").disabled = true;

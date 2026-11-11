@@ -1,0 +1,20 @@
+/* O banner recebe o mesmo mundo da trilha, inclusive depois da sexta missão. */
+#activityPlanet.activity-planet-current{overflow:visible;background:none;rotate:0deg}
+#activityPlanet.activity-planet-current .planet-art{display:block;inset:10% 4% auto;width:92%;height:auto;aspect-ratio:1;border-radius:50%;visibility:visible;mask-image:none;-webkit-mask-image:none;clip-path:none;background-image:linear-gradient(120deg,#fff3,transparent 40%,#171224a3),url('../../../assets/imagens/aluno/inicial/texturas-planetas.png');background-size:100% 100%,200% 300%;background-position:0 0,0 var(--faixa);animation:mission-longitude var(--tempo) linear infinite;filter:hue-rotate(var(--matiz));z-index:1}
+#activityPlanet.activity-planet-current.activity-planet-ready .planet-art{display:none}
+#activityPlanet.activity-planet-current::before,#activityPlanet.activity-planet-current::after{display:none}
+#activityPlanet .activity-world-building{position:absolute;z-index:3;pointer-events:none;left:27%;top:-7.3%;width:46%;height:46%;background:url('../../../assets/imagens/aluno/inicial/expedicao/construcoes.png') var(--building-x) var(--building-y)/300% 200% no-repeat;filter:drop-shadow(0 3px 2px #33272338)}
+#activityPlanet .activity-world-building.activity-observatory{left:27%;top:8.7%;width:46%;height:27.3%;background:url('../../../assets/imagens/aluno/inicial/observatorio-base-fixa.png') center bottom/contain no-repeat}
+#activityPlanet .activity-world-mist{position:absolute;pointer-events:none;z-index:2;left:4%;top:10%;width:92%;aspect-ratio:1;border-radius:50%;background:radial-gradient(ellipse at 25% 45%,#fff7 0,transparent 24%),radial-gradient(ellipse at 75% 62%,#ecf2ff70 0,transparent 28%);background-size:200% 100%;filter:blur(2px);opacity:.55;animation:mission-mist 38s linear infinite}
+#activityPlanet.activity-planet-ready .activity-world-mist{display:none}
+@keyframes mission-longitude{to{background-position:0 0,200% var(--faixa)}}
+@keyframes mission-mist{from{background-position:200% 0}to{background-position:0 0}}
+@media(prefers-reduced-motion:reduce){#activityPlanet *{animation:none!important}}
+:is(.motion-reduced,.astro-motion-off) #activityPlanet *{animation-play-state:paused!important}
+
+/* Mesma integração e mesma escala usadas na trilha. */
+#activityPlanet .activity-world-building{top:-5%;mask-image:linear-gradient(to bottom,#000 0 76%,#000f 80%,#0009 85%,transparent 90%);-webkit-mask-image:linear-gradient(to bottom,#000 0 76%,#000f 80%,#0009 85%,transparent 90%);filter:drop-shadow(0 1px 1px #33272320)}
+#activityPlanet .activity-world-building.activity-observatory{top:11.1%;mask-image:linear-gradient(to bottom,#000 0 76%,#000f 80%,#0009 85%,transparent 91%);-webkit-mask-image:linear-gradient(to bottom,#000 0 76%,#000f 80%,#0009 85%,transparent 91%)}
+#activityPlanet .activity-world-mist{opacity:.35}
+#activityPlanet.activity-planet-current[data-familia="2"] .planet-art{filter:none;background-image:radial-gradient(ellipse at 24% 30%,#edfbff99,transparent 52%),radial-gradient(ellipse at 72% 65%,#266e8740,transparent 44%),linear-gradient(140deg,#accfdf,#73b0c8 42%,#cee8ef);background-size:200% 100%;animation:ice-longitude var(--tempo) linear infinite}
+@keyframes ice-longitude{from{background-position:0 0}to{background-position:100% 0}}

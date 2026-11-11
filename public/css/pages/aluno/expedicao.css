@@ -10,7 +10,42 @@ body:not(.planets-ready) .planet[data-familia="2"] .planet-art{filter:hue-rotate
 body:not(.planets-ready) .planet[data-familia="3"] .planet-art{filter:saturate(.35) brightness(1.35)}
 @keyframes longitude{to{background-position:0 0,200% var(--faixa)}}
 @media(prefers-reduced-motion:reduce){body:not(.planets-ready) .step:not(.locked) .planet-art{animation:none}}
-/* Só o observatório possui uma construção já isolada do terreno. */
+/* Construções independentes da textura do globo: sem recorte horizontal. */
+.world-building{position:absolute;z-index:3;pointer-events:none;left:27%;top:-7.3%;width:46%;height:46%;background:url('../../../assets/imagens/aluno/inicial/expedicao/construcoes.png') var(--building-x) var(--building-y)/300% 200% no-repeat;filter:drop-shadow(0 3px 2px #33272338)}
+/* Só o primeiro conserva a construção original já aprovada. */
 .planets-ready .step:not(.locked) .planet:not([data-indice="0"]) .planet-art,
 .planets-ready .step:not(.locked) .planet:not([data-indice="0"])::before,
 .planets-ready .step:not(.locked) .planet:not([data-indice="0"])::after{display:none!important}
+body:not(.planets-ready) .planet[data-indice="0"]::before{content:"";position:absolute;z-index:3;left:27%;top:8.7%;width:46%;height:27.3%;background:url('../../../assets/imagens/aluno/inicial/observatorio-base-fixa.png') center bottom/contain no-repeat;pointer-events:none}
+.world-debris{display:none;pointer-events:none}
+body:not(.planets-ready) .world-debris{display:block;position:absolute;left:49%;top:48%;width:5px;height:4px;border-radius:38% 55% 43% 60%;background:linear-gradient(120deg,#ead9be,#776158);box-shadow:1px 1px 1px #35274233;animation:debris-orbit 28s linear infinite;animation-delay:var(--phase)}
+@keyframes debris-orbit{0%{transform:translate(-90px,0) rotate(0);opacity:1}25%{transform:translate(0,28px) rotate(90deg);opacity:1}49%{opacity:1}50%{transform:translate(90px,0) rotate(180deg);opacity:1}55%,95%{opacity:0}75%{transform:translate(0,-28px) rotate(270deg)}100%{transform:translate(-90px,0) rotate(360deg);opacity:1}}
+#avatarRender.has-turntable{background:none!important;inset:0!important;left:0!important;width:100%!important;height:100%!important;transform:none!important;animation:none!important;filter:drop-shadow(0 5px 3px #53384a24)}
+.avatar-turntable{display:block;width:100%;height:100%;object-fit:contain;pointer-events:none}
+@media(prefers-reduced-motion:reduce){.world-debris{animation:none!important;opacity:.6}}
+:is(.astro-motion-off,.motion-reduced) .world-debris{animation-play-state:paused!important}
+body.expedicao-hidden .world-debris{animation-play-state:paused!important}
+
+/* Escala menor, com a base ainda apoiada no mesmo ponto do globo. */
+.planets-ready .planet[data-indice="0"] .planet-art{left:27%;top:8.7%;width:46%;height:27.3%}
+.planets-ready .planet[data-indice="0"]::before{left:32%;width:36%}
+.planets-ready .planet[data-indice="0"]::after{left:60%;top:12%}
+/* O controle permanece acessível por arraste, toque e teclado. */
+#avatarLeft,#avatarRight{display:none!important}
+#avatarRotation{min-width:0;flex:1;width:100%}
+.world-mist{display:none;pointer-events:none}
+body:not(.planets-ready) .world-mist{display:block;position:absolute;z-index:2;left:4%;top:10%;width:92%;aspect-ratio:1;border-radius:50%;overflow:hidden;background:radial-gradient(ellipse at 25% 45%,#fff7 0,transparent 24%),radial-gradient(ellipse at 75% 62%,#ecf2ff70 0,transparent 28%),radial-gradient(ellipse at 50% 24%,#fff5 0,transparent 30%);background-size:200% 100%;filter:blur(2px);opacity:.55;animation:mist-counterflow 38s linear infinite}
+@keyframes mist-counterflow{from{background-position:200% 0}to{background-position:0 0}}
+@media(prefers-reduced-motion:reduce){.world-mist{animation:none!important}}
+:is(.astro-motion-off,.motion-reduced,.expedicao-hidden) .world-mist{animation-play-state:paused!important}
+
+.avatar-rotation-bar{display:flex!important;grid-template-columns:minmax(0,1fr)!important;justify-content:center;gap:0}
+
+/* Integração do terreno: a borda do pedestal se dissolve sobre o globo. */
+.world-building{top:-5%;mask-image:linear-gradient(to bottom,#000 0 76%,#000f 80%,#0009 85%,transparent 90%);-webkit-mask-image:linear-gradient(to bottom,#000 0 76%,#000f 80%,#0009 85%,transparent 90%);filter:drop-shadow(0 1px 1px #33272320)}
+.planets-ready .planet[data-indice="0"] .planet-art{top:11.1%;mask-image:linear-gradient(to bottom,#000 0 76%,#000f 80%,#0009 85%,transparent 91%);-webkit-mask-image:linear-gradient(to bottom,#000 0 76%,#000f 80%,#0009 85%,transparent 91%);filter:drop-shadow(0 1px 1px #33272320)}
+body:not(.planets-ready) .planet[data-indice="0"]::before{top:11.1%;mask-image:linear-gradient(to bottom,#000 0 76%,#0009 85%,transparent 91%);-webkit-mask-image:linear-gradient(to bottom,#000 0 76%,#0009 85%,transparent 91%)}
+body:not(.planets-ready) .world-mist{opacity:.35}
+body:not(.planets-ready) .step:not(.locked) .planet[data-familia="2"] .planet-art{filter:none;background-image:radial-gradient(ellipse at 24% 30%,#edfbff99,transparent 52%),radial-gradient(ellipse at 72% 65%,#266e8740,transparent 44%),linear-gradient(140deg,#accfdf,#73b0c8 42%,#cee8ef);background-size:200% 100%;animation:ice-longitude var(--tempo) linear infinite}
+@keyframes ice-longitude{from{background-position:0 0}to{background-position:100% 0}}
+@media(prefers-reduced-motion:reduce){body:not(.planets-ready) .step:not(.locked) .planet[data-familia="2"] .planet-art{animation:none}}

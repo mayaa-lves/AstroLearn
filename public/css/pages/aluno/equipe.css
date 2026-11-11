@@ -1172,3 +1172,8 @@ body.team-page {
     scroll-behavior: auto !important;
   }
 }
+
+/* A mesma seleção de avatar usada pelo perfil da pessoa. */
+.portrait.profile-portrait{display:grid;place-items:center;background-image:none;background-color:#eee4f7;color:#63477e;background-repeat:no-repeat;background-size:400% 200%;background-position:var(--profile-avatar-position,0 0);font-weight:700;font-size:20px;overflow:hidden}
+.portrait.profile-portrait[data-avatar-id]{background-image:url('../../../assets/avatares/ets-perfil.png')}
+.idea-note .portrait.profile-portrait{font-size:14px}

@@ -4,13 +4,13 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width,initial-scale=1" name="viewport" />
-    <title>Monte seu explorador · AstroLearn</title>
+    <title>Loja de skins · AstroLearn</title>
     <meta
-      content="Escolha seu mascote, combine roupas e acessórios e veja seu explorador de frente e costas."
+      content="Escolha seu ET, experimente skins completas e confira o visual de frente e costas."
       name="description"
     />
     <link href="../public/css/aluno-pdf.css" rel="stylesheet" />
-    <link href="../public/css/pages/aluno/loja.css" rel="stylesheet" />
+    <link href="../public/css/pages/aluno/loja.css?v=skins-colecao-24" rel="stylesheet" />
     <link href="../public/css/menu-pdf.css" rel="stylesheet" />
     <link rel="stylesheet" href="../public/css/preferencias.css" />
     <link rel="stylesheet" href="../public/css/menu-unificado.css">
@@ -18,7 +18,7 @@
 <link rel="icon" type="image/png" href="../public/assets/imagens/marca/astrolearn-simbolo.png">
 </head>
   <body class="collapsed">
-    <a class="skip" href="#main">Pular para o criador de personagem</a>
+    <a class="skip" href="#main">Pular para a loja de skins</a>
     <aside class="sidebar">
       <a class="brand" href="home.html"
         ><svg aria-hidden="true" viewBox="0 0 40 40">
@@ -103,19 +103,18 @@
     <main id="main" tabindex="-1">
       <header class="shop-header">
         <div>
-          <span class="eyebrow">LOJA · OFICINA DO EXPLORADOR</span>
-          <h1>Seu personagem, do seu jeito.</h1>
-          <p>Escolha um mascote e monte o visual da sua próxima aventura.</p>
+          <span class="eyebrow">LOJA · SKINS DO EXPLORADOR</span>
+          <h1>Escolha sua próxima skin.</h1>
+          <p>Escolha seu ET e experimente o visual completo da sua próxima aventura.</p>
         </div>
         <button aria-pressed="false" class="quiet" id="motion" type="button">
           Pausar animações
         </button>
       </header>
       <div class="editor-top">
-        <ol aria-label="Etapas de criação" class="steps">
+        <ol aria-label="Etapas da escolha da skin" class="steps">
           <li id="stepCharacter">1 <span>Personagem</span></li>
-          <li id="stepClothes">2 <span>Roupas</span></li>
-          <li id="stepAccessories">3 <span>Acessórios</span></li>
+          <li id="stepSkin">2 <span>Skin completa</span></li>
         </ol>
         <div class="wallet">
           <span aria-hidden="true">✦</span>
@@ -124,60 +123,14 @@
         </div>
       </div>
       <div class="editor">
-        <section aria-label="Escolhas do personagem" class="parts">
+        <section aria-label="Personagens e skins" class="parts">
           <h2>Escolha seu personagem</h2>
           <p class="section-hint">Cada ET tem seu próprio formato.</p>
           <div class="characters" id="characters"></div>
           <div class="wardrobe-heading">
-            <h2 id="wardrobeTitle">Agora, vista seu explorador</h2>
-            <button class="text-button" id="clearPart" type="button">
-              Retirar peça
-            </button>
+            <h2 id="wardrobeTitle">Escolha uma skin completa</h2>
           </div>
-          <div
-            aria-label="Partes do visual"
-            class="category-tabs"
-            role="tablist"
-          >
-            <button
-              aria-controls="catalogue"
-              aria-selected="true"
-              data-category="top"
-              id="tab-top"
-              role="tab"
-              type="button"
-            >
-              Tronco
-            </button>
-            <button
-              aria-controls="catalogue"
-              aria-selected="false"
-              data-category="legs"
-              id="tab-legs"
-              role="tab"
-              tabindex="-1"
-              type="button"
-            >
-              Pernas
-            </button>
-            <button
-              aria-controls="catalogue"
-              aria-selected="false"
-              data-category="hat"
-              id="tab-hat"
-              role="tab"
-              tabindex="-1"
-              type="button"
-            >
-              Acessórios
-            </button>
-          </div>
-          <div
-            aria-labelledby="tab-top"
-            class="catalogue"
-            id="catalogue"
-            role="tabpanel"
-          ></div>
+          <div aria-labelledby="wardrobeTitle" class="catalogue skin-catalogue" id="catalogue"></div>
           <p class="part-hint" id="partHint"></p>
         </section>
         <section aria-label="Prévia do personagem" class="preview">
@@ -186,7 +139,7 @@
               <span class="eyebrow">SEU EXPLORADOR</span>
               <h2 id="characterName">Escolha um mascote</h2>
             </div>
-            <span class="completion" id="completion">0 / 2 peças</span>
+            <span class="completion" id="completion">Escolha uma skin</span>
           </div>
           <div class="stage" id="stage">
             <div aria-hidden="true" class="ground"></div>
@@ -196,10 +149,6 @@
               id="avatar"
               role="img"
             >
-              <div class="frame base" id="baseFrame"></div>
-              <div class="frame clothing top-layer" id="topFrame"></div>
-              <div class="frame clothing legs-layer" id="legsFrame"></div>
-              <div class="frame clothing hat-layer" id="hatFrame"></div>
             </div>
             <p class="stage-empty" id="stageEmpty">
               Seu explorador começa aqui.<br />Escolha um dos quatro
@@ -249,7 +198,7 @@
               Cancelar
             </button>
             <button class="primary" disabled="" id="save" type="button">
-              Salvar visual
+              Salvar skin
             </button>
           </div>
         </section>
@@ -264,13 +213,13 @@
       </div>
     </main>
     <button
-      aria-label="Ajuda para montar seu personagem"
+      aria-label="Ajuda para escolher sua skin"
       class="helper"
       id="helper"
       type="button"
     >
       <span aria-hidden="true" class="helper-image"> </span>
-      <span class="helper-tip">Vamos montar seu explorador?</span>
+      <span class="helper-tip">Vamos escolher sua skin?</span>
     </button>
     <dialog aria-labelledby="redeemTitle" id="redeemDialog">
       <button
@@ -281,7 +230,7 @@
       >
         ×
       </button>
-      <h2 id="redeemTitle">Desbloquear peça?</h2>
+      <h2 id="redeemTitle">Desbloquear skin completa?</h2>
       <p id="redeemText"></p>
       <p class="demo-info">
         Astromoedas de exemplo. Nenhuma compra com dinheiro real.
@@ -291,7 +240,7 @@
           Continuar experimentando
         </button>
         <button class="primary" id="confirmRedeem" type="button">
-          Resgatar peça
+          Resgatar skin
         </button>
       </div>
       <p id="redeemError" role="alert"></p>
@@ -307,7 +256,7 @@
       </button>
       <h2 id="cancelTitle">Descartar estas mudanças?</h2>
       <p>
-        Seu último visual salvo será mantido. Peças já resgatadas continuarão no
+        Seu último visual salvo será mantido. Skins já resgatadas continuarão no
         inventário.
       </p>
       <div class="dialog-actions">
@@ -332,10 +281,11 @@
       <p id="infoText"></p>
       <button class="primary" data-close="" type="button">Entendi</button>
     </dialog>
-    <script defer="True" src="../public/js/pages/aluno/loja.js"></script>
+    <script defer src="../public/js/pages/aluno/loja.js?v=skins-colecao-24"></script>
     
     <script src="../public/js/components/preferencias.js"></script>
   <script type="module" src="../public/js/components/sessao.js"></script>
 <script src="../public/js/components/recursos-locais.js"></script>
 </body>
 </html>
+

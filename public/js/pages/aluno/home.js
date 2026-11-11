@@ -166,17 +166,21 @@ function montarTrilha() {
       misterio.append(icone("lock"));
       planeta.append(misterio);
     } else {
-      if (i % 5 === 0) {
-        for (const classe of ["cloud", "cloud second"]) {
-          const nuvem = elemento("span", "", classe);
-          nuvem.setAttribute("aria-hidden", "true");
-          planeta.append(nuvem);
-        }
+      if (i !== 0) {
+        const construcao = elemento("span", "", "world-building");
+        construcao.setAttribute("aria-hidden", "true");
+        construcao.style.setProperty("--building-x", ((i % 6) % 3) * 50 + "%");
+        construcao.style.setProperty("--building-y", i % 6 < 3 ? "0%" : "100%");
+        planeta.append(construcao);
       }
-      if (i % 5 === 1) {
-        const nave = elemento("span", "", "mission-ship");
-        nave.setAttribute("aria-hidden", "true");
-        planeta.append(nave);
+      const nevoa = elemento("span", "", "world-mist");
+      nevoa.setAttribute("aria-hidden", "true");
+      planeta.append(nevoa);
+      for (let j = 0; j < 5; j++) {
+        const fragmento = elemento("span", "", "world-debris");
+        fragmento.setAttribute("aria-hidden", "true");
+        fragmento.style.setProperty("--phase", (-j * 5 - i * 1.7) + "s");
+        planeta.append(fragmento);
       }
       const estado = elemento("span", "", "planet-status");
       estado.setAttribute("aria-hidden", "true");
@@ -355,58 +359,20 @@ notificationPanel.addEventListener('click',event=>{
  if(event.clientX<r.left || event.clientX>r.right || event.clientY<r.top || event.clientY>r.bottom) notificationPanel.close();
 });
 
-// O avatar é um conjunto de oito vistas renderizadas, não um modelo geométrico.
-const vistas = [
-  "De frente",
-  "Em três quartos à esquerda",
-  "De perfil à esquerda",
-  "De costas em três quartos à esquerda",
-  "De costas",
-  "De costas em três quartos à direita",
-  "De perfil à direita",
-  "Em três quartos à direita",
-];
-const ajusteCentroET={"lilas": [[-11.426, 11.23], [-11.426, 11.328], [-11.426, 11.035]], "tres-olhos": [[-8.496, 8.398], [-8.594, 8.594], [-8.398, 8.496]], "turquesa": [[-9.766, 10.156], [-9.766, 10.156], [-10.059, 9.766]]};
-let corpoET=null;
-let anterior = 0,
-  fade = null,
-  reacao = null,
-  reacaoTimer = 0;
-function girar() {
-  if(corpoET){
-    const slider=$("avatarRotation"),back=Number(slider.value)===1;
-    const render=$("avatarRender");render.style.backgroundImage="url("+new URL("../../../assets/imagens/aluno/loja/"+corpoET[0]+".png",import.meta.url).href+")";
-    render.style.backgroundSize="200% 300%";render.style.backgroundPosition=(back?"100%":"0%")+" "+(corpoET[1]*50)+"%";
-    render.style.setProperty("--frame-shift",ajusteCentroET[corpoET[0]][corpoET[1]][Number(back)]+"%");const vista=back?"De costas":"De frente";
-    slider.setAttribute("aria-valuetext",vista);$("avatarAngle").textContent=vista;$("avatarStage").setAttribute("aria-label","Interagir com "+corpoET[2]+", "+vista.toLowerCase());return;
-  }
-  const angulo = Number($("avatarRotation").value),
-    indice = Math.round(angulo / 45) % 8;
-  const posicao = `${((indice % 4) * 100) / 3}% ${indice < 4 ? 0 : 100}%`;
-  // Cada vista é alinhada pelo centro do corpo e pela sola dos pés.
-  // Sem sobrepor duas faces: o crossfade antigo criava olhos duplicados.
-  fade?.cancel();
-  $("avatarGhost").style.opacity = "0";
-  $("avatarRender").style.backgroundPosition = posicao;
-  const centros = [258.5, 238, 192, 193.5, 249.5, 226.5, 187.5, 195];
-  $("avatarRender").style.setProperty("--frame-shift", ((221.75 - centros[indice]) / 443.5 * 100) + "%");
-  anterior = indice;
-  $("avatarRotation").setAttribute("aria-valuetext", vistas[indice]);
-  $("avatarAngle").textContent = vistas[indice];
-  $("avatarStage").setAttribute(
-    "aria-label",
-    "Interagir com seu explorador, " + vistas[indice].toLowerCase(),
-  );
-}
+// O mesmo ET da conta aparece em oito vistas no visualizador lateral.
+import { iniciarVistas } from "../../components/avatar-vistas.js";
+let fade = null, reacao = null, reacaoTimer = 0;
+const visualizador = iniciarVistas({render:$("avatarRender"), slider:$("avatarRotation"), angleLabel:$("avatarAngle"), stage:$("avatarStage"), stopped:semMovimento});
+function girar() { visualizador.rotate(); }
+visualizador.select(0);
 $("avatarRotation").oninput = girar;
-$("avatarLeft").onclick = () => {
-  $("avatarRotation").value = corpoET ? 1-Number($("avatarRotation").value) : (Number($("avatarRotation").value) - 45 + 360) % 360;
-  girar();
-};
-$("avatarRight").onclick = () => {
-  $("avatarRotation").value = corpoET ? 1-Number($("avatarRotation").value) : (Number($("avatarRotation").value) + 45) % 360;
-  girar();
-};
+// A barra ocupa também o espaço que antes era reservado às setas.
+const controlesAvatar = $("avatarLeft")?.parentElement;
+if (controlesAvatar?.contains($("avatarRotation")) && controlesAvatar.contains($("avatarRight"))) controlesAvatar.classList.add("avatar-rotation-bar");
+// Os nós saem também da navegação por teclado.
+$("avatarLeft")?.remove();
+$("avatarRight")?.remove();
+
 girar();
 $("avatarStage").addEventListener("pointermove", (event) => {
   if (semMovimento() || event.pointerType === "touch") return;
@@ -531,7 +497,6 @@ window.addEventListener("pagehide", () => {
 carregar();
 
 const expStyle=document.createElement('link');expStyle.rel='stylesheet';expStyle.href=new URL('../../../css/pages/aluno/expedicao.css',import.meta.url);document.head.append(expStyle);
-const nomesET=['Lilás astronauta','Verde cientista','Azul artista','Turquesa leitor','Lilás engenheiro','Verde astronauta','Azul explorador','Turquesa astronauta'];
 import {lerET} from "../../services/avatar-conta.js";
 let consultaET=0;
 async function mostrarEt(){
@@ -540,10 +505,9 @@ async function mostrarEt(){
  const ok=n>=0;
  const elements=[$("profileInitial"),$("accountInitial")];
  elements.forEach(el=>{el.classList.toggle('et-escolhido',ok);if(ok)el.style.setProperty('--quadro-et', (n%4*100/3)+'% '+(n<4?0:100)+'%')});
- const corpos=[['lilas',1],['tres-olhos',0],['turquesa',2],['turquesa',0],['lilas',2],null,['turquesa',1],['turquesa',1]];
- const next=ok&&corpos[n]?[...corpos[n],nomesET[n]]:null;
- const changed=JSON.stringify(next)!==JSON.stringify(corpoET);corpoET=next;
- if(changed){const slider=$("avatarRotation");slider.max=corpoET?'1':'360';slider.value='0';const render=$("avatarRender");render.style.removeProperty('background-image');render.style.removeProperty('background-size');}
- girar();
+ await visualizador.select(ok ? n : 0);
 }
 mostrarEt();window.addEventListener('pageshow',e=>{if(e.persisted)mostrarEt()});document.addEventListener('visibilitychange',()=>{if(!document.hidden)mostrarEt()});
+
+function pausarDecoracaoOculta(){document.body.classList.toggle('expedicao-hidden',document.hidden)}
+document.addEventListener('visibilitychange',pausarDecoracaoOculta);pausarDecoracaoOculta();

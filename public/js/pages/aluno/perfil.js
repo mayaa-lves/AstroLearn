@@ -51,10 +51,6 @@
     });
   });
 
-  $("openSecurity").addEventListener("click", () => {
-    selectTab($("securityTab"));
-  });
-
   if (!prefs) {
     $("preferencesForm")
       .querySelectorAll("input,button")

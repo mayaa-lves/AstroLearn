@@ -1,0 +1,22 @@
+.et-avatar{display:block;aspect-ratio:1;border-radius:50%;background-size:400% 200%;background-repeat:no-repeat}
+#avatarImage.et-avatar{position:absolute;inset:0;width:100%;height:100%;z-index:1}
+.et-gallery{width:min(680px,calc(100vw - 32px));max-height:90dvh;overflow:auto;padding:26px;border:1px solid #d7c6e9;border-radius:24px;color:#251442;background:#fffafa;box-shadow:0 20px 65px #28143d2b}
+.et-gallery::backdrop{background:#20123588;backdrop-filter:blur(4px)}
+.et-gallery h2{font-size:24px;margin:0 0 8px}
+.et-gallery-intro{font-size:14px;color:#6a5578;margin:0 0 18px}
+.et-gallery-preview{display:flex;align-items:center;justify-content:center;gap:18px;padding:14px;border-radius:18px;background:#f4eef9;min-height:116px}
+.et-gallery-preview .et-preview-image{display:grid;place-items:center;width:96px;height:96px;flex:0 0 96px;border-radius:50%;background-color:#e6d8f2;font-size:36px;color:#704698}
+.et-gallery-preview strong{font-size:17px}
+.et-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:20px 0}
+.et-option{padding:7px;border:2px solid transparent;border-radius:16px;background:#f4edf9;color:#352249;cursor:pointer}
+.et-option[aria-pressed="true"]{border-color:#7940c4;background:#eee0fb;box-shadow:0 0 0 1px #7940c430}
+.et-option:focus-visible{outline:3px solid #6d32ec;outline-offset:3px}
+.et-option .et-avatar{width:100%;border:1px solid #fff}
+.et-option-name{display:block;font-size:12px;line-height:1.4;margin-top:7px}
+.et-gallery-feedback{font-size:13px;line-height:1.5;color:#674d7e;min-height:20px}
+.et-gallery-actions{display:flex;justify-content:flex-end;gap:12px;flex-wrap:wrap}
+.et-gallery-actions button{min-height:44px;padding:10px 18px;border-radius:12px;font:inherit;cursor:pointer}
+.et-gallery .primary{background:#7639d4;color:white;border:1px solid #7639d4}
+.et-gallery .secondary{background:white;color:#6c31bd;border:1px solid #b89bdc}
+.et-gallery button:disabled{opacity:.55;cursor:default}
+@media(max-width:480px){.et-gallery{padding:20px 16px}.et-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.et-gallery-preview .et-preview-image{width:80px;height:80px;flex-basis:80px}.et-gallery-actions button{flex:1}}

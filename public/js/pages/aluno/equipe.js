@@ -1,3 +1,4 @@
+import {normalizarIntegrantes,pintarRetrato} from '../../components/equipe-avatares.js';
 import { api, sessaoObrigatoria } from '../../services/conexao.js';
 import { dashboard } from '../../services/aluno.js';
 
@@ -46,15 +47,8 @@ function element(tag, text = '', className = '') {
   return node;
 }
 
-function portrait(index, className = '') {
-  const node = element(
-    'span',
-    '',
-    `portrait portrait-${index % 4} ${className}`
-  );
-
-  node.setAttribute('aria-hidden', 'true');
-  return node;
+function portrait(member, className = '') {
+  return pintarRetrato(element('span'), member, className);
 }
 
 function iconButton(label, path) {
@@ -147,8 +141,7 @@ function ownerName(owner) {
 
 /* Integrantes reais da equipe. */
 function showMember(member, index, trigger) {
-  $('memberPortrait').className =
-    'portrait portrait-' + index % 4;
+  pintarRetrato($('memberPortrait'),member);
 
   $('memberTitle').textContent =
     member.nome +
@@ -215,7 +208,7 @@ function renderMembers() {
       )
     );
 
-    button.append(portrait(index), copy);
+    button.append(portrait(member), copy);
 
     button.addEventListener('click', () => {
       showMember(member, index, button);
@@ -381,7 +374,7 @@ function renderNotes() {
     const time = element('time',new Date(note.createdAt).toLocaleString('pt-BR'));
     time.dateTime = note.createdAt;
     copy.append(element('strong',note.author === session.usuario.id ? 'Você' : note.authorName),time,element('p',note.text));
-    row.append(portrait(0),copy);
+    row.append(portrait(members.find(member=>member.id===note.author)||{nome:note.authorName}),copy);
     if (note.author === session.usuario.id) {
       const edit = iconButton('Editar aviso','m15 4 5 5M4 20l4-1L20 7a2 2 0 0 0-4-4L4 15Z');
       edit.onclick = () => {
@@ -473,7 +466,7 @@ async function load() {
   });
 
   try {
-    const [data, teamData] = await Promise.all([dashboard(),api('/api/aluno/equipe')]);
+    const [data, teamData, ownProfile] = await Promise.all([dashboard(),api('/api/aluno/equipe'),api('/api/perfil').catch(()=>null)]);
 
     if (!teamData?.equipe) {
       $('teamLabel').textContent = 'Sem equipe';
@@ -483,29 +476,7 @@ async function load() {
 
     team = teamData.equipe;
 
-    const roster = team.membros || [];
-
-    const unique = new Map();
-
-    roster.forEach(member => {
-      if (
-        member &&
-        typeof member.id === 'string' &&
-        member.id &&
-        !unique.has(member.id)
-      ) {
-        unique.set(member.id, {
-          id: member.id,
-          nome:
-            typeof member.nome === 'string' &&
-              member.nome.trim()
-              ? member.nome
-              : 'Integrante'
-        });
-      }
-    });
-
-    members = [...unique.values()];
+    members = normalizarIntegrantes(team.membros, session.usuario.id, ownProfile);
 
     $('teamLabel').textContent =
       `${team.nome || 'Minha equipe'} · ${members.length
@@ -614,10 +585,27 @@ $('confirmRemove').addEventListener('click', async () => {
   button.disabled=false;
   if(saved) {tell('Item removido da equipe.'); $('removeDialog').close();}
 });
+async function refreshMemberProfiles() {
+  const [teamData,ownProfile] = await Promise.all([api('/api/aluno/equipe'),api('/api/perfil').catch(()=>null)]);
+  if (!team || teamData?.equipe?.id !== team.id) return;
+  const updated = normalizarIntegrantes(teamData.equipe.membros,session.usuario.id,ownProfile);
+  members = updated;
+  $('teamLabel').textContent = `${team.nome || 'Minha equipe'} · ${members.length} ${members.length === 1 ? 'integrante' : 'integrantes'}`;
+}
+async function refreshProfilePictures() {
+  if(document.hidden || !ready || busy || mutating || document.querySelector('dialog[open]') || editingNote) return;
+  busy=true;
+  try {await refreshMemberProfiles();renderMembers();renderNotes();}
+  catch { /* Mantém os últimos retratos confirmados se a conexão cair. */ }
+  finally {busy=false;}
+}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshProfilePictures();});
+addEventListener('pageshow',event=>{if(event.persisted)refreshProfilePictures();});
+
 setInterval(async () => {
   if(document.hidden || !ready || busy || mutating || document.querySelector('dialog[open]') || editingNote) return;
   busy=true; controls(false);
-  try {await refreshShared(); renderWorkspace(); $('storageNotice').textContent='';}
+  try {await Promise.all([refreshShared(),refreshMemberProfiles()]); renderWorkspace(); $('storageNotice').textContent='';}
   catch(error) {$('storageNotice').textContent='Atualização automática: '+error.message;}
   finally {busy=false; controls(ready);}
 },30000);

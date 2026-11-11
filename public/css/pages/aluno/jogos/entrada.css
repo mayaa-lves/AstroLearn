@@ -1,0 +1,48 @@
+/* Entrada aprovada: nave e portal, com navegação compartilhada preservada. */
+body.games-portal.entrada { background: #fcfaf7; }
+.entrada .portal-header h1 { font-size: clamp(28px, 2.5vw, 36px); margin-bottom: 0; }
+.entrada .launch-entry {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  align-items: center;
+  min-height: calc(100svh - 158px);
+  gap: 0;
+  padding: 30px 0 50px 24px;
+}
+.launch-copy { position: relative; z-index: 1; max-width: 520px; }
+.launch-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .24em; margin: 0 0 24px; color: #60316e; }
+.launch-copy h2 { font-size: clamp(32px, 3.5vw, 54px); line-height: 1.12; letter-spacing: -.035em; font-weight: 700; margin: 0 0 26px; color: #391441; }
+.launch-description { max-width: 440px; margin: 0 0 34px; font-size: clamp(16px, 1.35vw, 19px); line-height: 1.5; color: #795985; }
+.launch-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 18px; }
+.launch-actions .primary { min-height: 54px; padding: 13px 28px; border-radius: 13px; font-size: 16px; gap: 22px; background: #8036a5; border-color: #8036a5; box-shadow: none; transition: background .2s; }
+.launch-actions .primary:hover { background: #6d288e; }
+.launch-actions .primary[aria-disabled="true"] { cursor: default; background: #e8e1ec; border-color: #e8e1ec; color: #73617f; }
+.launch-actions .primary svg { width: 19px; height: 19px; flex: 0 0 19px; }
+.launch-retry { border: 0; background: transparent; color: #71428c; padding: 10px 0; text-decoration: underline; text-underline-offset: 4px; font-size: 13px !important; }
+.launch-status { min-height: 22px; max-width: 430px; margin: 16px 0 0; color: #796780; font-size: 13px; line-height: 1.6; }
+.launch-art { position: relative; width: 110%; margin-left: -10%; pointer-events: none; }
+.launch-art img { display: block; width: 100%; height: auto; object-fit: contain; transition: filter .4s, opacity .4s, transform .4s; }
+.launch-entry[data-state="blocked"] .launch-art img,
+.launch-entry[data-state="error"] .launch-art img,
+.launch-entry[data-state="loading"] .launch-art img { filter: grayscale(.72) saturate(.4); opacity: .4; }
+.launch-entry[data-state="blocked"] .launch-copy h2,
+.launch-entry[data-state="error"] .launch-copy h2 { font-size: clamp(28px, 3.1vw, 46px); }
+.launch-entry.is-launching .launch-art img { transform: translateX(22px) scale(.95); opacity: 0; }
+.launch-entry.is-launching .launch-copy { opacity: .35; transition: opacity .35s; }
+.astro-high-contrast .launch-copy h2 { color: #170f23; }
+.astro-high-contrast :is(.launch-description,.launch-status,.launch-eyebrow) { color: #3b244b; }
+.astro-high-contrast .launch-actions .primary[aria-disabled="true"] { border: 1px solid #4c365a; color: #3b244b; }
+@media(min-width: 1600px) { .entrada .launch-entry { padding-inline: 5%; } }
+@media(max-width: 1100px) { .entrada .launch-entry { padding-left: 0; } .launch-eyebrow { letter-spacing: .16em; } }
+@media(max-width: 800px) {
+  .entrada .launch-entry { min-height: auto; grid-template-columns: 1fr; gap: 10px; padding: 28px 0 0; }
+  .launch-art { grid-row: 1; width: min(100%, 460px); margin: -16px auto -18px; }
+  .launch-copy { max-width: 540px; margin-inline: auto; width: 100%; text-align: center; }
+  .launch-eyebrow { font-size: 10px; margin-bottom: 16px; }
+  .launch-copy h2 { font-size: clamp(30px, 7vw, 40px); margin-bottom: 18px; }
+  .launch-description { font-size: 16px; max-width: 380px; margin: 0 auto 24px; }
+  .launch-actions { justify-content: center; }
+  .launch-status { margin: 14px auto 0; }
+}
+@media(prefers-reduced-motion: reduce) { .launch-entry *, .launch-entry.is-launching .launch-copy { transition: none !important; } }
+.astro-motion-off .launch-entry * { transition: none !important; }
