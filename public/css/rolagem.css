@@ -1,0 +1,32 @@
+/* Rolagem compartilhada, inclusive nos painéis internos do AstroLearn. */
+@media (forced-colors: none) {
+  :root,
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #9073ad #f2edf7;
+  }
+
+  /* Compatibilidade com navegadores que usam os seletores WebKit. */
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #f2edf7;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: #9073ad;
+    border: 1px solid #f2edf7;
+    border-radius: 8px;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: #735591;
+  }
+
+  *::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
