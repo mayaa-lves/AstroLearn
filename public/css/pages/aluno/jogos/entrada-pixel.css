@@ -1,0 +1,38 @@
+/* A arte muda com o tema, e o portal mantém o tamanho e a posição originais. */
+html[data-astro-tema="pixel"] body.games-portal.entrada:not(.astro-high-contrast) {
+  background-color: #faf7ff;
+}
+
+html[data-astro-tema="pixel"] .entrada .launch-art img {
+  content: url("../../../../assets/imagens/aluno/jogos/pixel/nave-portal.png");
+  image-rendering: pixelated;
+}
+
+html[data-astro-tema="pixel"] .entrada .launch-entry[data-state="ready"] .launch-actions .primary {
+  box-shadow: 3px 3px 0 #5d267c;
+}
+
+html[data-astro-tema="pixel"] .entrada .launch-entry[data-state="blocked"] .launch-art img {
+  filter: grayscale(.88) saturate(.35);
+  opacity: .45;
+}
+
+html[data-astro-tema="pixel"] .entrada .launch-actions #launchLock {
+  shape-rendering: crispEdges;
+}
+
+html[data-astro-tema="pixel"] .entrada .launch-actions #launchArrow:not([hidden]) {
+  display: inline-block;
+  position: relative;
+  width: 18px;
+  height: 18px;
+  font-size: 0;
+}
+
+html[data-astro-tema="pixel"] .entrada .launch-actions #launchArrow:not([hidden])::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  clip-path: polygon(0 42%, 52% 42%, 52% 19%, 69% 19%, 69% 30%, 84% 30%, 84% 42%, 100% 42%, 100% 58%, 84% 58%, 84% 70%, 69% 70%, 69% 81%, 52% 81%, 52% 58%, 0 58%);
+}

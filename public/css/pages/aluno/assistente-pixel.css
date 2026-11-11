@@ -1,0 +1,35 @@
+/* A página mantém o grid original do chat e as dimensões do Sparky. */
+html[data-astro-tema="pixel"] body:not(.astro-high-contrast):has([data-sparky-page])::before {
+  background:
+    linear-gradient(#d8c9ef, #d8c9ef) 75% 18% / 4px 4px no-repeat,
+    linear-gradient(#ded0f4, #ded0f4) 83% 32% / 8px 4px no-repeat,
+    linear-gradient(#ded0f4, #ded0f4) calc(83% - 2px) calc(32% - 2px) / 4px 8px no-repeat,
+    linear-gradient(#e3d6f4, #e3d6f4) 93% 50% / 4px 4px no-repeat,
+    linear-gradient(#e3d6f4, #e3d6f4) 64% 9% / 4px 4px no-repeat,
+    linear-gradient(180deg, #eee8fb 0 23%, #f2edfa 23% 55%, #f6f2fc 55% 79%, #f9f6fd 79%);
+}
+
+html[data-astro-tema="pixel"] body:not(.astro-high-contrast):has([data-sparky-page])::after {
+  right: 0;
+  bottom: 0;
+  width: min(48vw, 670px);
+  height: min(60vh, 550px);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: #ddd0f2;
+  opacity: .65;
+  clip-path: polygon(
+    0 100%, 0 84%, 7% 84%, 7% 67%, 14% 67%, 14% 52%, 22% 52%,
+    22% 40%, 31% 40%, 31% 30%, 42% 30%, 42% 23%, 54% 23%,
+    54% 18%, 69% 18%, 69% 15%, 85% 15%, 85% 17%, 100% 17%,
+    100% 18%, 85% 18%, 85% 16%, 69.6% 16%, 69.6% 19%,
+    54.6% 19%, 54.6% 24%, 42.6% 24%, 42.6% 31%, 31.6% 31%,
+    31.6% 41%, 22.6% 41%, 22.6% 53%, 14.6% 53%, 14.6% 68%,
+    7.6% 68%, 7.6% 85%, .6% 85%, .6% 100%
+  );
+}
+
+html[data-astro-tema="pixel"] body:has([data-sparky-page]) .astro-nav-link.active svg {
+  shape-rendering: crispEdges;
+}
