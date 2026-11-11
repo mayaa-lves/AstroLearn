@@ -1,0 +1,64 @@
+@import url("./mundos-realistas.css");
+
+/* Três camadas de cena. Os elementos da trilha continuam acima delas. */
+body > .space-background {
+  z-index: -3;
+  background-image: url('../../../assets/imagens/aluno/inicial/trilha-revisada/horizonte-aprovado.png') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+html[data-astro-tema="pixel"] body > .space-background {
+  background-image: url('../../../assets/imagens/aluno/inicial/trilha-revisada/horizonte-pixel.png') !important;
+  image-rendering: pixelated;
+}
+@media (max-width: 800px) {
+  body > .space-background { background-position: 58% center !important; }
+}
+#spaceCanvas { z-index: -2; }
+.planet-system { z-index: -1; }
+body:not(.planets-ready) .space-background::after { display: block !important; }
+
+/* Gelo visível também no recorte alternativo, quando WebGL estiver indisponível. */
+body:not(.planets-ready) .step:not(.locked) .planet[data-familia="2"] .planet-art {
+  background: radial-gradient(ellipse at 33% 25%, #eeffff 4%, transparent 58%),
+    repeating-linear-gradient(145deg, transparent 0 24px, #4d96b5 25px 27px, transparent 29px 46px),
+    radial-gradient(circle at 35% 30%, #acd8e7, #578cab 63%, #294b72 96%);
+  filter: none;
+  animation: none;
+}
+
+/* Acabamento da expedição no tema realista. */
+html:not([data-astro-tema="pixel"]) body:has(#avatarViewer) .welcome {
+  margin-bottom: 24px;
+}
+
+html:not([data-astro-tema="pixel"]) #avatarViewer {
+  background:
+    radial-gradient(ellipse at 50% 34%, #fff8ee 0%, transparent 70%),
+    linear-gradient(155deg, #f6e6ed, #ede4f5 56%, #e4d9ef);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border-color: #fffbf8;
+  box-shadow: 0 12px 32px #34264e24;
+}
+
+html:not([data-astro-tema="pixel"]) #avatarViewer .rotation-control {
+  border-top: 1px solid #8e6aa32b;
+  background: transparent;
+  padding: 12px 20px 4px;
+}
+
+html:not([data-astro-tema="pixel"]) #avatarViewer .rotation-control label {
+  color: #4a2c5b;
+  margin-bottom: 11px;
+}
+
+html:not([data-astro-tema="pixel"]) #avatarViewer #avatarRotation {
+  margin: 0;
+}
+
+html:not([data-astro-tema="pixel"]) body.astro-high-contrast #avatarViewer {
+  background: #fff;
+  border-color: #301b43;
+}

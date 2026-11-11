@@ -2,7 +2,7 @@
 body:before {
   background:
     linear-gradient(130deg, #faf4ecc9, #f7f2ed8f),
-    url("../../../assets/imagens/aluno/perfil/cabine.png") center/cover
+    var(--astro-px-12, url("../../../assets/imagens/aluno/perfil/cabine.png")) center/cover
       no-repeat;
 }
 main {
@@ -228,3 +228,5 @@ dialog {
   color: #644182;
   min-height: 44px;
 }
+
+/* astro-tema-v2 */

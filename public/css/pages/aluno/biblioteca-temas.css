@@ -1,0 +1,37 @@
+.library-page {
+    --library-scene-art: url('../../../assets/imagens/aluno/biblioteca/biblioteca-topo-realista.png');
+    --library-covers: url('../../../assets/imagens/aluno/biblioteca/miniaturas-materiais-realista.png');
+}
+
+html[data-astro-tema="pixel"] .library-page {
+    --library-scene-art: url('../../../assets/imagens/aluno/biblioteca/biblioteca-topo-pixel.png');
+    --library-covers: url('../../../assets/imagens/aluno/biblioteca/miniaturas-materiais-pixel.png');
+}
+
+.library-page .library-scene {
+    background-image: var(--library-scene-art);
+}
+
+.library-page :is(.material-visual, .saved-thumb) {
+    background-image: var(--library-covers);
+}
+
+html[data-astro-tema="pixel"] .library-page :is(
+    .library-scene, .material-visual, .saved-thumb,
+    .library-moon, .library-moon-canvas, .armillary-static,
+    .armillary-base, #armillaryCanvas
+) {
+    image-rendering: pixelated;
+}
+
+html[data-astro-tema="pixel"] .library-page .library-moon {
+    content: url('../../../assets/imagens/aluno/biblioteca/lua-biblioteca-pixel.png');
+}
+
+html[data-astro-tema="pixel"] .library-page .armillary-static {
+    content: url('../../../assets/imagens/aluno/biblioteca/esfera-e-caderno-pixel.png');
+}
+
+html[data-astro-tema="pixel"] .library-page .armillary-base {
+    content: url('../../../assets/imagens/aluno/biblioteca/pedestal-e-caderno-pixel.png');
+}

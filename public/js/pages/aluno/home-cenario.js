@@ -1,3 +1,4 @@
+import { recortarObjetosDoCeu } from '../../components/trilha-cena.js?v=1';
 /* Céu vivo: um canvas atrás de toda a interface. Não altera dados escolares. */
 const canvas = document.getElementById("spaceCanvas");
 const ctx = canvas.getContext("2d");
@@ -111,7 +112,7 @@ function star(p, dt) {
 }
 // Imagens de produção com transparência, sem emojis ou desenhos de ícones.
 const objects = new Image();
-objects.src = new URL("../../../assets/imagens/aluno/inicial/objetos-realistas.png", import.meta.url).href;
+objects.src = new URL((globalThis.astroArte || (url => url))("../../../assets/imagens/aluno/inicial/objetos-realistas.png"), import.meta.url).href;
 objects.onload = () => draw(0);
 function objectSprite(index, x, y, size, angle = 0) {
   if (!objects.complete || !objects.naturalWidth) return;
@@ -120,6 +121,7 @@ function objectSprite(index, x, y, size, angle = 0) {
   const sourceWidth = (right-left)*objects.naturalWidth;
   const drawWidth = size*sourceWidth/objects.naturalHeight;
   ctx.save();
+  ctx.imageSmoothingEnabled = document.documentElement.dataset.astroTema !== 'pixel';
   ctx.translate(x, y);
   ctx.rotate(angle);
   if (index === 2) ctx.scale(-1,1);
@@ -133,6 +135,7 @@ function draw(dt) {
   // Só um tipo de objeto cruza o céu por vez: a composição continua calma.
   const cycle = time % 120;
   ctx.save();
+  recortarObjetosDoCeu(ctx, width, height, document.body.classList.contains('planets-ready'));
   ctx.globalAlpha = 0.62;
   if (cycle < 40) {
     const p = cycle / 40;
@@ -211,3 +214,5 @@ window.addEventListener("pagehide", () => {
 window.addEventListener("pageshow", sync);
 resize();
 sync();
+
+/* astro-tema-v2 */

@@ -1,0 +1,387 @@
+[
+  {
+    "original": "public/assets/imagens/aluno/inicial/horizonte-sem-planeta.png",
+    "asset": "public/assets/imagens/aluno/inicial/horizonte-sem-planeta.png",
+    "pixel": "public/assets/imagens/aluno/inicial/horizonte-sem-planeta.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/inicial/horizonte-suave-aprovado.png",
+    "asset": "public/assets/imagens/aluno/inicial/horizonte-suave-aprovado.png",
+    "pixel": "public/assets/imagens/aluno/inicial/horizonte-suave-aprovado.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/inicial/horizonte-v7.png",
+    "asset": "public/assets/imagens/aluno/inicial/horizonte-v7.png",
+    "pixel": "public/assets/imagens/aluno/inicial/horizonte-v7.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/perfil/horizonte-perfil.png",
+    "asset": "public/assets/imagens/aluno/perfil/horizonte-perfil.png",
+    "pixel": "public/assets/imagens/aluno/perfil/horizonte-perfil.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/atividades/terra-amazonia.png",
+    "asset": "public/assets/imagens/aluno/atividades/terra-amazonia.png",
+    "pixel": "public/assets/imagens/aluno/atividades/terra-amazonia.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/atividades/marte-suave.png",
+    "asset": "public/assets/imagens/aluno/atividades/marte-suave.png",
+    "pixel": "public/assets/imagens/aluno/atividades/marte-suave.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/atividades/lua-suave.png",
+    "asset": "public/assets/imagens/aluno/atividades/lua-suave.png",
+    "pixel": "public/assets/imagens/aluno/atividades/lua-suave.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/atividade/ceu-constelacoes-v4.png",
+    "asset": "public/assets/imagens/aluno/atividade/ceu-constelacoes-v4.png",
+    "pixel": "public/assets/imagens/aluno/atividade/ceu-constelacoes-v4.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/biblioteca/biblioteca-topo.png",
+    "asset": "public/assets/imagens/aluno/biblioteca/biblioteca-topo.png",
+    "pixel": "public/assets/imagens/aluno/biblioteca/biblioteca-topo.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/conquistas/observatorio-topo.png",
+    "asset": "public/assets/imagens/aluno/conquistas/observatorio-topo.png",
+    "pixel": "public/assets/imagens/aluno/conquistas/observatorio-topo.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/equipe/base-orbital.png",
+    "asset": "public/assets/imagens/aluno/equipe/base-orbital.png",
+    "pixel": "public/assets/imagens/aluno/equipe/base-orbital.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/perfil/cabine.png",
+    "asset": "public/assets/imagens/aluno/perfil/cabine.png",
+    "pixel": "public/assets/imagens/aluno/perfil/cabine.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/jogos/galaxia-fundo.png",
+    "asset": "public/assets/imagens/aluno/jogos/galaxia-fundo.png",
+    "pixel": "public/assets/imagens/aluno/jogos/galaxia-fundo.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/jogos/horizonte-hangar.png",
+    "asset": "public/assets/imagens/aluno/jogos/horizonte-hangar.png",
+    "pixel": "public/assets/imagens/aluno/jogos/horizonte-hangar.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/jogos/destinos-atlas.png",
+    "asset": "public/assets/imagens/aluno/jogos/destinos-atlas.png",
+    "pixel": "public/assets/imagens/aluno/jogos/destinos-atlas.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/equipe/rover-equipe.png",
+    "asset": "public/assets/imagens/aluno/equipe/rover-equipe.png",
+    "pixel": "public/assets/imagens/aluno/equipe/rover-equipe.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/biblioteca/esfera-e-caderno.png",
+    "asset": "public/assets/imagens/aluno/biblioteca/esfera-e-caderno.png",
+    "pixel": "public/assets/imagens/aluno/biblioteca/esfera-e-caderno.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/biblioteca/pedestal-e-caderno.png",
+    "asset": "public/assets/imagens/aluno/biblioteca/pedestal-e-caderno.png",
+    "pixel": "public/assets/imagens/aluno/biblioteca/pedestal-e-caderno.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/biblioteca/lua-biblioteca.png",
+    "asset": "public/assets/imagens/aluno/biblioteca/lua-biblioteca.png",
+    "pixel": "public/assets/imagens/aluno/biblioteca/lua-biblioteca.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/conquistas/saturno-observacao.png",
+    "asset": "public/assets/imagens/aluno/conquistas/saturno-observacao.png",
+    "pixel": "public/assets/imagens/aluno/conquistas/saturno-observacao.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/inicial/observatorio-base-fixa.png",
+    "asset": "public/assets/imagens/aluno/inicial/observatorio-base-fixa.png",
+    "pixel": "public/assets/imagens/aluno/inicial/observatorio-base-fixa.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/login/cenarios-e-personagens/rocket.png",
+    "asset": "public/assets/imagens/aluno/inicial/foguete-pixel.png",
+    "pixel": "public/assets/imagens/login/cenarios-e-personagens/rocket.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/biblioteca/miniaturas-materiais.png",
+    "asset": "public/assets/imagens/aluno/biblioteca/miniaturas-materiais.png",
+    "pixel": "public/assets/imagens/aluno/biblioteca/miniaturas-materiais.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/conquistas/medalhas-colecao.png",
+    "asset": "public/assets/imagens/aluno/conquistas/medalhas-colecao.png",
+    "pixel": "public/assets/imagens/aluno/conquistas/medalhas-colecao.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/equipe/avatares-equipe.png",
+    "asset": "public/assets/imagens/aluno/equipe/avatares-equipe.png",
+    "pixel": "public/assets/imagens/aluno/equipe/avatares-equipe.pixel.png"
+  },
+  {
+    "original": "public/assets/avatares/ets-perfil.png",
+    "asset": "public/assets/avatares/ets-perfil.png",
+    "pixel": "public/assets/avatares/ets-perfil.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/inicial/texturas-planetas.png",
+    "asset": "public/assets/imagens/aluno/inicial/texturas-planetas.png",
+    "pixel": "public/assets/imagens/aluno/inicial/texturas-planetas.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/jogos/texturas-planetas.png",
+    "asset": "public/assets/imagens/aluno/jogos/texturas-planetas.png",
+    "pixel": "public/assets/imagens/aluno/jogos/texturas-planetas.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/biblioteca/textura-lunar.png",
+    "asset": "public/assets/imagens/aluno/biblioteca/textura-lunar.png",
+    "pixel": "public/assets/imagens/aluno/biblioteca/textura-lunar.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/inicial/mondes-v7.png",
+    "asset": "public/assets/imagens/aluno/inicial/mondes-v7.png",
+    "pixel": "public/assets/imagens/aluno/inicial/mondes-v7.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/inicial/objetos-realistas.png",
+    "asset": "public/assets/imagens/aluno/inicial/objetos-realistas.png",
+    "pixel": "public/assets/imagens/aluno/inicial/objetos-realistas.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/inicial/expedicao/construcoes.png",
+    "asset": "public/assets/imagens/aluno/inicial/expedicao/construcoes.png",
+    "pixel": "public/assets/imagens/aluno/inicial/expedicao/construcoes.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/inicial/avatar-realista-vistas.png",
+    "asset": "public/assets/imagens/aluno/inicial/avatar-realista-vistas.png",
+    "pixel": "public/assets/imagens/aluno/inicial/avatar-realista-vistas.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/inicial/avatar-vistas-v4.png",
+    "asset": "public/assets/imagens/aluno/inicial/avatar-vistas-v4.png",
+    "pixel": "public/assets/imagens/aluno/inicial/avatar-vistas-v4.pixel.png"
+  },
+  {
+    "original": "public/jogos/jogo9/assets/scene_welcome.jpg",
+    "asset": "public/jogos/jogo9/assets/scene_welcome.jpg",
+    "pixel": "public/jogos/jogo9/assets/scene_welcome.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo9/assets/scene_question.jpg",
+    "asset": "public/jogos/jogo9/assets/scene_question.jpg",
+    "pixel": "public/jogos/jogo9/assets/scene_question.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo9/assets/scene_correct.jpg",
+    "asset": "public/jogos/jogo9/assets/scene_correct.jpg",
+    "pixel": "public/jogos/jogo9/assets/scene_correct.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo9/assets/scene_wrong.jpg",
+    "asset": "public/jogos/jogo9/assets/scene_wrong.jpg",
+    "pixel": "public/jogos/jogo9/assets/scene_wrong.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/tile_A1.jpg",
+    "asset": "public/jogos/jogo6/assets/tile_A1.jpg",
+    "pixel": "public/jogos/jogo6/assets/tile_A1.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/tile_A2.jpg",
+    "asset": "public/jogos/jogo6/assets/tile_A2.jpg",
+    "pixel": "public/jogos/jogo6/assets/tile_A2.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/tile_A3.jpg",
+    "asset": "public/jogos/jogo6/assets/tile_A3.jpg",
+    "pixel": "public/jogos/jogo6/assets/tile_A3.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/tile_A4.jpg",
+    "asset": "public/jogos/jogo6/assets/tile_A4.jpg",
+    "pixel": "public/jogos/jogo6/assets/tile_A4.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/tile_A5.jpg",
+    "asset": "public/jogos/jogo6/assets/tile_A5.jpg",
+    "pixel": "public/jogos/jogo6/assets/tile_A5.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/tile_B1.jpg",
+    "asset": "public/jogos/jogo6/assets/tile_B1.jpg",
+    "pixel": "public/jogos/jogo6/assets/tile_B1.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/tile_B2.jpg",
+    "asset": "public/jogos/jogo6/assets/tile_B2.jpg",
+    "pixel": "public/jogos/jogo6/assets/tile_B2.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/tile_B3.jpg",
+    "asset": "public/jogos/jogo6/assets/tile_B3.jpg",
+    "pixel": "public/jogos/jogo6/assets/tile_B3.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/tile_B4.jpg",
+    "asset": "public/jogos/jogo6/assets/tile_B4.jpg",
+    "pixel": "public/jogos/jogo6/assets/tile_B4.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/tile_B5.jpg",
+    "asset": "public/jogos/jogo6/assets/tile_B5.jpg",
+    "pixel": "public/jogos/jogo6/assets/tile_B5.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/tile_C1.jpg",
+    "asset": "public/jogos/jogo6/assets/tile_C1.jpg",
+    "pixel": "public/jogos/jogo6/assets/tile_C1.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/tile_C2.jpg",
+    "asset": "public/jogos/jogo6/assets/tile_C2.jpg",
+    "pixel": "public/jogos/jogo6/assets/tile_C2.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/tile_C3.jpg",
+    "asset": "public/jogos/jogo6/assets/tile_C3.jpg",
+    "pixel": "public/jogos/jogo6/assets/tile_C3.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/tile_C4.jpg",
+    "asset": "public/jogos/jogo6/assets/tile_C4.jpg",
+    "pixel": "public/jogos/jogo6/assets/tile_C4.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/tile_C5.jpg",
+    "asset": "public/jogos/jogo6/assets/tile_C5.jpg",
+    "pixel": "public/jogos/jogo6/assets/tile_C5.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/balcony_side-BkB5Drzm.jpg",
+    "asset": "public/jogos/jogo6/assets/balcony_side-BkB5Drzm.jpg",
+    "pixel": "public/jogos/jogo6/assets/balcony_side-BkB5Drzm.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/pegada_ar.jpg",
+    "asset": "public/jogos/jogo6/assets/pegada_ar.jpg",
+    "pixel": "public/jogos/jogo6/assets/pegada_ar.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/pegada_desmatamento.jpg",
+    "asset": "public/jogos/jogo6/assets/pegada_desmatamento.jpg",
+    "pixel": "public/jogos/jogo6/assets/pegada_desmatamento.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/pegada_neon.jpg",
+    "asset": "public/jogos/jogo6/assets/pegada_neon.jpg",
+    "pixel": "public/jogos/jogo6/assets/pegada_neon.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/pegada_plastico.jpg",
+    "asset": "public/jogos/jogo6/assets/pegada_plastico.jpg",
+    "pixel": "public/jogos/jogo6/assets/pegada_plastico.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/pegada_queimada.jpg",
+    "asset": "public/jogos/jogo6/assets/pegada_queimada.jpg",
+    "pixel": "public/jogos/jogo6/assets/pegada_queimada.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/pegada_rio.jpg",
+    "asset": "public/jogos/jogo6/assets/pegada_rio.jpg",
+    "pixel": "public/jogos/jogo6/assets/pegada_rio.pixel.jpg"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/tenis_pegada.png",
+    "asset": "public/jogos/jogo6/assets/tenis_pegada.png",
+    "pixel": "public/jogos/jogo6/assets/tenis_pegada.pixel.png"
+  },
+  {
+    "original": "public/jogos/jogo6/assets/bg_frame_blue.jpg",
+    "asset": "public/jogos/jogo6/assets/bg_frame_blue.jpg",
+    "pixel": "public/jogos/jogo6/assets/bg_frame_blue.pixel.jpg"
+  },
+  {
+    "original": "public/assets/imagens/aluno/inicial/planetas-naturais-v6.png",
+    "asset": "public/assets/imagens/aluno/inicial/planetas-naturais-pixel.png",
+    "pixel": "public/assets/imagens/aluno/inicial/planetas-naturais-v6.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/conquistas/observatorio.png",
+    "asset": "public/assets/imagens/aluno/conquistas/observatorio-pixel.png",
+    "pixel": "public/assets/imagens/aluno/conquistas/observatorio.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/conquistas/medalhas.png",
+    "asset": "public/assets/imagens/aluno/conquistas/medalhas-pixel.png",
+    "pixel": "public/assets/imagens/aluno/conquistas/medalhas.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/inicial/assistente-poses-v4.png",
+    "asset": "public/assets/imagens/aluno/inicial/assistente-poses-pixel.png",
+    "pixel": "public/assets/imagens/aluno/inicial/assistente-poses-v4.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/assistente/sparky-lilas.png",
+    "asset": "public/assets/imagens/aluno/assistente/pixel/sparky-lilas.png",
+    "pixel": "public/assets/imagens/aluno/assistente/sparky-lilas.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/assistente/sparky-poses.png",
+    "asset": "public/assets/imagens/aluno/assistente/pixel/sparky-poses.png",
+    "pixel": "public/assets/imagens/aluno/assistente/sparky-poses.pixel.png"
+  },
+  {
+    "original": "public/assets/imagens/aluno/jogos/nave-portal.png",
+    "asset": "public/assets/imagens/aluno/jogos/nave-portal.png",
+    "pixel": "public/assets/imagens/aluno/jogos/nave-portal.pixel.png"
+  },
+  {
+    "original": "public/assets/avatares/vistas/et-0.png",
+    "asset": "public/assets/avatares/vistas/et-0.png",
+    "pixel": "public/assets/avatares/vistas/et-0.pixel.png"
+  },
+  {
+    "original": "public/assets/avatares/vistas/et-1.png",
+    "asset": "public/assets/avatares/vistas/et-1.png",
+    "pixel": "public/assets/avatares/vistas/et-1.pixel.png"
+  },
+  {
+    "original": "public/assets/avatares/vistas/et-2.png",
+    "asset": "public/assets/avatares/vistas/et-2.png",
+    "pixel": "public/assets/avatares/vistas/et-2.pixel.png"
+  },
+  {
+    "original": "public/assets/avatares/vistas/et-3.png",
+    "asset": "public/assets/avatares/vistas/et-3.png",
+    "pixel": "public/assets/avatares/vistas/et-3.pixel.png"
+  },
+  {
+    "original": "public/assets/avatares/vistas/et-4.png",
+    "asset": "public/assets/avatares/vistas/et-4.png",
+    "pixel": "public/assets/avatares/vistas/et-4.pixel.png"
+  },
+  {
+    "original": "public/assets/avatares/vistas/et-5.png",
+    "asset": "public/assets/avatares/vistas/et-5.png",
+    "pixel": "public/assets/avatares/vistas/et-5.pixel.png"
+  },
+  {
+    "original": "public/assets/avatares/vistas/et-6.png",
+    "asset": "public/assets/avatares/vistas/et-6.png",
+    "pixel": "public/assets/avatares/vistas/et-6.pixel.png"
+  },
+  {
+    "original": "public/assets/avatares/vistas/et-7.png",
+    "asset": "public/assets/avatares/vistas/et-7.png",
+    "pixel": "public/assets/avatares/vistas/et-7.pixel.png"
+  }
+]

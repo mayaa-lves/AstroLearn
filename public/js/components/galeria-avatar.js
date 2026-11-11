@@ -1,6 +1,6 @@
 import {ids,lerET,salvarET} from '../services/avatar-conta.js';
 const names=['Lilás astronauta','Verde cientista','Azul artista','Turquesa leitor','Lilás engenheiro','Verde astronauta','Azul explorador','Turquesa astronauta'];
-const sheet=new URL('../../assets/avatares/ets-perfil.png',import.meta.url).href;
+const sheet=new URL((globalThis.astroArte || (url => url))('../../assets/avatares/ets-perfil.png'),import.meta.url).href;
 
 export function iniciarGaleria(user) {
   const portrait=document.getElementById('avatarImage'),initials=document.getElementById('avatarInitials');
@@ -77,3 +77,5 @@ export function iniciarGaleria(user) {
     if(Number.isInteger(index)&&index>=0&&index<names.length){committed=index;applyPortrait(index);if(!dialog.open||!interacted)selected=index;renderSelection();}
   }).catch(()=>{if(version===loadVersion)status.textContent='Não foi possível carregar sua foto. Você pode escolher e tentar aplicar uma das opções.';});
 }
+
+/* astro-tema-v2 */

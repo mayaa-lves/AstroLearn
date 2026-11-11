@@ -19,7 +19,7 @@ float clouds3(vec3 p){return noise3(p)*.55+noise3(p*2.03+7.)*.27+noise3(p*4.09+1
 vec3 rotateY(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(c*p.x+s*p.z,p.y,-s*p.x+c*p.z);}
 vec3 rotateZ(vec3 p,float a){float c=cos(a),s=sin(a);return vec3(c*p.x-s*p.y,s*p.x+c*p.y,p.z);}
 void main(){
- vec2 xy=point*extent;float rr=dot(xy,xy);float z=-100.;float alpha=0.;vec3 color=vec3(0.);
+ vec2 xy=${document.documentElement.dataset.astroTema==="pixel"?"(floor(point*56.)+.5)/56.":"point"}*extent;float rr=dot(xy,xy);float z=-100.;float alpha=0.;vec3 color=vec3(0.);
  bool sphere=rr<=1.;
  if(sphere){
   z=sqrt(max(0.,1.-rr));vec3 n=vec3(xy,z);
@@ -31,12 +31,12 @@ void main(){
   // Pequena filtragem do material, sem borrar o contorno da esfera.
   vec2 texUV=vec2(uv.x,(row+clamp(uv.y,.008,.992))/3.);
   vec2 tap=vec2(.0022,.0011);
-  vec3 texel=texture2D(atlas,texUV).rgb*.5;
+  vec3 texel=texture2D(atlas,texUV).rgb; if (${document.documentElement.dataset.astroTema==="pixel"?"false":"true"}) { texel *= .5;
   texel+=texture2D(atlas,vec2(fract(texUV.x+tap.x),texUV.y)).rgb*.125;
   texel+=texture2D(atlas,vec2(fract(texUV.x-tap.x),texUV.y)).rgb*.125;
   texel+=texture2D(atlas,texUV+vec2(0.,tap.y)).rgb*.125;
   texel+=texture2D(atlas,texUV-vec2(0.,tap.y)).rgb*.125;
-  color=texel;
+  } color=texel;
   if(variant>=0.){
     float l=dot(texel,vec3(.299,.587,.114));
     if(family==1.)color=mix(vec3(.24,.058,.028),vec3(1.,.59,.23),smoothstep(.085,.7,l));
@@ -133,3 +133,5 @@ void main(){
  if(kind>1.5){alpha*=.64; color=mix(color,vec3(.84,.74,.81),.13);}
  gl_FragColor=vec4(color*alpha,alpha);
 }`;
+
+/* astro-tema-v2 */

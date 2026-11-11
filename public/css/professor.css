@@ -10,7 +10,7 @@ body {
 body:before {
   background:
     linear-gradient(90deg, #fff9f0e8, #fbf6f0c9 70%, #f9f1e6bc),
-    url("../assets/imagens/aluno/inicial/horizonte-v7.png") center/cover
+    var(--astro-px-3, url("../assets/imagens/aluno/inicial/horizonte-v7.png")) center/cover
       no-repeat;
 }
 .sidebar {
@@ -230,7 +230,7 @@ h1 {
   height: 115px;
   right: 22px;
   top: 0;
-  background: url("../assets/imagens/aluno/inicial/planetas-naturais-v6.png") 0
+  background: var(--astro-px-63, url("../assets/imagens/aluno/inicial/planetas-naturais-v6.png")) 0
     50%/500% auto no-repeat;
   filter: drop-shadow(3px 8px 6px #533b6c25);
 }
@@ -1414,3 +1414,5 @@ td .text-button {
   background: #fff !important;
   border-color: #624a79 !important;
 }
+
+/* astro-tema-v2 */

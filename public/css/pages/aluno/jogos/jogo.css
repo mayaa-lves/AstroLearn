@@ -2,7 +2,7 @@
 body:before {
   background:
     linear-gradient(140deg, #f4f1eee0, #eeeaf0ef),
-    url("../../../../assets/imagens/aluno/inicial/horizonte-v7.png")
+    var(--astro-px-3, url("../../../../assets/imagens/aluno/inicial/horizonte-v7.png"))
       center/cover no-repeat;
 }
 .game-layout {
@@ -303,3 +303,5 @@ body:before {
 }
 
 .crew-station span{max-width:100%;min-width:0;overflow-wrap:anywhere;text-align:center}.role-list li{flex-wrap:wrap}.role-list li strong{min-width:0;overflow-wrap:anywhere}
+
+/* astro-tema-v2 */

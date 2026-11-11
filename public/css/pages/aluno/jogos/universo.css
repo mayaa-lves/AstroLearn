@@ -28,7 +28,7 @@ body.universe-mode {
     inset: -30px;
     z-index: -3;
     pointer-events: none;
-    background: linear-gradient(110deg, #02061122, #02061144), url('../../../../assets/imagens/aluno/jogos/galaxia-fundo.png') center/cover;
+    background: linear-gradient(110deg, #02061122, #02061144), var(--astro-px-13, url('../../../../assets/imagens/aluno/jogos/galaxia-fundo.png')) center/cover;
 }
 
 #universeStars,
@@ -697,3 +697,5 @@ body.universe-mode {
     overflow: hidden;
 }
 .planet-biolab .planet-label{left:50%;top:80%}.universe-fallback .planet-biolab .fallback-sphere{background:radial-gradient(circle at 35% 30%,#a1e2c2,#2b7893 48%,#071322 83%)}
+
+/* astro-tema-v2 */

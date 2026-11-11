@@ -1,0 +1,43 @@
+/* Mesmas caixas, botões e posições da trilha. Cada arte ocupa uma célula do atlas. */
+html[data-astro-tema="pixel"] body.trilha-sprites-prontos .step:not(.locked) .planet[data-familia] .planet-art {
+  display: block !important;
+  visibility: visible !important;
+  inset: -9% auto auto -8.5% !important;
+  width: 117% !important;
+  height: 117% !important;
+  border-radius: 0 !important;
+  background: url('../../../assets/imagens/aluno/inicial/trilha-revisada/planetas-pixel.png') var(--trilha-col, 0%) var(--trilha-linha, 0%)/300% 200% no-repeat !important;
+  clip-path: none !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+  filter: none !important;
+  transform: none !important;
+  animation: trilha-pixel-flutuar 8s ease-in-out var(--trilha-fase, 0s) infinite !important;
+  image-rendering: pixelated;
+}
+.trilha-sprites-prontos .planet:is([data-familia="1"],[data-familia="4"]) { --trilha-col: 50%; }
+.trilha-sprites-prontos .planet:is([data-familia="2"],[data-familia="5"]) { --trilha-col: 100%; }
+.trilha-sprites-prontos .planet:is([data-familia="3"],[data-familia="4"],[data-familia="5"]) { --trilha-linha: 100%; }
+.trilha-sprites-prontos .step:not(.locked) .planet :is(.world-building,.world-mist,.world-debris,.cloud),
+.trilha-sprites-prontos .step:not(.locked) .planet::before,
+.trilha-sprites-prontos .step:not(.locked) .planet::after {
+  display: none !important;
+}
+
+.trilha-sprites-prontos .step:nth-child(2n) { --trilha-fase: -2.5s; }
+.trilha-sprites-prontos .step:nth-child(3n) { --trilha-fase: -5s; }
+
+@keyframes trilha-pixel-flutuar {
+  0%, 100% { translate: 0 0; rotate: -1.5deg; }
+  50% { translate: 0 -6px; rotate: 1.5deg; }
+}
+
+html[data-astro-tema="pixel"] body.trilha-sprites-prontos:is(.astro-motion-off,.motion-reduced,.expedicao-hidden) .step:not(.locked) .planet[data-familia] .planet-art {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-astro-tema="pixel"] body.trilha-sprites-prontos .step:not(.locked) .planet[data-familia] .planet-art {
+    animation: none !important;
+  }
+}

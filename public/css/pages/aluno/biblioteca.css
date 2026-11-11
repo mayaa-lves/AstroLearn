@@ -69,7 +69,7 @@ body.library-page {
     z-index: -3;
     overflow: hidden;
     pointer-events: none;
-    background: #e6e7e6 url('../../../assets/imagens/aluno/biblioteca/biblioteca-topo.png') center/cover no-repeat;
+    background: #e6e7e6 var(--astro-px-9, url('../../../assets/imagens/aluno/biblioteca/biblioteca-topo.png')) center/cover no-repeat;
 }
 
 .library-scene::after {
@@ -400,7 +400,7 @@ body.library-page {
     grid-area: image;
     min-height: 150px;
     border-radius: 13px;
-    background-image: url('../../../assets/imagens/aluno/biblioteca/miniaturas-materiais.png');
+    background-image: var(--astro-px-23, url('../../../assets/imagens/aluno/biblioteca/miniaturas-materiais.png'));
     background-repeat: no-repeat;
 }
 
@@ -604,7 +604,7 @@ body.library-page {
     width: 52px;
     height: 52px;
     border-radius: 9px;
-    background-image: url('../../../assets/imagens/aluno/biblioteca/miniaturas-materiais.png');
+    background-image: var(--astro-px-23, url('../../../assets/imagens/aluno/biblioteca/miniaturas-materiais.png'));
     background-repeat: no-repeat;
 }
 
@@ -1212,3 +1212,4 @@ body.library-page {
     margin-top: 66px;
   }
 }
+/* astro-tema-v2 */

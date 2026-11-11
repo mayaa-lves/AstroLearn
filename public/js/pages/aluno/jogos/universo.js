@@ -31,7 +31,7 @@ export function initUniverse() {
     const s = scale * camera.z;
     return { x: left+(w-left)/2+(p.x-camera.x)*s + (cursor.x>w*.1?(cursor.x-w/2)*.007*depth:0), y: h/2+(p.y-camera.y)*s, r: p.r*s };
   }
-  const textureURL = new URL('../../../../assets/imagens/aluno/jogos/texturas-planetas.png', import.meta.url).href;
+  const textureURL = new URL((globalThis.astroArte || (url => url))('../../../../assets/imagens/aluno/jogos/texturas-planetas.png'), import.meta.url).href;
   function textureReady(ok) {
     document.body.classList.toggle('universe-fallback', !ok);
     if (!ok) $('universeStatus').textContent = 'Visual simplificado ativo. Todos os destinos continuam disponíveis.';
@@ -228,3 +228,5 @@ export function initUniverse() {
   resize();clampCamera();wake();
 }
 
+
+/* astro-tema-v2 */

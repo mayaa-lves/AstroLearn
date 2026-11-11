@@ -324,7 +324,9 @@
 
         if (!rect.width || !rect.height) return;
 
-        const dpr = Math.min(devicePixelRatio || 1, 2);
+        const dpr = document.documentElement.dataset.astroTema === 'pixel'
+            ? 0.5
+            : Math.min(devicePixelRatio || 1, 2);
 
         const width = Math.round(rect.width * dpr);
         const height = Math.round(rect.height * dpr);

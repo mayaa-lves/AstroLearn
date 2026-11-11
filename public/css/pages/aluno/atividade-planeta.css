@@ -1,3 +1,5 @@
+@import url("./mundos-realistas.css");
+
 /* O banner recebe o mesmo mundo da trilha, inclusive depois da sexta missão. */
 #activityPlanet.activity-planet-current{overflow:visible;background:none;rotate:0deg}
 #activityPlanet.activity-planet-current .planet-art{display:block;inset:10% 4% auto;width:92%;height:auto;aspect-ratio:1;border-radius:50%;visibility:visible;mask-image:none;-webkit-mask-image:none;clip-path:none;background-image:linear-gradient(120deg,#fff3,transparent 40%,#171224a3),url('../../../assets/imagens/aluno/inicial/texturas-planetas.png');background-size:100% 100%,200% 300%;background-position:0 0,0 var(--faixa);animation:mission-longitude var(--tempo) linear infinite;filter:hue-rotate(var(--matiz));z-index:1}
@@ -18,3 +20,29 @@
 #activityPlanet .activity-world-mist{opacity:.35}
 #activityPlanet.activity-planet-current[data-familia="2"] .planet-art{filter:none;background-image:radial-gradient(ellipse at 24% 30%,#edfbff99,transparent 52%),radial-gradient(ellipse at 72% 65%,#266e8740,transparent 44%),linear-gradient(140deg,#accfdf,#73b0c8 42%,#cee8ef);background-size:200% 100%;animation:ice-longitude var(--tempo) linear infinite}
 @keyframes ice-longitude{from{background-position:0 0}to{background-position:100% 0}}
+
+/* Reserva espaço para a construção acima e para a atmosfera abaixo do globo. */
+.activity-page .mission-banner #activityPlanet.activity-planet-current {
+  --mission-planet-size: 160px;
+  width: var(--mission-planet-size);
+  height: var(--mission-planet-size);
+  top: 50%;
+  right: clamp(24px, 4%, 54px);
+  translate: 0 -50%;
+  animation: none;
+}
+
+@media (max-width: 800px) {
+  .activity-page .mission-banner #activityPlanet.activity-planet-current {
+    --mission-planet-size: 124px;
+    right: 20px;
+  }
+}
+
+@media (max-width: 500px) {
+  .activity-page .mission-banner #activityPlanet.activity-planet-current {
+    --mission-planet-size: 96px;
+    top: 70px;
+    right: 16px;
+  }
+}

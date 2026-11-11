@@ -201,7 +201,7 @@ body.team-page {
   z-index: -3;
   pointer-events: none;
   background:
-    #f5efeb url('../../../assets/imagens/aluno/equipe/base-orbital.png') center top / cover no-repeat;
+    #f5efeb var(--astro-px-11, url('../../../assets/imagens/aluno/equipe/base-orbital.png')) center top / cover no-repeat;
 }
 
 .team-scene::after {
@@ -385,7 +385,7 @@ body.team-page {
   flex-shrink: 0;
   border-radius: 50%;
   background-image:
-    url('../../../assets/imagens/aluno/equipe/avatares-equipe.png');
+    var(--astro-px-25, url('../../../assets/imagens/aluno/equipe/avatares-equipe.png'));
   background-repeat: no-repeat;
   background-size: 300% 300%;
 }
@@ -1175,5 +1175,7 @@ body.team-page {
 
 /* A mesma seleção de avatar usada pelo perfil da pessoa. */
 .portrait.profile-portrait{display:grid;place-items:center;background-image:none;background-color:#eee4f7;color:#63477e;background-repeat:no-repeat;background-size:400% 200%;background-position:var(--profile-avatar-position,0 0);font-weight:700;font-size:20px;overflow:hidden}
-.portrait.profile-portrait[data-avatar-id]{background-image:url('../../../assets/avatares/ets-perfil.png')}
+.portrait.profile-portrait[data-avatar-id]{background-image:var(--astro-px-26, url('../../../assets/avatares/ets-perfil.png'))}
 .idea-note .portrait.profile-portrait{font-size:14px}
+
+/* astro-tema-v2 */

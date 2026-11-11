@@ -41,7 +41,7 @@ export function createPlanetRenderer(canvas, textureURL, onReady) {
       return color;
     }
     void main() {
-      vec2 p = v_point;
+      vec2 p = ${document.documentElement.dataset.astroTema==="pixel"?"(floor(v_point*56.)+.5)/56.":"v_point"};
       float rr = dot(p,p);
       float sphereZ = -100.0;
       bool sphere = rr <= 1.0;
@@ -104,8 +104,8 @@ export function createPlanetRenderer(canvas, textureURL, onReady) {
   const position = gl.getAttribLocation(program,'a_position');
   const texture = gl.createTexture();
   gl.bindTexture(gl.TEXTURE_2D,texture);
-  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);
-  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,(document.documentElement.dataset.astroTema === "pixel" ? gl.NEAREST : gl.LINEAR));
+  gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,(document.documentElement.dataset.astroTema === "pixel" ? gl.NEAREST : gl.LINEAR));
   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);
   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
   gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,1,1,0,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array([120,100,80,255]));
@@ -148,3 +148,4 @@ export function createPlanetRenderer(canvas, textureURL, onReady) {
     }
   };
 }
+/* astro-tema-v2 */

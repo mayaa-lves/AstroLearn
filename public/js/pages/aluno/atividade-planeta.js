@@ -1,7 +1,7 @@
 /* Esferas WebGL com rotação longitudinal real. Um único contexto para toda a página.
    As construções das imagens aprovadas permanecem sobre os globos da trilha. */
 const activityTarget=document.getElementById('activityPlanet');
-const style=document.createElement('link');style.rel='stylesheet';style.href=new URL('../../../css/pages/aluno/atividade-planeta.css',import.meta.url).href;document.head.append(style);
+const style=document.createElement('link');style.rel='stylesheet';style.href=new URL('../../../css/pages/aluno/atividade-planeta.css?v=3',import.meta.url).href;document.head.append(style);
 activityTarget.classList.add('activity-planet-current');
 const canvas = document.createElement('canvas');
 canvas.className = 'planet-local-canvas';
@@ -10,7 +10,12 @@ activityTarget.prepend(canvas);
 const gl = canvas.getContext('webgl', { alpha:true, antialias:true, premultipliedAlpha:true, powerPreference:'low-power' });
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 const stopped = () => reduced.matches || document.hidden || document.body.classList.contains('astro-motion-off') || document.body.classList.contains('motion-reduced');
-import {vertex, fragment} from "../../components/planeta-shaders.js";
+import {vertex, fragment as original} from "../../components/planeta-shaders.js";
+import {fragment as realista} from "../../components/trilha-shader.js?v=3";
+import {movimentoDoMundo} from "../../components/mundo-realista.js";
+import {molduraDaMissao} from "../../components/trilha-cena.js?v=2";
+const pixel = document.documentElement.dataset.astroTema === 'pixel';
+const fragment = pixel ? original : realista;
 let program, uniforms, ready=false, frame=0, last=0, elapsed=0, dpr=1, planets=[], stageWidth=0, stageHeight=0;
 function fallback(){document.body.classList.remove('planets-ready');activityTarget.classList.remove('activity-planet-ready');for(const e of planets){const art=e.querySelector('.planet-art');if(art){art.style.transform='';art.style.opacity='';}}}
 function compile(type, source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s));return s;}
@@ -32,24 +37,33 @@ function init(){
   ready=true;document.body.classList.add('planets-ready');activityTarget.classList.add('activity-planet-ready');resize();sync();
  };
  image.onerror=()=>{fallback();canvas.remove();};
- image.src=new URL('../../../assets/imagens/aluno/inicial/texturas-planetas.png',import.meta.url).href;
+ image.src = new URL(pixel
+  ? '../../../assets/imagens/aluno/inicial/texturas-planetas.png'
+  : '../../../assets/imagens/aluno/inicial/trilha-revisada/texturas-realista.png', import.meta.url).href;
 }
-function resize(){stageWidth=activityTarget.clientWidth;stageHeight=activityTarget.clientHeight*1.16;dpr=Math.min(devicePixelRatio||1,1.35);canvas.width=Math.round(stageWidth*dpr);canvas.height=Math.round(stageHeight*dpr);draw();}
+function resize(){stageWidth=activityTarget.clientWidth*(pixel?1:1.28);stageHeight=activityTarget.clientHeight*1.16;dpr=Math.min(devicePixelRatio||1,1.35);canvas.width=Math.round(stageWidth*dpr);canvas.height=Math.round(stageHeight*dpr);draw();}
 function sphere(rect, kind, offset=0, variant=0){
+ const motion = movimentoDoMundo(variant, elapsed);
  if(rect.x+rect.w<0||rect.x>stageWidth||rect.y+rect.h<0||rect.y>stageHeight)return;
  gl.viewport(Math.round(rect.x*dpr),Math.round((stageHeight-rect.y-rect.h)*dpr),Math.round(rect.w*dpr),Math.round(rect.h*dpr));
- const extent=kind===2?2.4:1.18;
+ const extent=kind===2?2.4:(pixel?1.18:1.28);
  gl.uniform2f(uniforms.extent,extent,extent*rect.h/rect.w);
  gl.uniform1f(uniforms.kind,kind);gl.uniform1f(uniforms.variant,variant);
- gl.uniform1f(uniforms.angle,elapsed*Math.PI*2/(42+(variant*7)%24)+offset);
- gl.uniform1f(uniforms.cloudAngle,-elapsed*Math.PI*2/75+offset);
+ gl.uniform1f(uniforms.angle,pixel ? elapsed*Math.PI*2/(42+(variant*7)%24)+offset : motion.angle);
+ gl.uniform1f(uniforms.cloudAngle,pixel ? -elapsed*Math.PI*2/75+offset : motion.clouds);
  gl.drawArrays(gl.TRIANGLES,0,6);
 }
 function draw(){
  if(!ready||gl.isContextLost())return;
  gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
  const i=Number(activityTarget.dataset.indice);
- if(activityTarget.dataset.indice!==undefined&&stageWidth>0){const size=stageWidth*1.04;sphere({x:-stageWidth*.02,y:stageWidth*.08,w:size,h:size},i%6===0?0:1,i*.71,i);}
+ if (Number.isInteger(i) && i >= 0 && stageWidth > 0) {
+  const size = stageWidth * 1.04;
+  const rect = pixel
+   ? {x:-stageWidth*.02,y:stageWidth*.08,w:size,h:size}
+   : molduraDaMissao({left:activityTarget.clientWidth*.14,top:0,width:activityTarget.clientWidth,height:activityTarget.clientHeight},1.28);
+  sphere(rect,i%6===0?0:1,i*.71,i);
+ }
  canvas.dataset.angle=String(elapsed*3.6%360);
  canvas.dataset.cloudAngle=String(-elapsed*4.8%360);
 }

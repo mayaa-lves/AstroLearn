@@ -1,0 +1,45 @@
+/* Uma única camada fixa de construções para a trilha e para os banners. */
+html:not([data-astro-tema="pixel"]) .step:not(.locked) .planet[data-indice="0"]::before,
+html:not([data-astro-tema="pixel"]) .step:not(.locked) .planet[data-indice="0"]::after {
+  display: none !important;
+}
+
+html:not([data-astro-tema="pixel"]) body.planets-ready .step:not(.locked) .planet[data-indice="0"] .planet-art {
+  display: none !important;
+}
+
+html:not([data-astro-tema="pixel"]) :is(.step:not(.locked) .planet, #activityPlanet)[data-familia="0"] {
+  --edificio-aprovado: url('../../../assets/imagens/aluno/inicial/trilha-revisada/observatorio-aprovado.png');
+}
+
+html:not([data-astro-tema="pixel"]) :is(.step:not(.locked) .planet, #activityPlanet)[data-familia="1"] {
+  --edificio-aprovado: url('../../../assets/imagens/aluno/inicial/trilha-revisada/estacao-aprovada.png');
+}
+
+html:not([data-astro-tema="pixel"]) :is(
+  .step:not(.locked) .planet[data-indice="0"] > .edificio-aprovado,
+  .step:not(.locked) .planet:is([data-familia="0"], [data-familia="1"]) > .world-building,
+  #activityPlanet:is([data-familia="0"], [data-familia="1"]) > .activity-world-building
+) {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+  inset: -13% auto auto 20% !important;
+  width: 60% !important;
+  height: 40% !important;
+  background: var(--edificio-aprovado) center bottom / contain no-repeat !important;
+  mask-image: none !important;
+  -webkit-mask-image: none !important;
+  filter: drop-shadow(0 2px 2px #39241f4d) !important;
+  animation: none !important;
+  transform: none !important;
+}
+
+html:not([data-astro-tema="pixel"]) #activityPlanet > .planet-local-canvas {
+  left: -14%;
+  width: 128%;
+}
+
+html:not([data-astro-tema="pixel"]) #activityPlanet.activity-planet-current {
+  animation: none;
+}

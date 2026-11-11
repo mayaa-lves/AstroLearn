@@ -54,7 +54,7 @@ export function iniciarVistas({ render, slider, angleLabel, stage, stopped }) {
     if (image && next === selected) return;
     const request = ++revision;
     const asset = new Image();
-    asset.src = new URL(`../../assets/avatares/vistas/et-${next}.png`, import.meta.url).href;
+    asset.src = new URL((globalThis.astroArte || (url => url))(`../../assets/avatares/vistas/et-${next}.png`), import.meta.url).href;
     try { await asset.decode(); } catch { return; }
     if (request !== revision || !ctx) return;
     cancelAnimationFrame(frame); frame = 0;
@@ -69,3 +69,5 @@ export function iniciarVistas({ render, slider, angleLabel, stage, stopped }) {
   window.addEventListener('pagehide', settle);
   return { rotate, select };
 }
+
+/* astro-tema-v2 */

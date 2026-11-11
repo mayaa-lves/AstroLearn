@@ -1,0 +1,128 @@
+.astro-tema-botao {
+  position: fixed;
+  z-index: 120;
+  right: 20px;
+  bottom: 88px;
+  min-height: 38px;
+  padding: 7px 12px;
+  border: 1px solid #c6b0dc;
+  border-radius: 12px;
+  color: #392450;
+  background: #faf4ff;
+  font: 600 12px/1.2 system-ui, sans-serif;
+  cursor: pointer;
+}
+.astro-tema-botao:focus-visible { outline: 3px solid #7840b3; outline-offset: 3px; }
+html[data-astro-tema="pixel"] .astro-tema-botao {
+  border-radius: 0;
+  box-shadow: 3px 3px #7840a4;
+}
+html[data-astro-tema="pixel"] :is(img[data-astro-arte], img[src*=".pixel."], .planet-art, .helper-image, .avatar-turntable, .companion-image) {
+  image-rendering: pixelated;
+}
+html[data-astro-tema="pixel"] body:has(.shop-header) :is(.parts,.preview,.wallet,.skin-card,.character,.steps li,.editor-actions button) {
+  border-radius: 2px;
+  box-shadow: 3px 0 #bda5db, 0 3px #bda5db, 3px 3px #bda5db;
+}
+html[data-astro-tema="pixel"] body:has(.shop-header) :is(.parts,.preview) {
+  background-color: #f8f0ff;
+}
+html[data-astro-tema="pixel"] .shop-header {
+  background-image: linear-gradient(90deg,#f6edfc 35%,#f6edfc55), var(--astro-loja-cenario);
+  background-size: cover;
+  background-position: center;
+  image-rendering: pixelated;
+}
+html[data-astro-tema="pixel"] body:has(.shop-header) .stage {
+  background-image: linear-gradient(#24133555,#22104144), var(--astro-loja-cenario);
+  background-size: cover;
+  background-position: center;
+  image-rendering: pixelated;
+}
+html[data-astro-tema="pixel"] body:has(.shop-header) :is(.skin-picture img,.avatar-composite img,.avatar-composite .frame) {
+  image-rendering: auto;
+}
+html[data-astro-tema="pixel"] body:has(.shop-header) .stage-empty { color: #fff; text-shadow: 1px 2px #302043; }
+@media(max-width: 700px) { .astro-tema-botao { right: 10px; bottom: 134px; } }
+
+/* MAPA DE ARTES */
+html[data-astro-tema="pixel"] {
+  --astro-loja-cenario: url('../assets/imagens/aluno/loja-tema/oficina-pixel.png');
+  --astro-px-1: url("../assets/imagens/aluno/inicial/horizonte-sem-planeta.pixel.png");
+  --astro-px-2: url("../assets/imagens/aluno/inicial/horizonte-suave-aprovado.pixel.png");
+  --astro-px-3: url("../assets/imagens/aluno/inicial/horizonte-v7.pixel.png");
+  --astro-px-4: url("../assets/imagens/aluno/perfil/horizonte-perfil.pixel.png");
+  --astro-px-5: url("../assets/imagens/aluno/atividades/terra-amazonia.pixel.png");
+  --astro-px-6: url("../assets/imagens/aluno/atividades/marte-suave.pixel.png");
+  --astro-px-7: url("../assets/imagens/aluno/atividades/lua-suave.pixel.png");
+  --astro-px-8: url("../assets/imagens/aluno/atividade/ceu-constelacoes-v4.pixel.png");
+  --astro-px-9: url("../assets/imagens/aluno/biblioteca/biblioteca-topo.pixel.png");
+  --astro-px-10: url("../assets/imagens/aluno/conquistas/observatorio-topo.pixel.png");
+  --astro-px-11: url("../assets/imagens/aluno/equipe/base-orbital.pixel.png");
+  --astro-px-12: url("../assets/imagens/aluno/perfil/cabine.pixel.png");
+  --astro-px-13: url("../assets/imagens/aluno/jogos/galaxia-fundo.pixel.png");
+  --astro-px-14: url("../assets/imagens/aluno/jogos/horizonte-hangar.pixel.png");
+  --astro-px-15: url("../assets/imagens/aluno/jogos/destinos-atlas.pixel.png");
+  --astro-px-16: url("../assets/imagens/aluno/equipe/rover-equipe.pixel.png");
+  --astro-px-17: url("../assets/imagens/aluno/biblioteca/esfera-e-caderno.pixel.png");
+  --astro-px-18: url("../assets/imagens/aluno/biblioteca/pedestal-e-caderno.pixel.png");
+  --astro-px-19: url("../assets/imagens/aluno/biblioteca/lua-biblioteca.pixel.png");
+  --astro-px-20: url("../assets/imagens/aluno/conquistas/saturno-observacao.pixel.png");
+  --astro-px-21: url("../assets/imagens/aluno/inicial/observatorio-base-fixa.pixel.png");
+  --astro-px-22: url("../assets/imagens/login/cenarios-e-personagens/rocket.pixel.png");
+  --astro-px-23: url("../assets/imagens/aluno/biblioteca/miniaturas-materiais.pixel.png");
+  --astro-px-24: url("../assets/imagens/aluno/conquistas/medalhas-colecao.pixel.png");
+  --astro-px-25: url("../assets/imagens/aluno/equipe/avatares-equipe.pixel.png");
+  --astro-px-26: url("../assets/avatares/ets-perfil.pixel.png");
+  --astro-px-27: url("../assets/imagens/aluno/inicial/texturas-planetas.pixel.png");
+  --astro-px-28: url("../assets/imagens/aluno/jogos/texturas-planetas.pixel.png");
+  --astro-px-29: url("../assets/imagens/aluno/biblioteca/textura-lunar.pixel.png");
+  --astro-px-30: url("../assets/imagens/aluno/inicial/mondes-v7.pixel.png");
+  --astro-px-31: url("../assets/imagens/aluno/inicial/objetos-realistas.pixel.png");
+  --astro-px-32: url("../assets/imagens/aluno/inicial/expedicao/construcoes.pixel.png");
+  --astro-px-33: url("../assets/imagens/aluno/inicial/avatar-realista-vistas.pixel.png");
+  --astro-px-34: url("../assets/imagens/aluno/inicial/avatar-vistas-v4.pixel.png");
+  --astro-px-35: url("../jogos/jogo9/assets/scene_welcome.pixel.jpg");
+  --astro-px-36: url("../jogos/jogo9/assets/scene_question.pixel.jpg");
+  --astro-px-37: url("../jogos/jogo9/assets/scene_correct.pixel.jpg");
+  --astro-px-38: url("../jogos/jogo9/assets/scene_wrong.pixel.jpg");
+  --astro-px-39: url("../jogos/jogo6/assets/tile_A1.pixel.jpg");
+  --astro-px-40: url("../jogos/jogo6/assets/tile_A2.pixel.jpg");
+  --astro-px-41: url("../jogos/jogo6/assets/tile_A3.pixel.jpg");
+  --astro-px-42: url("../jogos/jogo6/assets/tile_A4.pixel.jpg");
+  --astro-px-43: url("../jogos/jogo6/assets/tile_A5.pixel.jpg");
+  --astro-px-44: url("../jogos/jogo6/assets/tile_B1.pixel.jpg");
+  --astro-px-45: url("../jogos/jogo6/assets/tile_B2.pixel.jpg");
+  --astro-px-46: url("../jogos/jogo6/assets/tile_B3.pixel.jpg");
+  --astro-px-47: url("../jogos/jogo6/assets/tile_B4.pixel.jpg");
+  --astro-px-48: url("../jogos/jogo6/assets/tile_B5.pixel.jpg");
+  --astro-px-49: url("../jogos/jogo6/assets/tile_C1.pixel.jpg");
+  --astro-px-50: url("../jogos/jogo6/assets/tile_C2.pixel.jpg");
+  --astro-px-51: url("../jogos/jogo6/assets/tile_C3.pixel.jpg");
+  --astro-px-52: url("../jogos/jogo6/assets/tile_C4.pixel.jpg");
+  --astro-px-53: url("../jogos/jogo6/assets/tile_C5.pixel.jpg");
+  --astro-px-54: url("../jogos/jogo6/assets/balcony_side-BkB5Drzm.pixel.jpg");
+  --astro-px-55: url("../jogos/jogo6/assets/pegada_ar.pixel.jpg");
+  --astro-px-56: url("../jogos/jogo6/assets/pegada_desmatamento.pixel.jpg");
+  --astro-px-57: url("../jogos/jogo6/assets/pegada_neon.pixel.jpg");
+  --astro-px-58: url("../jogos/jogo6/assets/pegada_plastico.pixel.jpg");
+  --astro-px-59: url("../jogos/jogo6/assets/pegada_queimada.pixel.jpg");
+  --astro-px-60: url("../jogos/jogo6/assets/pegada_rio.pixel.jpg");
+  --astro-px-61: url("../jogos/jogo6/assets/tenis_pegada.pixel.png");
+  --astro-px-62: url("../jogos/jogo6/assets/bg_frame_blue.pixel.jpg");
+  --astro-px-63: url("../assets/imagens/aluno/inicial/planetas-naturais-v6.pixel.png");
+  --astro-px-64: url("../assets/imagens/aluno/conquistas/observatorio.pixel.png");
+  --astro-px-65: url("../assets/imagens/aluno/conquistas/medalhas.pixel.png");
+  --astro-px-66: url("../assets/imagens/aluno/inicial/assistente-poses-v4.pixel.png");
+  --astro-px-67: url("../assets/imagens/aluno/assistente/sparky-lilas.pixel.png");
+  --astro-px-68: url("../assets/imagens/aluno/assistente/sparky-poses.pixel.png");
+  --astro-px-69: url("../assets/imagens/aluno/jogos/nave-portal.pixel.png");
+  --astro-px-70: url("../assets/avatares/vistas/et-0.pixel.png");
+  --astro-px-71: url("../assets/avatares/vistas/et-1.pixel.png");
+  --astro-px-72: url("../assets/avatares/vistas/et-2.pixel.png");
+  --astro-px-73: url("../assets/avatares/vistas/et-3.pixel.png");
+  --astro-px-74: url("../assets/avatares/vistas/et-4.pixel.png");
+  --astro-px-75: url("../assets/avatares/vistas/et-5.pixel.png");
+  --astro-px-76: url("../assets/avatares/vistas/et-6.pixel.png");
+  --astro-px-77: url("../assets/avatares/vistas/et-7.pixel.png");
+}

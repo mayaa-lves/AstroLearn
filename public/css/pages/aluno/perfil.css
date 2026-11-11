@@ -79,7 +79,7 @@ body.profile-page {
       #fcfaf7 9%,
       #fcfaf7c9 31%,
       transparent 67%),
-    url('../../../assets/imagens/aluno/perfil/horizonte-perfil.png') center 42% / cover no-repeat;
+    var(--astro-px-4, url('../../../assets/imagens/aluno/perfil/horizonte-perfil.png')) center 42% / cover no-repeat;
 }
 
 .profile-page main {
@@ -824,7 +824,7 @@ body:has(#astroAccountTools) .home-fallback {
         #fcfaf7ed 0%,
         #fcfaf7c9 45%,
         transparent 95%),
-      url('../../../assets/imagens/aluno/perfil/horizonte-perfil.png');
+      var(--astro-px-4, url('../../../assets/imagens/aluno/perfil/horizonte-perfil.png'));
     background-position: center, center, 65% 44%;
   }
 
@@ -1149,3 +1149,5 @@ body:has(#astroAccountTools) .home-fallback {
 #securityPanel .security-action p { margin: 0 0 8px; }
 #securityPanel .security-email { font-weight: 600; overflow-wrap: anywhere; }
 .security-action button { justify-self: start; max-width: 100%; white-space: normal; }
+
+/* astro-tema-v2 */

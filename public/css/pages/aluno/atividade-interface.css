@@ -1,8 +1,8 @@
 /* Atividade: o cenário muda com a missão; os cartões continuam priorizando leitura. */
 body.activity-page{--scene:none;--tint:#eaf2fa;--accent:#3e7a80;background:#f4f7fa;color:#304352;isolation:isolate;}
-body.activity-page[data-activity-world="0"],body.activity-page[data-activity-world="4"]{--scene:url('../../../assets/imagens/aluno/atividades/terra-amazonia.png');--tint:#e4f2ef;--accent:#36786b;}
-body.activity-page[data-activity-world="1"],body.activity-page[data-activity-world="3"]{--scene:url('../../../assets/imagens/aluno/atividades/marte-suave.png');--tint:#f6e9df;--accent:#9c664c;}
-body.activity-page[data-activity-world="2"]{--scene:url('../../../assets/imagens/aluno/atividades/lua-suave.png');--tint:#e9edf4;--accent:#65768f;}
+body.activity-page[data-activity-world="0"],body.activity-page[data-activity-world="4"]{--scene:var(--astro-px-5, url('../../../assets/imagens/aluno/atividades/terra-amazonia.png'));--tint:#e4f2ef;--accent:#36786b;}
+body.activity-page[data-activity-world="1"],body.activity-page[data-activity-world="3"]{--scene:var(--astro-px-6, url('../../../assets/imagens/aluno/atividades/marte-suave.png'));--tint:#f6e9df;--accent:#9c664c;}
+body.activity-page[data-activity-world="2"]{--scene:var(--astro-px-7, url('../../../assets/imagens/aluno/atividades/lua-suave.png'));--tint:#e9edf4;--accent:#65768f;}
 body.activity-page::before{content:"";position:fixed;inset:0;z-index:-3;background-image:linear-gradient(180deg,#f9fcffd9 0%,#f9fcffb5 55%,#f8fbff44 100%),var(--scene);background-size:cover;background-position:center;opacity:1;pointer-events:none;}
 /* Bruma de nuvens: acima do cenário, abaixo das estrelas e dos cartões. */
 body.activity-page::after{
@@ -58,13 +58,15 @@ body.activity-page.astro-motion-off::after{animation:none!important;}
 #activityLogout:hover{background:#f1e4ef;}
 [hidden]{display:none!important;}
 #activityPlanet{isolation:isolate;z-index:1;rotate:0deg;animation:none;background:none;aspect-ratio:1;width:205px;height:205px;right:3%;top:2px;opacity:1;filter:drop-shadow(0 7px 9px #54375d21);}
-#activityPlanet .planet-art{position:absolute;inset:0;background:url('../../../assets/imagens/aluno/inicial/mondes-v7.png') var(--world-x,0%) 50%/500% auto no-repeat;z-index:2;pointer-events:none;}
+#activityPlanet .planet-art{position:absolute;inset:0;background:var(--astro-px-30, url('../../../assets/imagens/aluno/inicial/mondes-v7.png')) var(--world-x,0%) 50%/500% auto no-repeat;z-index:2;pointer-events:none;}
 .planet-local-canvas{position:absolute;left:0;top:0;width:100%;height:116%;z-index:1;pointer-events:none;}
 .planets-ready #activityPlanet .planet-art{mask-image:linear-gradient(to bottom,#000 0 17%,#0008 22%,transparent 29%);-webkit-mask-image:linear-gradient(to bottom,#000 0 17%,#0008 22%,transparent 29%);}
 .planets-ready #activityPlanet[data-world="4"] .planet-art,.planets-ready #activityPlanet[data-world="2"] .planet-art{visibility:hidden;}
-.planets-ready #activityPlanet[data-world="0"] .planet-art{background-image:url('../../../assets/imagens/aluno/inicial/observatorio-base-fixa.png');background-size:contain;background-position:center bottom;left:18%;top:-2%;right:auto;bottom:auto;width:64%;height:38%;mask-image:none;-webkit-mask-image:none;filter:drop-shadow(0 3px 2px #33272338);}
+.planets-ready #activityPlanet[data-world="0"] .planet-art{background-image:var(--astro-px-21, url('../../../assets/imagens/aluno/inicial/observatorio-base-fixa.png'));background-size:contain;background-position:center bottom;left:18%;top:-2%;right:auto;bottom:auto;width:64%;height:38%;mask-image:none;-webkit-mask-image:none;filter:drop-shadow(0 3px 2px #33272338);}
 .planets-ready #activityPlanet[data-world="0"]::before{content:"";position:absolute;left:25%;top:25%;width:50%;height:6%;border-radius:50%;background:radial-gradient(ellipse,#25392955,transparent 72%);filter:blur(2px);z-index:1;}
 .planets-ready #activityPlanet[data-world="0"]::after{content:"";position:absolute;left:64%;top:3%;width:3px;height:3px;border-radius:50%;background:#ffcf73;box-shadow:0 0 5px #ffc061;z-index:4;animation:activity-beacon 6s ease-in-out infinite;}
 @keyframes activity-beacon{0%,70%,100%{opacity:.25}80%,88%{opacity:.9}}
 @media(max-width:800px){#activityPlanet{width:155px;height:155px;right:2%;top:25px;}.activity-page .mission-banner>div:first-child{max-width:calc(100% - 155px);}.activity-tools{gap:8px;}.activity-home,.activity-account-toggle{width:38px;height:38px;flex-basis:38px;}}
 @media(max-width:500px){#activityPlanet{width:110px;height:110px;right:8px;top:12px;}.activity-page .mission-banner>div:first-child{max-width:100%;}.mission-banner .kicker{max-width:calc(100% - 110px);}.mission-banner h1{max-width:calc(100% - 125px);overflow-wrap:anywhere;}.activity-page .mission-banner>div:first-child>p:not(.kicker){max-width:100%;}.mission-banner .tags{margin-top:16px;}.activity-account-panel{max-width:calc(100vw - 28px);}}
+
+/* astro-tema-v2 */

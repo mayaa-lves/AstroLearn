@@ -73,7 +73,7 @@ body.achievements-page {
   pointer-events: none;
   background:
     #f2edef
-    url('../../../assets/imagens/aluno/conquistas/observatorio-topo.png')
+    var(--astro-px-10, url('../../../assets/imagens/aluno/conquistas/observatorio-topo.png'))
     center / cover no-repeat;
 }
 
@@ -412,7 +412,7 @@ progress::-moz-progress-bar {
   height: 125px;
   flex-shrink: 0;
   background:
-    url('../../../assets/imagens/aluno/conquistas/medalhas-colecao.png')
+    var(--astro-px-24, url('../../../assets/imagens/aluno/conquistas/medalhas-colecao.png'))
     0 0 / 300% 200% no-repeat;
 }
 
@@ -1179,3 +1179,4 @@ body.scope-open {
     scroll-behavior: auto !important;
   }
 }
+/* astro-tema-v2 */

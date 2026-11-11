@@ -1,5 +1,5 @@
 /* Four student worlds, scoped to the landing journey. */
-.journey .planet.student-world{background-image:url('../../assets/imagens/aluno/inicial/mondes-v7.png');background-size:500% auto;background-repeat:no-repeat;background-position:var(--world-x) center;border:0;overflow:visible;isolation:isolate}
+.journey .planet.student-world{background-image:var(--astro-px-30, url('../../assets/imagens/aluno/inicial/mondes-v7.png'));background-size:500% auto;background-repeat:no-repeat;background-position:var(--world-x) center;border:0;overflow:visible;isolation:isolate}
 .world-0{--world-x:0%}.world-1{--world-x:25%}.world-2{--world-x:50%}.world-3{--world-x:75%}
 .journey-planet-system{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
 .journey .planet.student-world{z-index:2}
@@ -66,7 +66,7 @@
 .is-horizontal .journey li:has(.is-previewing) .journey-world{padding-top:12px}
 
 /* Static, round fallback also omits all buildings and vehicles. */
-.journey .planet.student-world{background-image:url('../../assets/imagens/aluno/inicial/texturas-planetas.png');background-size:auto 300%;background-position:center top;border-radius:50%;box-shadow:inset -14px -7px 24px #241b3529}
+.journey .planet.student-world{background-image:var(--astro-px-27, url('../../assets/imagens/aluno/inicial/texturas-planetas.png'));background-size:auto 300%;background-position:center top;border-radius:50%;box-shadow:inset -14px -7px 24px #241b3529}
 .journey .planet.world-1{background-position:center center}
 .journey .planet.world-2{background-image:url('../../assets/imagens/landing-mundos/lua-lroc-1k.jpg');background-size:auto 100%;background-position:center}
 .journey .planet.world-3{background-position:center bottom;filter:sepia(.3)}
@@ -96,3 +96,5 @@
 /* Blue artistic Mercury, including the static fallback. */
 .journey .planet.world-3{background-color:#286aa8;background-blend-mode:luminosity}
 .worlds-rendered .journey .planet.world-3{background-color:transparent;background-blend-mode:normal}
+
+/* astro-tema-v2 */

@@ -1,0 +1,34 @@
+.astro-tema-config {
+  border: 1px solid #d9c9e7;
+  background: #fffcfa;
+  border-radius: 14px;
+  margin: 0 0 18px;
+  padding: 12px 14px;
+}
+.astro-tema-config legend {
+  font-weight: 700;
+  padding: 0 5px;
+}
+.astro-tema-opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.astro-tema-opcoes button {
+  font: inherit;
+  padding: 8px 14px;
+  color: #392450;
+  background: #fff;
+  border: 1px solid #c6b0dc;
+  border-radius: 9px;
+  cursor: pointer;
+}
+.astro-tema-opcoes button[aria-pressed="true"] {
+  color: #fff;
+  background: #713ba1;
+  border-color: #713ba1;
+}
+.astro-tema-opcoes button:focus-visible {
+  outline: 2px solid #673298;
+  outline-offset: 3px;
+}

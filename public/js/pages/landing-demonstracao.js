@@ -121,7 +121,7 @@
   const position=gl.getAttribLocation(program,'position');gl.enableVertexAttribArray(position);gl.vertexAttribPointer(position,2,gl.FLOAT,false,0,0);
   ['kind','angle','atlas','moon','pixelStyle'].forEach(name=>uniforms[name]=gl.getUniformLocation(program,name));
   let loaded=0;
-  ['public/assets/imagens/aluno/inicial/texturas-planetas.png','public/assets/imagens/landing-mundos/lua-lroc-1k.jpg'].forEach((src,i)=>{
+  [(globalThis.astroArte || (url => url))('public/assets/imagens/aluno/inicial/texturas-planetas.png'),'public/assets/imagens/landing-mundos/lua-lroc-1k.jpg'].forEach((src,i)=>{
    const image=new Image();image.onload=()=>{if(disposed||gl.isContextLost())return;gl.useProgram(program);const texture=gl.createTexture();textures[i]=texture;gl.activeTexture(gl.TEXTURE0+i);gl.bindTexture(gl.TEXTURE_2D,texture);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,image);gl.uniform1i(i===0?uniforms.atlas:uniforms.moon,i);loaded++;if(loaded===2){ready=true;root.classList.add('demo-rendered');resize();sync();}};image.onerror=fallback;image.src=src;
   });
   gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);
@@ -190,3 +190,5 @@
  window.addEventListener('pageshow',sync);window.addEventListener('pagehide',event=>{cancelAnimationFrame(frame);if(!event.persisted){disposed=true;resizeObserver.disconnect();observer.disconnect();}});
  resize();
 })();
+
+/* astro-tema-v2 */
