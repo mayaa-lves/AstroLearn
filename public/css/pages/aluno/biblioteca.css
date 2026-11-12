@@ -69,7 +69,7 @@ body.library-page {
     z-index: -3;
     overflow: hidden;
     pointer-events: none;
-    background: #e6e7e6 var(--astro-px-9, url('../../../assets/imagens/aluno/biblioteca/biblioteca-topo.png')) center/cover no-repeat;
+    background: #e6e7e6 url('../../../assets/imagens/aluno/biblioteca/biblioteca-topo.png') center/cover no-repeat;
 }
 
 .library-scene::after {
@@ -400,7 +400,7 @@ body.library-page {
     grid-area: image;
     min-height: 150px;
     border-radius: 13px;
-    background-image: var(--astro-px-23, url('../../../assets/imagens/aluno/biblioteca/miniaturas-materiais.png'));
+    background-image: url('../../../assets/imagens/aluno/biblioteca/miniaturas-materiais.png');
     background-repeat: no-repeat;
 }
 
@@ -604,7 +604,7 @@ body.library-page {
     width: 52px;
     height: 52px;
     border-radius: 9px;
-    background-image: var(--astro-px-23, url('../../../assets/imagens/aluno/biblioteca/miniaturas-materiais.png'));
+    background-image: url('../../../assets/imagens/aluno/biblioteca/miniaturas-materiais.png');
     background-repeat: no-repeat;
 }
 
@@ -1212,4 +1212,63 @@ body.library-page {
     margin-top: 66px;
   }
 }
-/* astro-tema-v2 */
+
+/* Contraste sobre a paisagem, com a Lua e a esfera livres à direita. */
+html[data-astro-tema="pixel"] .library-page .library-scene::after {
+  background:
+    linear-gradient(90deg, #fcfaf7f7 0%, #fcfaf7ed 45%, #fcfaf7ce 59%, transparent 79%),
+    linear-gradient(180deg, transparent 53%, #fcfaf7 100%);
+}
+
+html[data-astro-tema="pixel"] .library-page .library-heading {
+  margin-bottom: clamp(24px, 3vh, 32px);
+}
+
+html[data-astro-tema="pixel"] .library-page .library-heading .eyebrow {
+  color: #573083;
+  margin-bottom: 12px;
+}
+
+html[data-astro-tema="pixel"] .library-page .library-heading > p:last-child {
+  color: #463755;
+  max-width: 36rem;
+}
+
+html[data-astro-tema="pixel"] .library-page .search {
+  background: #fffdfb;
+  border-color: #e4d9ee;
+}
+
+html[data-astro-tema="pixel"] .library-page .search input::placeholder {
+  color: #6b5c79;
+}
+
+html[data-astro-tema="pixel"] .library-page .filters {
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+html[data-astro-tema="pixel"] .library-page .filters button {
+  min-height: 40px;
+}
+
+html[data-astro-tema="pixel"] .library-page .filters button[aria-pressed="false"] {
+  border-color: #e4d9ee;
+}
+
+html[data-astro-tema="pixel"] .library-page .section-title p {
+  color: #5e516d;
+}
+
+@media (min-width: 801px) {
+  html[data-astro-tema="pixel"] .library-page .library-workspace {
+    margin-top: 52px;
+  }
+}
+
+@media (max-width: 800px) {
+  html[data-astro-tema="pixel"] .library-page .library-scene::after {
+    background:
+      linear-gradient(180deg, #fcfaf7ed 0%, #fcfaf7e8 46%, #fcfaf76b 67%, #fcfaf7 100%);
+  }
+}

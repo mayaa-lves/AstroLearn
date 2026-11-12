@@ -1,0 +1,99 @@
+/* As artes em pixel usam os mesmos recortes e posições da versão realista. */
+html[data-astro-tema="pixel"] .achievements-page .achievement-scene {
+  background-image: url("../../../assets/imagens/aluno/conquistas/pixel/observatorio-topo.png");
+  image-rendering: pixelated;
+}
+
+html[data-astro-tema="pixel"] .achievements-page .badge {
+  background-image: url("../../../assets/imagens/aluno/conquistas/pixel/medalhas-colecao.png");
+  image-rendering: pixelated;
+}
+
+html[data-astro-tema="pixel"] .achievements-page .saturn-image {
+  content: url("../../../assets/imagens/aluno/conquistas/pixel/saturno-observacao.png");
+  image-rendering: pixelated;
+}
+
+/* A faixa clara fica atrás da leitura e deixa o telescópio visível à direita. */
+html[data-astro-tema="pixel"] .achievements-page .achievement-scene::after {
+  background:
+    linear-gradient(90deg, #fcfaf7fa 9%, #fcfaf7ed 43%, #fcfaf7d9 58%, transparent 82%),
+    linear-gradient(180deg, transparent 56%, #fcfaf7 100%);
+}
+
+html[data-astro-tema="pixel"] .achievements-page .achievement-heading .eyebrow {
+  color: #573083;
+  margin-bottom: 12px;
+}
+
+html[data-astro-tema="pixel"] .achievements-page :is(
+  .achievement-heading > p:last-child,
+  .summary > span,
+  .preview-note
+) {
+  color: #4c3a62;
+}
+
+html[data-astro-tema="pixel"] .achievements-page .achievement-heading > p:last-child {
+  max-width: 34rem;
+}
+
+html[data-astro-tema="pixel"] .achievements-page .summary {
+  column-gap: 18px;
+  row-gap: 6px;
+  margin-top: 20px;
+}
+
+html[data-astro-tema="pixel"] .achievements-page .pixel-achievement-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 20px;
+  margin: 10px 0 18px;
+}
+
+html[data-astro-tema="pixel"] .achievements-page .pixel-achievement-actions .preview-note {
+  flex: 1 1 22rem;
+  max-width: 36rem;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+html[data-astro-tema="pixel"] .achievements-page .pixel-achievement-actions .telescope-trigger {
+  position: static;
+  width: auto;
+  height: auto;
+  min-height: 44px;
+  margin-left: auto;
+  z-index: auto;
+}
+
+html[data-astro-tema="pixel"] .achievements-page .pixel-achievement-actions .telescope-trigger > span {
+  position: static;
+  display: grid;
+  grid-auto-flow: column;
+  place-items: center;
+  gap: 4px;
+  min-height: 44px;
+  background: #fffaf4;
+  color: #4b3168;
+  border-color: #dbcde8;
+}
+
+html[data-astro-tema="pixel"] .achievements-page .pixel-achievement-actions .telescope-trigger::before {
+  display: none;
+}
+
+html[data-astro-tema="pixel"] .achievements-page .pixel-achievement-actions .telescope-trigger:is(:hover, :focus-visible) > span {
+  background: #f1e5ff;
+}
+
+@media (max-width: 800px) {
+  html[data-astro-tema="pixel"] .achievements-page .achievement-scene::after {
+    background:
+      linear-gradient(90deg, #fcfaf7f7 4%, #fcfaf7e8 66%, #fcfaf788 100%),
+      linear-gradient(180deg, transparent 58%, #fcfaf7 100%);
+  }
+}

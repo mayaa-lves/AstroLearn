@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<script data-astro-tema-script src="../public/js/components/tema-aluno.js?v=3"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -13,8 +12,9 @@
   <link rel="stylesheet" href="../public/css/menu-unificado.css">
   <script defer src="../public/js/components/menu-unificado.js"></script>
 <link rel="icon" type="image/png" href="../public/assets/imagens/marca/astrolearn-simbolo.png">
-<link rel="stylesheet" href="../public/css/rolagem.css" data-astro-rolagem>
-<link rel="stylesheet" href="../public/css/tema-aluno.css?v=2">
+  <link rel="stylesheet" href="../public/css/rolagem.css" data-astro-rolagem>
+  <script src="../public/js/components/tema-aluno.js?v=3"></script>
+  <link rel="stylesheet" href="../public/css/pages/aluno/conquistas-pixel.css?v=legibilidade-1">
 </head>
 
 <body class="achievements-page">
@@ -263,7 +263,7 @@
           <img
             id="saturnImage"
             class="saturn-image"
-            data-astro-arte="../public/assets/imagens/aluno/conquistas/saturno-observacao.png"
+            src="../public/assets/imagens/aluno/conquistas/saturno-observacao.png"
             alt="Ilustração de Saturno com faixas de nuvens e anéis inclinados"
             draggable="false"
           >
@@ -358,5 +358,6 @@
     src="../public/js/pages/aluno/conquistas.js"
     defer
   ></script>
+  <script type="module" src="../public/js/pages/aluno/conquistas-pixel.js"></script>
 </body>
 </html>

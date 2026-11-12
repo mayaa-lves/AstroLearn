@@ -1,0 +1,18 @@
+/* As dimensões, o recorte e o degradê da cena vêm do layout da equipe. */
+html[data-astro-tema="pixel"] .team-page .team-scene {
+  background-image: url('../../../assets/imagens/aluno/equipe/pixel/base-orbital.png');
+  image-rendering: pixelated;
+}
+
+html[data-astro-tema="pixel"] .team-page .mission-image {
+  content: url('../../../assets/imagens/aluno/equipe/pixel/rover-equipe.png');
+  image-rendering: pixelated;
+}
+
+/* Usa a mesma cartela de retratos já usada nos cartões da equipe. */
+.team-page #astroAccountTools :is(#astroAccountButton, #astroAccountPanel .account-avatar)[data-equipe-retrato] {
+  background-image: url('../../../assets/avatares/ets-perfil.png');
+  background-position: var(--profile-avatar-position);
+  background-size: 400% 200%;
+  background-repeat: no-repeat;
+}

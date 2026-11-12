@@ -59,11 +59,22 @@
     try{localStorage.setItem(KEY,JSON.stringify({version:2,...next}));return true;}
     catch{$('error').textContent='Não foi possível salvar neste navegador. Seu saldo e visual anterior foram mantidos.';return false;}
   }
-  // Cada opção contém uma imagem real do personagem inteiro, recortada só pelo quadro do atlas.
-  function picture(character,row=1,side='front',sheet='base'){
+  let pixelArt = false;
+  try { pixelArt = localStorage.getItem('astrolearn:tema-aluno') === 'pixel'; }
+  catch {}
+  const artFolder = pixelArt ? 'pixel' : 'realistas';
+  if (pixelArt) {
+    $('avatar').style.setProperty('animation', 'none', 'important');
+    $('avatar').style.setProperty('transition', 'none', 'important');
+  }
+
+  // Cada opção recorta a mesma célula do atlas nos dois temas.
+  function picture(character,row=1,side='front',sheet='base',largePreview=false){
     const box=document.createElement('span');box.className='skin-picture';
     const img=document.createElement('img');img.alt='';img.draggable=false;
-    img.src='../public/assets/imagens/aluno/loja/realistas/'+character+(sheet==='collection'?'-colecao':'')+'.png';
+    const folder = pixelArt && largePreview ? 'pixel-previa' : artFolder;
+    img.src='../public/assets/imagens/aluno/loja/'+folder+'/'+character+(sheet==='collection'?'-colecao':'')+'.png';
+    if(pixelArt) img.style.imageRendering='pixelated';
     img.style.setProperty('height',(sheet==='collection'?400:300)+'%','important');
     img.style.left=side==='back'?'-100%':'0%';img.style.top=(-row*100)+'%';
     img.onerror=()=>{$('error').textContent='Uma imagem da loja não carregou. Confira se a pasta public foi copiada e atualize com Ctrl+F5.';};
@@ -120,7 +131,7 @@
     $('partHint').textContent=person?'Cada skin inclui o visual inteiro. As apagadas custam mais que seu saldo, mas você pode experimentar todas.':'Escolha um personagem para ver e experimentar suas skins.';
     $('previewHint').textContent=!chosen?'Selecione um personagem para começar.':unpaid?chosen.name+' · '+chosen.price+' astromoedas pelo conjunto completo.'+(chosen.price>account.coins?' Faltam '+(chosen.price-account.coins)+' astromoedas.':''):chosen.name+' · Disponível para usar.';
     if(chosen){
-      $('avatar').replaceChildren(picture(character,chosen.row,view,chosen.sheet));
+      $('avatar').replaceChildren(picture(character,chosen.row,view,chosen.sheet,true));
       $('avatar').setAttribute('aria-label',person.name+' com '+chosen.name+', vista '+(view==='front'?'de frente':'de costas')+'.');
     }
     if(focusCharacter)$('characters').querySelector('[data-character="'+focusCharacter+'"]')?.focus();
