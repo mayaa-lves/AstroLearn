@@ -46,3 +46,14 @@
     right: 16px;
   }
 }
+
+/* Pixel: o mesmo atlas e a mesma família da trilha, sem globo 3D sobreposto. */
+html[data-astro-tema="pixel"] #activityPlanet.activity-planet-current .planet-art {
+ display:block!important;inset:0!important;width:100%!important;height:100%!important;
+ background:url('../../../assets/imagens/aluno/inicial/trilha-revisada/planetas-pixel.png') var(--pixel-col,0%) var(--pixel-row,0%)/300% 200% no-repeat!important;
+ border-radius:0!important;filter:none!important;animation:none!important;transform:none!important;image-rendering:pixelated;
+}
+html[data-astro-tema="pixel"] #activityPlanet:is([data-familia="1"],[data-familia="4"]){--pixel-col:50%}
+html[data-astro-tema="pixel"] #activityPlanet:is([data-familia="2"],[data-familia="5"]){--pixel-col:100%}
+html[data-astro-tema="pixel"] #activityPlanet:is([data-familia="3"],[data-familia="4"],[data-familia="5"]){--pixel-row:100%}
+html[data-astro-tema="pixel"] #activityPlanet :is(.activity-world-building,.activity-world-mist,.planet-local-canvas){display:none!important}

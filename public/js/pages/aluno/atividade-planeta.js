@@ -1,5 +1,6 @@
 /* Esferas WebGL com rotação longitudinal real. Um único contexto para toda a página.
    As construções das imagens aprovadas permanecem sobre os globos da trilha. */
+const pixel = document.documentElement.dataset.astroTema === 'pixel';
 const activityTarget=document.getElementById('activityPlanet');
 const style=document.createElement('link');style.rel='stylesheet';style.href=new URL('../../../css/pages/aluno/atividade-planeta.css?v=3',import.meta.url).href;document.head.append(style);
 activityTarget.classList.add('activity-planet-current');
@@ -7,14 +8,13 @@ const canvas = document.createElement('canvas');
 canvas.className = 'planet-local-canvas';
 canvas.setAttribute('aria-hidden', 'true');
 activityTarget.prepend(canvas);
-const gl = canvas.getContext('webgl', { alpha:true, antialias:true, premultipliedAlpha:true, powerPreference:'low-power' });
+const gl = pixel ? null : canvas.getContext('webgl', { alpha:true, antialias:true, premultipliedAlpha:true, powerPreference:'low-power' });
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 const stopped = () => reduced.matches || document.hidden || document.body.classList.contains('astro-motion-off') || document.body.classList.contains('motion-reduced');
 import {vertex, fragment as original} from "../../components/planeta-shaders.js";
 import {fragment as realista} from "../../components/trilha-shader.js?v=3";
 import {movimentoDoMundo} from "../../components/mundo-realista.js";
 import {molduraDaMissao} from "../../components/trilha-cena.js?v=2";
-const pixel = document.documentElement.dataset.astroTema === 'pixel';
 const fragment = pixel ? original : realista;
 let program, uniforms, ready=false, frame=0, last=0, elapsed=0, dpr=1, planets=[], stageWidth=0, stageHeight=0;
 function fallback(){document.body.classList.remove('planets-ready');activityTarget.classList.remove('activity-planet-ready');for(const e of planets){const art=e.querySelector('.planet-art');if(art){art.style.transform='';art.style.opacity='';}}}

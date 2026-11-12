@@ -53,7 +53,7 @@ function sphere(rect, kind, variant=-1){
 function draw(){
  if(!ready||gl.isContextLost())return;
  gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
- sphere(molduraSaturno(innerWidth, pixel),2);
+ if (!pixel || !document.body.classList.contains('saturno-pixel-pronto')) sphere(molduraSaturno(innerWidth, pixel),2);
  if (!document.body.classList.contains('trilha-sprites-prontos')) for(const element of planets){
   const rect=element.getBoundingClientRect();if(rect.bottom<0||rect.top>innerHeight)continue;
   const i=Number(element.dataset.indice);

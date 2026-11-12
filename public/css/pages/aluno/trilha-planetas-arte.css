@@ -41,3 +41,18 @@ html[data-astro-tema="pixel"] body.trilha-sprites-prontos:is(.astro-motion-off,.
     animation: none !important;
   }
 }
+
+/* Respiro para as construções acima dos globos e o botão de continuar. */
+html[data-astro-tema="pixel"] .welcome{margin-bottom:38px}
+html[data-astro-tema="pixel"] .steps{margin-top:30px;gap:48px}
+html[data-astro-tema="pixel"] .step{gap:30px}
+html[data-astro-tema="pixel"] .step-copy{max-width:calc(100% - 220px)}
+html[data-astro-tema="pixel"] #avatarViewer{background:linear-gradient(155deg,#f6e6ed,#ede4f5 56%,#e4d9ef);backdrop-filter:none;-webkit-backdrop-filter:none}
+@media(max-width:600px){html[data-astro-tema="pixel"] .step{gap:18px}html[data-astro-tema="pixel"] .step-copy{max-width:none}html[data-astro-tema="pixel"] .steps{gap:36px}}
+
+html[data-astro-tema="pixel"] .saturno-pixel-rpg{position:fixed;z-index:-1;pointer-events:none;right:-72px;top:-48px;width:470px;height:470px;object-fit:contain;image-rendering:pixelated;opacity:.78;animation:saturno-rpg-orbita 90s ease-in-out infinite}
+html[data-astro-tema="pixel"] body.saturno-pixel-pronto>.space-background::after{display:none!important}
+@keyframes saturno-rpg-orbita{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+html[data-astro-tema="pixel"] body:is(.astro-motion-off,.motion-reduced,.expedicao-hidden) .saturno-pixel-rpg{animation-play-state:paused}
+@media(prefers-reduced-motion:reduce){html[data-astro-tema="pixel"] .saturno-pixel-rpg{animation:none}}
+@media(max-width:800px){html[data-astro-tema="pixel"] .saturno-pixel-rpg{width:330px;height:330px;right:-100px;top:-45px;opacity:.6}}

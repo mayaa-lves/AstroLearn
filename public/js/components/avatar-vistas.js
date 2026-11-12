@@ -8,6 +8,8 @@ export function iniciarVistas({ render, slider, angleLabel, stage, stopped }) {
   canvas.setAttribute('aria-hidden', 'true');
   canvas.className = 'avatar-turntable';
   const ctx = canvas.getContext('2d');
+  const pixel = document.documentElement.dataset.astroTema === 'pixel';
+  if (ctx && pixel) ctx.imageSmoothingEnabled = false;
   let image = null, selected = 0, rotation = 0, target = 0, frame = 0, previous = 0, revision = 0;
   slider.min = '0'; slider.max = '359'; slider.step = '1'; slider.value = '0';
   const wrap = x => ((x % 360) + 360) % 360;
@@ -54,7 +56,11 @@ export function iniciarVistas({ render, slider, angleLabel, stage, stopped }) {
     if (image && next === selected) return;
     const request = ++revision;
     const asset = new Image();
-    asset.src = new URL((globalThis.astroArte || (url => url))(`../../assets/avatares/vistas/et-${next}.png`), import.meta.url).href;
+    // O índice vem exclusivamente do avatar escolhido no Perfil.
+    const path = pixel
+      ? `../../assets/avatares/trilha-pixel/et-${next}.png`
+      : (globalThis.astroArte || (url => url))(`../../assets/avatares/vistas/et-${next}.png`);
+    asset.src = new URL(path, import.meta.url).href;
     try { await asset.decode(); } catch { return; }
     if (request !== revision || !ctx) return;
     cancelAnimationFrame(frame); frame = 0;
