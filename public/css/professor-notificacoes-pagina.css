@@ -25,3 +25,5 @@
 .teacher-notices-page .teacher-refresh-label{display:none}
 @media(max-width:1150px){.teacher-notices-page .notification-page{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.teacher-notices-page .notification-page{grid-template-columns:1fr}.teacher-notices-page .notice-filters{padding:16px;gap:14px}.teacher-notices-page .notice-filter-field{flex:1 1 100%;min-width:0}.teacher-notices-page .notice-filter-count{margin-left:0}.teacher-notices-page .notification-card{aspect-ratio:auto;min-height:280px}}
+
+.teacher-notices-page .notice-workflow{align-self:flex-start;margin:0;padding:5px 8px;border-radius:6px;font-size:12px;background:#e9e4ed;color:#62556a}.teacher-notices-page .notice-workflow[data-pending=true]{background:#ffebc4;color:#75511c}.teacher-notices-page .notice-workflow[data-pending=false]{background:#dfeee4;color:#315f44}

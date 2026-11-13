@@ -8,7 +8,7 @@
   const panels = [...track.children];
   const dots = [...section.querySelectorAll('[data-step]')];
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  const desktop = matchMedia('(min-width: 1000px) and (min-height: 650px)');
+  const desktop = matchMedia('(min-width: 1000px) and (min-height: 540px)');
   const off = () => reduced.matches || document.body.classList.contains('motion-off');
   let horizontal = false, width = 0, distance = 0, origin = 0, raf = 0, active = -1, disposed = false;
   document.body.classList.add('scroll-story');
@@ -26,8 +26,8 @@
     if (!horizontal || disposed) return;
     const passed = Math.max(0, Math.min(distance, scrollY - origin));
     track.style.transform = `translate3d(${-passed}px,0,0)`;
-    section.style.setProperty('--journey-progress', String(passed / distance));
-    select(Math.min(panels.length - 1, Math.round(passed / width)));
+    section.style.setProperty('--journey-progress', String(passed / Math.max(1, distance)));
+    select(Math.min(panels.length - 1, Math.round(passed / Math.max(1, width))));
   }
   function schedule() { if (!raf && horizontal && !document.hidden) raf = requestAnimationFrame(render); }
   function measure() {
@@ -38,12 +38,15 @@
     horizontal = desktop.matches && !off();
     section.classList.toggle('is-horizontal', horizontal);
     if (horizontal) {
-      const height = Math.min(innerHeight - 120, 790);
+      const headerBottom = document.querySelector('.site-header')?.getBoundingClientRect().bottom || 88;
+      const stickyTop = Math.max(12, Math.ceil(headerBottom + 12));
+      const height = Math.max(320, Math.min(innerHeight - stickyTop - 12, 790));
+      section.style.setProperty('--journey-top', `${stickyTop}px`);
       section.style.setProperty('--journey-height', `${height}px`);
       width = section.querySelector('.journey-window').clientWidth;
       distance = width * (panels.length - 1);
       section.style.setProperty('--journey-total', `${height + distance}px`);
-      origin = section.getBoundingClientRect().top + scrollY - 100;
+      origin = section.getBoundingClientRect().top + scrollY - stickyTop;
       render();
     } else {
       track.style.removeProperty('transform');
@@ -95,8 +98,10 @@
 
   // Assets above the stage may change its origin while loading.
   const resize = new ResizeObserver(measure);
-  resize.observe(document.querySelector('.hero'));
-  resize.observe(document.querySelector('.style-section'));
+  for (const selector of ['.hero', '.style-section', '.site-header']) {
+    const element = document.querySelector(selector);
+    if (element) resize.observe(element);
+  }
   window.addEventListener('resize', measure, {passive:true});
   window.addEventListener('scroll', schedule, {passive:true});
   document.addEventListener('landing:motion', measure);

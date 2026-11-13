@@ -539,8 +539,8 @@ async function G() {
     if (r = await e.rooms(), s !== l) return;
     if ("rooms" === o) n = null, D(), await L(s);
     else if ("notifications" === o) {
-      const {categoriaAviso, pertenceSala} = await import('./professor-avisos-utils.js');
-      if(!document.getElementById('teacherNoticesCSS')){const css=document.createElement('link');css.id='teacherNoticesCSS';css.rel='stylesheet';css.href=new URL('../public/css/professor-notificacoes-pagina.css?v=1',location.href).href;document.head.append(css);}
+      const {categoriaAviso, pertenceSala, pendenciaAviso} = await import('./professor-avisos-utils.js?v=2');
+      if(!document.getElementById('teacherNoticesCSS')){const css=document.createElement('link');css.id='teacherNoticesCSS';css.rel='stylesheet';css.href=new URL('../public/css/professor-notificacoes-pagina.css?v=2',location.href).href;document.head.append(css);}
       document.body.classList.add('teacher-notices-page');
       n=i?await e.room(i):null;D();
       w(i?'Avisos da turma':'Sua caixa de avisos.',i?`Notificações de ${n.sala.nome}.`:'Avisos das suas turmas, organizados em um só lugar.');
@@ -550,28 +550,30 @@ async function G() {
       const rows=(response.notificacoes||[]).filter(row=>!i||pertenceSala(row,i,missionIds));
       const filters=c('div','','filters notice-filters'),state=c('select'),type=c('select');
       state.id='noticeState';type.id='noticeType';state.setAttribute('aria-label','Situação da notificação');type.setAttribute('aria-label','Tipo de notificação');
-      q(state,'Não lidas','unread');q(state,'Todas','all');q(state,'Lidas','read');
+      q(state,'Todas','all');q(state,'Não lidas','unread');q(state,'Lidas','read');
       q(type,'Todos os tipos','');for(const [key,label] of [['question','Perguntas'],['delivery','Entregas'],['material','Materiais'],['result','Resultados'],['task','Tarefas'],['info','Outros avisos']])q(type,label,key);
       const field=(text,input)=>{const box=c('div','','notice-filter-field');const label=c('label',text);label.htmlFor=input.id;box.append(label,input);return box;};
-      const count=c('span','','notice-filter-count');count.setAttribute('role','status');filters.append(field('Situação',state),field('Tipo de aviso',type),count);
+      const progress=c('select');progress.id='noticeProgress';progress.setAttribute('aria-label','Pendência da notificação');q(progress,'Todas','');q(progress,'Aguardando resposta','aguardando_resposta');q(progress,'Respondidas','respondida');q(progress,'Aguardando correção','aguardando_correcao');q(progress,'Corrigidas','corrigida');q(progress,'Situação não informada','desconhecida');
+      const count=c('span','','notice-filter-count');count.setAttribute('role','status');filters.append(field('Leitura',state),field('Tipo de aviso',type),field('Pendência',progress),count);
       const grid=c('div','','notification-page');a('content').append(filters,grid);
       function renderNotices(){
-        grid.replaceChildren();const shown=rows.filter(row=>{const read=!!row.lida_em||row.lida===true;return (state.value==='all'||(state.value==='read'?read:!read))&&(!type.value||categoriaAviso(row).key===type.value);});
+        grid.replaceChildren();const shown=rows.filter(row=>{const read=!!row.lida_em||row.lida===true;return (state.value==='all'||(state.value==='read'?read:!read))&&(!type.value||categoriaAviso(row).key===type.value)&&(!progress.value||pendenciaAviso(row).key===progress.value);});
         count.textContent=`${shown.length} ${shown.length===1?'aviso':'avisos'}`;
         for(const row of shown){
           const category=categoriaAviso(row),read=!!row.lida_em||row.lida===true;
           const card=c('article','','notification-card');card.dataset.category=category.key;
           const meta=c('div','','notice-card-meta');meta.append(c('span',category.label,'notice-category'),c('span',read?'Lida':'Não lida','notice-read-state'));
+          const workflow=pendenciaAviso(row);const badge=c('p',workflow.label,'notice-workflow');badge.dataset.pending=String(workflow.pending);
           const body=c('div','','notice-card-body');body.append(c('h2',row.titulo||'Aviso'),c('p',row.mensagem||''));
           const date=c('time',X(row.criado_em),'notice-date');const value=new Date(row.criado_em);if(!Number.isNaN(value.getTime()))date.dateTime=value.toISOString();
           const actions=c('div','','notice-card-actions');const destination=destinoNotificacao(row,'professor');
           if(destination){const open=c('a','Abrir →','secondary');open.href=destination;actions.append(open);}
           if(!read){const button=g('Marcar como lida',async()=>{button.disabled=true;try{await e.readNotifications([row.id]);row.lida=true;row.lida_em=true;renderNotices();window.dispatchEvent(new Event('astro-notifications-refresh'));}catch(error){h(error);button.disabled=false;}},'secondary');actions.append(button);}
-          card.append(meta,body,date,actions);grid.append(card);
+          card.append(meta,badge,body,date,actions);grid.append(card);
         }
         if(!shown.length)grid.append(c('p',i?'Nenhum aviso desta turma corresponde aos filtros.':'Tudo em dia. Nenhum aviso corresponde aos filtros.','empty'));
       }
-      state.onchange=type.onchange=renderNotices;renderNotices();
+      state.onchange=type.onchange=progress.onchange=renderNotices;renderNotices();
     }
 
     else {

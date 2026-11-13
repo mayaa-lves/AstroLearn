@@ -1,3 +1,4 @@
+import {pendenciaAviso,categoriaAviso} from './professor-avisos-utils.js?v=2';
 /* Cabeçalho e navegação exclusivos do professor. Não modifica os componentes do aluno. */
 import {obterSessao} from '../services/autenticacao.js';
 import {notificacoes,lerNotificacoes,destinoNotificacao} from '../services/comunicacao.js';
@@ -31,7 +32,7 @@ function iniciar(){
  const profile=make('button',(user.nome||'Professor').trim().charAt(0).toUpperCase(),'teacher-circle teacher-profile');profile.type='button';profile.title='Perfil';profile.setAttribute('aria-label','Perfil e configurações');
  function panel(id,title,trigger){const el=make('section','','teacher-panel');el.id=id;el.hidden=true;el.setAttribute('role','dialog');el.setAttribute('aria-labelledby',id+'Title');const header=make('header');const h=make('h2',title);h.id=id+'Title';const close=make('button','×','teacher-close');close.type='button';close.setAttribute('aria-label','Fechar '+title.toLowerCase());header.append(h,close);el.append(header);trigger.setAttribute('aria-expanded','false');trigger.setAttribute('aria-controls',id);trigger.setAttribute('aria-haspopup','dialog');close.onclick=()=>{open(el,false);trigger.focus();};trigger.onclick=()=>{open(el,el.hidden);if(!el.hidden)close.focus();};return el;}
  const notices=panel('teacherNoticePanel','Notificações',bell),account=panel('teacherProfilePanel','Sua conta',profile);
- function open(el,value){for(const [p,t]of [[notices,bell],[account,profile]]){p.hidden=!(p===el&&value);t.setAttribute('aria-expanded',String(!p.hidden));}if(value&&el===notices)load();}
+ function open(el,value){for(const [p,t]of [[notices,bell],[account,profile]]){p.hidden=!(p===el&&value);t.setAttribute('aria-expanded',String(!p.hidden));}if(value&&el===notices){failedAutoRead.clear();load();scheduleVisibleRead();}}
  tools.append(home,bell,profile,notices,account);document.body.append(tools);
  document.addEventListener('pointerdown',e=>{if(!tools.contains(e.target))open(notices,false);});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&(!notices.hidden||!account.hidden)){const trigger=notices.hidden?profile:bell;open(notices,false);trigger.focus();}});
@@ -48,20 +49,30 @@ function iniciar(){
  for(const b of [all,unread,refresh,markAll])b.type='button';all.setAttribute('aria-pressed','true');unread.setAttribute('aria-pressed','false');actions.classList.add('teacher-filters');actions.append(all,unread);refresh.innerHTML=refreshIcon;refresh.className='teacher-icon-action';refresh.setAttribute('aria-label','Atualizar notificações');refresh.title='Atualizar notificações';const panelHeader=notices.querySelector('header');const headerActions=make('div','','teacher-header-actions');headerActions.append(refresh,panelHeader.querySelector('.teacher-close'));panelHeader.append(headerActions);markAll.className='teacher-mark-all';
  const status=make('p','Carregando avisos…','teacher-status');status.setAttribute('role','status');const feed=make('div','','teacher-feed');const full=make('a','Ver todos os avisos →');full.href='notificacoes.html'+(new URLSearchParams(location.search).get('sala')?'?sala='+encodeURIComponent(new URLSearchParams(location.search).get('sala')):'');const summary=make('div','','teacher-notice-summary');summary.append(status,markAll);const bottom=make('footer','','teacher-notice-footer');bottom.append(full);notices.append(actions,summary,feed,bottom);
  let rows=[],busy=false,mutating=false;
- function counters(){const count=rows.filter(n=>!n.lida_em&&n.lida!==true).length;badge.textContent=count>99?'99+':String(count);badge.hidden=!count;bell.setAttribute('aria-label',`Notificações: ${count} não lidas`);markAll.disabled=mutating||busy||!count;}
- function category(n){
-  const type=String(n.tipo||n.type||'').toLowerCase();const link=String(n.link||'');const title=String(n.titulo||'').toLowerCase();
-  if(type.includes('pergunta')||type.includes('duvida')||link.includes('/perguntas')||title.includes('dúvida'))return {key:'question',label:'Dúvida',action:'Ver dúvida'};
-  if(type.includes('biblioteca')||type.includes('material')||link.includes('/biblioteca')||title.includes('material'))return {key:'material',label:'Material',action:'Ver material'};
-  if(type.includes('correcao')||title.includes('corrigid'))return {key:'result',label:'Resultado',action:'Ver resultado'};
-  if(type.includes('entrega')||title.includes('entrega'))return {key:'delivery',label:'Entrega',action:'Ver entrega'};
-  if(type.includes('tarefa')||link.includes('/tarefas'))return {key:'task',label:'Tarefa',action:'Ver tarefa'};
-  return {key:'info',label:'Informação',action:'Abrir aviso'};
+ let visibleReadTimer=0;
+ const failedAutoRead=new Set();
+ function scheduleVisibleRead(){clearTimeout(visibleReadTimer);if(!notices.hidden&&!document.hidden)visibleReadTimer=setTimeout(readVisible,800);}
+ function readVisible(){
+  if(notices.hidden||document.hidden)return;
+  if(busy||mutating){scheduleVisibleRead();return;}
+  const panel=notices.getBoundingClientRect();
+  const ids=[...feed.querySelectorAll('[data-notice-id]')].filter(card=>{
+   const box=card.getBoundingClientRect();
+   const visible=Math.min(box.bottom,panel.bottom,innerHeight)-Math.max(box.top,panel.top,0);
+   return box.width>0&&visible>=Math.min(box.height*.5,120)&&!failedAutoRead.has(card.dataset.noticeId);
+  }).map(card=>rows.find(row=>String(row.id)===card.dataset.noticeId)).filter(row=>row&&!row.lida_em&&row.lida!==true).map(row=>row.id);
+  if(ids.length)mark(ids,true);
  }
- function render(){feed.replaceChildren();counters();const shown=rows.filter(n=>filter==='all'||(!n.lida_em&&n.lida!==true));if(!shown.length)feed.append(make('p',filter==='all'?'Sua caixa de avisos está vazia.':'Você está em dia. Nenhum aviso não lido.','teacher-empty'));
- for(const n of shown){const isUnread=!n.lida_em&&n.lida!==true;const kind=category(n);const article=make('article','','teacher-notice-card'+(isUnread?' unread':''));article.dataset.category=kind.key;const meta=make('div','','teacher-card-meta');meta.append(make('span',kind.label,'teacher-category'),make('span',isUnread?'Não lida':'Lida','teacher-read-state'));article.append(meta,make('h3',n.titulo||'Aviso'),make('p',n.mensagem||''));const date=new Date(n.criado_em);if(!Number.isNaN(date.getTime())){const time=make('time',date.toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}));time.dateTime=date.toISOString();article.append(time);}const controls=make('div','','teacher-actions');const target=destinoNotificacao(n,'professor');if(target){const a=make('a',kind.action+' →');a.href=target;controls.append(a);}if(isUnread){const read=make('button','Marcar como lida');read.type='button';read.disabled=mutating||busy;read.onclick=()=>mark([n.id]);controls.append(read);}article.append(controls);feed.append(article);}}
+ notices.addEventListener('scroll',scheduleVisibleRead,{passive:true});
+ feed.addEventListener('scroll',scheduleVisibleRead,{passive:true});
+ window.addEventListener('resize',scheduleVisibleRead,{passive:true});
+ function counters(){const count=rows.filter(n=>!n.lida_em&&n.lida!==true).length;badge.textContent=count>99?'99+':String(count);badge.hidden=!count;bell.setAttribute('aria-label',`Notificações: ${count} não lidas`);markAll.disabled=mutating||busy||!count;}
+ function category(n){const kind=categoriaAviso(n);return {...kind,action:({question:'Ver dúvida',delivery:'Ver entrega',material:'Ver material',result:'Ver resultado',task:'Ver tarefa',info:'Abrir aviso'})[kind.key]};}
+
+ function render(){scheduleVisibleRead();feed.replaceChildren();counters();const shown=rows.filter(n=>filter==='all'||(!n.lida_em&&n.lida!==true));if(!shown.length)feed.append(make('p',filter==='all'?'Sua caixa de avisos está vazia.':'Você está em dia. Nenhum aviso não lido.','teacher-empty'));
+ for(const n of shown){const isUnread=!n.lida_em&&n.lida!==true;const kind=category(n);const article=make('article','','teacher-notice-card'+(isUnread?' unread':''));article.dataset.category=kind.key;article.dataset.noticeId=String(n.id);const meta=make('div','','teacher-card-meta');meta.append(make('span',kind.label,'teacher-category'),make('span',isUnread?'Não lida':'Lida','teacher-read-state'));const workflow=pendenciaAviso(n);const workflowLabel=make('p',workflow.label,'teacher-status');workflowLabel.dataset.pending=String(workflow.pending);article.append(meta,workflowLabel,make('h3',n.titulo||'Aviso'),make('p',n.mensagem||''));const date=new Date(n.criado_em);if(!Number.isNaN(date.getTime())){const time=make('time',date.toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}));time.dateTime=date.toISOString();article.append(time);}const controls=make('div','','teacher-actions');const target=destinoNotificacao(n,'professor');if(target){const a=make('a',kind.action+' →');a.href=target;controls.append(a);}if(isUnread){const read=make('button','Marcar como lida');read.type='button';read.disabled=mutating||busy;read.onclick=()=>mark([n.id]);controls.append(read);}article.append(controls);feed.append(article);}}
  async function load(){if(busy||document.hidden||mutating)return;busy=true;refresh.disabled=true;try{const data=await notificacoes();rows=data.notificacoes||[];render();status.textContent='Atualizado agora.';}catch(e){status.textContent=e.message||'Não foi possível carregar os avisos. Tente atualizar.';badge.hidden=true;bell.setAttribute('aria-label','Notificações — consulta indisponível');if(!rows.length)feed.replaceChildren(make('p','Não foi possível consultar os avisos.'));}finally{busy=false;refresh.disabled=false;counters();feed.querySelectorAll('button').forEach(b=>b.disabled=mutating);}}
- async function mark(ids){if(mutating||busy||!ids.length)return;mutating=true;render();try{await lerNotificacoes(ids);rows=rows.map(n=>ids.includes(n.id)?{...n,lida:true,lida_em:new Date().toISOString()}:n);status.textContent='Leitura salva.';}catch(e){status.textContent=e.message||'Não foi possível salvar a leitura.';}finally{mutating=false;render();}window.dispatchEvent(new Event('astro-notifications-refresh'));}
+ async function mark(ids,automatic=false){if(mutating||busy||!ids.length)return;mutating=true;render();try{await lerNotificacoes(ids);rows=rows.map(n=>ids.includes(n.id)?{...n,lida:true,lida_em:new Date().toISOString()}:n);status.textContent='Leitura salva.';}catch(e){if(automatic)ids.forEach(id=>failedAutoRead.add(String(id)));status.textContent=e.message||'Não foi possível salvar a leitura.';}finally{mutating=false;render();}window.dispatchEvent(new Event('astro-notifications-refresh'));}
  all.onclick=()=>{filter='all';all.setAttribute('aria-pressed','true');unread.setAttribute('aria-pressed','false');render();};unread.onclick=()=>{filter='unread';all.setAttribute('aria-pressed','false');unread.setAttribute('aria-pressed','true');render();};refresh.onclick=load;markAll.onclick=()=>mark(rows.filter(n=>!n.lida_em&&n.lida!==true).map(n=>n.id));
  // O componente compartilhado continua responsável pelos itens de navegação da sala.
  const sidebar=document.querySelector('.sidebar');
