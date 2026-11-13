@@ -1,4 +1,4 @@
-import {vertex,fragment} from './professor-planeta-material.js';
+import {vertex,fragment} from './professor-planeta-material.js?v=7';
 // A single GPU context serves all cards; each visible card keeps its own image.
 const targets=new Map(),reduced=matchMedia('(prefers-reduced-motion: reduce)');
 const surface=document.createElement('canvas');surface.width=surface.height=256;
@@ -48,7 +48,7 @@ function initialize(){
    gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
    gl.uniform1i(uniforms.atlas,0);gl.viewport(0,0,256,256);gl.enable(gl.BLEND);gl.blendFunc(gl.ONE,gl.ONE_MINUS_SRC_ALPHA);ready=true;wake();
   };
-  image.src=new URL('../../assets/imagens/professor/mural-texturas.png',import.meta.url).href;
+  image.src=new URL('../../assets/imagens/professor/mural-texturas-v2.png',import.meta.url).href;
  }catch(error){console.warn('Planetas: usando visual estático.',error);}
 }
 export function registrarPlaneta(canvas,index){

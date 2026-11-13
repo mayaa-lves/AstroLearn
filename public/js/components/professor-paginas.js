@@ -158,27 +158,71 @@ a("actionDialog").addEventListener("close", () => { s?.focus() });
 const P = e => e.missoes.filter(e => "rascunho" !== e.status_publicacao);
 function $(e) { return P(e).map(a => { const t = (e.pauta.pauta_data || []).map(e => f(e.notas?.[a.id])).filter(e => null !== e); return { label: (e.periodos.find(e => e.id === a.periodo_id)?.nome || "Período") + " · " + a.titulo, value: t.length ? t.reduce((e, a) => e + a, 0) / t.length : null } }) }
 
-async function L(t) {
-  w("Suas turmas.", "Cada sala, uma nova expedição. Escolha uma turma para acompanhar os alunos.");
-  a("pageActions").append(g("+ Criar turma", () => z("Criar turma", "Nome da turma", async a => { const t = await e.createRoom(a); location.assign(m("sala/", { sala: t.id })) }), "primary"));
-  const o = await Promise.all(r.map(async a => ({ room: a, data: await e.room(a.id) })));
-  if (t !== l) return;
-  const i = c("div", "", "room-grid");
-  o.forEach(({ room: e, data: a }) => {
-    const t = c("article", "", "card room-card"), o = c("div", "", "room-art");
-    o.setAttribute("aria-hidden", "true"), o.append(c("span", "EXPEDIÇÃO STEAM"), c("span", "", "room-planet"));
-    const n = c("div", "", "room-body"), r = R(a);
-    n.append(c("h2", e.nome), c("p", `${a.alunos.length} alunos · ${P(a).length} publicadas · ${a.missoes.length - P(a).length} rascunhos`));
-    const s = c("div", "", "room-data");
-    s.append(u(c("div"), c("strong", r.pending), c("span", "a corrigir")), u(c("div"), c("strong", r.corrected), c("span", "corrigidas"))), n.append(s);
-    const d = c("div", "", "mini-chart"), l = $(a);
-    l.forEach(e => { const a = c("div"); a.style.height = (null == e.value ? 0 : Math.max(2, 4 * e.value)) + "px", null == e.value && (a.style.background = "transparent", a.style.minHeight = "0"), a.title = `${e.label}: ${b(e.value)}`, a.append(c("span", b(e.value))), d.append(a) });
-    d.setAttribute("role", "img"), d.setAttribute("aria-label", "Médias das atividades: " + l.map(e => `${e.label}: ${b(e.value)}`).join("; "));
-    n.append(d, c("p", "Médias por atividade · escala 0–10", "mini-label"), v("Entrar na turma →", "sala/", { sala: e.id }, "primary"));
-    t.append(o, n), i.append(t)
-  });
-  a("content").append(i), r.length || a("content").append(c("p", "Você ainda não tem turmas. Crie sua primeira sala.", "empty"))
+// Nomes únicos entre as turmas deste professor. O servidor deve garantir atomicidade.
+const normalizarNomeTurma = nome => String(nome || '').normalize('NFKC').trim().replace(/\s+/gu, ' ').toLocaleLowerCase('pt-BR');
+async function criarTurmaNoMural(valor) {
+  const nome = valor.normalize('NFKC').trim().replace(/\s+/gu, ' ');
+  const atuais = await e.rooms();
+  const turmas = Array.isArray(atuais) ? atuais : atuais.salas;
+  if (!Array.isArray(turmas)) throw new Error('Não foi possível conferir os nomes das turmas. Tente novamente.');
+  if (turmas.some(turma => normalizarNomeTurma(turma.nome) === normalizarNomeTurma(nome))) {
+    throw new Error('Você já tem uma turma com esse nome. Escolha outro nome.');
+  }
+  const nova = await e.createRoom(nome);
+  a('actionDialog').close();
+  await G();
+  const card = [...document.querySelectorAll('.room-card')].find(card => card.dataset.roomId === String(nova?.id));
+  a('status').textContent = 'Turma criada! Clique em Entrar na turma quando quiser abrir a sala.';
+  if (card) {
+    card.classList.add('room-just-created');
+    card.tabIndex = -1;
+    card.focus({preventScroll:true});
+    card.scrollIntoView({block:'nearest',behavior:'instant'});
+  } else if (a('error').textContent) {
+    a('status').textContent = 'Turma criada, mas não foi possível atualizar o mural. Use Atualizar para consultar os cards.';
+  }
 }
+
+let buscaTurma = '';
+async function L(token) {
+  w('Suas turmas', 'Acompanhe suas turmas e as próximas descobertas.');
+  a('pageActions').append(g('+ Criar turma', () => z('Criar turma', 'Nome da turma', criarTurmaNoMural), 'primary teacher-create-room'));
+  document.getElementById('roomToolbar')?.remove();
+  const toolbar=c('div','','room-toolbar');toolbar.id='roomToolbar';
+  const search=c('div','','room-search'),toggle=g('','', 'room-search-toggle');
+  toggle.onclick=()=>{search.classList.add('is-open');input.focus();};
+  toggle.setAttribute('aria-label','Buscar turma');toggle.setAttribute('aria-controls','roomSearch');
+  toggle.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/><path d="m15 15 5 5"/></svg>';
+  const input=c('input');input.id='roomSearch';input.type='search';input.placeholder='Buscar turma';input.setAttribute('aria-label','Buscar turma por nome ou código');input.value=buscaTurma;
+  search.classList.toggle('has-value',!!buscaTurma);
+  input.onkeydown=event=>{if(event.key==='Escape'){input.value='';buscaTurma='';filtrar();search.classList.remove('is-open');toggle.focus();}};
+  search.addEventListener('focusout',()=>{setTimeout(()=>{if(!search.contains(document.activeElement))search.classList.remove('is-open');},0);});
+  const count=c('span','','room-count');count.setAttribute('role','status');
+  search.append(toggle,input);toolbar.append(search,count);a('content').before(toolbar);
+  const data=await Promise.all(r.map(async room=>({room,data:await e.room(room.id)})));
+  if(token!==l)return;
+  const grid=c('div','','room-grid');
+  data.forEach(({room,data},index)=>{
+    const card=c('article','','card room-card');card.dataset.roomId=String(room.id);card.dataset.planetFamily=String(index%6);
+    card.dataset.search=normalizarNomeTurma(room.nome+' '+(room.codigo_acesso||data.sala?.codigo_acesso||''));
+    const top=c('div','','room-art'),identity=c('div','','room-identity');
+    const heading=c('h2',room.nome);heading.title=room.nome;identity.append(heading,c('small','TURMA','room-code-label'));
+    const code=room.codigo_acesso||data.sala?.codigo_acesso;
+    const codeRow=c('div','','room-code-row');codeRow.append(c('strong',code||'Indisponível'));
+    if(code){const copy=g('','', 'room-copy');copy.setAttribute('aria-label','Copiar código da turma '+room.nome);copy.title='Copiar código';copy.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="7" width="12" height="14" rx="2"/><path d="M15 7V3H4v14h4"/></svg>';copy.onclick=async()=>{try{await navigator.clipboard.writeText(code);a('status').textContent='Código copiado.';}catch{a('status').textContent='Não foi possível copiar. Código da turma: '+code;}};codeRow.append(copy);}
+    identity.append(codeRow);const planet=c('div','','room-planet');planet.setAttribute('aria-hidden','true');top.append(identity,planet);
+    const metrics=c('div','','room-metrics');metrics.append(u(c('div'),c('strong',String(data.alunos.length)),c('span','Alunos')),u(c('div'),c('strong',String(P(data).length)),c('span','Atividades')));
+    const pending=R(data).pending,foot=c('div','','room-card-footer');
+    const state=c('p',pending?`${pending} ${pending===1?'entrega para corrigir':'entregas para corrigir'}`:'Correções em dia','room-state '+(pending?'pending':'done'));
+    const icon=c('span',pending?'•':'✓','room-state-icon');icon.setAttribute('aria-hidden','true');state.prepend(icon);
+    const enter=v('Abrir turma','sala/',{sala:room.id},'room-enter');enter.setAttribute('aria-label','Abrir turma '+room.nome);const arrow=c('span');arrow.setAttribute('aria-hidden','true');arrow.innerHTML='<svg viewBox="0 0 24 24" focusable="false"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>';enter.append(arrow);foot.append(state,enter);card.append(top,metrics,foot);grid.append(card);
+  });
+  const empty=c('p',r.length?'Nenhuma turma encontrada.':'Você ainda não tem turmas. Crie sua primeira turma.','empty room-search-empty');
+  a('content').append(grid,empty);
+  function filtrar(){const term=normalizarNomeTurma(input.value);buscaTurma=input.value;search.classList.toggle('has-value',!!term);let shown=0;for(const card of grid.children){card.hidden=!card.dataset.search.includes(term);if(!card.hidden)shown++;}count.textContent=term?`${shown} de ${r.length} turmas`:`${r.length} ${r.length===1?'turma':'turmas'}`;empty.hidden=shown>0;}
+  input.oninput=filtrar;filtrar();
+}
+
 function z(e, a, t) {
   const o = c("form"), i = _(o, a); i.required = !0, i.maxLength = 80;
   const n = c("button", "Confirmar", "primary"); n.type = "submit";
@@ -189,7 +233,7 @@ function z(e, a, t) {
 function D() {
   const e = a("breadcrumbs");
   e.replaceChildren(v("Turmas", "", {}, ""));
-  n && (e.append(c("span", "/"), v(n.sala.nome, "sala/", { sala: i }, "")), "room" !== o && e.append(c("span", "/"), c("span", { student: "Aluno", activities: "Atividades", activity: "Atividade", create: "Nova atividade", teams: "Equipes", corrections: "Correções", review: "Corrigir entrega", questions: "Perguntas" }[o])))
+  n && (e.append(c("span", "/"), v(n.sala.nome, "sala/", { sala: i }, "")), "room" !== o && e.append(c("span", "/"), c("span", { notifications: "Notificações", student: "Aluno", activities: "Atividades", activity: "Atividade", create: "Nova atividade", teams: "Equipes", corrections: "Correções", review: "Corrigir entrega", questions: "Perguntas" }[o])))
 }
 function T() {
   w(n.sala.nome, "Uma visão da turma para orientar a próxima descoberta.");
@@ -475,7 +519,7 @@ async function G() {
       ["teams", "Equipes", "equipes/", { sala: i }, "M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM2 21v-3a7 7 0 0 1 14 0v3m1-17a4 4 0 0 1 0 8m2 2a6 6 0 0 1 3 5v2"],
       ["corrections", "Correções", "correcoes/", { sala: i }, "M8 3H4v18h16V3h-4M8 2h8v4H8Zm0 11 3 3 5-6"]);
     i && e.push(["questions", "Perguntas", "perguntas/", { sala: i }, "M3 4h18v13H8l-5 4Zm4 4h10M7 12h6"]);
-    e.push(["notifications", "Notificações", "notificacoes/", {}, "M18 8a6 6 0 0 0-12 0c0 8-3 7-3 10h18c0-3-3-2-3-10M10 21h4"]);
+    e.push(["notifications", "Notificações", "notificacoes/", i ? {sala:i} : {}, "M18 8a6 6 0 0 0-12 0c0 8-3 7-3 10h18c0-3-3-2-3-10M10 21h4"]);
 
     /* Biblioteca aparece somente quando existe uma turma selecionada. */
     i && e.splice(3, 0, ["library", "Biblioteca", "biblioteca/", { sala: i }, "M3 4h7a3 3 0 0 1 3 3v14a3 3 0 0 0-3-3H3Zm10 3a3 3 0 0 1 3-3h5v14h-5a3 3 0 0 0-3 3"]);
@@ -494,46 +538,42 @@ async function G() {
   try {
     if (r = await e.rooms(), s !== l) return;
     if ("rooms" === o) n = null, D(), await L(s);
-    else if ("notifications" === o) n = null, D(), await async function (t) {
-      w("Sua caixa de avisos.", "Avisos das suas turmas, organizados em um só lugar.");
-      const {destinoNotificacao} = await import("../services/comunicacao.js");
-      const o = await e.notifications(!1); if (t !== l) return;
-      const i = c("div", "", "filters"), n = c("select"), r = c("select");
-      n.setAttribute("aria-label", "Situação da notificação"), r.setAttribute("aria-label", "Tipo da notificação"), q(n, "Não lidas", "unread"), q(n, "Todas", "all"), q(r, "Todos os tipos", ""), q(r, "Entregas", "entrega"), q(r, "Perguntas", "pergunta"), i.append(n, r);
-      const s = g("Marcar exibidas como lidas", async () => {
-        s.disabled = !0;
-        try {
-          const t = o.notificacoes.filter(e => p(e) && !e.lida_em).map(e => e.id);
-          if (!t.length) return;
-          await e.readNotifications(t), window.dispatchEvent(new Event("astro-notifications-refresh")), await G(), a("status").textContent = "Avisos marcados como lidos no servidor."
-        } catch (e) { h(e), s.disabled = !1 }
-      }, "secondary");
-      i.append(s);
-      a("content").append(i);
-      const d = c("div", "", "notification-page");
-      function p(e) { return !("all" !== n.value && e.lida_em || r.value && e.tipo !== r.value) }
-      function u() {
-        d.replaceChildren();
-        const a = o.notificacoes.filter(p); s.disabled = !a.some(e => !e.lida_em);
-        for (const t of a) {
-          const a = y(t.titulo, t.mensagem);
-          a.classList.add("notification-card"), a.append(c("span", t.lida_em ? "Lida" : "Não lida", t.lida_em ? "badge" : "badge gold"), c("p", X(t.criado_em), "hint"));
-          const destino = destinoNotificacao(t, "professor");
-          if (destino) { const link = c("a", "Abrir →", "secondary"); link.href = destino; a.append(link); }
-          if (!t.lida_em) {
-            const button = g("Marcar como lida", async () => {
-              button.disabled = true;
-              try { await e.readNotifications([t.id]); t.lida_em = true; u(); window.dispatchEvent(new Event("astro-notifications-refresh")); }
-              catch (error) { h(error); button.disabled = false; }
-            }, "secondary");
-            a.append(button);
-          }
-          d.append(a)
+    else if ("notifications" === o) {
+      const {categoriaAviso, pertenceSala} = await import('./professor-avisos-utils.js');
+      if(!document.getElementById('teacherNoticesCSS')){const css=document.createElement('link');css.id='teacherNoticesCSS';css.rel='stylesheet';css.href=new URL('../public/css/professor-notificacoes-pagina.css?v=1',location.href).href;document.head.append(css);}
+      document.body.classList.add('teacher-notices-page');
+      n=i?await e.room(i):null;D();
+      w(i?'Avisos da turma':'Sua caixa de avisos.',i?`Notificações de ${n.sala.nome}.`:'Avisos das suas turmas, organizados em um só lugar.');
+      const {destinoNotificacao} = await import('../services/comunicacao.js');
+      const response=await e.notifications(false);if(s!==l)return;
+      const missionIds=new Set((n?.missoes||[]).map(m=>String(m.id)));
+      const rows=(response.notificacoes||[]).filter(row=>!i||pertenceSala(row,i,missionIds));
+      const filters=c('div','','filters notice-filters'),state=c('select'),type=c('select');
+      state.id='noticeState';type.id='noticeType';state.setAttribute('aria-label','Situação da notificação');type.setAttribute('aria-label','Tipo de notificação');
+      q(state,'Não lidas','unread');q(state,'Todas','all');q(state,'Lidas','read');
+      q(type,'Todos os tipos','');for(const [key,label] of [['question','Perguntas'],['delivery','Entregas'],['material','Materiais'],['result','Resultados'],['task','Tarefas'],['info','Outros avisos']])q(type,label,key);
+      const field=(text,input)=>{const box=c('div','','notice-filter-field');const label=c('label',text);label.htmlFor=input.id;box.append(label,input);return box;};
+      const count=c('span','','notice-filter-count');count.setAttribute('role','status');filters.append(field('Situação',state),field('Tipo de aviso',type),count);
+      const grid=c('div','','notification-page');a('content').append(filters,grid);
+      function renderNotices(){
+        grid.replaceChildren();const shown=rows.filter(row=>{const read=!!row.lida_em||row.lida===true;return (state.value==='all'||(state.value==='read'?read:!read))&&(!type.value||categoriaAviso(row).key===type.value);});
+        count.textContent=`${shown.length} ${shown.length===1?'aviso':'avisos'}`;
+        for(const row of shown){
+          const category=categoriaAviso(row),read=!!row.lida_em||row.lida===true;
+          const card=c('article','','notification-card');card.dataset.category=category.key;
+          const meta=c('div','','notice-card-meta');meta.append(c('span',category.label,'notice-category'),c('span',read?'Lida':'Não lida','notice-read-state'));
+          const body=c('div','','notice-card-body');body.append(c('h2',row.titulo||'Aviso'),c('p',row.mensagem||''));
+          const date=c('time',X(row.criado_em),'notice-date');const value=new Date(row.criado_em);if(!Number.isNaN(value.getTime()))date.dateTime=value.toISOString();
+          const actions=c('div','','notice-card-actions');const destination=destinoNotificacao(row,'professor');
+          if(destination){const open=c('a','Abrir →','secondary');open.href=destination;actions.append(open);}
+          if(!read){const button=g('Marcar como lida',async()=>{button.disabled=true;try{await e.readNotifications([row.id]);row.lida=true;row.lida_em=true;renderNotices();window.dispatchEvent(new Event('astro-notifications-refresh'));}catch(error){h(error);button.disabled=false;}},'secondary');actions.append(button);}
+          card.append(meta,body,date,actions);grid.append(card);
         }
-        a.length || d.append(c("p", "Tudo em dia. Nenhum aviso corresponde a este filtro.", "empty"))
+        if(!shown.length)grid.append(c('p',i?'Nenhum aviso desta turma corresponde aos filtros.':'Tudo em dia. Nenhum aviso corresponde aos filtros.','empty'));
       }
-      a("content").append(d), n.onchange = r.onchange = u, u()
-    }(s);
+      state.onchange=type.onchange=renderNotices;renderNotices();
+    }
+
     else {
       if (!i) return w("Escolha uma turma.", "Abra a sala antes de consultar esta área."), n = null, D(), void await L(s);
       if (n = await e.room(i), "room" === o) {

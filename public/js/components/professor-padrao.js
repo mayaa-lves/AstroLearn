@@ -46,7 +46,7 @@ function iniciar(){
  window.addEventListener('storage',e=>{if(e.key===key)syncSound();});
  const actions=make('div','','teacher-actions');let filter='all';const all=make('button','Todas'),unread=make('button','Não lidas'),refresh=make('button','Atualizar'),markAll=make('button','Marcar carregadas como lidas');
  for(const b of [all,unread,refresh,markAll])b.type='button';all.setAttribute('aria-pressed','true');unread.setAttribute('aria-pressed','false');actions.classList.add('teacher-filters');actions.append(all,unread);refresh.innerHTML=refreshIcon;refresh.className='teacher-icon-action';refresh.setAttribute('aria-label','Atualizar notificações');refresh.title='Atualizar notificações';const panelHeader=notices.querySelector('header');const headerActions=make('div','','teacher-header-actions');headerActions.append(refresh,panelHeader.querySelector('.teacher-close'));panelHeader.append(headerActions);markAll.className='teacher-mark-all';
- const status=make('p','Carregando avisos…','teacher-status');status.setAttribute('role','status');const feed=make('div','','teacher-feed');const full=make('a','Ver todos os avisos →');full.href='notificacoes.html';const summary=make('div','','teacher-notice-summary');summary.append(status,markAll);const bottom=make('footer','','teacher-notice-footer');bottom.append(full);notices.append(actions,summary,feed,bottom);
+ const status=make('p','Carregando avisos…','teacher-status');status.setAttribute('role','status');const feed=make('div','','teacher-feed');const full=make('a','Ver todos os avisos →');full.href='notificacoes.html'+(new URLSearchParams(location.search).get('sala')?'?sala='+encodeURIComponent(new URLSearchParams(location.search).get('sala')):'');const summary=make('div','','teacher-notice-summary');summary.append(status,markAll);const bottom=make('footer','','teacher-notice-footer');bottom.append(full);notices.append(actions,summary,feed,bottom);
  let rows=[],busy=false,mutating=false;
  function counters(){const count=rows.filter(n=>!n.lida_em&&n.lida!==true).length;badge.textContent=count>99?'99+':String(count);badge.hidden=!count;bell.setAttribute('aria-label',`Notificações: ${count} não lidas`);markAll.disabled=mutating||busy||!count;}
  function category(n){
@@ -69,7 +69,7 @@ function iniciar(){
  let exit=sidebar.querySelector('#exit,#logout')||make('a');exit.href='../auth/login.html';exit.id=exit.id||'exit';const label=exit.querySelector('.label');if(label)label.textContent='Sair';else exit.textContent='Sair';exit.setAttribute('aria-label','Sair');
  if(help.parentElement!==footer)footer.append(help);if(exit.parentElement!==footer)footer.append(exit);
  const pageRefresh=document.querySelector('.teacher-top #refresh');
- if(pageRefresh){pageRefresh.innerHTML=refreshIcon;pageRefresh.type='button';pageRefresh.className='teacher-footer-refresh';pageRefresh.setAttribute('aria-label','Atualizar página');pageRefresh.title='Atualizar página';exit.classList.add('teacher-footer-exit');footer.classList.add('teacher-footer-with-refresh');footer.insertBefore(pageRefresh,exit);
+ if(pageRefresh){pageRefresh.innerHTML=refreshIcon+'<span class="teacher-refresh-label">Atualizar</span>'; pageRefresh.type='button';pageRefresh.className='teacher-footer-refresh';pageRefresh.setAttribute('aria-label','Atualizar página');pageRefresh.title='Atualizar página';exit.classList.add('teacher-footer-exit');footer.classList.add('teacher-footer-with-refresh');footer.insertBefore(pageRefresh,exit);
  document.addEventListener('click',e=>{if(!e.target.closest('.astro-nav-more'))return;const mobile=document.querySelector('#menu-mobile-dialog nav');if(!mobile||mobile.querySelector('[data-teacher-refresh]'))return;const button=make('button','Atualizar página','astro-nav-dialog-link');button.type='button';button.dataset.teacherRefresh='';button.onclick=()=>{document.getElementById('menu-mobile-dialog').close();pageRefresh.click();};mobile.append(button);});
  }
 
@@ -80,4 +80,4 @@ function iniciar(){
  const interval=setInterval(load,30000);window.addEventListener('astro-notifications-refresh',load);document.addEventListener('visibilitychange',()=>{if(!document.hidden)load();});window.addEventListener('pagehide',e=>{if(!e.persisted)clearInterval(interval);});load();
 }
 
-if(location.pathname.includes('/professor/')&&document.body.dataset.page==='rooms')import('./professor-mural.js?v=3').catch(error=>console.error('Não foi possível carregar o mural de turmas.',error));
+if(location.pathname.includes('/professor/')&&document.body.dataset.page==='rooms')import('./professor-mural.js?v=8').catch(error=>console.error('Não foi possível carregar o mural de turmas.',error));

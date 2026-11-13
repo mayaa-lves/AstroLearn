@@ -1,20 +1,112 @@
-/* Mural de turmas; não altera a trilha nem outras páginas. */
-.teacher-room-wall .room-card .room-art{height:170px;min-height:170px;display:grid;grid-template-columns:minmax(0,1fr) 140px;align-items:center;gap:12px;padding:16px 18px;overflow:hidden}
-.teacher-room-wall .room-card .room-art .room-planet{position:relative;inset:auto;width:140px;height:140px;grid-column:2;grid-row:1;background:none;filter:none;isolation:isolate}
-.teacher-room-wall .room-card .room-art .wall-code{position:static;grid-column:1;grid-row:1;white-space:pre-line;overflow-wrap:anywhere;letter-spacing:.04em;font-size:12px;line-height:1.9;font-weight:600;color:#543764;z-index:2;min-width:0}
-.teacher-room-wall .room-card .room-art .room-planet{animation:none!important;transform:none!important;box-shadow:none}
-.teacher-room-wall .room-planet::before,.teacher-room-wall .room-planet::after{display:none!important}
-.teacher-room-wall .wall-globe{display:block;position:absolute;inset:0;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#90b6d3,#456981 50%,#243844 75%,transparent 76%);filter:drop-shadow(0 5px 5px #38264c24)}
+/* Mural aprovado: estilos exclusivos da página de turmas do professor. */
+body.teacher-room-wall:before{background:linear-gradient(100deg,#fff5eeb8,#f6eafa48 70%,#f8e6eb45),url('../assets/imagens/aluno/inicial/horizonte-v7.png') center/cover no-repeat}
+.teacher-room-wall #main{padding-top:26px;padding-bottom:36px}
+html.astro-professor .teacher-room-wall .teacher-top{min-height:28px;margin:0 0 12px;padding-top:0!important}
+.teacher-room-wall .teacher-top .mode{font-size:12px;font-weight:600;letter-spacing:.09em}
+.teacher-room-wall #breadcrumbs,.teacher-room-wall .page-heading .eyebrow,.teacher-room-wall #modeNote{display:none}
+.teacher-room-wall .page-heading{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:22px;border:0;padding:0;margin:0 0 16px}
+.teacher-room-wall #pageTitle{grid-column:1;font-size:clamp(32px,3.3vw,48px);margin:0 0 8px;line-height:1.12;color:#321344}
+.teacher-room-wall #pageSubtitle{grid-column:1;font-size:16px;max-width:none;color:#745185}
+.teacher-room-wall #pageActions{grid-column:2;grid-row:1/3;align-self:center;margin:0}
+.teacher-room-wall .teacher-create-room{min-height:48px;padding:12px 24px;border:1px solid #7b3abb;border-radius:17px;background:linear-gradient(135deg,#7624c5,#9147d2);color:#fff;font-size:16px;font-weight:700;box-shadow:0 6px 16px #6d329333}
+.teacher-room-wall .teacher-create-room:hover{filter:brightness(1.08)}
+.teacher-room-wall :is(button,a,input):focus-visible{outline:3px solid #8641bc;outline-offset:3px}
+.teacher-room-wall :is(#status,#error):empty{display:none}
+.teacher-room-wall .room-toolbar{display:flex;align-items:center;gap:20px;margin:4px 0 24px;min-height:44px}
+.teacher-room-wall .room-search{display:flex;align-items:center;flex:0 1 auto;max-width:calc(100% - 110px);height:44px;border:1px solid #fff;border-radius:24px;background:#fffc;box-shadow:0 4px 12px #68427514;overflow:hidden}
+.teacher-room-wall .room-search-toggle{display:grid;place-items:center;width:44px;min-width:44px;height:44px;padding:10px;border:0;background:transparent;color:#644278;cursor:pointer}
+.teacher-room-wall .room-search-toggle svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7}
+.teacher-room-wall #roomSearch{box-sizing:border-box;width:0;min-width:0;padding:0;border:0;background:transparent;opacity:0;transition:width .25s,opacity .2s,padding .25s;color:#41254f;outline-offset:-4px}
+.teacher-room-wall .room-search:is(:hover,:focus-within,.is-open,.has-value) #roomSearch{width:230px;padding:8px 12px 8px 0;opacity:1}
+.teacher-room-wall .room-count{border-left:1px solid #b99ac4;padding-left:20px;white-space:nowrap;font-size:14px;font-weight:600;color:#4e2a62}
+.teacher-room-wall .room-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.teacher-room-wall .room-card{--glow:184,206,148;display:flex;position:relative;flex-direction:column;overflow:hidden;padding:20px;border:1px solid #cdb7d7;border-radius:25px;background:radial-gradient(ellipse at 80% 29%,rgba(var(--glow),.44),transparent 55%),linear-gradient(135deg,#ffffffdf,#fff8f4dc);box-shadow:inset 0 0 0 2px #ffffff9c,0 5px 12px #663d6a17;backdrop-filter:blur(8px);min-width:0;color:#351342}
+.teacher-room-wall .room-card[data-planet-family="1"]{--glow:244,174,126}
+.teacher-room-wall .room-card[data-planet-family="2"]{--glow:135,205,232}
+.teacher-room-wall .room-card[data-planet-family="3"]{--glow:156,191,237}
+.teacher-room-wall .room-card[data-planet-family="4"]{--glow:239,169,151}
+.teacher-room-wall .room-card[data-planet-family="5"]{--glow:234,151,192}
+.teacher-room-wall .room-card .room-art{height:auto;min-height:140px;display:grid;grid-template-columns:minmax(0,1fr) 46%;gap:6px;background:none;overflow:visible;position:relative}
+.teacher-room-wall .room-art:before{display:none}
+.teacher-room-wall .room-identity{min-width:0;position:relative;z-index:2}
+.teacher-room-wall .room-identity h2{margin:0 0 10px;font-size:clamp(21px,2vw,30px);line-height:1.15;overflow-wrap:anywhere;color:#32113f}
+.teacher-room-wall .room-code-label{display:block;letter-spacing:.2em;font-size:10px;font-weight:700;margin-bottom:2px}
+.teacher-room-wall .room-code-row{display:flex;align-items:center;gap:8px;font-size:14px;overflow-wrap:anywhere}
+.teacher-room-wall .room-copy{display:grid;place-items:center;flex-shrink:0;width:30px;height:30px;background:transparent;border:0;border-radius:8px;padding:5px;color:#654072;cursor:pointer}
+.teacher-room-wall .room-copy:hover{background:#eaddf0}
+.teacher-room-wall .room-copy svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.7}
+.teacher-room-wall .room-card .room-planet{position:relative;inset:auto;align-self:start;width:100%;height:auto;aspect-ratio:1;background:none;filter:none;animation:none;transform:none;isolation:isolate;max-width:190px;justify-self:center}
+.teacher-room-wall .room-planet:before{content:'';position:absolute;inset:-12%;border-radius:50%;background:radial-gradient(ellipse,rgba(var(--glow),.6),transparent 68%);z-index:-1}
+.teacher-room-wall .room-planet:after{display:none}
+.teacher-room-wall .wall-globe{display:block;width:100%;height:100%;background:radial-gradient(circle at 35% 35%,rgba(var(--glow),1),#495a73 62%,transparent 64%);border-radius:50%;filter:drop-shadow(0 8px 6px #513f641f)}
 .teacher-room-wall .wall-globe.is-rendered{background:none}
-.teacher-room-wall .mini-chart>div{background:var(--bar-color,#9a85ba);border-radius:4px 4px 0 0}
-.teacher-room-wall .mini-chart>div span{color:#50385f;font-size:10px;font-weight:600}
-.teacher-room-wall .mini-chart{gap:7px;margin-top:8px}
-@media(max-width:420px){.teacher-room-wall .room-card .room-art{grid-template-columns:minmax(0,1fr) 120px;padding:14px;gap:8px}.teacher-room-wall .room-card .room-art .room-planet{width:120px;height:120px}.teacher-room-wall .wall-globe{width:120px;height:120px}.teacher-room-wall .wall-code{font-size:11px!important}}
+.teacher-room-wall .room-metrics{display:flex;gap:26px;margin:3px 0 12px}
+.teacher-room-wall .room-metrics>div{display:flex;flex-direction:column;line-height:1.25;min-width:65px}
+.teacher-room-wall .room-metrics>div+div{border-left:1px solid #cfb9d1;padding-left:26px}
+.teacher-room-wall .room-metrics strong{font-size:24px;font-weight:700}
+.teacher-room-wall .room-metrics span{font-size:13px;margin-top:2px}
+.teacher-room-wall .room-card-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:12px;border-top:1px solid #d8c6dc;margin-top:auto}
+.teacher-room-wall .room-state{display:flex;align-items:center;gap:6px;font-size:12px;line-height:1.35;margin:0;color:#334d38;min-width:0}
+.teacher-room-wall .room-state.pending{color:#833d18}
+.teacher-room-wall .room-state-icon{display:grid;place-items:center;width:23px;height:23px;flex:0 0 23px;border-radius:50%;background:#deead2;font-size:16px}
+.teacher-room-wall .pending .room-state-icon{background:#ffe0bc;color:#a44812;font-size:22px}
+.teacher-room-wall .room-enter{display:flex;align-items:center;gap:8px;text-decoration:none;white-space:nowrap;font-size:12px;font-weight:700;color:#602399}
+.teacher-room-wall .room-enter>span{display:grid;place-items:center;border-radius:50%;width:29px;height:29px;background:linear-gradient(135deg,#9e50dd,#6223ac);color:#fff;font-size:22px;box-shadow:0 3px 8px #7825bc24}
+.teacher-room-wall .room-enter:hover{text-decoration:underline}
+.teacher-room-wall .room-just-created{outline:3px solid #9862c2;outline-offset:4px}
+.teacher-room-wall [hidden]{display:none!important}
+html.astro-professor body.teacher-room-wall .sidebar .teacher-footer-refresh{display:flex;justify-content:center;align-items:center;gap:0;overflow:hidden;width:40px;transition:width .2s}
+.teacher-room-wall .teacher-refresh-label{max-width:0;opacity:0;overflow:hidden;white-space:nowrap;transition:max-width .2s,opacity .2s}
+.teacher-room-wall .teacher-footer-refresh svg{flex:0 0 19px}
+html.astro-professor body.teacher-room-wall .sidebar .teacher-footer-with-refresh:has(.teacher-footer-refresh:is(:hover,:focus-visible)){grid-template-columns:124px minmax(40px,1fr);min-width:176px;background:#fffafc;border-radius:12px}
+html.astro-professor body.teacher-room-wall .sidebar .teacher-footer-refresh:is(:hover,:focus-visible){width:124px;gap:8px}
+.teacher-room-wall .teacher-footer-refresh:is(:hover,:focus-visible) .teacher-refresh-label{max-width:85px;opacity:1}
+@media(min-width:1600px){.teacher-room-wall .room-card{padding:24px}.teacher-room-wall .room-card .room-art{min-height:164px}.teacher-room-wall .room-state,.teacher-room-wall .room-enter{font-size:14px}}
+@media(max-width:1150px){.teacher-room-wall .room-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:800px){.teacher-room-wall #main{padding-top:20px}.teacher-room-wall .teacher-top{margin-bottom:18px!important}.teacher-room-wall .page-heading{display:block}.teacher-room-wall #pageActions{margin-top:16px}.teacher-room-wall #pageSubtitle{font-size:14px}.teacher-room-wall .room-grid{gap:16px}.teacher-room-wall .room-card{padding:16px}.teacher-room-wall .room-card-footer{flex-wrap:wrap}.teacher-room-wall #pageTitle{font-size:32px}}
+@media(max-width:600px){.teacher-room-wall .room-grid{grid-template-columns:1fr}.teacher-room-wall .room-card .room-art{min-height:140px}.teacher-room-wall .room-planet{max-width:155px!important}.teacher-room-wall .room-toolbar{gap:12px}.teacher-room-wall .room-count{padding-left:12px}.teacher-room-wall .room-search:is(:hover,:focus-within,.is-open,.has-value) #roomSearch{width:170px}}
+@media(prefers-reduced-motion:reduce){.teacher-room-wall *{transition:none!important;scroll-behavior:auto!important}}
 
-/* Cor associada ao planeta em todos os cards, não só nos três primeiros. */
-.teacher-room-wall .room-card .room-art[data-planet-family="0"]{background:linear-gradient(135deg,#e7f0eb,#c8ddd2)!important}
-.teacher-room-wall .room-card .room-art[data-planet-family="1"]{background:linear-gradient(135deg,#fff0e2,#ebcfb2)!important}
-.teacher-room-wall .room-card .room-art[data-planet-family="2"]{background:linear-gradient(135deg,#e9f6f7,#c6e2e8)!important}
-.teacher-room-wall .room-card .room-art[data-planet-family="3"]{background:linear-gradient(135deg,#eef0fa,#ccd5ec)!important}
-.teacher-room-wall .room-card .room-art[data-planet-family="4"]{background:linear-gradient(135deg,#f6e9e4,#dfc4bc)!important}
-.teacher-room-wall .room-card .room-art[data-planet-family="5"]{background:linear-gradient(135deg,#f7eaf3,#e4c7df)!important}
+/* Ajuste de proporções após comparação com o screenshot real (1366px). */
+body.teacher-room-wall:before{background:linear-gradient(180deg,#fff4f36b 0%,#fff1ef99 45%,#fff4f0d6 100%),url('../assets/imagens/aluno/inicial/horizonte-v7.png') center/cover no-repeat}
+.teacher-room-wall #main{padding-right:22px;padding-top:22px}
+.teacher-room-wall .room-grid{gap:22px}
+.teacher-room-wall .room-card{container-type:inline-size;padding:20px;border-radius:24px;background:radial-gradient(ellipse at 83% 30%,rgba(var(--glow),.40),transparent 58%),linear-gradient(135deg,#fffefde8,#fff7f2e5);box-shadow:inset 0 0 0 2px #ffffffb3,0 4px 10px #70446c20}
+.teacher-room-wall .room-card .room-art{display:block;height:auto;min-height:108px;min-height:clamp(108px,31cqw,140px);background:none}
+.teacher-room-wall .room-identity{width:53%;padding-right:4px}
+.teacher-room-wall .room-identity h2{font-size:clamp(23px,7cqw,32px);line-height:1.15;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:10px}
+.teacher-room-wall .room-card .room-planet{position:absolute;top:-6px;right:-6px;width:54%;max-width:208px;aspect-ratio:1;height:auto;pointer-events:none}
+.teacher-room-wall .room-planet:before{inset:-9%;background:radial-gradient(ellipse,rgba(var(--glow),.65),transparent 68%)}
+.teacher-room-wall .room-planet:after{display:block;content:'';position:absolute;inset:0;z-index:-1;background:radial-gradient(circle at 10% 42%,#fff 0 1px,transparent 2px),radial-gradient(circle at 89% 31%,#fffd 0 1px,transparent 2px),radial-gradient(circle at 82% 79%,#fffd 0 1px,transparent 2px),radial-gradient(circle at 28% 90%,#fff 0 1px,transparent 2px)}
+.teacher-room-wall .room-metrics{position:relative;z-index:1;gap:22px;margin:5px 0 12px;width:52%}
+.teacher-room-wall .room-metrics>div{min-width:52px}
+.teacher-room-wall .room-metrics>div+div{padding-left:22px}
+.teacher-room-wall .room-metrics strong{font-size:25px}
+.teacher-room-wall .room-metrics span{font-size:13px}
+.teacher-room-wall .room-state,.teacher-room-wall .room-enter{font-size:12px}
+.teacher-room-wall .room-card-footer{padding-top:10px;min-height:40px;gap:8px}
+.teacher-room-wall .room-enter>span{font-family:Arial,sans-serif;font-weight:400;font-size:20px;width:28px;height:28px}
+@media(min-width:1600px){.teacher-room-wall .room-card{padding:24px}.teacher-room-wall .room-state,.teacher-room-wall .room-enter{font-size:14px}}
+@media(max-width:600px){.teacher-room-wall #main{padding-right:16px}.teacher-room-wall .room-identity{width:54%}.teacher-room-wall .room-card .room-planet{max-width:180px!important}.teacher-room-wall .room-card .room-art{min-height:108px}.teacher-room-wall .room-metrics{margin-top:5px}}
+
+/* Refinamento: escala dos globos, halo localizado, ação principal e seta. */
+.teacher-room-wall .room-card{background:radial-gradient(ellipse at 83% 30%,rgba(var(--glow),.19),transparent 57%),linear-gradient(135deg,#fffefde8,#fff7f2e5)}
+.teacher-room-wall .room-card .room-planet{width:46%;max-width:174px;top:0;right:3px}
+.teacher-room-wall .room-planet:before{inset:-23%;background:radial-gradient(ellipse at 50% 50%,rgba(var(--glow),.18) 20%,rgba(var(--glow),.58) 37%,rgba(var(--glow),.28) 53%,transparent 73%);filter:blur(6px);opacity:.95}
+.teacher-room-wall .room-planet:after{inset:-15%;background:radial-gradient(circle at 11% 43%,#fff 0 .9px,transparent 2px),radial-gradient(circle at 82% 20%,#fff 0 .8px,transparent 2px),radial-gradient(circle at 89% 66%,#fffe 0 1px,transparent 2px),radial-gradient(circle at 28% 84%,#fff 0 .8px,transparent 2px),radial-gradient(circle at 57% 92%,#fff9 0 .7px,transparent 2px);opacity:.85}
+.teacher-room-wall .wall-globe{filter:drop-shadow(0 5px 5px #513f641a)}
+.teacher-room-wall #pageActions{grid-row:2;align-self:start;justify-self:end;margin:22px 18px 0 0}
+.teacher-room-wall #pageActions .teacher-create-room{font-weight:400;font-size:14px;min-height:43px;padding:10px 20px;border-radius:14px;border:1px solid #8b51bb;background:linear-gradient(135deg,#8648bc,#9358c4);box-shadow:0 3px 9px #6b3a8c20;color:#fff}
+.teacher-room-wall #pageActions .teacher-create-room:hover{background:#8040b5;box-shadow:0 4px 11px #6b3a8c2b;filter:none}
+.teacher-room-wall .room-enter>span{display:flex;align-items:center;justify-content:center;width:28px;height:28px;flex:0 0 28px;padding:0;line-height:1}
+.teacher-room-wall .room-enter>span svg{display:block;width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transform:none}
+@media(max-width:800px){.teacher-room-wall #pageActions{margin:16px 0 0;justify-self:start}}
+@media(max-width:600px){.teacher-room-wall .room-card .room-planet{width:44%;max-width:154px!important;right:4px;top:2px}}
+
+/* O foco pertence ao conjunto lupa + campo, sem uma segunda borda interna. */
+.teacher-room-wall .room-search{box-sizing:border-box;border:1px solid #d8c2e5;overflow:visible}
+.teacher-room-wall .room-search:focus-within{border-color:#9550c7;box-shadow:0 0 0 3px #9550c722}
+.teacher-room-wall #roomSearch,.teacher-room-wall #roomSearch:focus,.teacher-room-wall #roomSearch:focus-visible{outline:none!important;border:0!important;box-shadow:none!important;border-radius:0;background:transparent;line-height:1.4;height:40px;min-height:0;margin:0}
+.teacher-room-wall .room-search-toggle:focus-visible{outline:none;box-shadow:none}
+.teacher-room-wall .room-search-toggle{flex-shrink:0;border-radius:50%}
+.teacher-room-wall .room-search:is(:hover,:focus-within,.is-open,.has-value) #roomSearch{padding:8px 16px 8px 4px}
