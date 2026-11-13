@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Criar material · AstroLearn</title>
+
+  <link rel="stylesheet" href="../public/css/aluno-pdf.css">
+  <link rel="stylesheet" href="../public/css/professor.css">
+  <link rel="stylesheet" href="../public/css/menu-professor.css">
+  <link rel="stylesheet" href="../public/css/preferencias.css">
+
+  <style>
+    #materialForm {
+      display: grid;
+      gap: 12px;
+    }
+
+    #materialForm input,
+    #materialForm textarea,
+    #materialForm select {
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    #materialForm textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+  </style>
+  <link rel="stylesheet" href="../public/css/menu-unificado.css">
+  <script defer src="../public/js/components/menu-unificado.js"></script>
+<link rel="icon" type="image/png" href="../public/assets/imagens/marca/astrolearn-simbolo.png">
+<link rel="stylesheet" href="../public/css/rolagem.css" data-astro-rolagem>
+</head>
+
+<body data-page="library">
+  <a class="skip" href="#main">Pular para o conteúdo</a>
+
+  <aside class="sidebar">
+    <a class="brand" href="home.html">
+      Astro<span>Learn</span>
+    </a>
+
+    <button
+      id="menuToggle"
+      aria-controls="mainNav"
+      aria-expanded="true"
+      aria-label="Recolher menu"
+    >
+      ‹‹
+    </button>
+
+    <nav id="mainNav" aria-label="Menu do professor">
+      <a href="home.html">
+        <span aria-hidden="true">▦</span>
+        <span class="label">Turmas</span>
+      </a>
+
+      <a data-room-route="turma.html">
+        <span aria-hidden="true">⌂</span>
+        <span class="label">Sala</span>
+      </a>
+
+      <a data-room-route="atividades.html">
+        <span aria-hidden="true">▤</span>
+        <span class="label">Atividades</span>
+      </a>
+
+      <a
+        data-room-route="biblioteca.html"
+        class="active"
+        aria-current="page"
+      >
+        <span aria-hidden="true">▥</span>
+        <span class="label">Biblioteca</span>
+      </a>
+
+      <a data-room-route="equipes.html">
+        <span aria-hidden="true">♧</span>
+        <span class="label">Equipes</span>
+      </a>
+
+      <a data-room-route="correcoes.html">
+        <span aria-hidden="true">✓</span>
+        <span class="label">Correções</span>
+      </a>
+    </nav>
+
+    <div class="side-bottom">
+      <a href="../auth/login.html">
+        ← <span class="label">Sair</span>
+      </a>
+    </div>
+  </aside>
+
+  <main id="main" tabindex="-1">
+    <header class="teacher-top">
+      <span class="mode">ESTAÇÃO DO PROFESSOR</span>
+
+      <button id="refresh" class="text-button" type="button">
+        ↻ Atualizar
+      </button>
+    </header>
+
+    <nav class="breadcrumbs" aria-label="Caminho da página">
+      <a href="home.html">Turmas</a>
+      <span> / </span>
+      <a id="roomLink">Minha turma</a>
+      <span> / Biblioteca</span>
+    </nav>
+
+    <section class="page-heading">
+      <p class="eyebrow">
+        CONHECIMENTO PARA A PRÓXIMA DESCOBERTA
+      </p>
+
+      <h1>Criar novo material</h1>
+      <p id="roomName">Carregando turma…</p>
+    </section>
+
+    <p id="error" class="error-panel" role="alert"></p>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+
+    <div class="page-actions">
+      <a id="backLibrary" class="secondary">
+        ← Voltar à biblioteca
+      </a>
+    </div>
+
+    <section
+      id="formPanel"
+      class="panel"
+      aria-labelledby="formTitle"
+    >
+      <h2 id="formTitle">Novo material</h2>
+      <p>Reúna referências e orientações para seus alunos.</p>
+
+      <form id="materialForm">
+        <label for="title">Título *</label>
+        <input
+          id="title"
+          required
+          maxlength="120"
+          placeholder="Ex.: Guia de investigação"
+        >
+
+        <label for="description">Descrição</label>
+        <textarea
+          id="description"
+          maxlength="10000"
+          placeholder="Explique como usar o material."
+        ></textarea>
+
+        <label for="mission">Relacionar com uma atividade</label>
+        <select id="mission">
+          <option value="">Biblioteca geral da turma</option>
+        </select>
+
+        <label for="links">Links — um por linha</label>
+        <textarea
+          id="links"
+          spellcheck="false"
+          aria-describedby="linksHint"
+          placeholder="https://..."
+        ></textarea>
+
+        <p id="linksHint" class="hint">
+          Use links compartilhados que os alunos possam acessar.
+          Você também pode salvar sem links.
+        </p>
+
+        <label for="files">PDFs e imagens</label>
+        <input
+          id="files"
+          type="file"
+          accept=".pdf,.png,.jpg,.jpeg"
+          aria-describedby="uploadHint"
+        >
+
+        <p id="uploadHint" class="hint">
+          Um PDF ou imagem (PNG/JPG/JPEG), até 20 MB. Na edição, selecionar um arquivo substitui o anexo anterior; deixar vazio o mantém.
+        </p>
+
+        <button
+          id="save"
+          class="primary"
+          type="submit"
+          disabled
+        >
+          Salvar material
+        </button>
+      </form>
+    </section>
+
+    <footer>AstroLearn · Uma descoberta de cada vez.</footer>
+  </main>
+
+  <script src="../public/js/components/preferencias.js"></script>
+  
+  <script
+    type="module"
+    src="../public/js/components/sessao.js"
+  ></script>
+
+  <script type="module">
+    import {
+      api,
+      sessaoObrigatoria
+    } from "../public/js/services/conexao.js";
+
+    import { prepararMaterial } from "../public/js/services/biblioteca-anexos.js";
+    sessaoObrigatoria("professor");
+    // Anexos são enviados pela API autenticada, sem chave de Storage no navegador.
+
+    const $ = id => document.getElementById(id);
+    const params = new URLSearchParams(location.search);
+
+    const sala = params.get("sala");
+    const materialId = params.get("material");
+    const editando = Boolean(materialId);
+
+    const base =
+      "/api/professor/salas/" + encodeURIComponent(sala || "");
+
+    const roomURL = route =>
+      route + "?sala=" + encodeURIComponent(sala || "");
+
+    document.querySelectorAll("[data-room-route]").forEach(link => {
+      link.href = roomURL(link.dataset.roomRoute);
+    });
+
+    $("roomLink").href = sala
+      ? roomURL("turma.html")
+      : "home.html";
+
+    $("backLibrary").href = sala
+      ? roomURL("biblioteca.html")
+      : "biblioteca.html";
+
+    document.querySelector(".page-heading h1").textContent =
+      editando ? "Editar material" : "Criar novo material";
+
+    $("formTitle").textContent =
+      editando ? "Editar material" : "Novo material";
+
+    $("save").textContent =
+      editando ? "Salvar alterações" : "Salvar material";
+
+    document.title =
+      (editando ? "Editar material" : "Criar material") +
+      " · AstroLearn";
+
+    let ocupado = false;
+    let pronta = false;
+
+    function normalizarLink(entrada) {
+      const candidato = /^[a-z][a-z\d+.-]*:/i.test(entrada)
+        ? entrada
+        : "https://" + entrada;
+
+      try {
+        const url = new URL(candidato);
+
+        if (
+          url.protocol !== "https:" ||
+          !url.hostname.includes(".") ||
+          url.username ||
+          url.password
+        ) {
+          throw new Error();
+        }
+
+        return url.href;
+      } catch {
+        throw new Error(
+          "Link inválido: " + entrada +
+          ". Cole um endereço HTTPS completo."
+        );
+      }
+    }
+
+    async function carregar() {
+      if (ocupado) return;
+
+      if (!sala) {
+        $("error").textContent =
+          "Escolha uma turma na biblioteca antes de criar o material.";
+
+        $("roomName").textContent = "Selecione uma turma";
+        return;
+      }
+
+      ocupado = true;
+
+      $("refresh").disabled = true;
+      $("save").disabled = true;
+      $("error").textContent = "";
+
+      try {
+        const [turma, dados] = await Promise.all([
+          api(base),
+          api(base + "/biblioteca")
+        ]);
+
+        $("roomName").textContent = turma.sala.nome;
+        $("roomLink").textContent = turma.sala.nome;
+
+        const escolhido = $("mission").value;
+
+        $("mission").replaceChildren(
+          new Option("Biblioteca geral da turma", "")
+        );
+
+        (dados.missoes || []).forEach(missao => {
+          $("mission").append(
+            new Option(missao.titulo, missao.id)
+          );
+        });
+
+        if (
+          [...$("mission").options].some(
+            option => option.value === escolhido
+          )
+        ) {
+          $("mission").value = escolhido;
+        }
+
+        if (editando) {
+          const material = (dados.materiais || []).find(
+            item => item.id === materialId
+          );
+
+          if (!material) {
+            throw new Error(
+              "Material não encontrado nesta turma. " +
+              "Volte à biblioteca e atualize a lista."
+            );
+          }
+
+          $("title").value = material.titulo || "";
+          $("description").value = material.descricao || "";
+          $("mission").value = material.missao_id || "";
+
+          $("links").value = (material.links || [])
+            .map(link =>
+              typeof link === "string"
+                ? link
+                : link.url || ""
+            )
+            .join("\n");
+        }
+
+        pronta = true;
+      } catch (error) {
+        $("error").textContent = error.message;
+        pronta = false;
+      } finally {
+        ocupado = false;
+
+        $("refresh").disabled = false;
+        $("save").disabled = !pronta;
+      }
+    }
+
+    $("materialForm").onsubmit = async event => {
+      event.preventDefault();
+
+      if (ocupado || !pronta) return;
+
+      const titulo = $("title").value.trim();
+
+      if (!titulo) {
+        $("error").textContent = "Informe o título.";
+        $("title").focus();
+        return;
+      }
+
+      let links;
+
+      try {
+        links = [
+          ...new Set(
+            $("links").value
+              .split(/\r?\n/)
+              .map(value => value.trim())
+              .filter(Boolean)
+              .map(normalizarLink)
+          )
+        ];
+      } catch (error) {
+        $("error").textContent = error.message;
+        $("links").focus();
+        return;
+      }
+
+      let corpo;
+      try {
+        corpo = prepararMaterial({ titulo, descricao: $("description").value.trim(), missao_id: $("mission").value || null, links }, $("files").files[0]);
+      } catch (erro) { $("error").textContent = erro.message; $("files").focus(); return; }
+      ocupado = true;
+
+      $("save").disabled = true;
+      $("refresh").disabled = true;
+
+      $("materialForm").setAttribute("aria-busy", "true");
+
+      $("error").textContent = "";
+      $("status").textContent = "Salvando material…";
+
+      try {
+        const caminho =
+          base + "/biblioteca" +
+          (editando
+            ? "/" + encodeURIComponent(materialId)
+            : "");
+
+        const salvo = await api(
+          caminho,
+          editando ? "PUT" : "POST",
+          corpo
+        );
+
+        if (!salvo?.id) {
+          throw new Error(
+            "O servidor não confirmou o salvamento. " +
+            "Confira o material antes de tentar novamente."
+          );
+        }
+
+        location.assign(roomURL("biblioteca.html"));
+      } catch (error) {
+        $("status").textContent = "";
+        $("error").textContent = error.message;
+      } finally {
+        ocupado = false;
+
+        $("save").disabled = false;
+        $("refresh").disabled = false;
+
+        $("materialForm").setAttribute("aria-busy", "false");
+      }
+    };
+
+    $("refresh").onclick = carregar;
+
+    carregar();
+  </script>
+</body>
+</html>
