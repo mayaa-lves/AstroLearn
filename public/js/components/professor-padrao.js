@@ -79,3 +79,5 @@ function iniciar(){
  }
  const interval=setInterval(load,30000);window.addEventListener('astro-notifications-refresh',load);document.addEventListener('visibilitychange',()=>{if(!document.hidden)load();});window.addEventListener('pagehide',e=>{if(!e.persisted)clearInterval(interval);});load();
 }
+
+if(location.pathname.includes('/professor/')&&document.body.dataset.page==='rooms')import('./professor-mural.js?v=3').catch(error=>console.error('Não foi possível carregar o mural de turmas.',error));

@@ -1,0 +1,20 @@
+/* Mural de turmas; não altera a trilha nem outras páginas. */
+.teacher-room-wall .room-card .room-art{height:170px;min-height:170px;display:grid;grid-template-columns:minmax(0,1fr) 140px;align-items:center;gap:12px;padding:16px 18px;overflow:hidden}
+.teacher-room-wall .room-card .room-art .room-planet{position:relative;inset:auto;width:140px;height:140px;grid-column:2;grid-row:1;background:none;filter:none;isolation:isolate}
+.teacher-room-wall .room-card .room-art .wall-code{position:static;grid-column:1;grid-row:1;white-space:pre-line;overflow-wrap:anywhere;letter-spacing:.04em;font-size:12px;line-height:1.9;font-weight:600;color:#543764;z-index:2;min-width:0}
+.teacher-room-wall .room-card .room-art .room-planet{animation:none!important;transform:none!important;box-shadow:none}
+.teacher-room-wall .room-planet::before,.teacher-room-wall .room-planet::after{display:none!important}
+.teacher-room-wall .wall-globe{display:block;position:absolute;inset:0;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#90b6d3,#456981 50%,#243844 75%,transparent 76%);filter:drop-shadow(0 5px 5px #38264c24)}
+.teacher-room-wall .wall-globe.is-rendered{background:none}
+.teacher-room-wall .mini-chart>div{background:var(--bar-color,#9a85ba);border-radius:4px 4px 0 0}
+.teacher-room-wall .mini-chart>div span{color:#50385f;font-size:10px;font-weight:600}
+.teacher-room-wall .mini-chart{gap:7px;margin-top:8px}
+@media(max-width:420px){.teacher-room-wall .room-card .room-art{grid-template-columns:minmax(0,1fr) 120px;padding:14px;gap:8px}.teacher-room-wall .room-card .room-art .room-planet{width:120px;height:120px}.teacher-room-wall .wall-globe{width:120px;height:120px}.teacher-room-wall .wall-code{font-size:11px!important}}
+
+/* Cor associada ao planeta em todos os cards, não só nos três primeiros. */
+.teacher-room-wall .room-card .room-art[data-planet-family="0"]{background:linear-gradient(135deg,#e7f0eb,#c8ddd2)!important}
+.teacher-room-wall .room-card .room-art[data-planet-family="1"]{background:linear-gradient(135deg,#fff0e2,#ebcfb2)!important}
+.teacher-room-wall .room-card .room-art[data-planet-family="2"]{background:linear-gradient(135deg,#e9f6f7,#c6e2e8)!important}
+.teacher-room-wall .room-card .room-art[data-planet-family="3"]{background:linear-gradient(135deg,#eef0fa,#ccd5ec)!important}
+.teacher-room-wall .room-card .room-art[data-planet-family="4"]{background:linear-gradient(135deg,#f6e9e4,#dfc4bc)!important}
+.teacher-room-wall .room-card .room-art[data-planet-family="5"]{background:linear-gradient(135deg,#f7eaf3,#e4c7df)!important}
