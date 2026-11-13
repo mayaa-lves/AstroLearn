@@ -68,6 +68,26 @@
     $('avatar').style.setProperty('transition', 'none', 'important');
   }
 
+  // Espaço próprio para o personagem: os controles ficam fora do recorte.
+  const previewStyle = document.createElement('style');
+  previewStyle.textContent = `
+    .preview #stage {
+      box-sizing:border-box;flex:0 0 auto;width:100%;max-width:560px;
+      height:auto;min-height:0;max-height:none;aspect-ratio:1;
+      margin:18px auto 24px;padding:18px;overflow:hidden;
+    }
+    .preview #stage #avatar {width:100%;height:auto;max-height:100%;aspect-ratio:1}
+    .preview .view-switch {position:relative;flex-shrink:0;margin-top:0;margin-bottom:12px}
+    html[data-astro-tema="pixel"] .preview #stage {
+      background:radial-gradient(ellipse at 40% 28%,#fbf9ff,#ece1f7 75%,#f8f4fa)!important;
+      border-radius:18px;
+    }
+    html[data-astro-tema="pixel"] .preview #stage::before,
+    html[data-astro-tema="pixel"] .preview #stage::after {background:none!important}
+    @media(max-width:600px){.preview #stage{padding:12px;margin-block:16px 22px}}
+  `;
+  document.head.append(previewStyle);
+
   // Cada opção recorta a mesma célula do atlas nos dois temas.
   function picture(character,row=1,side='front',sheet='base',largePreview=false){
     const box=document.createElement('span');box.className='skin-picture';

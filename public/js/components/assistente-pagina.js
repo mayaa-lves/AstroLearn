@@ -58,6 +58,20 @@ form button::after {
       sprite: new URL(art + (pixel ? 'pixel/sparky-lilas.png' : 'sparky-pagina-lilas.png'), base).href,
       poses: new URL(art + (pixel ? 'pixel/sparky-poses.png' : 'sparky-pagina-poses.png'), base).href,
     });
+    if (inline) {
+      const placement = document.createElement('style');
+      placement.textContent = `
+        @media(min-width:801px){
+          :host([inline]){grid-template-columns:minmax(0,1fr) minmax(260px,40%);gap:16px;align-items:center}
+          .companion{align-self:center;justify-self:center;width:100%;max-width:360px;margin:0;padding:0}
+          .companion-character{width:100%;margin-inline:auto}
+        }
+        @media(max-width:800px){
+          .companion{justify-content:center;width:100%;margin-inline:auto}
+        }
+      `;
+      root.append(placement);
+    }
     controls();
    });
    if(inline)connect();

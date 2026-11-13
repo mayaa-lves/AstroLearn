@@ -16,3 +16,9 @@ html[data-astro-tema="pixel"] .team-page .mission-image {
   background-size: 400% 200%;
   background-repeat: no-repeat;
 }
+
+/* Retratos dos integrantes, do mural e dos detalhes respeitam o tema. */
+html[data-astro-tema="pixel"] .team-page .portrait.profile-portrait[data-avatar-id] {
+ background-image:url('../../../assets/avatares/ets-perfil.pixel.png');
+ image-rendering:pixelated;
+}

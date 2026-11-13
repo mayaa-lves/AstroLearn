@@ -68,9 +68,13 @@
   const list=document.createElement('nav');list.setAttribute('aria-label','Todas as páginas');dialog.append(close,title,list);document.body.append(dialog);
   const tooltip=document.createElement('div');tooltip.className='astro-nav-tooltip';tooltip.setAttribute('role','tooltip');tooltip.hidden=true;document.body.append(tooltip);
   let updateFrame=0,active=null,first=true;
-  const entries=[['home.html','Início'],['home.html#journey','Minha trilha'],['biblioteca.html','Biblioteca'],['conquistas.html','Conquistas'],['loja.html','Loja'],['equipe.html','Minha equipe'],['perfil.html','Perfil'],['jogos/index.html','Jogos'],['assistente.html','Assistente']];
+  const entries=[['home.html','Início'],['home.html#journey','Minha trilha'],['biblioteca.html','Biblioteca'],['conquistas.html','Conquistas'],['loja.html','Loja'],['equipe.html','Minha equipe'],['jogos/index.html','Jogos'],['assistente.html','Assistente'],['perfil.html','Perfil']];
   function buildStudent(){
-    for(const [file,label]of entries){let a=[...nav.querySelectorAll('a')].find(a=>labelOf(a)===label);if(!a){a=document.createElement('a');a.href=new URL(file,studentBase).href;nav.append(a);}polish(a,label);}
+    const ordered=[];
+    for(const [file,label]of entries){let a=[...nav.querySelectorAll('a')].find(a=>labelOf(a)===label);if(!a){a=document.createElement('a');a.href=new URL(file,studentBase).href;nav.append(a);}polish(a,label);ordered.push(a);}
+    // Ordena os elementos reais: leitura, Tab e menu mobile seguem a mesma ordem.
+    // Só move quando necessário para o MutationObserver não criar um ciclo.
+    ordered.forEach((a,index)=>{const current=nav.querySelectorAll('a')[index];if(current!==a)nav.insertBefore(a,current||null);});
     // Preferências continuam no perfil; os arquivos dessas telas não são removidos.
     nav.querySelectorAll('a').forEach(a=>{if(labelOf(a)==='Configurações')a.remove();});
   }
