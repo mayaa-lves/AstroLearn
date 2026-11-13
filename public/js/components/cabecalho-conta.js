@@ -39,3 +39,7 @@ if(session&&(student||teacher)&&!trail&&!document.getElementById('activityAccoun
  if(teacher){$('.account-profile').hidden=true;$('.account-settings').hidden=true;}let timer;function open(value){clearTimeout(timer);panel.hidden=!value;button.setAttribute('aria-expanded',String(value));}
  button.onclick=()=>open(panel.hidden);$('.account-close').onclick=()=>{open(false);button.focus();};wrap.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')open(true);});wrap.addEventListener('pointerleave',()=>{timer=setTimeout(()=>{if(!wrap.contains(document.activeElement))open(false);},180);});wrap.addEventListener('focusout',()=>{setTimeout(()=>{if(!wrap.contains(document.activeElement)&&!wrap.matches(':hover'))open(false);},0);});document.addEventListener('pointerdown',e=>{if(!tools.contains(e.target))open(false);});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden){open(false);button.focus();}});$('.account-logout').onclick=encerrar;
 }
+
+// Executa também nos cabeçalhos próprios da Trilha e da Atividade.
+import { iniciarFotoCabecalho } from './foto-cabecalho.js';
+if (student && session) iniciarFotoCabecalho(session.usuario);
