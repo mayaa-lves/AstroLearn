@@ -2,9 +2,9 @@
 (() => {
  if(document.querySelector('astro-assistente'))return;
  const base=new URL('.',document.currentScript.src);
- const style=document.createElement('style');style.textContent='#helper,.quiet-companion,#chatToggle,#chatPanel{display:none!important}';document.head.append(style);
+ const style=document.createElement('style');style.textContent='[data-sparky-page]{max-width:none!important;width:100%}#helper,.quiet-companion,#chatToggle,#chatPanel{display:none!important}';document.head.append(style);
  const formatting=import(new URL('./chat-formatacao.js',base));
- const interactions=import(new URL('./sparky-interacoes-pagina.js',base));
+ const interactions=import(new URL('./sparky-interacoes-perfil.js?v=perfil-1',base));
  const pixel = document.documentElement.dataset.astroTema === 'pixel';
  const embedded=Boolean(document.querySelector('[data-sparky-page]'));
  class AstroAssistente extends HTMLElement {
@@ -33,7 +33,7 @@ form button::after {
 ` : ''}
 </style><section class="panel" id="sparkyPanel" role="${inline?'region':'dialog'}" aria-label="Conversa com Sparky" ${inline?'':'hidden inert'}><header><div><strong>Sparky · Seu copiloto</strong><small>Assistente de aprendizagem com IA</small></div><button type="button" class="close" aria-label="Fechar assistente" ${inline?'hidden':''}>×</button></header><div class="connection"><span role="status">Abra a conversa para conectar.</span><button type="button" class="retry">Conectar</button></div><div class="log" role="log" aria-live="polite" aria-label="Mensagens"><p>Vamos investigar juntos? Posso ajudar a entender conceitos e pensar em caminhos para sua atividade.</p></div><p class="waiting" role="status" hidden>Sparky está pensando…</p><p class="notice">A IA pode errar. Confira com seu professor. Não envie senhas ou dados pessoais. Mensagens são enviadas ao serviço Sparky.</p><form><label class="sr" for="sparkyInput">Sua pergunta ao Sparky</label><textarea id="sparkyInput" rows="2" maxlength="1500" placeholder="O que vamos descobrir?" required></textarea><button type="submit" aria-label="Enviar pergunta" disabled>→</button></form></section><button class="bubble" aria-label="Abrir Sparky" aria-controls="sparkyPanel" aria-expanded="false" ${inline?'hidden':''}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16v14h-6l-4 4v-4H4Z"/><path d="M8 8h1m3 0h1m3 0h1M8 12h8"/></svg><span class="tip">Converse com o Sparky</span></button>`;
    const panel=root.querySelector('.panel'),button=root.querySelector('.bubble'),input=root.querySelector('textarea'),send=root.querySelector('form button'),retry=root.querySelector('.retry'),status=root.querySelector('.connection span'),log=root.querySelector('.log'),waiting=root.querySelector('.waiting');
-   let client=null,connected=false,processing=false,loading=false,disposed=false,companion=null;
+   let client=null,connected=false,processing=false,loading=false,disposed=false,companion=null,profileCompanion=null;
    const controls=()=>{send.disabled=!connected||processing;input.readOnly=processing;retry.disabled=loading;waiting.hidden=!processing;companion?.status({connected,processing,loading});};
    const message=(text,kind='bot')=>{const p=document.createElement('p');const value=String(text).slice(0,30000);p.textContent=value;p.className=kind;if(kind==='bot')formatting.then(({formatarMensagem})=>p.replaceChildren(formatarMensagem(value))).catch(()=>{});log.append(p);while(log.children.length>60)log.firstElementChild.remove();log.scrollTop=log.scrollHeight;if(kind!=='user')companion?.received(kind);};
    const connect=async()=>{if(loading||disposed)return;loading=true;connected=false;client?.dispose();client=null;controls();status.textContent='Carregando Sparky…';
@@ -46,10 +46,10 @@ form button::after {
    button.onclick=()=>toggle(panel.hidden);root.querySelector('.close').onclick=()=>toggle(false);retry.onclick=connect;
    root.addEventListener('keydown',event=>{if(event.key==='Escape'&&!inline&&!panel.hidden){event.preventDefault();event.stopPropagation();toggle(false);}});
    root.querySelector('form').onsubmit=event=>{event.preventDefault();const text=input.value.trim();if(!connected||processing||!text)return;if(client?.send(text)){message(text,'user');input.value='';}};
-   const stop=()=>{disposed=true;companion?.pause();client?.dispose();client=null;connected=false;processing=false;};
-   const resume=event=>{if(event.persisted){disposed=false;companion?.resume();status.textContent='Conversa pausada. Reconecte para continuar.';controls();if(!panel.hidden)connect();}};
+   const stop=()=>{disposed=true;companion?.pause();profileCompanion?.pause();client?.dispose();client=null;connected=false;processing=false;};
+   const resume=event=>{if(event.persisted){disposed=false;profileCompanion?.resume();companion?.resume();status.textContent='Conversa pausada. Reconecte para continuar.';controls();if(!panel.hidden)connect();}};
    window.addEventListener('pagehide',stop);window.addEventListener('pageshow',resume);
-   this.cleanup=()=>{stop();companion?.dispose();window.removeEventListener('pagehide',stop);window.removeEventListener('pageshow',resume);};
+   this.cleanup=()=>{stop();profileCompanion?.dispose();companion?.dispose();window.removeEventListener('pagehide',stop);window.removeEventListener('pageshow',resume);};
    interactions.then(({iniciarInteracoes})=>{
     if(disposed)return;
     const art = '../../assets/imagens/aluno/assistente/';
@@ -62,15 +62,22 @@ form button::after {
       const placement = document.createElement('style');
       placement.textContent = `
         @media(min-width:801px){
-          :host([inline]){grid-template-columns:minmax(0,1fr) minmax(260px,40%);gap:16px;align-items:center}
-          .companion{align-self:center;justify-self:center;width:100%;max-width:360px;margin:0;padding:0}
-          .companion-character{width:100%;margin-inline:auto}
+          :host([inline]){position:static;inset:auto;display:grid;grid-template-columns:minmax(0,58fr) minmax(0,42fr);gap:16px;align-items:stretch;min-width:0;max-width:100%}
+          .panel{grid-column:1;grid-row:1;min-width:0}
+          .companion{position:static;inset:auto;grid-column:2;grid-row:1;align-self:stretch;justify-self:stretch;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto minmax(0,1fr);justify-items:center;align-items:start;width:100%;min-width:0;max-width:100%;height:auto;margin:0;padding:0;gap:0;transform:none}
+          .companion-character{position:relative;grid-column:1;grid-row:2;align-self:center;justify-self:center;width:min(100%,360px);max-width:100%;aspect-ratio:1;margin:0;transform:none}
+          .companion-caption{position:static;inset:auto;grid-column:1;grid-row:3;align-self:start;justify-self:center;width:100%;max-width:240px;margin:12px 0 0;transform:none;text-align:center}
         }
         @media(max-width:800px){
-          .companion{justify-content:center;width:100%;margin-inline:auto}
+          .companion{position:static;inset:auto;justify-content:center;width:100%;min-width:0;margin-inline:auto;transform:none}
         }
       `;
       root.append(placement);
+    }
+    if (inline) {
+      import(new URL('./assistente-avatar-perfil.js?v=perfil-1',base))
+        .then(({vincularAvatarPerfil})=>{if(!disposed)profileCompanion=vincularAvatarPerfil(companion);})
+        .catch(()=>{});
     }
     controls();
    });
