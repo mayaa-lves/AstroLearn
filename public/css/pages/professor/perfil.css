@@ -1,0 +1,1153 @@
+@import url('../../fonts.css');
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body.profile-page {
+  margin: 0;
+  background: #fcfaf7;
+  color: #241640;
+  font: 400 16px/1.5 Astro, Arial, sans-serif;
+}
+
+.profile-page::before {
+  content: none;
+}
+
+.profile-page button,
+.profile-page input,
+.profile-page a {
+  font: inherit;
+}
+
+.profile-page button,
+.profile-page a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.profile-page button {
+  cursor: pointer;
+}
+
+.profile-page button:disabled {
+  cursor: not-allowed;
+}
+
+.profile-page svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+.profile-page :is(a, button, input, [tabindex]):focus-visible {
+  outline: 3px solid #6930b7;
+  outline-offset: 5px;
+}
+
+.skip {
+  position: fixed;
+  top: -100px;
+  left: 20px;
+  z-index: 100;
+  background: white;
+  color: #241640;
+  padding: 12px;
+}
+
+.skip:focus {
+  top: 12px;
+}
+
+.profile-scene {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 315px;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, transparent 55%, #fcfaf7 100%),
+    linear-gradient(to right,
+      #fcfaf7 9%,
+      #fcfaf7c9 31%,
+      transparent 67%),
+    var(--astro-px-4, url('../../../assets/imagens/aluno/perfil/horizonte-perfil.png')) center 42% / cover no-repeat;
+}
+
+.profile-page main {
+  position: relative;
+  margin-left: 188px;
+  width: calc(100% - 222px);
+  max-width: 1450px;
+  padding: 36px 0 24px;
+}
+
+.profile-page.collapsed main {
+  margin-left: 140px;
+  width: calc(100% - 174px);
+}
+
+.profile-heading {
+  min-height: 157px;
+  padding-right: 110px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: .22em;
+  color: #65517f;
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+
+.profile-heading h1 {
+  font-size: clamp(32px, 3.2vw, 48px);
+  line-height: 1.1;
+  letter-spacing: -.04em;
+  margin: 0 0 9px;
+}
+
+.profile-heading>p:last-of-type {
+  margin: 0;
+  color: #564967;
+  font-size: 17px;
+}
+
+.home-fallback {
+  position: absolute;
+  top: 24px;
+  right: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #fffdf6;
+  color: #6339a0;
+  text-decoration: none;
+  border: 1px solid #ded4ea;
+  font-size: 27px !important;
+}
+
+body:has(#astroAccountTools) .home-fallback {
+  display: none;
+}
+
+.profile-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, .8fr) minmax(0, 1.8fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.identity-card,
+.settings-card,
+.security-strip {
+  border: 1px solid #e8e0eb;
+  border-radius: 23px;
+  background: #fffefa;
+  box-shadow: 0 5px 24px #33204f05;
+}
+
+.identity-card {
+  overflow: hidden;
+  padding: 0 24px 22px;
+  text-align: center;
+}
+
+.portrait-area {
+  position: relative;
+  display: grid;
+  place-items: center;
+  margin: 0 -24px 18px;
+  padding: 34px 28px 16px;
+  background:
+    radial-gradient(ellipse at 65% 0, #d8d4f3aa, transparent 65%),
+    linear-gradient(150deg, #eeeafb, #fffefa);
+}
+
+.portrait-control {
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+}
+
+.portrait {
+  position: relative;
+  width: clamp(130px, 14vw, 205px);
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 5px solid #fffefa;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(145deg, #e1d5f5, #f5effc);
+  box-shadow: 0 0 0 1px #e1d8ef;
+}
+
+#avatarInitials {
+  font-size: 50px;
+  font-weight: 700;
+  color: #7550ad;
+}
+
+#avatarImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.camera-button {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #e0d5ef;
+  border-radius: 50%;
+  color: #7841c1;
+  background: #faf6ff;
+  box-shadow: 0 3px 8px #24164016;
+}
+
+.identity-copy h2 {
+  font-size: 25px;
+  line-height: 1.25;
+  margin: 0 0 8px;
+  overflow-wrap: anywhere;
+}
+
+.role-badge {
+  display: inline-block;
+  padding: 2px 13px;
+  background: #f0e8fc;
+  color: #6733b3;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+#studentEmail {
+  color: #635377;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+  margin: 12px 0 20px;
+}
+
+.identity-actions {
+  display: grid;
+  gap: 9px;
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  min-height: 45px;
+  padding: 10px 17px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 14px !important;
+  transition: background .18s, transform .18s;
+}
+
+.primary {
+  background: #7639d4;
+  border: 1px solid #7639d4;
+  color: #fff;
+}
+
+.primary:hover {
+  background: #6228bd;
+}
+
+.primary:disabled {
+  background: #eee8f5;
+  color: #77658b;
+  border-color: #e0d5ec;
+}
+
+.secondary {
+  background: #fffefa;
+  color: #6c31bd;
+  border: 1px solid #b89bdc;
+}
+
+.secondary:hover {
+  background: #f5eefc;
+}
+
+.hint {
+  font-size: 12px;
+  color: #6e607c;
+  line-height: 1.6;
+}
+
+.school-details {
+  border-top: 1px solid #e8e0eb;
+  margin-top: 20px;
+  padding-top: 20px;
+  text-align: left;
+}
+
+.school-details h3 {
+  margin: 0 0 10px;
+  font-size: 16px;
+}
+
+.school-details dl {
+  margin: 0;
+  font-size: 14px;
+}
+
+.school-details dl>div {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee8f0;
+}
+
+.school-details dt {
+  color: #706080;
+}
+
+.school-details dd {
+  text-align: right;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.team-link,
+.text-button {
+  color: #7135c4;
+  background: transparent;
+  border: 0;
+  text-underline-offset: 4px;
+}
+
+.team-link {
+  display: inline-block;
+  padding: 12px 0 0;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.team-link:hover,
+.text-button:hover {
+  text-decoration: underline;
+}
+
+.settings-column {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+
+.settings-card {
+  padding: 0 28px 24px;
+}
+
+.profile-tabs {
+  display: flex;
+  gap: 24px;
+  border-bottom: 1px solid #e8e0eb;
+}
+
+.profile-tabs button {
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: #736184;
+  padding: 22px 10px 17px;
+  font-weight: 700;
+}
+
+.profile-tabs button[aria-selected="true"] {
+  color: #7135c4;
+  border-bottom-color: #8148d4;
+}
+
+.settings-intro {
+  margin: 25px 0 16px;
+  color: #6b5c7c;
+}
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  padding: 25px 0;
+  border-bottom: 1px solid #e8e0eb;
+}
+
+.setting-icon,
+.security-icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #f2edf9;
+  color: #6736a7;
+  font-size: 24px;
+}
+
+.setting-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.setting-copy label {
+  display: block;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.setting-copy p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #6c5c7d;
+}
+
+.switch {
+  appearance: none;
+  width: 50px;
+  height: 30px;
+  border: 2px solid #c6c0cd;
+  border-radius: 22px;
+  background: #c6c0cd;
+  flex-shrink: 0;
+  margin: 0;
+  cursor: pointer;
+  position: relative;
+}
+
+.switch::before {
+  content: '';
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  top: 2px;
+  left: 2px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 1px 3px #24164028;
+  transition: transform .2s;
+}
+
+.switch:checked {
+  border-color: #8043d7;
+  background: #8043d7;
+}
+
+.switch:checked::before {
+  transform: translateX(20px);
+}
+
+.switch:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+.size-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+}
+
+#textSizeValue {
+  font-size: 13px;
+  color: #665279;
+}
+
+.range-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin: 20px 0 8px;
+  color: #7a6593;
+}
+
+.large-a {
+  font-size: 28px;
+}
+
+#textSize {
+  appearance: none;
+  height: 6px;
+  border: 0;
+  margin: 14px 0;
+  border-radius: 9px;
+  flex: 1;
+  min-width: 30px;
+  background: linear-gradient(to right,
+      #874bd7 var(--range-fill, 0%),
+      #e6dcf4 var(--range-fill, 0%));
+  cursor: pointer;
+}
+
+#textSize::-webkit-slider-thumb {
+  appearance: none;
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  border: 3px solid #8247d2;
+  background: #fff;
+}
+
+#textSize::-moz-range-thumb {
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  border: 3px solid #8247d2;
+  background: #fff;
+}
+
+.local-notice {
+  padding: 14px 16px;
+  background: #f5effc;
+  color: #614c7b;
+  border-radius: 11px;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 20px 0;
+}
+
+.preferences-actions {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.text-button {
+  padding: 10px 0;
+  font-size: 13px !important;
+}
+
+.feedback,
+.error {
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.feedback {
+  color: #536b57;
+}
+
+.error {
+  color: #923142;
+  background: #fff0f1;
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.feedback:empty,
+.error:empty {
+  display: none;
+}
+
+.security-strip {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 24px;
+}
+
+.security-strip div {
+  flex: 1;
+  min-width: 0;
+}
+
+.security-strip h2 {
+  font-size: 16px;
+  margin: 0 0 4px;
+}
+
+.security-strip p {
+  font-size: 13px;
+  color: #6b5b7b;
+  margin: 0;
+}
+
+#securityPanel {
+  padding-top: 24px;
+  min-height: 430px;
+}
+
+#securityPanel h2 {
+  margin-top: 0;
+  font-size: 23px;
+}
+
+#securityPanel h3 {
+  font-size: 16px;
+  margin: 25px 0 7px;
+}
+
+#securityPanel p {
+  font-size: 14px;
+  color: #655374;
+}
+
+.profile-page footer {
+  margin-top: 24px;
+  font-size: 12px;
+  color: #6c5b7b;
+}
+
+/* Mantém o comportamento da navegação compartilhada. */
+
+.profile-page .sidebar {
+  position: fixed;
+  z-index: 15;
+  top: 20px;
+  bottom: 20px;
+  left: 20px;
+  width: 144px;
+  padding: 20px 12px;
+  border: 1px solid #e6dceba6;
+  border-radius: 24px;
+  background: #fffdf6d9;
+  backdrop-filter: blur(14px);
+  overflow: auto;
+}
+
+.profile-page .sidebar .brand {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  color: #2b1947;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  margin: 0 0 28px;
+}
+
+.profile-page .sidebar .brand svg {
+  width: 35px;
+  height: 35px;
+}
+
+.profile-page .sidebar .brand span {
+  color: #7c41c0;
+}
+
+.profile-page #menuToggle {
+  position: absolute;
+  top: 61px;
+  right: 7px;
+  background: #fffefa;
+  color: #7135aa;
+  border: 1px solid #e4d5ef;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+}
+
+.profile-page .sidebar nav {
+  display: grid;
+  gap: 5px;
+  margin-top: 20px;
+}
+
+.profile-page .sidebar nav a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 58px;
+  padding: 8px 4px;
+  border-radius: 12px;
+  color: #625078;
+  text-decoration: none;
+  font-size: 11px;
+}
+
+.profile-page .sidebar nav a:hover {
+  background: #f5effa;
+}
+
+.profile-page .sidebar nav .active {
+  background: #eee5fc;
+  color: #7437c7;
+}
+
+.profile-page .sidebar small {
+  display: none;
+}
+
+.profile-page.collapsed .sidebar {
+  width: 88px;
+  padding-inline: 12px;
+}
+
+.profile-page.collapsed .sidebar .brand {
+  position: static;
+  font-size: 0;
+  height: 36px;
+  margin-bottom: 25px;
+}
+
+.profile-page.collapsed .sidebar .brand::before {
+  content: none;
+}
+
+.profile-page.collapsed .sidebar .brand svg {
+  display: block;
+}
+
+.profile-page.collapsed .sidebar .brand span,
+.profile-page.collapsed .sidebar nav .label {
+  display: none;
+}
+
+.profile-page.collapsed #menuToggle {
+  top: 57px;
+  right: 7px;
+}
+
+.profile-page.collapsed .sidebar nav a {
+  min-height: 48px;
+}
+
+.profile-page .sidebar nav a[aria-label="Configurações"] {
+  display: none;
+}
+
+.profile-page.astro-high-contrast {
+  color: #170f21;
+  background: #fff;
+}
+
+.astro-high-contrast .profile-scene {
+  display: none;
+}
+
+.astro-high-contrast :is(.identity-card,
+  .settings-card,
+  .security-strip,
+  .sidebar) {
+  background: #fff;
+  border-color: #30213d;
+  box-shadow: none;
+}
+
+.astro-high-contrast :is(.hint,
+  .setting-copy p,
+  .settings-intro,
+  .school-details dt,
+  #studentEmail,
+  .local-notice,
+  footer) {
+  color: #30213d;
+}
+
+@media (min-width: 1800px) {
+  .profile-page main {
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 1100px) {
+  .profile-layout {
+    grid-template-columns: minmax(230px, .85fr) minmax(0, 1.5fr);
+    gap: 18px;
+  }
+
+  .settings-card {
+    padding-inline: 20px;
+  }
+
+  .setting-row {
+    gap: 12px;
+  }
+
+  .setting-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .security-strip {
+    flex-wrap: wrap;
+  }
+
+  .security-strip .secondary {
+    margin-left: 52px;
+  }
+}
+
+@media (max-width: 800px) {
+
+  .profile-page main,
+  .profile-page.collapsed main {
+    margin-left: 0;
+    width: 100%;
+    padding: 80px 18px 120px;
+  }
+
+  .profile-heading {
+    min-height: 150px;
+    padding-right: 0;
+  }
+
+  .profile-heading>p:last-of-type {
+    font-size: 15px;
+    max-width: 290px;
+  }
+
+  .profile-scene {
+    height: 310px;
+    background-image:
+      linear-gradient(to bottom, transparent 55%, #fcfaf7 100%),
+      linear-gradient(to right,
+        #fcfaf7ed 0%,
+        #fcfaf7c9 45%,
+        transparent 95%),
+      var(--astro-px-4, url('../../../assets/imagens/aluno/perfil/horizonte-perfil.png'));
+    background-position: center, center, 65% 44%;
+  }
+
+  .profile-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .portrait {
+    width: 165px;
+  }
+
+  .identity-card {
+    max-width: none;
+  }
+
+  .settings-card {
+    padding-inline: 20px;
+  }
+
+  .profile-tabs {
+    gap: 15px;
+  }
+
+  .profile-tabs button {
+    padding-inline: 5px;
+  }
+
+  .setting-icon {
+    display: none;
+  }
+
+  .setting-row {
+    gap: 15px;
+  }
+
+  .preferences-actions {
+    align-items: stretch;
+  }
+
+  .preferences-actions .primary {
+    width: 100%;
+  }
+
+  .security-strip {
+    padding: 20px;
+  }
+
+  .security-strip .secondary {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .profile-page .sidebar,
+  .profile-page.collapsed .sidebar {
+    top: auto;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    left: 12px;
+    right: 12px;
+    width: auto;
+    height: 68px;
+    padding: 6px;
+    border-radius: 19px;
+    overflow: visible;
+  }
+
+  .profile-page .sidebar nav {
+    display: flex;
+    margin: 0;
+    height: 100%;
+  }
+
+  .profile-page .sidebar nav a {
+    min-height: 48px;
+    font-size: 10px;
+    padding: 6px 2px;
+  }
+
+  .profile-page .sidebar nav .label,
+  .profile-page.collapsed .sidebar nav .label {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .profile-page *,
+  .profile-page *::before {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Perfil compacto no computador. */
+@media (min-width: 1001px) and (min-height: 700px) {
+
+  .profile-page main,
+  .profile-page.collapsed main {
+    min-height: 100svh;
+    padding-top: 22px;
+    padding-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile-heading {
+    min-height: 100px;
+  }
+
+  .profile-heading h1 {
+    font-size: 34px;
+    margin-bottom: 6px;
+  }
+
+  .profile-heading>p:last-of-type {
+    font-size: 14px;
+  }
+
+  .profile-layout {
+    grid-template-columns: minmax(240px, .8fr) minmax(0, 1.8fr);
+    gap: 22px;
+  }
+
+  .identity-card {
+    padding: 0 20px 14px;
+  }
+
+  .portrait-area {
+    margin: 0 -20px 12px;
+    padding: 16px 20px 10px;
+  }
+
+  .portrait {
+    width: 116px;
+  }
+
+  .camera-button {
+    width: 36px;
+    height: 36px;
+    right: 0;
+    bottom: 0;
+  }
+
+  .camera-button svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .identity-copy h2 {
+    font-size: 21px;
+    margin-bottom: 5px;
+  }
+
+  #studentEmail {
+    font-size: 13px;
+    margin: 8px 0 12px;
+  }
+
+  .identity-actions {
+    gap: 7px;
+  }
+
+  .primary,
+  .secondary {
+    min-height: 40px;
+    padding: 8px 14px;
+    font-size: 13px !important;
+  }
+
+  .school-details {
+    margin-top: 12px;
+    padding-top: 12px;
+  }
+
+  .school-details h3 {
+    font-size: 15px;
+    margin-bottom: 5px;
+  }
+
+  .school-details dl>div {
+    padding: 8px 0;
+  }
+
+  .school-details .hint {
+    margin-bottom: 0;
+  }
+
+  .team-link {
+    padding-top: 9px;
+    font-size: 13px;
+  }
+
+  .settings-column {
+    gap: 14px;
+  }
+
+  .settings-card {
+    padding: 0 24px 16px;
+  }
+
+  .profile-tabs button {
+    padding: 15px 8px 12px;
+    font-size: 14px;
+  }
+
+  .settings-intro {
+    margin: 16px 0 5px;
+    font-size: 14px;
+  }
+
+  .setting-row {
+    padding: 14px 0;
+    gap: 13px;
+  }
+
+  .setting-icon,
+  .security-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 21px;
+  }
+
+  .setting-copy label {
+    font-size: 14px;
+  }
+
+  .setting-copy p {
+    font-size: 12px;
+  }
+
+  .range-row {
+    margin: 9px 0 0;
+  }
+
+  #textSize {
+    margin: 8px 0;
+  }
+
+  .large-a {
+    font-size: 24px;
+  }
+
+  #sizeHint {
+    margin-top: 2px;
+  }
+
+  .local-notice {
+    margin: 13px 0;
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .preferences-actions {
+    gap: 8px;
+  }
+
+  .feedback {
+    margin: 8px 0 0;
+    font-size: 12px;
+  }
+
+  .security-strip {
+    padding: 15px 20px;
+    flex-wrap: nowrap;
+    gap: 12px;
+  }
+
+  .security-strip h2 {
+    font-size: 15px;
+  }
+
+  .security-strip p {
+    font-size: 12px;
+  }
+
+  .security-strip .secondary {
+    margin-left: 0;
+    flex-shrink: 0;
+  }
+
+  #securityPanel {
+    min-height: 0;
+  }
+
+  .profile-page footer {
+    margin-top: 16px;
+    font-size: 11px;
+  }
+
+  .profile-scene {
+    height: 235px;
+  }
+}
+
+/* Ajuste adicional para notebooks com menor altura. */
+@media (min-width: 1001px) and (min-height: 700px) and (max-height: 760px) {
+
+  .profile-page main,
+  .profile-page.collapsed main {
+    padding-top: 16px;
+    padding-bottom: 10px;
+  }
+
+  .profile-heading {
+    min-height: 80px;
+  }
+
+  .portrait {
+    width: 100px;
+  }
+}
+
+/* As ações de acesso ficam somente na aba Segurança. */
+.security-action {
+  display: grid;
+  gap: 16px;
+  padding: 20px 0;
+  border-top: 1px solid #e8e0eb;
+}
+#securityPanel .security-action h3 { margin: 0 0 8px; }
+#securityPanel .security-action p { margin: 0 0 8px; }
+#securityPanel .security-email { font-weight: 600; overflow-wrap: anywhere; }
+.security-action button { justify-self: start; max-width: 100%; white-space: normal; }
+
+/* astro-tema-v2 */
