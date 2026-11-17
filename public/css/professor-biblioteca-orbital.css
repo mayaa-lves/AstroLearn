@@ -1,0 +1,286 @@
+body:is(.orbital-library,.orbital-material){background:#fcf5f2!important;isolation:isolate}
+body:is(.orbital-library,.orbital-material)::before{
+ position:fixed!important;inset:0!important;z-index:-1!important;pointer-events:none;
+ background:linear-gradient(transparent 19%,#fcf5f2 62%),url('../assets/imagens/professor/biblioteca-orbital.webp') top center/100% auto no-repeat!important
+}
+body:is(.orbital-library,.orbital-material) #main{padding-top:36px}
+body:is(.orbital-library,.orbital-material) .teacher-top{display:none!important}
+.orbital-library #breadcrumbs{margin-bottom:22px}
+.orbital-library .page-heading{border:0;margin:0 0 22px;padding:0}
+.orbital-library .page-heading .eyebrow,.orbital-library #roomName{display:none}
+.orbital-library #listPanel{padding:0;background:none;border:0;box-shadow:none}
+.orbital-toolbar{display:flex;align-items:center;gap:16px;margin-bottom:22px}
+.orbital-toolbar [hidden]{display:none!important}
+.orbital-toolbar #search{flex:1;min-width:0;width:auto;margin:0;background:#fffaf8;padding:12px 16px;border:1px solid #cdb7e1;border-radius:13px}
+.orbital-create{display:flex;align-items:center;gap:0;border-radius:12px;font-size:20px;padding:8px 14px}
+.orbital-create span{max-width:0;overflow:hidden;white-space:nowrap;font-size:13px;transition:max-width .25s}
+.orbital-create:is(:hover,:focus-visible) span{max-width:150px;margin-left:8px}
+.orbital-filter{position:relative;z-index:3}
+.orbital-filter summary{cursor:pointer;display:grid;place-items:center;width:44px;height:44px;border:1px solid #ad79d9;border-radius:50%;background:#fff9ff;color:#7133ba;list-style:none}
+.orbital-filter summary::-webkit-details-marker{display:none}
+.orbital-filter svg{width:20px;fill:none;stroke:currentColor;stroke-width:1.7}
+.orbital-filter-options{position:absolute;right:0;top:100%;display:grid;min-width:145px;background:#fffaf9;border:1px solid #d9c4e9;border-radius:12px;padding:5px;box-shadow:0 6px 20px #49226620}
+.orbital-filter-options button{background:none;border:0;text-align:left;padding:9px 12px;border-radius:7px}
+.orbital-filter-options button:is(:hover,:focus-visible){background:#efe2f7}
+.orbital-library #materialList{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.orbital-library #materialList .book-card{
+ --cover:#dbe3bb;--binding:#728652;--edge:#b1bd8d;
+ position:relative;isolation:isolate;min-width:0;min-height:238px;margin:0;padding:0;
+ border:1px solid var(--binding);border-radius:16px;perspective:960px;background:var(--binding);
+ box-shadow:0 9px 17px #442e441c,inset 0 -8px #dec49d;color:#351b49
+}
+.orbital-library #materialList .book-archived{--cover:#e5d8ee;--binding:#8e77a5;--edge:#c0a6d6}
+.book-spread{display:grid;grid-template-columns:1fr 1fr;min-height:220px;margin:5px 6px 12px;border-radius:9px;background:linear-gradient(90deg,#fdf4df 47%,#e4d1b5 50%,#fff7e9 53%);padding-bottom:56px}
+.book-page{padding:20px 14px;min-width:0;overflow-wrap:anywhere}
+.book-page :is(h3,p){margin:8px 0;font-size:14px}
+.book-page h3{font-size:clamp(16px,1.7vw,24px)}
+.book-state{display:inline-block;background:#d8eab9;color:#345420;border-radius:99px;padding:3px 10px;font-size:12px;font-weight:700}
+.book-archived .book-state{background:#e1d3ed;color:#53386b}
+.book-cover{position:absolute;inset:3px 3px 9px;width:calc(100% - 6px);height:auto;padding:0;border:0;border-radius:12px;background:none;z-index:1;text-align:left;color:#352049;cursor:pointer}
+.book-face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:flex-start;gap:9px;padding:22px 23px 52px 40px;border-radius:12px;overflow:hidden;transform-origin:left center;transition:transform .58s cubic-bezier(.25,.65,.3,1),opacity .35s;background:linear-gradient(90deg,var(--binding) 0 24px,var(--edge) 24px 27px,transparent 27px),radial-gradient(ellipse at 72% 35%,#ffffff64,transparent 65%),var(--cover);box-shadow:inset 0 0 0 2px var(--edge)}
+.book-face::after{content:'';position:absolute;inset:10px 9px 10px 34px;border:1px solid #fff6d7;pointer-events:none;border-radius:5px}
+.book-face strong{font-size:clamp(18px,2vw,29px);line-height:1.15;overflow-wrap:anywhere}
+.book-cover-description{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-size:13px}
+.book-card.book-open .book-face,.book-card:has(.book-spread :focus-visible) .book-face{transform:rotateY(-94deg);opacity:0}
+.book-card.book-open .book-cover,.book-card:has(.book-spread :focus-visible) .book-cover{pointer-events:none;bottom:auto;width:33px;height:100%}
+@media(hover:hover){
+ .book-card:hover .book-face{transform:rotateY(-94deg);opacity:0}
+ .book-card:hover .book-cover{pointer-events:none;bottom:auto;width:33px;height:100%}
+}
+.orbital-library .book-card .material-actions{position:absolute;bottom:19px;right:15px;z-index:2;display:flex;gap:6px;flex-wrap:nowrap;margin:0;padding:5px;background:#fff8edf0;border-radius:10px}
+.orbital-library .book-card .material-actions :is(a,button){display:grid;place-items:center;width:34px;height:34px;min-height:34px;padding:0;border-radius:8px;background:#fffaf8;font-size:17px}
+.orbital-library .book-card .book-action-1{color:#6c25bc;border-color:#9c65d6}
+.orbital-library .book-card .book-action-2{color:#a32338;border-color:#d68a98}
+.orbital-material #materialForm{display:grid;gap:12px}
+.orbital-material #save{justify-self:end;width:auto;padding-inline:23px}
+.orbital-upload{display:grid;justify-items:center;gap:5px;position:relative;border:1px dashed #ab72d5;padding:20px;border-radius:13px;background:#f5eafa;color:#663198}
+.orbital-upload>span{font-size:25px}
+.orbital-upload input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.orbital-upload:focus-within{outline:2px solid #8842bd}
+@media(max-width:1000px){.orbital-library #materialList{grid-template-columns:1fr}}
+@media(max-width:800px){body:is(.orbital-library,.orbital-material) #main{padding-top:78px}.orbital-toolbar{gap:8px}}
+@media(prefers-reduced-motion:reduce){.book-face,.orbital-create span{transition:none}}
+.book-card.book-open .book-cover{pointer-events:auto}
+.book-card.book-open .book-cover::before{content:'‹';position:absolute;top:9px;left:5px;display:grid;place-items:center;width:20px;height:26px;color:#fff;background:#65447a;border-radius:5px}
+.orbital-library #materialList .book-card{container-type:inline-size}
+.book-face{width:calc(100cqw - 6px);box-sizing:border-box}
+.orbital-library .book-card .material-actions svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linejoin:round;stroke-linecap:round}
+.orbital-toolbar #search{padding-inline-start:40px;background:#fffaf8 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2364348b' stroke-width='2'%3E%3Ccircle cx='10' cy='10' r='6'/%3E%3Cpath d='m15 15 5 5'/%3E%3C/svg%3E") no-repeat left 13px center}
+
+/* Catálogo e prévia do material selecionado. */
+body.orbital-library::before{
+ background:linear-gradient(transparent 16%,#fcf5f2 46%),url('../assets/imagens/professor/biblioteca-catalogo.webp') top center/100% auto no-repeat!important
+}
+.orbital-library .orbital-toolbar{max-width:565px}
+.orbital-library #count:not(:empty){position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.orbital-library #materialList:has(.catalog-index){
+ display:grid;grid-template-columns:minmax(235px,1fr) minmax(0,2fr);gap:0;
+ background:#fff8eeed;border:1px solid #d5c6cd;border-radius:19px;padding:10px;
+}
+.catalog-index{border-right:1px solid #d9cbd2;padding:8px 12px 12px 4px;min-width:0}
+.catalog-index h2{margin:0 0 12px 7px;font-size:20px;color:#4b245a}
+.catalog-index .catalog-entry{
+ display:flex;align-items:center;gap:14px;text-align:left;width:100%;min-height:88px;margin:0 0 10px;padding:9px 12px;
+ border:1px solid #d9cec9;border-radius:13px;background:#fffbf3;color:#43234e;
+}
+.catalog-entry[aria-current=true]{background:#efddf7;border-color:#a062d2}
+.catalog-entry-copy{display:grid;gap:7px;justify-items:start;min-width:0;overflow-wrap:anywhere}
+.catalog-spine{
+ display:grid;place-items:center;flex:0 0 40px;height:59px;border-radius:4px 4px 6px 4px;
+ color:#f9ecc8;background:linear-gradient(90deg,#394b32 13%,#8b9c72 15%,#5e754b 25%);border:1px solid #6d7d51;
+ box-shadow:3px -2px #e7d8b7,4px 3px 5px #51372b33;
+}
+.catalog-spine.archived{background:linear-gradient(90deg,#624e77 13%,#b7a1cb 15%,#937aa9 25%);border-color:#9175a6}
+.catalog-state{font-size:12px;border-radius:999px;background:#d9ecc8;color:#305233;padding:3px 10px}
+.catalog-state.archived{background:#e9dcee;color:#563862}
+.catalog-preview{padding:9px 13px 14px 18px;min-width:0}
+.catalog-book{
+ display:grid;grid-template-columns:1fr 1fr;min-height:clamp(260px,31vw,480px);
+ background:#fff2d9 url('../assets/imagens/professor/biblioteca-livro-aberto.webp') center/100% 100% no-repeat;
+ border-radius:17px;
+}
+.catalog-page{min-width:0;padding:clamp(26px,5vw,78px) 12% 17%;overflow-wrap:anywhere}
+.catalog-title{text-align:center}
+.catalog-title h3{margin:0 0 17px;color:#511d58;font:700 clamp(19px,2.35vw,40px)/1.08 Georgia,serif}
+.catalog-stars{display:block;margin:22px 0;color:#926ea0;font-size:22px;letter-spacing:.18em}
+.catalog-description .material-description{font:clamp(15px,1.45vw,24px)/1.4 Georgia,serif;color:#4e2858;margin:0 0 12px}
+.catalog-description .hint{font-size:12px}
+.catalog-book .material-links a{font-size:13px;padding:6px 0;background:none;border:0;text-decoration:underline}
+.orbital-library .catalog-preview .material-actions{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin:16px 0 0}
+.orbital-library .catalog-preview .material-actions :is(a,button){display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:7px 10px;border-radius:9px}
+.catalog-preview .material-actions svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7}
+.catalog-preview .book-action-1{background:#753aa7;color:white;border-color:#753aa7}
+.catalog-preview .book-action-2{color:#a32338;border-color:#d68a98}
+@media(max-width:950px){.orbital-library #materialList:has(.catalog-index){grid-template-columns:1fr}.catalog-index{border-right:0;border-bottom:1px solid #d9cbd2}.catalog-preview{padding:12px 3px}}
+@media(max-width:480px){.catalog-page{padding:25px 10% 24px}.catalog-description .hint{display:none}}
+.catalog-book{perspective:900px}
+.catalog-description{transform-origin:left center;animation:catalog-page-turn .36s ease-out both}
+@keyframes catalog-page-turn{from{transform:rotateY(-12deg);opacity:.25}to{transform:rotateY(0);opacity:1}}
+@media(prefers-reduced-motion:reduce){.catalog-description{animation:none}}
+
+body.orbital-library::before{background:#fcf5f2!important}
+.orbital-library #main{position:relative;isolation:isolate}
+.library-scenery{
+ position:absolute;z-index:-1;pointer-events:none;inset:0 0 auto 0;aspect-ratio:3;
+ max-height:310px;background:url('../assets/imagens/professor/biblioteca-orbital.webp') right top/100% 100% no-repeat;
+ mask-image:linear-gradient(#000 75%,transparent);
+ perspective:520px
+}
+.library-scenery i{
+ position:absolute;left:70%;top:26%;width:7%;height:26%;
+ border-radius:15% 90% 5% 10%;transform-origin:95% 95%;
+ background:repeating-linear-gradient(13deg,transparent 0 8px,#faf0ff55 9px 10px),linear-gradient(100deg,#ead4ff44,#fbebffda);
+ border:1px solid #f6e8ff88;box-shadow:0 0 12px #e9c9ff88;
+ opacity:0;animation:library-leaf-turn 9s ease-in-out infinite
+}
+.library-scenery i+i{animation-delay:4.5s}
+@keyframes library-leaf-turn{
+ 0%,70%,100%{opacity:0;transform:rotateY(50deg) rotateZ(-8deg)}
+ 77%{opacity:.75}
+ 88%{opacity:.6;transform:rotateY(-64deg) rotateZ(-24deg)}
+ 96%{opacity:0;transform:rotateY(-108deg) rotateZ(-30deg)}
+}
+.orbital-library .orbital-toolbar{max-width:none;margin-bottom:24px}
+.orbital-library #materialList{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.library-file-card{display:flex;flex-direction:column;align-items:flex-start;gap:14px;min-width:0;background:#f0f3e8;border:1px solid #cbd9bd;border-radius:17px;padding:16px 18px;color:#38234c}
+.library-file-card.library-file-archived{background:#f0e8f6;border-color:#d6c5e7}
+.library-file-row{display:flex;align-items:flex-start;gap:17px;min-width:0;width:100%;flex:1}
+.library-file-copy{min-width:0;overflow-wrap:anywhere}
+.library-file-copy h3{margin:0 0 5px;font-size:clamp(16px,1.45vw,23px)}
+.library-file-copy .material-description{margin:0 0 7px;color:#584864}
+.library-file-copy .hint{margin:0;font-size:12px}
+.library-file-glyph{display:grid;place-items:center;flex:0 0 42px;height:52px;border:2px solid #64487e;border-radius:6px;font-size:10px;font-weight:750;color:#57387b}
+.library-file-card .material-actions{width:100%;display:flex;justify-content:flex-end;gap:8px;border-top:1px solid #6d547b26;padding-top:12px;margin:0}
+.library-file-card .material-actions :is(button,a){display:grid;place-items:center;border-radius:10px;min-height:38px;min-width:38px;padding:5px;background:none}
+.library-file-card .material-actions svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linejoin:round}
+.library-file-card .book-action-1{color:#7329ce;border-color:#9252d6}
+.library-file-card .book-action-2{color:#b62b43;border-color:#cc576b}
+@media(max-width:850px){.orbital-library #materialList{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.library-scenery i{animation:none}}
+
+/* Banner com espaço próprio para a arte, acima dos controles. */
+.orbital-library #main .library-scenery{
+ width:min(100%,960px);height:auto;max-height:none;inset:0 0 auto auto;aspect-ratio:3;
+ background-image:url('../assets/imagens/professor/biblioteca-folhas-base.webp');
+ mask-image:linear-gradient(90deg,transparent,#000 24%,#000 96%,transparent),linear-gradient(#000 64%,transparent 100%);
+ mask-composite:intersect;
+}
+.orbital-library .page-heading{min-height:clamp(110px,11vw,205px);display:flex;align-items:center}
+.orbital-library .page-heading h1{margin:0}
+.library-turn{
+ position:absolute;left:var(--leaf-x,75.25%);top:var(--leaf-y,57.5%);width:11%;height:auto;
+ transform-origin:0 100%;opacity:.9;filter:drop-shadow(0 1px 5px #7546a888);
+ animation:library-page-flip 4.6s ease-in-out infinite;
+}
+@keyframes library-page-flip{
+ 0%,15%{transform:translateY(-100%) rotate(-28deg) rotateY(24deg) scaleY(.47);opacity:.25}
+ 42%{transform:translateY(-100%) rotate(-10deg) rotateY(-35deg) scaleY(.95);opacity:.95}
+ 61%,100%{transform:translateY(-100%) rotate(15deg) rotateY(-167deg) scaleY(.40);opacity:0}
+}
+.library-file-card{gap:11px;padding:15px 17px}
+.library-file-copy>.hint{display:none}
+.library-file-footer{width:100%;display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap;border-top:1px solid #6d547b26;padding-top:10px;margin-top:auto}
+.library-file-footer .material-links{display:flex;flex-wrap:wrap;gap:4px;margin:0 auto 0 0}
+.library-file-footer .material-links a{border:0;background:transparent;padding:5px 0;min-height:0;color:#6937a5;font-size:13px}
+.orbital-library .library-file-footer .material-actions{width:auto;min-width:0;padding:0;border:0;margin:0 0 0 auto}
+@media(max-width:800px){.orbital-library .page-heading{min-height:84px}.orbital-library #main .library-scenery{opacity:.45}}
+@media(prefers-reduced-motion:reduce){.library-turn{animation:none;opacity:0}}
+
+/* Livros em duas colunas com texto real sobre a arte. */
+.orbital-library .orbital-toolbar #search{
+ flex:none;width:0;opacity:0;min-height:0;margin:0;padding:0;border:0;outline:0;background:transparent;transition:width .22s,opacity .22s
+}
+.library-search{display:flex;align-items:center;max-width:100%;min-width:0;height:44px;border-radius:999px;border:1px solid #d8c2e5;background:#fffaf8}
+.library-search-toggle{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;border:0;border-radius:50%;background:none;color:#653788;cursor:pointer;padding:0}
+.library-search-toggle svg{width:20px;fill:none;stroke:currentColor;stroke-width:1.7}
+.orbital-library .library-search:is(:focus-within,.is-open,.has-value) #search{width:min(230px,38vw);padding:5px 10px 5px 0;opacity:1}
+@media(hover:hover){.orbital-library .library-search:hover #search{width:min(230px,38vw);padding:5px 10px 5px 0;opacity:1}}
+.orbital-library .orbital-filter{margin-left:auto}
+.orbital-library .library-file-card{
+ position:relative;display:block;isolation:isolate;min-width:0;min-height:0;aspect-ratio:1.65;
+ border:0;padding:0;background:none;color:#38214f
+}
+.library-book{position:absolute;inset:0;perspective:1200px}
+.library-pages,.library-cover,.library-cover-face{position:absolute;inset:0}
+.library-pages{
+ display:grid;grid-template-columns:1fr 1fr;
+ background:url('../assets/imagens/professor/biblioteca-paginas-ref.webp') center/100% 100% no-repeat
+}
+.library-page{min-width:0;margin:16% 11% 25%;overflow:auto;overflow-wrap:anywhere}
+.library-page h3{font-size:clamp(17px,2vw,30px);line-height:1.13;margin:0 0 10px}
+.library-page .material-description{font-size:clamp(13px,1.25vw,19px);line-height:1.35}
+.library-page .material-links{margin-top:7px}
+.library-page .material-links a{border:0;padding:3px 0;background:none;min-height:0;font-size:12px}
+.library-cover{width:100%;height:100%;padding:0;border:0;background:none;color:inherit;text-align:left;cursor:pointer;z-index:1}
+.library-cover-face{
+ display:flex;align-items:flex-start;flex-direction:column;gap:9px;
+ padding:7% 8% 14% 17%;overflow:hidden;
+ background:url('../assets/imagens/professor/biblioteca-capa-ref.webp') center/100% 100% no-repeat;
+ transform-origin:8% 50%;transition:transform .55s ease,opacity .42s ease;backface-visibility:hidden
+}
+.library-file-archived .library-cover-face{background-image:url('../assets/imagens/professor/biblioteca-capa-arquivada-ref.webp')}
+.library-cover-face strong{font-size:clamp(18px,2.2vw,35px);line-height:1.12;overflow-wrap:anywhere}
+.library-cover-copy{display:flex;gap:12px;align-items:center;font-size:clamp(12px,1.16vw,18px)}
+.library-cover-copy>span:last-child{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.library-file-card:is(.library-book-open,:has(.library-pages :focus-visible)) .library-cover-face{transform:rotateY(-92deg);opacity:0}
+.library-file-card:is(.library-book-open,:has(.library-pages :focus-visible)) .library-cover{height:12%;width:14%}
+@media(hover:hover){
+ .library-file-card:hover .library-cover-face{transform:rotateY(-92deg);opacity:0}
+ .library-file-card:hover:not(.library-book-open) .library-cover{pointer-events:none}
+}
+.orbital-library .library-file-card .library-file-footer{
+ position:absolute;z-index:2;right:6%;bottom:10%;width:auto;margin:0;padding:5px;border:1px solid #e5d4c8;border-radius:12px;background:#fff8efeb
+}
+.orbital-library .library-file-footer .material-actions{gap:5px}
+.library-file-card .material-actions :is(button,a){min-width:32px;min-height:32px;background:#fffaf3}
+@media(max-width:550px){.library-page{margin:12% 10% 28%}.library-cover-copy .library-file-glyph{height:34px;flex-basis:30px}.library-file-card .material-actions :is(button,a){min-width:29px;min-height:29px}}
+@media(prefers-reduced-motion:reduce){.library-cover-face,.orbital-library .orbital-toolbar #search{transition:none}}
+.orbital-library .library-file-card{container-type:inline-size}
+.library-cover-face{width:100cqw;height:calc(100cqw / 1.65);box-sizing:border-box}
+.library-book-open .library-cover::before{content:'‹';position:absolute;left:25%;top:25%;background:#755197;color:white;border-radius:6px;padding:1px 9px}
+
+.library-file-card[data-material-type=pdf]:not(.library-file-archived) .library-cover-face{background-image:url('../assets/imagens/professor/biblioteca-capa-pdf.webp')}
+.library-file-card[data-material-type=imagem]:not(.library-file-archived) .library-cover-face{background-image:url('../assets/imagens/professor/biblioteca-capa-imagem.webp')}
+.library-file-card[data-material-type=arquivo]:not(.library-file-archived) .library-cover-face{background-image:url('../assets/imagens/professor/biblioteca-capa-arquivo.webp')}
+.library-cover-copy .library-file-glyph{border:0;color:#4b315e}
+.library-file-glyph svg,.library-resource-link svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round}
+.orbital-library .material-links .library-resource-link{display:inline-grid;place-items:center;min-width:38px;min-height:38px;padding:4px;border:1px solid #ab8b76;border-radius:7px;background:#fff1d880;color:#664159}
+.orbital-library .material-links .library-resource-link svg{width:24px;height:24px}
+.orbital-library .library-file-card .library-file-footer{
+ border:1px solid #937047;background:linear-gradient(160deg,#f5e3aa,#c4a472);border-radius:8px;padding:4px 6px;
+ box-shadow:inset 0 0 0 1px #ffefc3,0 2px 4px #39251d40
+}
+.orbital-library .library-file-footer .material-actions :is(a,button){
+ border-radius:5px;border:1px solid #8e6c4788;background:#f9e8be;color:#5d4738;
+ box-shadow:inset 0 1px #fff7d8,0 1px 1px #452a2a40;
+}
+.orbital-library .library-file-footer .material-actions :is(a,button):hover{background:#fff1ca}
+.orbital-library .library-file-footer .material-actions .book-action-1{color:#623387}
+.orbital-library .library-file-footer .material-actions .book-action-2{color:#8b3444}
+
+/* Busca aberta e margens do conteúdo alinhadas à moldura das páginas. */
+.orbital-library .orbital-toolbar .library-search{flex:1;min-width:0}
+.orbital-library .orbital-toolbar .library-search #search{
+ flex:1;width:100%;min-width:0;opacity:1;padding:5px 12px 5px 0;transition:none
+}
+.orbital-library .library-search:focus-within{border-color:#9456c2;box-shadow:0 0 0 3px #9456c222}
+.library-pages .library-page{box-sizing:border-box;margin:0;padding:17% 13% 0 20%;max-height:66%;align-self:start;scrollbar-width:thin;overscroll-behavior:contain}
+.library-pages .library-file-copy{padding:17% 18% 0 13%;max-height:72%}
+.library-page h3{font-size:clamp(16px,1.67vw,29px);line-height:1.18;margin:0 0 12px}
+.library-page-label{display:block;margin-bottom:9px;color:#76518a;font-size:clamp(10px,1vw,13px);font-weight:700}
+.library-page .material-description{margin:0 0 12px;font-size:clamp(13px,1.12vw,19px)}
+.library-page .material-links{display:flex;flex-wrap:wrap;gap:6px}
+.library-file-card .library-cover-face{isolation:isolate}
+.library-file-card .library-cover-face::before{
+ content:'';position:absolute;inset:0;z-index:-1;background-image:inherit;background-size:inherit;background-position:inherit;
+ filter:hue-rotate(var(--cover-shift,0deg)) saturate(var(--cover-saturation,1));pointer-events:none
+}
+.library-file-card:not(.library-file-archived)[data-cover-variant="1"]{--cover-shift:24deg;--cover-saturation:.87}
+.library-file-card:not(.library-file-archived)[data-cover-variant="2"]{--cover-shift:58deg;--cover-saturation:.87}
+.library-file-card:not(.library-file-archived)[data-cover-variant="3"]{--cover-shift:-25deg;--cover-saturation:.9}
+.library-file-card:not(.library-file-archived)[data-cover-variant="4"]{--cover-shift:112deg;--cover-saturation:.72}
+@media(max-width:550px){
+ .library-pages .library-page{padding-top:13%;max-height:73%}
+ .library-pages .library-file-copy{max-height:76%}
+ .library-page-label{margin-bottom:4px}
+}

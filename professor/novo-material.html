@@ -10,35 +10,15 @@
   <link rel="stylesheet" href="../public/css/menu-professor.css">
   <link rel="stylesheet" href="../public/css/preferencias.css">
 
-  <style>
-    #materialForm {
-      display: grid;
-      gap: 12px;
-    }
-
-    #materialForm input,
-    #materialForm textarea,
-    #materialForm select {
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    #materialForm textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
-
-    [hidden] {
-      display: none !important;
-    }
-  </style>
   <link rel="stylesheet" href="../public/css/menu-unificado.css">
   <script defer src="../public/js/components/menu-professor-perfil.js?v=1"></script>
 <link rel="icon" type="image/png" href="../public/assets/imagens/marca/astrolearn-simbolo.png">
 <link rel="stylesheet" href="../public/css/rolagem.css" data-astro-rolagem>
+<link rel="stylesheet" href="../public/css/professor-biblioteca-orbital.css?v=1">
+  <link rel="stylesheet" href="../public/css/professor-editar-material.css?v=1">
 </head>
 
-<body data-page="library">
+<body data-page="library" class="orbital-material">
   <a class="skip" href="#main">Pular para o conteúdo</a>
 
   <aside class="sidebar">
@@ -119,7 +99,7 @@
         CONHECIMENTO PARA A PRÓXIMA DESCOBERTA
       </p>
 
-      <h1>Criar novo material</h1>
+      <h1 id="materialHeading">Criar novo material</h1>
       <p id="roomName">Carregando turma…</p>
     </section>
 
@@ -132,68 +112,61 @@
       </a>
     </div>
 
-    <section
-      id="formPanel"
-      class="panel"
-      aria-labelledby="formTitle"
-    >
-      <h2 id="formTitle">Novo material</h2>
-      <p>Reúna referências e orientações para seus alunos.</p>
-
+    <section id="formPanel" class="panel" aria-labelledby="materialHeading">
       <form id="materialForm">
-        <label for="title">Título *</label>
-        <input
-          id="title"
-          required
-          maxlength="120"
-          placeholder="Ex.: Guia de investigação"
-        >
+        <div class="material-field">
+          <label for="title">Título *</label>
+          <input id="title" required maxlength="120" placeholder="Ex.: Guia de investigação">
+        </div>
 
-        <label for="description">Descrição</label>
-        <textarea
-          id="description"
-          maxlength="10000"
-          placeholder="Explique como usar o material."
-        ></textarea>
+        <div class="material-field">
+          <label for="mission">Relacionar com uma atividade</label>
+          <select id="mission">
+            <option value="">Biblioteca geral da turma</option>
+          </select>
+        </div>
 
-        <label for="mission">Relacionar com uma atividade</label>
-        <select id="mission">
-          <option value="">Biblioteca geral da turma</option>
-        </select>
+        <div class="material-field">
+          <label for="description">Descrição</label>
+          <textarea id="description" rows="3" maxlength="10000"
+            placeholder="Explique como usar o material."></textarea>
+        </div>
 
-        <label for="links">Links — um por linha</label>
-        <textarea
-          id="links"
-          spellcheck="false"
-          aria-describedby="linksHint"
-          placeholder="https://..."
-        ></textarea>
+        <div class="material-field">
+          <label for="links">Links <span>· um por linha</span></label>
+          <textarea id="links" rows="3" spellcheck="false" aria-describedby="linksHint"
+            placeholder="https://..."></textarea>
+          <p id="linksHint" class="hint">Use links que os alunos possam acessar.</p>
+        </div>
 
-        <p id="linksHint" class="hint">
-          Use links compartilhados que os alunos possam acessar.
-          Você também pode salvar sem links.
-        </p>
+        <div class="material-field material-attachment">
+          <p class="material-field-label">Anexo</p>
+          <div id="materialDrop" class="material-drop">
+            <div class="material-upload-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 15V3m-4 4 4-4 4 4M4 14v5a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/>
+              </svg>
+            </div>
+            <div class="material-upload-copy">
+              <p id="materialFileName" aria-live="polite">Arraste um arquivo para cá</p>
+              <p id="uploadHint" class="hint">PDF, PNG, JPG ou JPEG · até 20 MB</p>
+            </div>
+            <div class="material-upload-actions">
+              <input id="files" class="material-file-input" type="file"
+                accept=".pdf,.png,.jpg,.jpeg" aria-describedby="uploadHint materialFileName attachmentHint materialFileError">
+              <label for="files" class="material-file-picker">Escolher arquivo</label>
+              <button id="clearFile" type="button" hidden>Desfazer seleção</button>
+            </div>
+          </div>
+          <p id="materialFileError" class="material-file-error" role="alert"></p>
+          <p id="attachmentHint" class="hint"></p>
+        </div>
 
-        <label for="files">PDFs e imagens</label>
-        <input
-          id="files"
-          type="file"
-          accept=".pdf,.png,.jpg,.jpeg"
-          aria-describedby="uploadHint"
-        >
-
-        <p id="uploadHint" class="hint">
-          Um PDF ou imagem (PNG/JPG/JPEG), até 20 MB. Na edição, selecionar um arquivo substitui o anexo anterior; deixar vazio o mantém.
-        </p>
-
-        <button
-          id="save"
-          class="primary"
-          type="submit"
-          disabled
-        >
-          Salvar material
-        </button>
+        <div class="material-form-actions">
+          <p id="saveError" class="material-file-error" role="alert"></p>
+          <button id="save" class="primary" type="submit" disabled>Salvar material</button>
+        </div>
       </form>
     </section>
 
@@ -246,9 +219,6 @@
     document.querySelector(".page-heading h1").textContent =
       editando ? "Editar material" : "Criar novo material";
 
-    $("formTitle").textContent =
-      editando ? "Editar material" : "Novo material";
-
     $("save").textContent =
       editando ? "Salvar alterações" : "Salvar material";
 
@@ -258,6 +228,68 @@
 
     let ocupado = false;
     let pronta = false;
+
+    const fileInput = $("files");
+    const dropZone = $("materialDrop");
+    const clearFile = $("clearFile");
+    const fileError = $("materialFileError");
+
+    function atualizarAnexo() {
+      const arquivo = fileInput.files[0];
+      const tamanho = arquivo && new Intl.NumberFormat("pt-BR", {
+        maximumFractionDigits: 1,
+        style: "unit",
+        unit: arquivo.size >= 1024 * 1024 ? "megabyte" : "kilobyte"
+      }).format(arquivo.size >= 1024 * 1024
+        ? arquivo.size / (1024 * 1024)
+        : Math.max(0.1, arquivo.size / 1024));
+
+      $("materialFileName").textContent = arquivo
+        ? arquivo.name + " · " + tamanho
+        : "Arraste um arquivo para cá";
+      clearFile.hidden = !arquivo;
+      fileError.textContent = "";
+      fileInput.removeAttribute("aria-invalid");
+
+      if (editando) {
+        $("attachmentHint").textContent = arquivo
+          ? "Ao salvar, este arquivo substituirá o anexo atual, se houver."
+          : "O anexo atual, se houver, será mantido.";
+      }
+    }
+
+    fileInput.addEventListener("change", atualizarAnexo);
+    clearFile.addEventListener("click", () => {
+      fileInput.value = "";
+      atualizarAnexo();
+      fileInput.focus();
+    });
+
+    dropZone.addEventListener("dragover", event => {
+      if (!event.dataTransfer.types.includes("Files")) return;
+      event.preventDefault();
+      event.dataTransfer.dropEffect = ocupado ? "none" : "copy";
+      if (!ocupado) dropZone.classList.add("is-dragging");
+    });
+
+    dropZone.addEventListener("dragleave", event => {
+      if (!dropZone.contains(event.relatedTarget)) dropZone.classList.remove("is-dragging");
+    });
+
+    dropZone.addEventListener("drop", event => {
+      if (!event.dataTransfer.types.includes("Files")) return;
+      event.preventDefault();
+      dropZone.classList.remove("is-dragging");
+      if (ocupado) return;
+      if (event.dataTransfer.files.length !== 1) {
+        fileError.textContent = "Selecione um arquivo por vez.";
+        return;
+      }
+      fileInput.files = event.dataTransfer.files;
+      atualizarAnexo();
+    });
+
+    atualizarAnexo();
 
     function normalizarLink(entrada) {
       const candidato = /^[a-z][a-z\d+.-]*:/i.test(entrada)
@@ -373,10 +405,11 @@
 
       if (ocupado || !pronta) return;
 
+      $("saveError").textContent = "";
       const titulo = $("title").value.trim();
 
       if (!titulo) {
-        $("error").textContent = "Informe o título.";
+        $("saveError").textContent = "Informe o título.";
         $("title").focus();
         return;
       }
@@ -394,7 +427,7 @@
           )
         ];
       } catch (error) {
-        $("error").textContent = error.message;
+        $("saveError").textContent = error.message;
         $("links").focus();
         return;
       }
@@ -402,7 +435,12 @@
       let corpo;
       try {
         corpo = prepararMaterial({ titulo, descricao: $("description").value.trim(), missao_id: $("mission").value || null, links }, $("files").files[0]);
-      } catch (erro) { $("error").textContent = erro.message; $("files").focus(); return; }
+      } catch (erro) {
+        fileInput.setAttribute("aria-invalid", "true");
+        fileError.textContent = erro.message;
+        fileInput.focus();
+        return;
+      }
       ocupado = true;
 
       $("save").disabled = true;
@@ -436,7 +474,7 @@
         location.assign(roomURL("biblioteca.html"));
       } catch (error) {
         $("status").textContent = "";
-        $("error").textContent = error.message;
+        $("saveError").textContent = error.message;
       } finally {
         ocupado = false;
 

@@ -1,0 +1,503 @@
+body[data-page="teams"] {
+  background: #fcf6f3;
+  isolation: isolate;
+}
+
+body[data-page="teams"]::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: clamp(260px, 34vw, 475px);
+  background: linear-gradient(to bottom, transparent 50%, #fcf6f3),
+    url("../assets/imagens/professor/equipes/amanhecer.webp") right top / cover no-repeat;
+  pointer-events: none;
+  z-index: -1;
+}
+
+body[data-page="teams"] .teacher-top,
+body[data-page="teams"] .page-heading .eyebrow,
+body[data-page="teams"] #modeNote {
+  display: none;
+}
+
+body[data-page="teams"] #main {
+  padding-top: clamp(38px, 4vw, 70px);
+}
+
+body[data-page="teams"] .page-heading {
+  padding-bottom: 0;
+  margin-bottom: 24px;
+  border: 0;
+}
+
+body[data-page="teams"] #pageActions select {
+  border-radius: 999px;
+  min-width: min(210px, 100%);
+}
+
+body[data-page="teams"] #content {
+  container-type: inline-size;
+}
+
+body[data-page="teams"] .team-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 15px;
+}
+
+@container (min-width: 590px) {
+  body[data-page="teams"] .team-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container (min-width: 860px) {
+  body[data-page="teams"] .team-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+body[data-page="teams"] .team-card {
+  --team-hue: 270;
+  --team-ink: hsl(var(--team-hue) 58% 30%);
+  --team-edge: hsl(var(--team-hue) 43% 55%);
+  display: grid;
+  grid-template-columns: minmax(0, 39%) minmax(0, 1fr);
+  min-width: 0;
+  min-height: 220px;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--team-edge);
+  border-radius: 17px;
+  background: #fffbf7;
+  box-shadow: 0 6px 17px #37214312;
+}
+
+.team-patch {
+  --patch-image: url("../assets/imagens/professor/equipes/orbita.webp");
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: hsl(var(--team-hue) 38% 49%);
+}
+
+.team-patch[data-patch="1"] {
+  --patch-image: url("../assets/imagens/professor/equipes/constelacao.webp");
+}
+
+.team-patch[data-patch="2"] {
+  --patch-image: url("../assets/imagens/professor/equipes/cometa.webp");
+}
+
+.team-patch::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  background: var(--patch-image) center / cover no-repeat;
+  filter: hue-rotate(var(--patch-rotation, 0deg));
+  transition: transform .28s ease;
+}
+
+.team-patch::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 28%, #fff7e96b 48%, transparent 66%);
+  transform: translateX(-110%);
+  pointer-events: none;
+}
+
+.team-card:is(:hover, :focus-within) .team-patch::before {
+  transform: translateY(-2px) scale(1.04);
+}
+
+.team-card:is(:hover, :focus-within) .team-patch::after {
+  animation: team-patch-glint .62s ease-out both;
+}
+
+@keyframes team-patch-glint {
+  to { transform: translateX(110%); }
+}
+
+.team-details {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(12px, 1.4vw, 22px);
+}
+
+body[data-page="teams"] .team-card h2 {
+  font-size: clamp(18px, 1.73vw, 30px);
+  line-height: 1.15;
+  margin: 5px 0 15px;
+  color: #352044;
+  overflow-wrap: anywhere;
+}
+
+body[data-page="teams"] .team-card p {
+  margin: 0;
+  color: #533961;
+  overflow-wrap: anywhere;
+}
+
+.team-meter {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 3px;
+  width: min(100%, 122px);
+  margin-bottom: 5px;
+}
+
+.team-meter[hidden] {
+  display: none;
+}
+
+.team-meter span {
+  height: 7px;
+  border-radius: 999px;
+  background: #ded4d2;
+}
+
+.team-meter .is-filled {
+  background: hsl(var(--team-hue) 51% 47%);
+}
+
+body[data-page="teams"] .team-card .team-count {
+  margin-bottom: 12px;
+  font-size: .91em;
+}
+
+body[data-page="teams"] .team-card button {
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: auto;
+  padding: 9px 0 0;
+  text-align: right;
+  font-weight: 600;
+  color: var(--team-ink);
+  border: 0;
+  border-top: 1px solid #e6dbe5;
+  border-radius: 0;
+  background: transparent;
+}
+
+body[data-page="teams"] .team-card button:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 700px) {
+  body[data-page="teams"] #main {
+    padding-top: 76px;
+  }
+}
+
+body[data-page="teams"] #pageActions .team-create-trigger {
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 0;
+  width: auto;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 11px;
+  border-radius: 999px;
+}
+
+.team-create-trigger svg {
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+}
+
+.team-create-trigger span {
+  display: block;
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  transition: max-width .25s ease, margin-inline-start .25s ease, opacity .18s ease;
+}
+
+.team-create-trigger:is(:hover, :focus-visible) span {
+  max-width: 14em;
+  margin-inline-start: 8px;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .team-create-trigger span,
+  .team-card .team-patch::before {
+    transition: none;
+    transform: none;
+  }
+
+  .team-card:is(:hover, :focus-within) .team-patch::after {
+    animation: none;
+  }
+
+  .team-card:is(:hover, :focus-within) .team-patch::before {
+    transform: none;
+  }
+}
+
+.teams-dialog {
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+}
+
+.teams-dialog #dialogTitle {
+  padding-inline-end: 32px;
+  overflow-wrap: anywhere;
+}
+
+.teams-dialog #dialogContent form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 8px;
+}
+
+.teams-dialog #dialogContent form :is(input, select, p) {
+  min-width: 0;
+  margin: 0;
+}
+
+.teams-dialog #dialogContent form label:not(:first-child) {
+  margin-top: 9px;
+}
+
+.teams-dialog #dialogContent form p.hint {
+  margin-top: 5px;
+}
+
+.teams-dialog #dialogContent form button[type="submit"] {
+  justify-self: end;
+  width: auto;
+  margin: 8px 0 0;
+}
+
+.teams-dialog #dialogContent .panel {
+  margin-block: 16px 20px;
+  padding: clamp(14px, 2vw, 22px);
+}
+
+.teams-dialog #dialogContent :is(input, select) {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.teams-dialog {
+  background: #fffbf8;
+  border: 1px solid #e1cfe9;
+}
+
+.teams-dialog #dialogTitle {
+  margin-bottom: 14px;
+}
+
+.teams-dialog #dialogContent form:has(#field-team-student) > button {
+  margin-top: 9px;
+}
+
+.teams-dialog #dialogContent .panel {
+  background: #f7eff8;
+  border: 1px solid #eadcef;
+  box-shadow: none;
+}
+
+.teams-dialog #dialogContent .member {
+  gap: 12px;
+  overflow-wrap: anywhere;
+}
+
+.teams-dialog#actionDialog {
+  box-sizing: border-box;
+  width: min(560px, calc(100vw - 28px));
+  padding: 0;
+  border-radius: 20px;
+}
+
+.team-dialog-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px 12px;
+  min-height: 56px;
+  padding: 13px 52px 13px 20px;
+  background: linear-gradient(105deg, #ebd8f4, #f5e9f7);
+}
+
+.team-dialog-header .team-patch {
+  flex: 0 0 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.team-dialog-header .team-patch::before {
+  inset: 0;
+}
+
+.team-dialog-header [hidden] {
+  display: none;
+}
+
+.teams-dialog .team-dialog-header #dialogTitle {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.team-dialog-count {
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: #ddc6ec;
+  color: #3d2352;
+  font-size: .8em;
+  font-weight: 600;
+}
+
+.teams-dialog #dialogContent {
+  padding: 17px 20px 20px;
+}
+
+.teams-dialog #dialogError {
+  margin: 0 20px 15px;
+}
+
+.teams-dialog #dialogError:empty {
+  display: none;
+}
+
+.teams-dialog #dialogContent .team-dialog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid #e4d6e8;
+}
+
+.teams-dialog #dialogContent .team-dialog-actions button {
+  margin: 0;
+}
+
+.team-dialog-notice {
+  display: grid;
+  gap: 3px;
+  margin-top: 12px;
+  padding: 10px 13px;
+  border-radius: 12px;
+  background: #ebdcf3;
+  color: #432756;
+}
+
+.teams-dialog .team-dialog-notice p,
+.teams-dialog .team-section-title,
+.teams-dialog .team-planning-tile :is(h3, p) {
+  margin: 0;
+}
+
+.teams-dialog #dialogContent .panel:has(.team-planning-grid) {
+  margin: 15px 0 0;
+  padding: 12px 0 0;
+  border: 0;
+  border-top: 1px solid #e4d6e8;
+  border-radius: 0;
+  background: transparent;
+}
+
+.team-planning-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(170px, 100%), 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.team-planning-tile {
+  display: grid;
+  align-content: start;
+  gap: 5px;
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid #e4d6e8;
+  border-radius: 10px;
+  overflow-wrap: anywhere;
+}
+
+.team-delete-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+  padding-top: 12px;
+  border-top: 1px solid #e4d6e8;
+}
+
+.teams-dialog .team-delete-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: auto;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 11px;
+  border-radius: 999px;
+  color: #8a273d;
+  border-color: #ebc6cf;
+  background: #fff4f5;
+}
+
+.teams-dialog .team-delete-confirm-button {
+  color: #fff;
+  border-color: #8a273d;
+  background: #8a273d;
+}
+
+.teams-dialog #dialogContent div:has(> .team-delete-confirm:not([hidden])) > :not(.team-delete-confirm) {
+  display: none;
+}
+
+.teams-dialog .team-delete-confirm > h3 {
+  margin-top: 0;
+}
+
+.teams-dialog .team-delete-error {
+  color: #8a273d;
+}
+
+.teams-dialog .team-delete-error:empty {
+  display: none;
+}
+
+.team-delete-button svg {
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.team-delete-label {
+  max-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0;
+  transition: max-width .25s ease, margin-inline-start .25s ease, opacity .18s ease;
+}
+
+.team-delete-button:is(:hover, :focus-visible) .team-delete-label {
+  max-width: 12em;
+  margin-inline-start: 8px;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .team-delete-label { transition: none; }
+}

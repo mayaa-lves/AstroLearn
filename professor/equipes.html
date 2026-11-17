@@ -16,6 +16,7 @@
   <script defer src="../public/js/components/menu-professor-perfil.js?v=1"></script>
 <link rel="icon" type="image/png" href="../public/assets/imagens/marca/astrolearn-simbolo.png">
 <link rel="stylesheet" href="../public/css/rolagem.css" data-astro-rolagem>
+  <link rel="stylesheet" href="../public/css/professor-equipes.css?v=5">
 </head>
   <body data-page="teams">
     <a class="skip" href="#main">Pular para o conteúdo</a>
@@ -88,22 +89,23 @@
       </div>
       <footer>AstroLearn · Uma descoberta de cada vez.</footer>
     </main>
-    <dialog aria-labelledby="dialogTitle" id="actionDialog">
-      <button aria-label="Fechar" class="close" id="closeDialog">×</button>
-      <h2 id="dialogTitle"></h2>
+    <dialog aria-labelledby="dialogTitle" id="actionDialog" class="teams-dialog">
+      <button type="button" aria-label="Fechar" class="close" id="closeDialog">×</button>
+      <div class="team-dialog-header">
+        <span id="teamDialogPatch" class="team-patch" aria-hidden="true" hidden></span>
+        <h2 id="dialogTitle"></h2>
+        <span id="teamDialogCount" class="team-dialog-count" hidden></span>
+      </div>
       <div id="dialogContent"></div>
       <p id="dialogError" role="alert"></p>
     </dialog>
     <script src="../public/js/components/professor-dados.js"></script>
+    <script data-page-entry src="../public/js/pages/professor/equipes.js?v=5"></script>
     <script src="../public/js/components/professor-paginas.js"></script>
     <script src="../public/js/components/assistente-professor.js?v=1"></script>
 <script src="../public/js/components/preferencias.js"></script>
     
     
-    <script
-      data-page-entry=""
-      src="../public/js/pages/professor/equipes.js"
-    ></script>
   <script type="module" src="../public/js/components/sessao.js"></script>
 <script type="module" src="../public/js/components/professor-padrao.js?v=1"></script>
 <script type="module" src="../public/js/components/professor-perfil-vinculo.js?v=2"></script>

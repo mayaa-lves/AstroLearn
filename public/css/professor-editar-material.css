@@ -1,0 +1,198 @@
+.orbital-material .page-heading {
+  padding-block: 14px 0;
+  margin-block: 0 18px;
+  border-bottom: 0;
+}
+
+.orbital-material .page-heading h1 {
+  margin-block: 0 6px;
+}
+
+.orbital-material .page-heading #roomName {
+  margin: 0;
+}
+
+.orbital-material .page-heading .eyebrow {
+  margin-block: 0 8px;
+}
+
+.orbital-material .page-actions {
+  margin-block: 0 14px;
+}
+
+.orbital-material #formPanel {
+  background: #fffbf8;
+  border: 1px solid #e4d5eb;
+  padding: clamp(16px, 2.2vw, 30px);
+}
+
+.orbital-material #materialForm {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 24px;
+}
+
+.material-field {
+  display: grid;
+  align-content: start;
+  gap: 7px;
+  min-width: 0;
+}
+
+.material-field > label,
+.material-field-label {
+  font-weight: 600;
+  margin: 0;
+}
+
+.material-field > label span,
+.material-field .hint {
+  color: #705d7b;
+  font-size: .875em;
+  font-weight: 400;
+  margin: 0;
+}
+
+.material-field :is(input:not([type="file"]), textarea, select) {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+.material-field textarea {
+  min-height: 88px;
+  resize: vertical;
+}
+
+.material-attachment,
+.material-form-actions {
+  grid-column: 1 / -1;
+}
+
+.material-drop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: #f8f0fc;
+  border: 1px dashed #a782c3;
+  border-radius: 14px;
+}
+
+.material-drop.is-dragging {
+  background: #eee0fb;
+  border-color: #7436a7;
+  outline: 2px solid #7436a7;
+  outline-offset: -2px;
+}
+
+.material-upload-icon {
+  display: grid;
+  place-items: center;
+  flex: 0 0 40px;
+  height: 40px;
+  border-radius: 10px;
+  color: #683698;
+  background: #ebdcf5;
+}
+
+.material-upload-icon svg {
+  width: 21px;
+  height: 21px;
+}
+
+.material-upload-copy {
+  flex: 1 1 12rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.material-upload-copy #materialFileName {
+  margin: 0 0 3px;
+  font-weight: 600;
+}
+
+.material-upload-actions {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.material-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: 0;
+  clip-path: inset(50%);
+}
+
+.material-file-picker,
+#clearFile {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid #cbb1df;
+  border-radius: 9px;
+  background: #fffbff;
+  color: #5b317e;
+  font: inherit;
+  font-size: .875em;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#clearFile {
+  background: transparent;
+}
+
+#clearFile[hidden],
+.material-field .hint:empty,
+.material-file-error:empty {
+  display: none;
+}
+
+.material-file-picker:hover,
+#clearFile:hover {
+  background: #eadcf5;
+}
+
+.material-file-input:focus-visible + .material-file-picker,
+#clearFile:focus-visible {
+  outline: 2px solid #7436a7;
+  outline-offset: 3px;
+}
+
+.material-file-error {
+  color: #a32241;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.material-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  border-top: 1px solid #eadfef;
+  padding-top: 14px;
+}
+
+.material-form-actions #save {
+  width: auto;
+  max-width: 100%;
+}
+
+.material-form-actions .material-file-error {
+  margin-inline-end: auto;
+}
+
+@media (max-width: 700px) {
+  .orbital-material #materialForm {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+}
