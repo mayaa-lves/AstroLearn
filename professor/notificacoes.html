@@ -16,8 +16,9 @@
   <script defer src="../public/js/components/menu-professor-perfil.js?v=1"></script>
 <link rel="icon" type="image/png" href="../public/assets/imagens/marca/astrolearn-simbolo.png">
 <link rel="stylesheet" href="../public/css/rolagem.css" data-astro-rolagem>
+<link rel="stylesheet" href="../public/css/professor-notificacoes-inbox.css?v=2">
 </head>
-  <body data-page="notifications">
+  <body data-page="notifications" class="notice-inbox-page">
     <a class="skip" href="#main">Pular para o conteúdo</a>
     <aside class="sidebar">
       <a class="brand" href="home.html" id="brandHome"
@@ -75,9 +76,9 @@
         id="breadcrumbs"
       ></nav>
       <section class="page-heading">
-        <p class="eyebrow">ENSINAR É ABRIR NOVOS MUNDOS</p>
-        <h1 id="pageTitle" tabindex="-1">Suas turmas.</h1>
-        <p id="pageSubtitle">Cada sala, uma nova expedição.</p>
+        <p class="eyebrow">ÁREA DO PROFESSOR</p>
+        <h1 id="pageTitle" tabindex="-1">Notificações</h1>
+        <p id="pageSubtitle">Acompanhe os avisos e as dúvidas das suas turmas.</p>
         <div class="page-actions" id="pageActions"></div>
       </section>
       <p class="mode-note" id="modeNote"></p>
@@ -95,7 +96,7 @@
       <p id="dialogError" role="alert"></p>
     </dialog>
     <script src="../public/js/components/professor-dados.js"></script>
-    <script src="../public/js/components/professor-paginas.js"></script>
+    <script type="module" src="../public/js/components/professor-notificacoes-inbox.js?v=2"></script>
     <script src="../public/js/components/assistente-professor.js?v=1"></script>
 <script src="../public/js/components/preferencias.js"></script>
     

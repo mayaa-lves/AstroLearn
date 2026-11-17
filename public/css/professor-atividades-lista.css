@@ -1,0 +1,27 @@
+.teacher-activities-page #content>.list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:stretch}
+.teacher-activities-page #content .list-card{display:flex;flex-direction:column;align-items:stretch;justify-content:space-between;gap:18px;min-width:0;padding:18px;border-radius:16px;box-shadow:0 4px 12px #3e304b08}
+.teacher-activities-page #content .list-card[data-activity-state=draft]{background:#f3f2f4;border:1px solid #dad6df;border-top:3px solid #a9a1b3}
+.teacher-activities-page #content .list-card[data-activity-state=published]{background:#f0f8f2;border:1px solid #c8dfcf;border-top:3px solid #6eaa83}
+.teacher-activities-page .list-card h2{font-size:20px;line-height:1.3;margin:10px 0 8px;overflow-wrap:anywhere}
+.teacher-activities-page .list-card p{font-size:12px;line-height:1.65;margin:0;color:#65566f;overflow-wrap:anywhere}
+.teacher-activities-page .list-card>a{align-self:flex-start;margin:0;font-size:12px;min-height:38px;padding:8px 12px;border-radius:10px}
+.teacher-activities-page .list-card .badge{font-size:11px;background:#e4e0e8;color:#61566d}
+.teacher-activities-page .list-card .badge.green{background:#dbeedf;color:#316646}
+.teacher-activities-page #content>.list>.empty{grid-column:1/-1}
+.teacher-activities-page #pageActions{display:flex;flex-wrap:wrap;align-items:center;gap:12px;overflow:visible}
+.teacher-activities-page #pageActions .activity-create{box-sizing:border-box;display:flex;align-items:center;flex:0 0 auto;width:auto;min-width:44px;height:44px;padding:0 11px;gap:0;border:1px solid #8245bc;border-radius:999px;background:#8245bc;color:#fff;font-weight:400;overflow:hidden;text-decoration:none}
+.teacher-activities-page .activity-create svg,.teacher-activities-page .activity-filter-trigger svg{display:block;flex:0 0 20px;width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.teacher-activities-page .activity-create span{max-width:0;opacity:0;white-space:nowrap;overflow:hidden;transition:max-width .25s,opacity .2s,margin .25s;font-size:13px}
+.teacher-activities-page .activity-create:is(:hover,:focus-visible) span{max-width:160px;opacity:1;margin-left:9px}
+.teacher-activities-page .activity-filter{position:relative;flex:0 0 auto}
+.teacher-activities-page .activity-filter-trigger{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid #d6c4e4;border-radius:50%;color:#73478e;background:#fffcf8;cursor:pointer}
+.teacher-activities-page .activity-filter-trigger[data-filtered=true]{background:#ebdef5;border-color:#a278bb}
+.teacher-activities-page .activity-filter-options{position:absolute;top:100%;left:0;z-index:40;display:grid;min-width:210px;padding:8px;background:#fffdfb;border:1px solid #dfd0e8;border-radius:12px;box-shadow:0 8px 24px #47255922}
+.teacher-activities-page .activity-filter-options[hidden],.teacher-activities-page .activity-filter select[hidden]{display:none!important}
+.teacher-activities-page .activity-filter-options button{border:0;background:transparent;color:#513363;padding:11px 12px;min-height:42px;text-align:left;white-space:nowrap;border-radius:8px;font-size:13px;cursor:pointer}
+.teacher-activities-page .activity-filter-options button:is(:hover,[aria-pressed=true]){background:#efe4f8;color:#68358e}
+.teacher-activities-page #pageActions>select{width:auto;min-width:195px;max-width:100%;min-height:44px;margin:0;padding:10px 34px 10px 12px;font-size:13px;border:1px solid #d6c4e4;border-radius:12px;background-color:#fffdfb;color:#604170}
+.teacher-activities-page #pageActions :is(a,button,select):focus-visible{outline:3px solid #a36dc9;outline-offset:3px}
+@media(max-width:1100px){.teacher-activities-page #content>.list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.teacher-activities-page #content>.list{grid-template-columns:1fr}.teacher-activities-page #pageActions{gap:10px}.teacher-activities-page #pageActions>select{min-width:180px}}
+@media(prefers-reduced-motion:reduce){.teacher-activities-page .activity-create span{transition:none}}
