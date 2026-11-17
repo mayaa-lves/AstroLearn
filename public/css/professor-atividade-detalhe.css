@@ -1,0 +1,115 @@
+body[data-page=activity] #pageActions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;width:100%}
+body[data-page=activity] #pageActions .detail-shortcut{
+ display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;min-width:44px;min-height:44px;padding:0 11px;
+ gap:0;border:1px solid #d5b9e3;border-radius:999px;background:#fffaf8;color:#724397;text-decoration:none;box-sizing:border-box
+}
+body[data-page=activity] #pageActions .detail-back{margin-inline-start:auto}
+.detail-shortcut svg,.detail-file-field svg{width:20px;height:20px;flex:0 0 20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linejoin:round;stroke-linecap:round}
+.detail-shortcut span{max-width:0;overflow:hidden;white-space:nowrap;opacity:0;transition:max-width .23s,margin .23s,opacity .18s;font-size:13px}
+.detail-shortcut:is(:hover,:focus-visible) span{max-width:190px;margin-inline-start:8px;opacity:1}
+.detail-upload{display:grid;gap:12px;margin-top:18px}
+.detail-upload>label{font-weight:650;color:#422453}
+.detail-file-field{position:relative;display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;min-height:64px;padding:14px;border:1px dashed #b68cca;border-radius:14px;background:#fcf5ff;color:#64368b}
+.detail-file-field:is(:hover,:focus-within){background:#f4e8fb;border-color:#8d53b7}
+.detail-file-field:focus-within{outline:2px solid #8d53b7;outline-offset:2px}
+.detail-file-field input[type=file]{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer}
+.detail-file-name{flex:1 1 150px;font-size:12px;color:#70597e;overflow-wrap:anywhere}
+.detail-upload .hint{margin:0;line-height:1.5}
+.detail-upload button[type=submit]{justify-self:start}
+@media(prefers-reduced-motion:reduce){.detail-shortcut span{transition:none}}
+
+body[data-page=activity]{background:#f3eafa!important;color:#321b47}
+body[data-page=activity]::before{background:radial-gradient(ellipse at 95% 5%,#ded0f3,transparent 65%),linear-gradient(135deg,#f9f0fb,#eaddf8)!important}
+body[data-page=activity] .teacher-top,
+body[data-page=activity] #modeNote,
+body[data-page=activity] .page-heading>.eyebrow{display:none!important}
+body[data-page=activity] #main{padding-top:28px}
+body[data-page=activity] #breadcrumbs{margin:0 160px 20px 0}
+body[data-page=activity] #breadcrumbs::before{content:'ÁREA DO PROFESSOR';flex-basis:100%;font-size:10px;letter-spacing:1.3px;color:#744495}
+body[data-page=activity] .page-heading{margin:0 0 20px;padding:0 0 14px;border-bottom:1px solid #d7c2e7}
+body[data-page=activity] #pageActions{margin:17px 0 0}
+.detail-briefing{
+ min-height:194px;border:1px solid #d8c2e7;border-radius:20px;
+ background:linear-gradient(90deg,#fff8f3 28%,#fff8f3ed 42%,#fff8f300 71%),url('../assets/imagens/professor/atividade-holograma.webp') right center/auto 120% no-repeat,#fff8f3;
+ padding:28px 34% 24px 30px;box-sizing:border-box;
+}
+.detail-kicker{display:block;text-transform:uppercase;letter-spacing:1.7px;font-size:12px;font-weight:700;color:#7131bc;border-left:3px solid;padding-left:10px;margin-bottom:12px}
+.detail-briefing #pageTitle{color:#321945;line-height:1.1;overflow-wrap:anywhere;margin:0 0 13px}
+.detail-briefing #pageSubtitle{display:inline;color:#644876;font-size:13px}
+.detail-publication{display:inline-block;background:#d9efc8;color:#2c6129;border-radius:999px;padding:4px 12px;margin:0 9px 4px 0;font-size:12px;font-weight:600}
+.detail-publication.detail-draft{background:#eae1ee;color:#674e72}
+body[data-page=activity] .detail-panels{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:18px}
+body[data-page=activity] .detail-panels>.panel{border:1px solid #dbc7e9;border-radius:18px;background:#fffaf8;padding:22px}
+.detail-requirement{background:#f1e5f7;border-radius:13px;padding:14px 17px;margin:18px 0 12px;color:#432260}
+.detail-requirement h3,.detail-requirement p{margin:0}.detail-requirement h3{margin-bottom:6px}
+.detail-panels .files-list li{padding:10px 12px;background:#f6eef9;border:1px solid #e0cdec;border-radius:10px}
+.detail-upload .detail-file-field{display:grid;justify-items:center;text-align:center;gap:5px;min-height:94px;padding:12px}
+.detail-upload .detail-file-field svg{width:25px;height:25px}
+.detail-upload button[type=submit]{justify-self:center;background:#7031be;color:white;border:1px solid #7031be;border-radius:10px}
+@media(max-width:800px){
+ body[data-page=activity] #main{padding-top:76px}
+ body[data-page=activity] #breadcrumbs{margin-right:0}
+ body[data-page=activity] .detail-panels{grid-template-columns:1fr}
+ .detail-briefing{padding:20px 26% 18px 18px;background-size:auto,auto 95%}
+}
+
+body[data-page=activity]{isolation:isolate}
+body[data-page=activity]::before{
+ position:fixed!important;inset:0;z-index:-2!important;pointer-events:none;
+ background:#f0e8fa url('../assets/imagens/professor/atividade-estrelas.webp') center/cover no-repeat!important
+}
+body[data-page=activity]::after{
+ content:'';position:fixed;inset:-24px;z-index:-1;pointer-events:none;
+ background:url('../assets/imagens/professor/atividade-constelacoes.svg') center/cover no-repeat;
+ opacity:.40;animation:detail-sky-drift 32s ease-in-out infinite alternate
+}
+@keyframes detail-sky-drift{from{transform:translate(-9px,-5px)}to{transform:translate(9px,5px);opacity:.66}}
+.detail-briefing{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(90deg,#fff8f3 27%,#eadcf3 60%,#5c478f);padding-right:46%;min-height:205px}
+.detail-briefing::before{
+ content:'';position:absolute;inset:0 0 0 auto;width:57%;z-index:-1;pointer-events:none;
+ background:url('../assets/imagens/professor/atividade-holograma.webp') right center/100% 145% no-repeat;
+ mask-image:linear-gradient(90deg,transparent 0%,#000 37%)
+}
+.detail-briefing #pageTitle{font-size:clamp(28px,3.12vw,49px)}
+.detail-publication:not(.detail-draft)::before{content:'✓';margin-right:6px}
+.detail-briefing #pageSubtitle{line-height:1.55}
+@media(max-width:800px){.detail-briefing{padding-right:30%}.detail-briefing::before{width:48%;background-size:auto 100%;opacity:.76}}
+@media(prefers-reduced-motion:reduce){body[data-page=activity]::after{animation:none}}
+
+/* Proporções do cabeçalho aprovado em 1672 px. */
+body[data-page=activity] #breadcrumbs{margin-bottom:18px}
+.detail-briefing{
+ min-height:0;aspect-ratio:1464 / 254;padding:clamp(20px,2.45vw,41px) 43% 20px clamp(20px,2.45vw,41px);
+ background:#fcf4ef;
+}
+.detail-briefing::before{
+ width:57.4%;background:url('../assets/imagens/professor/atividade-holograma.webp?v=4') right center/100% 100% no-repeat;
+ mask-image:linear-gradient(90deg,transparent,#000 19%);opacity:1;
+}
+.detail-kicker{margin-bottom:clamp(9px,1.15vw,19px)}
+.detail-briefing #pageTitle{margin-bottom:clamp(12px,1.4vw,23px)}
+.detail-briefing #pageSubtitle{font-size:clamp(13px,1vw,17px)}
+.detail-publication{border:1px solid #a5d48e;margin-right:14px}
+.detail-publication.detail-draft{border-color:#d3c0dc}
+@media(max-width:800px){
+ .detail-briefing{aspect-ratio:auto;min-height:165px;padding:20px 32% 18px 18px}
+ .detail-briefing::before{width:47%;background-size:auto 100%;background-position:80% center;opacity:.68}
+}
+
+/* As marcações percorrem a elipse, simulando a rotação do anel no próprio plano. */
+.detail-orbit{
+ position:absolute;inset:0 0 0 auto;width:57.4%;height:100%;
+ pointer-events:none;z-index:-1;overflow:visible;
+}
+.detail-orbit ellipse{
+ fill:none;stroke:#cfdeff;stroke-width:1.15;stroke-linecap:round;
+ stroke-dasharray:.36 1.64;opacity:.78;
+ filter:drop-shadow(0 0 2px #88abff);
+ animation:detail-orbit-spin 24s linear infinite;
+}
+@keyframes detail-orbit-spin{to{stroke-dashoffset:-100}}
+@media(max-width:800px){
+ .detail-briefing::before{background-size:100% 100%;background-position:center}
+ .detail-orbit{width:47%;opacity:.68}
+}
+@media(prefers-reduced-motion:reduce){.detail-orbit ellipse{animation:none}}

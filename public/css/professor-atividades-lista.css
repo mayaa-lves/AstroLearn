@@ -25,3 +25,67 @@
 @media(max-width:1100px){.teacher-activities-page #content>.list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.teacher-activities-page #content>.list{grid-template-columns:1fr}.teacher-activities-page #pageActions{gap:10px}.teacher-activities-page #pageActions>select{min-width:180px}}
 @media(prefers-reduced-motion:reduce){.teacher-activities-page .activity-create span{transition:none}}
+
+.teacher-activities-page{background:#fbf5f3!important;isolation:isolate}
+.teacher-activities-page::before{content:'';position:fixed!important;inset:0!important;z-index:-1!important;pointer-events:none;background:linear-gradient(to bottom,transparent 20%,#fbf5f3 38%),url('../assets/imagens/professor/atividades-eclipse.webp') center top/100% auto no-repeat!important}
+.teacher-activities-page .teacher-top{display:none!important}
+.teacher-activities-page #breadcrumbs{margin:0 160px 16px 0}
+.teacher-activities-page .page-heading{margin:0 0 22px;padding:0;border:0}
+.teacher-activities-page .page-heading>.eyebrow,.teacher-activities-page #modeNote{display:none}
+.teacher-activities-page #pageActions{margin:18px 0 0}
+.teacher-activities-page #content .list-card[data-activity-state]{display:grid;grid-template-columns:minmax(0,1fr) minmax(72px,33%);gap:12px 10px;padding:17px 18px 12px;background:#fffaf6ec;border:1px solid #d6bde8;border-radius:0;clip-path:polygon(12px 0,calc(100% - 12px) 0,100% 12px,100% calc(100% - 12px),calc(100% - 12px) 100%,12px 100%,0 calc(100% - 12px),0 12px);min-height:150px}
+.teacher-activities-page #content .list-card .mission-art{grid-column:2;grid-row:1;align-self:center;aspect-ratio:1.7;border-radius:12px;background-image:url('../assets/imagens/professor/atividades-miniaturas.webp');background-size:300% 200%;background-position:var(--mission-x) var(--mission-y)}
+.teacher-activities-page #content .list-card>a{grid-row:2;grid-column:1/-1;border:0;border-top:1px solid #e1d1eb;border-radius:0;background:none;box-shadow:none;color:#7538a9;padding:8px 3px 0;min-height:32px}
+.teacher-activities-page #content .list-card>a:focus-visible{outline-offset:-2px}
+.teacher-activities-page .list-card .badge{border-radius:100px}
+@media(max-width:800px){.teacher-activities-page #main{padding-top:78px}.teacher-activities-page #breadcrumbs{margin-right:0}}
+
+/* Os dois polígonos formam um contorno contínuo nos cantos da ficha. */
+body.teacher-activities-page::before{background:linear-gradient(to bottom,transparent 23%,#fbf5f3 66%),url('../assets/imagens/professor/atividades-eclipse.webp') center top/cover no-repeat!important}
+body.teacher-activities-page #content .list-card[data-activity-state]{
+ --outline:#c7a0e5;
+ --frame:polygon(12px 0,24% 0,calc(24% + 6px) 5px,calc(100% - 12px) 5px,100% 17px,100% calc(100% - 12px),calc(100% - 12px) 100%,12px 100%,0 calc(100% - 12px),0 12px);
+ position:relative;isolation:isolate;clip-path:var(--frame);background:var(--outline);
+ border:0;grid-template-rows:auto 1fr auto;gap:5px 12px;padding:10px 16px 12px;min-height:172px
+}
+body.teacher-activities-page #content .list-card[data-activity-state]::before{content:'';position:absolute;inset:1px;background:#fff9f5;clip-path:var(--frame);z-index:-1}
+.teacher-activities-page .mission-heading{grid-column:1/-1;grid-row:1;justify-self:end;border-bottom:1px solid #dec9ef;padding:3px 2px 4px 18px;font-size:9px;letter-spacing:1.3px;color:#633587;white-space:nowrap}
+.teacher-activities-page .mission-heading::before{content:'///';color:#9955db;margin-right:12px;font-weight:700}
+body.teacher-activities-page #content .list-card[data-activity-state]>div:not(.mission-heading){grid-row:2;grid-column:1;min-width:0}
+body.teacher-activities-page #content .list-card .mission-art{grid-row:2;width:100%;align-self:center}
+body.teacher-activities-page #content .list-card>a{grid-row:3;align-self:end;justify-self:stretch;display:block;text-align:left;width:auto;padding:7px 0 1px;margin-top:4px;color:#7130be;font-size:14px}
+.teacher-activities-page .list-card h2{margin:7px 0 4px}
+.teacher-activities-page .mission-deadline{display:block}
+.teacher-activities-page #breadcrumbs::before{content:'ÁREA DO PROFESSOR';flex-basis:100%;font-size:10px;letter-spacing:1.1px;color:#754594}
+
+body.teacher-activities-page #content .list-card[data-activity-state]{
+ transition:background-color .22s ease;
+}
+body.teacher-activities-page #content .list-card[data-activity-state]:focus-within{
+ --outline:#9861cf;
+}
+.teacher-activities-page .mission-art{position:relative;overflow:hidden}
+.teacher-activities-page .mission-art::after{
+ content:'';position:absolute;inset:0;pointer-events:none;opacity:0;
+ background:linear-gradient(105deg,transparent 32%,#cc9dff40 46%,#f5e7ff 50%,#b577f65c 54%,transparent 68%);
+}
+.teacher-activities-page .mission-arrow{display:inline-block;transition:transform .24s ease}
+@keyframes astro-mission-scan{
+ 0%{opacity:0;transform:translateX(-100%)}
+ 15%,80%{opacity:.9}
+ 100%{opacity:0;transform:translateX(100%)}
+}
+.teacher-activities-page .list-card:focus-within .mission-art::after{
+ animation:astro-mission-scan .55s ease-out both;
+}
+.teacher-activities-page .list-card:focus-within .mission-arrow{transform:translateX(4px)}
+@media(hover:hover){
+ body.teacher-activities-page #content .list-card[data-activity-state]:hover{--outline:#9861cf}
+ .teacher-activities-page .list-card:hover .mission-art::after{animation:astro-mission-scan .55s ease-out both}
+ .teacher-activities-page .list-card:hover .mission-arrow{transform:translateX(4px)}
+}
+@media(prefers-reduced-motion:reduce){
+ body.teacher-activities-page #content .list-card[data-activity-state],.teacher-activities-page .mission-arrow{transition:none}
+ .teacher-activities-page .list-card .mission-art::after{animation:none!important}
+ .teacher-activities-page .list-card .mission-arrow{transform:none!important}
+}

@@ -18,7 +18,7 @@
    function sync(){for(const b of popup.querySelectorAll('button'))b.setAttribute('aria-pressed',String(b.dataset.value===state.value));const label=state.options[state.selectedIndex]?.textContent||'Todas as atividades';trigger.setAttribute('aria-label','Filtrar atividades: '+label);trigger.dataset.filtered=String(!!state.value);}
    for(const option of state.options){const b=document.createElement('button');b.type='button';b.textContent=option.textContent;b.dataset.value=option.value;b.onclick=()=>{state.value=option.value;state.dispatchEvent(new Event('change',{bubbles:true}));sync();open(false);trigger.focus();};popup.append(b);}
    state.before(filter);state.hidden=true;filter.append(trigger,popup,state);sync();state.addEventListener('change',sync);
-   trigger.onclick=()=>open(popup.hidden);
+   trigger.onclick=()=>open(true);
    trigger.onkeydown=event=>{if(event.key==='ArrowDown'){event.preventDefault();open(true);popup.querySelector('button')?.focus();}};
    filter.addEventListener('pointerenter',event=>{if(event.pointerType==='mouse')open(true);});
    filter.addEventListener('pointerleave',()=>{if(!filter.contains(document.activeElement))open(false);});
@@ -29,7 +29,39 @@
   const semester=[...actions.querySelectorAll('select')].find(s=>s!==state);
   if(semester){semester.setAttribute('aria-label','Filtrar por semestre');const all=[...semester.options].find(o=>o.value==='');if(all&&all.textContent!=='Todos os semestres')all.textContent='Todos os semestres';}
   [create,filter,semester].filter(Boolean).forEach((node,index)=>{if(actions.children[index]!==node)actions.insertBefore(node,actions.children[index]||null);});
-  content.querySelectorAll('.list-card').forEach(card=>{const draft=card.querySelector('.badge')?.textContent.trim()==='Rascunho';card.dataset.activityState=draft?'draft':'published';});
+  content.querySelectorAll('.list-card').forEach((card,index)=>{
+   if(!card.querySelector('.mission-art')){
+    const art=document.createElement('span');art.className='mission-art';art.setAttribute('aria-hidden','true');
+    const key=card.querySelector('a')?.href||String(index);
+    const hash=[...key].reduce((value,char)=>(value*31+char.charCodeAt(0))>>>0,0);
+    art.style.setProperty('--mission-x',(hash%3)*50+'%');
+    art.style.setProperty('--mission-y',hash%6<3?'0%':'100%');
+    const heading=document.createElement('div');
+    heading.className='mission-heading';
+    heading.setAttribute('aria-hidden','true');
+    heading.textContent='RELATÓRIO DE MISSÃO';
+    const metadata=card.querySelector('p');
+    const deadline=metadata?.textContent.match(/ · Prazo (.+)$/);
+    if(deadline){
+     metadata.textContent=metadata.textContent.slice(0,deadline.index);
+     const date=document.createElement('span');
+     date.className='mission-deadline';
+     date.textContent='Prazo '+deadline[1];
+     metadata.append(date);
+    }
+    const link=card.querySelector('a');
+    if(link && link.textContent.trim().endsWith('→')){
+     link.textContent=link.textContent.trim().slice(0,-1).trimEnd()+' ';
+     const arrow=document.createElement('span');
+     arrow.className='mission-arrow';
+     arrow.setAttribute('aria-hidden','true');
+     arrow.textContent='→';
+     link.append(arrow);
+    }
+    card.prepend(heading);
+    card.append(art);
+   }
+   const draft=card.querySelector('.badge')?.textContent.trim()==='Rascunho';card.dataset.activityState=draft?'draft':'published';});
  }
  function schedule(){if(!queued){queued=true;queueMicrotask(enhance);}}
  const observer=new MutationObserver(schedule);observer.observe(actions,{childList:true,subtree:true});observer.observe(content,{childList:true,subtree:true});
