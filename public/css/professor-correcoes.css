@@ -1,0 +1,177 @@
+body[data-page="corrections"] {
+  background: #f6edf1;
+}
+
+body[data-page="corrections"]::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(90deg, #fff5ed70, transparent 75%),
+    url("../assets/imagens/professor/correcoes/horizonte.webp") center / cover no-repeat;
+  pointer-events: none;
+}
+
+body[data-page="corrections"] .page-heading {
+  padding-bottom: 0;
+  margin-bottom: 30px;
+  border: 0;
+}
+
+body[data-page="corrections"] :is(.page-heading .eyebrow, #pageSubtitle, #modeNote) {
+  display: none;
+}
+
+body[data-page="corrections"] .filters {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: nowrap;
+  overflow: visible;
+}
+
+body[data-page="corrections"] .filters input {
+  flex: 1;
+  min-width: 0;
+}
+
+.correction-filter {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.correction-filter-trigger,
+body[data-page="review"] .correction-file-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0 11px;
+  border: 1px solid #dbcae9;
+  border-radius: 999px;
+  color: #66249b;
+  background: #f1e5fa;
+  cursor: pointer;
+}
+
+.correction-filter-trigger svg,
+.correction-file-action svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.65;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.correction-filter-options {
+  position: absolute;
+  z-index: 8;
+  inset-inline-end: 0;
+  inset-block-start: 100%;
+  min-width: max-content;
+  padding: 5px;
+  border: 1px solid #e2d3eb;
+  border-radius: 12px;
+  background: #fffaf7;
+  box-shadow: 0 7px 24px #3520472b;
+}
+
+.correction-filter-options[hidden],
+body[data-page="corrections"] .filters select[hidden] {
+  display: none;
+}
+
+.correction-filter-options button {
+  display: block;
+  width: 100%;
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: #352044;
+  text-align: start;
+  font: inherit;
+  cursor: pointer;
+}
+
+.correction-filter-options button:is(:hover, :focus-visible, [aria-pressed="true"]) {
+  background: #eee1f6;
+}
+
+[data-correction-state="pending"] {
+  --state-ink: #714006;
+  --state-fill: #ffdda5;
+  --scan-tint: #da890c1c;
+  --scan-glint: #efa62590;
+  --scan-edge: #c97208;
+}
+
+[data-correction-state="done"] {
+  --state-ink: #2f592c;
+  --state-fill: #dceacc;
+  --scan-tint: #62a7461c;
+  --scan-glint: #76b66490;
+  --scan-edge: #4d873a;
+}
+
+.correction-state {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--state-fill);
+  color: var(--state-ink);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+body[data-page="corrections"] tr[data-correction-state]:is(:hover, :focus-within) {
+  background-color: var(--scan-tint);
+  background-image: linear-gradient(90deg, transparent 0%, var(--scan-tint) 50%, var(--scan-glint) 98%, transparent);
+  background-size: 16% 100%;
+  background-repeat: no-repeat;
+  animation: correction-scan .65s ease-out both;
+}
+
+body[data-page="corrections"] tr[data-correction-state]:is(:hover, :focus-within) td:first-child {
+  box-shadow: inset 3px 0 var(--scan-edge);
+}
+
+@keyframes correction-scan {
+  from { background-position: -25% 0; }
+  to { background-position: 125% 0; }
+}
+
+body[data-page="review"] .correction-file-action {
+  gap: 0;
+  width: auto;
+  text-decoration: none;
+}
+
+.correction-file-action span {
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  white-space: nowrap;
+  transition: max-width .25s ease, margin-inline-start .25s ease, opacity .18s ease;
+}
+
+.correction-file-action:is(:hover, :focus-visible) span {
+  max-width: 9em;
+  margin-inline-start: 7px;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-page="corrections"] tr[data-correction-state]:is(:hover, :focus-within) {
+    animation: none;
+    background-image: none;
+  }
+
+  .correction-file-action span {
+    transition: none;
+  }
+}
