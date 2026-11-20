@@ -105,6 +105,15 @@
   }
 
   function review() {
+    const heading = document.getElementById("pageTitle");
+    if (content.querySelector(".review-grid") && heading.textContent !== "Corrigir entrega") {
+      heading.textContent = "Corrigir entrega";
+      document.title = "Corrigir entrega · AstroLearn";
+    }
+    const evaluation = content.querySelector(".review-evaluation > p");
+    if (evaluation && evaluation.textContent !== "Oriente o próximo passo do aluno.") {
+      evaluation.textContent = "Oriente o próximo passo do aluno.";
+    }
     for (const control of content.querySelectorAll(".review-file a, .review-file button")) {
       if (control.classList.contains("correction-file-action")) continue;
       const label = control.textContent.trim();

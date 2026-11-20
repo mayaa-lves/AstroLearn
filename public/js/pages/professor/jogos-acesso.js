@@ -9,12 +9,24 @@ const refresh = document.getElementById('refreshAccess');
 const form = document.getElementById('accessForm');
 const route = '/api/professor/salas/' + encodeURIComponent(sala || '');
 let busy = false, ready = false, confirmado = null;
+const badge = document.getElementById('gamesAccessBadge');
+const hint = document.getElementById('gamesAccessHint');
+const roomLink = document.getElementById('gamesRoomLink');
+roomLink.href = sala ? 'turma.html?sala=' + encodeURIComponent(sala) : 'home.html';
 
 function controls() {
   check.disabled = busy || !ready;
   save.disabled = busy || !ready || check.checked === confirmado;
   refresh.disabled = busy || !sala;
   form.setAttribute('aria-busy', String(busy));
+  const pending = ready && check.checked !== confirmado;
+  badge.dataset.state = busy ? 'loading' : pending ? 'pending' : !ready ? 'error' : confirmado ? 'on' : 'off';
+  badge.textContent = busy ? (ready ? 'Salvando…' : 'Consultando…')
+    : pending ? 'Não salvo' : !ready ? 'Indisponível' : confirmado ? 'Liberado' : 'Bloqueado';
+  hint.textContent = confirmado === null
+    ? 'Consulte e ajuste o acesso dos alunos desta turma.'
+    : confirmado ? 'Os alunos desta turma podem acessar a área de jogos.'
+      : 'O acesso aos jogos está bloqueado para esta turma.';
 }
 function failure(error) {
   ready = false;
@@ -25,14 +37,14 @@ function failure(error) {
 }
 function confirmar(bloqueado) {
   if (typeof bloqueado !== 'boolean') {
-    throw new Error('O servidor não retornou jogos_bloqueados como true ou false. Consulte novamente e avise o responsável pelo backend.');
+    throw new Error('Não foi possível confirmar o acesso aos jogos. Tente atualizar.');
   }
   confirmado = !bloqueado;
   check.checked = confirmado;
   ready = true;
   message.textContent = bloqueado
-    ? 'Jogos bloqueados para esta turma. Configuração confirmada pelo servidor.'
-    : 'Jogos liberados para esta turma. Configuração confirmada pelo servidor.';
+    ? 'Jogos bloqueados para esta turma.'
+    : 'Jogos liberados para esta turma.';
 }
 async function load() {
   if (busy) return;
@@ -47,6 +59,7 @@ async function load() {
   try {
     const data = await api(route);
     confirmar(data?.sala?.jogos_bloqueados);
+    if (data?.sala?.nome) roomLink.textContent = data.sala.nome;
   } catch (error) { failure(error); }
   finally { busy = false; controls(); }
 }

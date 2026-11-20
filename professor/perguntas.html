@@ -16,6 +16,7 @@
   <script defer src="../public/js/components/menu-professor-perfil.js?v=1"></script>
 <link rel="icon" type="image/png" href="../public/assets/imagens/marca/astrolearn-simbolo.png">
 <link rel="stylesheet" href="../public/css/rolagem.css" data-astro-rolagem>
+  <link rel="stylesheet" href="../public/css/professor-perguntas.css?v=3">
 </head>
   <body data-page="questions">
     <a class="skip" href="#main">Pular para o conteúdo</a>
@@ -48,6 +49,11 @@
         >
       </div>
     </aside>
+    <div class="questions-scenery" aria-hidden="true">
+      <div class="questions-signal-canvas">
+        <div class="questions-signal"><span></span><span></span><span></span></div>
+      </div>
+    </div>
     <main id="main" tabindex="-1">
       <div class="sr-only" id="frontend-local-banner">
         Demonstração local do professor.
@@ -95,15 +101,13 @@
       <p id="dialogError" role="alert"></p>
     </dialog>
     <script src="../public/js/components/professor-dados.js"></script>
+    <script src="../public/js/pages/professor/perguntas.js?v=2"></script>
     <script src="../public/js/components/professor-paginas.js"></script>
     <script src="../public/js/components/assistente-professor.js?v=1"></script>
 <script src="../public/js/components/preferencias.js"></script>
     
     
-    <script
-      data-page-entry=""
-      src="../public/js/pages/professor/perguntas.js"
-    ></script>
+
   <script type="module" src="../public/js/components/sessao.js"></script>
 <script type="module" src="../public/js/components/professor-padrao.js?v=1"></script>
 <script type="module" src="../public/js/components/professor-perfil-vinculo.js?v=2"></script>

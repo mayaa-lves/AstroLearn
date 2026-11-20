@@ -175,3 +175,157 @@ body[data-page="review"] .correction-file-action {
     transition: none;
   }
 }
+
+body[data-page="review"] .teacher-top,
+body[data-page="review"] .page-heading .eyebrow,
+body[data-page="review"] #modeNote {
+  display: none;
+}
+
+body[data-page="review"] #main {
+  padding-top: 26px;
+  container-type: inline-size;
+}
+
+body[data-page="review"] .breadcrumbs {
+  margin-block: 0 18px;
+  padding-inline-end: 155px;
+}
+
+body[data-page="review"] .page-heading {
+  border: 0;
+  margin-block: 0 22px;
+  padding: 0;
+}
+
+body[data-page="review"] .page-heading h1 {
+  font-size: clamp(28px, 2.7vw, 38px);
+  margin-bottom: 8px;
+}
+
+body[data-page="review"] .page-actions {
+  margin-top: 16px;
+  align-items: center;
+}
+
+body[data-page="review"] .review-grid {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 18px;
+}
+
+body[data-page="review"] .review-grid .panel {
+  padding: clamp(16px, 1.8vw, 24px);
+  background: #fffaf7ed;
+  border: 1px solid #fffafa;
+}
+
+body[data-page="review"] .review-grid .stack {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+}
+
+body[data-page="review"] .review-grid .panel h2 {
+  margin-top: 0;
+}
+
+body[data-page="review"] .review-grid .document-copy {
+  margin-bottom: 0;
+}
+
+body[data-page="review"] .review-meta {
+  gap: 8px 12px;
+  margin-block: 12px;
+}
+
+body[data-page="review"] .review-evaluation {
+  position: static;
+  min-width: 0;
+}
+
+body[data-page="review"] #reviewForm label {
+  margin-top: 14px;
+}
+
+body[data-page="review"] #reviewForm :is(input, textarea) {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+body[data-page="review"] #reviewForm input[type="number"] {
+  width: 160px;
+  min-height: 44px;
+  padding: 9px 12px;
+  font-size: 19px;
+}
+
+body[data-page="review"] #reviewForm textarea {
+  min-height: 150px;
+  height: 160px;
+  resize: vertical;
+  padding: 12px;
+}
+
+body[data-page="review"] #reviewForm p.hint {
+  margin-block: 8px;
+}
+
+body[data-page="review"] #reviewForm p.hint:empty {
+  display: none;
+}
+
+body[data-page="review"] #reviewForm button[type="submit"] {
+  display: flex;
+  width: auto;
+  max-width: 100%;
+  margin-inline-start: auto;
+  margin-top: 16px;
+}
+
+body[data-page="review"] .review-file {
+  padding: 6px 8px 6px 12px;
+  gap: 6px;
+  background: #f2e9f3;
+  border: 0;
+}
+
+body[data-page="review"] .file-preview {
+  margin-top: 12px;
+}
+
+body[data-page="review"] .file-preview img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 340px;
+  object-fit: contain;
+}
+
+body[data-page="review"] .file-preview iframe {
+  display: block;
+  width: 100%;
+  height: clamp(320px, 55vh, 560px);
+  box-sizing: border-box;
+}
+
+@container (min-width: 760px) {
+  body[data-page="review"] .review-grid {
+    grid-template-columns: minmax(0, 1.5fr) minmax(290px, 1fr);
+    align-items: start;
+  }
+
+  body[data-page="review"] .review-evaluation {
+    position: sticky;
+    top: 20px;
+  }
+}
+
+@media (max-width: 700px) {
+  body[data-page="review"] #main {
+    padding-top: 78px;
+  }
+
+  body[data-page="review"] .breadcrumbs {
+    padding-inline-end: 0;
+  }
+}
