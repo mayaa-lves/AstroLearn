@@ -1,3 +1,4 @@
+import { medirQuadros } from "./avatar-enquadramento.js";
 // Oito fotografias de cada personagem, interpoladas em um único canvas.
 // A rotação sempre percorre o caminho mais curto, inclusive de 315° a 0°.
 export function iniciarVistas({ render, slider, angleLabel, stage, stopped }) {
@@ -10,7 +11,7 @@ export function iniciarVistas({ render, slider, angleLabel, stage, stopped }) {
   const ctx = canvas.getContext('2d');
   const pixel = document.documentElement.dataset.astroTema === 'pixel';
   if (ctx && pixel) ctx.imageSmoothingEnabled = false;
-  let image = null, selected = 0, rotation = 0, target = 0, frame = 0, previous = 0, revision = 0;
+  let frames = [], image = null, selected = 0, rotation = 0, target = 0, frame = 0, previous = 0, revision = 0;
   slider.min = '0'; slider.max = '359'; slider.step = '1'; slider.value = '0';
   const wrap = x => ((x % 360) + 360) % 360;
   function describe() {
@@ -25,9 +26,10 @@ export function iniciarVistas({ render, slider, angleLabel, stage, stopped }) {
     // Frames usam células 4×2, com pés e eixo do corpo alinhados.
     const value = wrap(rotation) / 45, a = Math.floor(value), mix = value - a;
     const paint = (index, opacity) => {
-      const w = image.naturalWidth / 4, h = image.naturalHeight / 2;
+      const f = frames[index];
       ctx.globalAlpha = opacity;
-      ctx.drawImage(image, index % 4 * w, Math.floor(index / 4) * h, w, h, 0, 0, 384, 512);
+      ctx.imageSmoothingEnabled = !pixel;
+      ctx.drawImage(image, f.sx, f.sy, f.sw, f.sh, f.dx, f.dy, f.dw, f.dh);
     };
     // Transição breve no meio do intervalo; evita duas faces durante todo o giro.
     const blend = Math.max(0, Math.min(1, (mix - .32) / .36));
@@ -64,6 +66,19 @@ export function iniciarVistas({ render, slider, angleLabel, stage, stopped }) {
     try { await asset.decode(); } catch { return; }
     if (request !== revision || !ctx) return;
     cancelAnimationFrame(frame); frame = 0;
+    const buffer = document.createElement('canvas');
+    buffer.width = asset.naturalWidth; buffer.height = asset.naturalHeight;
+    const measure = buffer.getContext('2d', { willReadFrequently: true });
+    if (!measure) return;
+    measure.drawImage(asset, 0, 0);
+    try {
+      frames = medirQuadros(measure.getImageData(0, 0, buffer.width, buffer.height).data, buffer.width, buffer.height);
+    } catch {
+      // Se a leitura de pixels não estiver disponível, conserva o atlas completo.
+      const w = buffer.width / 4, h = buffer.height / 2;
+      frames = Array.from({ length: 8 }, (_, i) => ({ sx: i % 4 * w, sy: Math.floor(i / 4) * h,
+        sw: w, sh: h, dx: 0, dy: 0, dw: 384, dh: 512 }));
+    }
     selected = next; image = asset; rotation = target = 0; slider.value = '0';
     render.classList.add('has-turntable');
     render.replaceChildren(canvas);

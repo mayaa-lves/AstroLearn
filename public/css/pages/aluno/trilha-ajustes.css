@@ -1,0 +1,101 @@
+/* Correções compartilhadas pelos temas: o canvas ocupa o palco sem deslocamento de sprite. */
+#avatarStage #avatarRender.has-turntable {
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  transform: none !important;
+  background: none !important;
+}
+#avatarStage .avatar-turntable {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+}
+/* O topo e os filtros permanecem visíveis; somente os avisos rolam. */
+dialog#notificationPanel {
+  overflow: hidden;
+  gap: 0;
+}
+#notificationPanel .notification-heading { flex-wrap: nowrap; align-items: flex-start; }
+#notificationPanel .notification-heading > div:first-child { flex: 1 1 auto; min-width: 0; }
+#notificationPanel .notification-heading h2 { overflow-wrap: anywhere; font-size: clamp(21px, 5vw, 25px); }
+#notificationPanel .notification-tools { flex: 0 0 auto; }
+#notificationPanel .notification-tool { min-width: 36px; min-height: 36px; }
+#notificationPanel .notification-intro { flex: 0 0 auto; margin: 12px 0 16px; }
+#notificationPanel .notification-filters { flex: 0 0 auto; }
+#notificationPanel .notification-feed {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+  flex: 1 1 auto;
+  min-height: 0;
+  min-width: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 18px 4px 18px 0;
+  margin-top: 5px;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #c9b1dd transparent;
+}
+#notificationFeed:focus-visible { outline: 2px solid #7950ac; outline-offset: -2px; }
+#notificationFeed .notification-empty { padding: 18px 8px; margin-block: auto; }
+#notificationFeed .student-notice {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+  padding: 15px 12px;
+  border: 1px solid #e3d6eb;
+  border-radius: 16px;
+  background: #fffdfb;
+  color: #352344;
+}
+#notificationFeed .student-notice[data-unread="true"] { border-color: #bc96d8; background: #f4ebfc; }
+#notificationFeed .notice-icon { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 11px; background: #e9ddf4; color: #76479c; }
+#notificationFeed .notice-icon svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+#notificationFeed .notice-copy { min-width: 0; }
+#notificationFeed .notice-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin-bottom: 6px; font-size: 10px; color: #6a507d; }
+#notificationFeed .notice-unread { border-radius: 20px; padding: 3px 7px; color: #fff; background: #7943a5; font-weight: 600; }
+#notificationFeed .student-notice h3 { font-size: 14px; line-height: 1.45; margin: 0 0 6px; overflow-wrap: anywhere; }
+#notificationFeed .student-notice p { margin: 0; font-size: 12px; line-height: 1.65; overflow-wrap: anywhere; white-space: pre-wrap; }
+#notificationFeed .notice-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
+#notificationFeed .notice-actions a, #notificationFeed .notice-actions button {
+  display: inline-flex; justify-content: center; align-items: center; min-height: 36px;
+  font: inherit; font-size: 11px; line-height: 1.35; padding: 8px 10px;
+  border: 1px solid #d9c5e6; border-radius: 9px; color: #61348c; background: #fffafc; text-decoration: none;
+}
+#notificationFeed .notice-actions .notice-open { background: #7340a0; border-color: #7340a0; color: #fff; }
+#notificationFeed .notice-actions :is(a,button):hover { filter: brightness(.96); }
+#notificationFeed .notice-actions :is(a,button):focus-visible { outline: 2px solid #7041a5; outline-offset: 2px; }
+#notificationFeed .notice-actions button:disabled { opacity: .6; cursor: wait; }
+#notificationPanel .notification-availability { display: block; width: 100%; padding-top: 12px; background: transparent; }
+#notificationPanel #notificationStatus { overflow-wrap: anywhere; }
+#notifications .notification-count { position: absolute; top: -3px; right: -3px; min-width: 19px; height: 19px; display: grid; place-items: center; padding: 0 4px; font: 600 10px/1 Astro,Arial,sans-serif; border-radius: 99px; border: 2px solid #fffaf7; color: #fff; background: #7943a5; }
+#notifications .notification-count[hidden] { display: none; }
+/* Mesma estrutura no pixel; acabamento e desenho correspondentes ao tema escolhido. */
+html[data-astro-tema="pixel"] #notificationPanel,
+html[data-astro-tema="pixel"] #notificationPanel :is(.student-notice,.notification-filters,.notice-icon,.notice-actions a,.notice-actions button,.notification-filters button) { border-radius: 3px; }
+html[data-astro-tema="pixel"] #notificationFeed .student-notice { box-shadow: 2px 2px #d3bee1; }
+html[data-astro-tema="pixel"] #notificationPanel .notification-illustration { display: none; }
+html[data-astro-tema="pixel"] #notificationFeed .notification-empty::before { content: ''; display: block; width: 64px; height: 64px; margin: 0 auto 20px; background: #e7d8f5; clip-path: polygon(35% 0,65% 0,65% 10%,80% 10%,80% 25%,90% 25%,90% 65%,100% 65%,100% 80%,60% 80%,60% 100%,40% 100%,40% 80%,0 80%,0 65%,10% 65%,10% 25%,20% 25%,20% 10%,35% 10%); box-shadow: inset -10px -10px #af88d0; }
+body.astro-high-contrast #notificationFeed .student-notice { background: #fff; border-color: #493351; color: #231331; }
+body.astro-high-contrast #notificationFeed .student-notice[data-unread="true"] { border-width: 2px; }
+body.astro-high-contrast #notificationFeed :is(.notice-meta,p) { color: #493351; }
+@media(max-width: 500px) {
+  dialog#notificationPanel { padding: 20px 16px 15px; }
+  #notificationPanel .notification-intro { font-size: 11px; margin-bottom: 12px; }
+}
+@media(max-height: 520px) {
+  dialog#notificationPanel { padding-block: 12px; }
+  #notificationPanel .notification-intro { display: none; }
+  #notificationPanel .notification-heading { margin-bottom: 10px; }
+  #notificationPanel .notification-feed { padding-block: 12px; }
+  #notificationFeed .notification-illustration { height: 65px; width: 65px; }
+  html[data-astro-tema="pixel"] #notificationFeed .notification-empty::before { width: 40px; height: 40px; margin-bottom: 10px; }
+}

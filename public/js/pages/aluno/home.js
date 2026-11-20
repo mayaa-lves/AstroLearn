@@ -360,7 +360,7 @@ notificationPanel.addEventListener('click',event=>{
 });
 
 // O mesmo ET da conta aparece em oito vistas no visualizador lateral.
-import { iniciarVistas } from "../../components/avatar-vistas.js";
+import { iniciarVistas } from "../../components/avatar-vistas.js?v=aluno-ajustes-1";
 let fade = null, reacao = null, reacaoTimer = 0;
 const visualizador = iniciarVistas({render:$("avatarRender"), slider:$("avatarRotation"), angleLabel:$("avatarAngle"), stage:$("avatarStage"), stopped:semMovimento});
 function girar() { visualizador.rotate(); }

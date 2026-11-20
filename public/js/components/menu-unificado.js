@@ -57,7 +57,7 @@
     symbol.alt='';symbol.width=40;symbol.height=40;symbol.draggable=false;
     const full=document.createElement('img');full.className='astro-brand-full';
     full.src=new URL('astrolearn-livro-completa.svg',assets).href;full.alt='';full.width=180;full.height=40;full.draggable=false;
-    brand.replaceChildren(symbol,full);brand.setAttribute('aria-label','AstroLearn — início');
+    brand.replaceChildren(symbol,full);brand.setAttribute('aria-label',teacher?'AstroLearn — início':'AstroLearn — Minha trilha');
   }
   const footer=document.createElement('div');footer.className='astro-nav-footer';sidebar.append(footer);
   const marker=document.createElement('span');marker.className='astro-nav-marker';marker.setAttribute('aria-hidden','true');
@@ -68,8 +68,10 @@
   const list=document.createElement('nav');list.setAttribute('aria-label','Todas as páginas');dialog.append(close,title,list);document.body.append(dialog);
   const tooltip=document.createElement('div');tooltip.className='astro-nav-tooltip';tooltip.setAttribute('role','tooltip');tooltip.hidden=true;document.body.append(tooltip);
   let updateFrame=0,active=null,first=true;
-  const entries=[['home.html','Início'],['home.html#journey','Minha trilha'],['biblioteca.html','Biblioteca'],['conquistas.html','Conquistas'],['loja.html','Loja'],['equipe.html','Minha equipe'],['jogos/index.html','Jogos'],['assistente.html','Assistente'],['perfil.html','Perfil']];
+  const entries=[['home.html#journey','Minha trilha'],['biblioteca.html','Biblioteca'],['conquistas.html','Conquistas'],['loja.html','Loja'],['equipe.html','Minha equipe'],['jogos/index.html','Jogos'],['assistente.html','Assistente'],['perfil.html','Perfil']];
   function buildStudent(){
+    // A trilha é a página inicial; uma única entrada também no menu mobile.
+    nav.querySelectorAll('a').forEach(a=>{if(labelOf(a)==='Início')a.remove();});
     const ordered=[];
     for(const [file,label]of entries){let a=[...nav.querySelectorAll('a')].find(a=>labelOf(a)===label);if(!a){a=document.createElement('a');a.href=new URL(file,studentBase).href;nav.append(a);}polish(a,label);ordered.push(a);}
     // Ordena os elementos reais: leitura, Tab e menu mobile seguem a mesma ordem.
@@ -109,7 +111,7 @@
     if(teacher)return all.find(a=>a.getAttribute('aria-current')==='page')||all.find(a=>a.classList.contains('active'))||null;
     let name='';const file=location.pathname.split('/').pop();
     if(location.pathname.includes('/aluno/jogos/'))name='Jogos';
-    else if(file==='home.html')name=location.hash==='#journey'?'Minha trilha':'Início';
+    else if(file==='home.html')name='Minha trilha';
     else name=({'assistente.html':'Assistente','biblioteca.html':'Biblioteca','conquistas.html':'Conquistas','loja.html':'Loja','equipe.html':'Minha equipe','perfil.html':'Perfil','configuracoes.html':'Perfil','atividade.html':'Minha trilha'})[file]||'';
     all.forEach(a=>{const yes=labelOf(a)===name;a.classList.toggle('active',yes);if(yes)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
     return all.find(a=>labelOf(a)===name)||null;
