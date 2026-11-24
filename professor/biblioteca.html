@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <style>html.astro-teacher-loading{background:#fcf6f2}html.astro-teacher-loading body{visibility:hidden}html.astro-teacher-loading #teacherLoader{visibility:visible}#teacherLoader{position:fixed;inset:0;z-index:10000;display:grid;place-content:center;justify-items:center;gap:16px;background:radial-gradient(ellipse at 75% 0,#eadcf8,transparent 65%),#fcf6f2;color:#503267;font:15px/1.5 Arial,sans-serif}#teacherLoader[hidden]{display:none}#teacherLoader img{width:72px;height:72px;object-fit:contain}#teacherLoader .loader-orbit{width:30px;height:30px;border:2px solid #e0cdeb;border-top-color:#8b3cc4;border-radius:50%;animation:teacher-loading-spin 1s linear infinite}@keyframes teacher-loading-spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){#teacherLoader .loader-orbit{animation:none}}</style>
     <script>document.documentElement.classList.add('astro-teacher-loading');</script>
-    <script defer src="../public/js/components/professor-carregamento.js?v=1"></script>
+    <script defer src="../public/js/components/professor-carregamento.js?v=2"></script>
     <link rel="stylesheet" href="../public/css/professor-menu-padrao.css?v=1">
 
   
@@ -60,15 +60,16 @@
       display: none !important;
     }
   </style>
+  <link rel="preload" as="image" href="../public/assets/imagens/professor/biblioteca-observatorio-v1.png">
   <link rel="stylesheet" href="../public/css/menu-unificado.css">
   <script defer src="../public/js/components/menu-professor-perfil.js?v=2"></script>
 <link rel="icon" type="image/png" href="../public/assets/imagens/marca/astrolearn-simbolo.png">
 <link rel="stylesheet" href="../public/css/rolagem.css" data-astro-rolagem>
-<link rel="stylesheet" href="../public/css/professor-biblioteca-orbital.css?v=7">
+<link rel="stylesheet" href="../public/css/professor-biblioteca-catalogo.css?v=2">
 <link rel="stylesheet" href="../public/css/gestao-integracoes.css?v=1">
 </head>
 
-<body data-page="library" class="orbital-library">
+<body data-page="library" class="catalog-library">
   <a class="skip" href="#main">Pular para o conteúdo</a>
 
   <aside class="sidebar">
@@ -129,11 +130,6 @@
   </aside>
 
   <main id="main" tabindex="-1">
-    <div class="library-scenery" aria-hidden="true"><svg class="library-turn" viewBox="0 0 120 130" focusable="false">
-      <defs><linearGradient id="library-paper" x2="1" y2="1"><stop stop-color="#fff3ff"/><stop offset="1" stop-color="#bc91ed"/></linearGradient></defs>
-      <path d="M11 17Q55 18 108 3Q91 52 116 121Q62 102 8 118Q29 67 11 17Z" fill="url(#library-paper)" stroke="#fff0ff" stroke-width="1.4"/>
-      <path d="M28 39Q57 37 91 26M29 52Q58 48 91 39M28 66Q58 59 92 52M26 81Q61 70 96 66M25 94Q61 82 98 81" fill="none" stroke="#9167ba" stroke-opacity=".53"/>
-    </svg></div>
     <header class="teacher-top">
       <span class="mode">ESTAÇÃO DO PROFESSOR</span>
       <button id="refresh" class="text-button" type="button">
@@ -153,7 +149,7 @@
         CONHECIMENTO PARA A PRÓXIMA DESCOBERTA
       </p>
       <h1>Biblioteca da turma</h1>
-      <p id="roomName">Carregando turma…</p>
+      <p class="library-intro">Referências e materiais para as próximas descobertas.</p><p id="roomName" class="sr-only">Carregando turma…</p>
     </section>
 
     <p id="error" class="error-panel" role="alert"></p>
@@ -162,17 +158,16 @@
     <section id="listPanel" class="panel" aria-label="Materiais compartilhados">
       <h2 id="listTitle" class="sr-only">Materiais compartilhados</h2>
       <div class="orbital-toolbar">
-        <a id="createMaterial" class="primary orbital-create" aria-label="Criar novo material" hidden>＋<span aria-hidden="true">Criar novo material</span></a>
+        <a id="createMaterial" class="primary orbital-create" aria-label="Criar material" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span aria-hidden="true">Criar material</span></a>
         <div class="library-search">
           <button type="button" class="library-search-toggle" aria-label="Focar busca de materiais" aria-controls="search">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/></svg>
           </button>
-          <input id="search" type="search" placeholder="Buscar por título ou descrição" aria-label="Buscar por título ou descrição">
+          <input id="search" type="search" placeholder="Buscar material por título ou descrição" aria-label="Buscar por título ou descrição">
         </div>
-        <select id="materialStatus" aria-label="Exibir materiais"><option value="">Ativos</option><option value="pendente">Aguardando aprovação</option><option value="arquivado">Arquivados</option><option value="todos">Todos</option></select>
+        <select id="materialStatus" aria-label="Exibir materiais"><option value="">Ativos</option><option value="pendente">Aguardando aprovação</option><option value="arquivado">Arquivados</option><option value="todos" selected>Todos os materiais</option></select>
+        <p id="count" class="hint" role="status"></p>
       </div>
-
-      <p id="count" class="hint" role="status"></p>
       <div id="materialList" aria-busy="true"></div>
     </section>
 
@@ -193,7 +188,7 @@
       ×
     </button>
 
-    <p class="eyebrow">PRÉVIA DO ALUNO</p>
+    <p class="eyebrow library-dialog-eyebrow">VISUALIZAÇÃO DO ALUNO</p>
     <h2 id="previewTitle"></h2>
     <div id="previewContent"></div>
   </dialog>
@@ -212,6 +207,7 @@
       ×
     </button>
 
+    <div class="library-delete-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7m4-7v7"/></svg></div>
     <h2 id="deleteTitle">Excluir material?</h2>
     <p id="deleteText"></p>
 
@@ -288,6 +284,18 @@
       return botao;
     }
 
+    function recursosMaterial(material) {
+      const recursos=[];
+      const anexos=material.anexo_url?[{url:material.anexo_url,nome:material.anexo_nome,anexo:true}]:[];
+      for(const raw of [...anexos,...(Array.isArray(material.links)?material.links:[])]){
+        try{const obj=typeof raw==='string'?{url:raw}:raw;const url=new URL(obj.url);
+          if(!['http:','https:'].includes(url.protocol)||url.username||url.password)continue;
+          recursos.push({url:url.href,nome:obj.nome||obj.titulo||'',tipo:tipoMaterial(obj.nome||url.href,!!obj.anexo)});
+        }catch{/* Keep the rest of the resources usable if a saved URL is invalid. */}
+      }
+      return recursos;
+    }
+
     // Conteúdo de leitura, sem os controles do professor.
     function tipoMaterial(url, anexo = false) {
       const extension = String(url || "").match(/\.([a-z0-9]+)(?:[?#]|$)/i)?.[1]?.toLowerCase();
@@ -328,43 +336,13 @@
 
       const links = elemento("div", "", "material-links");
 
-      [...(material.anexo_url ? [{ url: material.anexo_url }] : []), ...(material.links || [])].forEach((raw, index) => {
-        try {
-          const url = new URL(
-            typeof raw === "string" ? raw : raw.url
-          );
-
-          if (
-            !["https:", "http:"].includes(url.protocol) ||
-            url.username ||
-            url.password
-          ) {
-            return;
-          }
-
-          const link = elemento(
-            "a",
-            "Abrir material " + (index + 1) + " ↗",
-            "secondary"
-          );
-
-          const tipo = tipoMaterial(url.href, Boolean(material.anexo_url && index === 0));
-          const nomes = {pdf:"PDF", imagem:"imagem", arquivo:"arquivo", link:"link externo"};
-          const rótulo = "Abrir " + nomes[tipo] + " " + (index + 1);
-          link.title = rótulo;
-          link.setAttribute("aria-label", rótulo);
-          link.classList.add("library-resource-link");
-          link.innerHTML = iconeMaterial(tipo);
-          link.href = url.href;
-          link.target = "_blank";
-          link.rel = "noopener noreferrer";
-
-          links.append(link);
-        } catch {
-          // Ignora um link inválido sem interromper os outros.
-        }
-      });
-
+      for(const [index,recurso]of recursosMaterial(material).entries()){
+        const link=elemento('a','','library-resource-link');
+        const label=recurso.nome||({pdf:'Documento PDF',imagem:'Imagem',arquivo:'Arquivo',link:'Link externo'}[recurso.tipo]+' '+(index+1));
+        const glyph=elemento('span','','library-resource-icon');glyph.innerHTML=iconeMaterial(recurso.tipo);
+        link.append(glyph,elemento('span',label),elemento('span','↗','library-external-mark'));
+        link.href=recurso.url;link.target='_blank';link.rel='noopener noreferrer';links.append(link);
+      }
       container.append(links);
     }
 
@@ -383,6 +361,16 @@
     $("closePreview").onclick = () => {
       $("previewDialog").close();
     };
+
+    async function confirmarAprovacao(material){
+      const opener=document.activeElement,box=elemento('dialog','','material-preview library-approval-dialog');
+      const title=elemento('h2','Aprovar material?');title.id='libraryApprovalTitle';box.setAttribute('aria-labelledby',title.id);
+      const close=button('×',()=>box.close(),'close');close.setAttribute('aria-label','Fechar confirmação');
+      const hint=elemento('p','O material ficará disponível para os alunos desta turma.'),name=elemento('p',material.titulo,'library-confirm-name'),actions=elemento('div','','material-actions');
+      const cancel=button('Cancelar',()=>box.close(),'secondary'),confirm=button('Aprovar material',()=>{box.returnValue='approve';box.close();},'primary');
+      actions.append(cancel,confirm);box.append(close,title,hint,name,actions);document.body.append(box);box.showModal();cancel.focus();
+      return new Promise(resolve=>box.addEventListener('close',()=>{const accepted=box.returnValue==='approve';box.remove();if(opener?.isConnected)opener.focus();resolve(accepted);},{once:true}));
+    }
 
     function confirmarExclusao(material) {
       origemDialog = document.activeElement;
@@ -486,7 +474,7 @@
       $("materialList").replaceChildren();
 
       $("count").textContent =
-        lista.length === 1 ? "1 material encontrado" : lista.length + " materiais encontrados";
+        lista.length === 1 ? "1 material" : lista.length + " materiais";
 
       if (!lista.length) {
         $("materialList").append(
@@ -506,42 +494,16 @@
         if (archived) card.classList.add("library-file-archived");
         const state = archived ? "Arquivado" : material.status === "pendente" ? "Pendente" : "Ativo";
         const stateChip = () => elemento("span", state, "catalog-state " + (archived ? "archived" : ""));
-        const book = elemento("div", "", "library-book");
-        const pages = elemento("div", "", "library-pages");
-        const first = elemento("div", "", "library-page");
-        first.append(elemento("h3", material.titulo), stateChip());
-        const copy = elemento("div", "", "library-page library-file-copy");
-        adicionarConteudo(copy, material);
-        copy.prepend(elemento("span", "Sobre o material", "library-page-label"));
-        pages.append(first, copy);
-        const cover = button("", () => {
-          if (!matchMedia("(hover: hover)").matches || cover.matches(":focus-visible")) {
-            const open = card.classList.toggle("library-book-open");
-            cover.setAttribute("aria-expanded", String(open));
-          }
-        }, "library-cover");
-        cover.setAttribute("aria-label", "Abrir ou fechar " + material.titulo);
-        cover.setAttribute("aria-expanded", "false");
-        const face = elemento("span", "", "library-cover-face");
-        face.setAttribute("aria-hidden", "true");
-        face.append(stateChip(), elemento("strong", material.titulo));
-        const row = elemento("span", "", "library-cover-copy");
-        const firstLink = material.links?.[0];
-        const url = material.anexo_url || (typeof firstLink === "string" ? firstLink : firstLink?.url);
-        const tipo = url ? tipoMaterial(url, Boolean(material.anexo_url)) : "arquivo";
-        card.dataset.materialType = tipo;
-        let coverHash = 0;
-        for (const char of String(material.id ?? material.titulo)) {
-          coverHash = (coverHash * 31 + char.codePointAt(0)) >>> 0;
-        }
-        card.dataset.coverVariant = String(coverHash % 5);
-        const glyph = elemento("span", "", "library-file-glyph");
-        glyph.innerHTML = iconeMaterial(tipo);
-        row.append(glyph, elemento("span", material.descricao || "Sem descrição."));
-        face.append(row);
-        cover.append(face);
-        book.append(pages, cover);
-        card.append(book);
+        if(material.status==='pendente')card.classList.add('library-file-pending');
+        const recursos=recursosMaterial(material),tipo=recursos[0]?.tipo||'arquivo';
+        card.dataset.materialType=tipo;
+        const content=elemento('div','','library-card-content'),glyph=elemento('span','','library-file-glyph');glyph.innerHTML=iconeMaterial(tipo);glyph.setAttribute('aria-hidden','true');
+        const copy=elemento('div','','library-file-copy'),heading=elemento('div','','library-card-heading'),title=elemento('h3',material.titulo);
+        heading.append(title,stateChip());
+        const types={pdf:'PDF',imagem:'Imagem',arquivo:'Arquivo',link:'Link'};
+        const meta=(recursos.length>1?recursos.length+' recursos':types[tipo])+' · '+(material.missoes?.titulo||'Biblioteca geral');
+        copy.append(heading,elemento('p',material.descricao||'Sem descrição.','material-description'),elemento('p',meta,'library-card-meta'));
+        content.append(glyph,copy);card.append(content);
         const actions = elemento("div", "", "material-actions");
 
         const edit = elemento("a", "Editar", "secondary");
@@ -600,19 +562,21 @@
         ];
         Array.from(actions.children).forEach((action, index) => {
           const label = action.textContent.trim();
-          action.title = label;
+          action.dataset.tooltip = label;
           action.setAttribute("aria-label", label);
-          action.classList.add("book-action-" + index);
+          action.classList.add("library-action-" + index);
           action.innerHTML = '<svg aria-hidden="true" viewBox="0 0 24 24"><path d="' + symbols[index] + '"/></svg>';
         });
         actions.insertBefore(archive, edit);
         if (material.status === 'pendente') {
-          const approve = elemento('button', '', 'book-approve');
-          approve.type = 'button'; approve.title = 'Aprovar material';
+          const approve = elemento('button', '', 'library-approve');
+          approve.type = 'button'; approve.dataset.tooltip = 'Aprovar material';
           approve.setAttribute('aria-label', 'Aprovar material');
           approve.innerHTML = '<svg aria-hidden="true" viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></svg>';
           approve.onclick = async () => {
-            if (ocupado || !window.confirm('Aprovar “'+material.titulo+'” e disponibilizar para a turma?')) return;
+            if (ocupado) return;
+            if(!await confirmarAprovacao(material))return;
+            if(ocupado)return;
             ocupado = true; approve.disabled = true; $('error').textContent = '';
             try {
               const result = await api(base+'/biblioteca/'+encodeURIComponent(material.id),'PUT',{
@@ -628,7 +592,12 @@
           actions.append(approve);
         }
         const footer = elemento("div", "", "library-file-footer");
-        footer.append(actions);
+        let open;
+        if(recursos.length===1){open=elemento('a','Abrir material','library-open');open.href=recursos[0].url;open.target='_blank';open.rel='noopener noreferrer';}
+        else{open=button(recursos.length?'Abrir materiais':'Ver material',()=>visualizar(material),'library-open');}
+        const openIcon=document.createElementNS('http://www.w3.org/2000/svg','svg');openIcon.setAttribute('viewBox','0 0 24 24');openIcon.setAttribute('aria-hidden','true');openIcon.innerHTML=recursos.length===1?'<path d="M14 3h7v7M21 3l-9 9M10 5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5"/>':'<path d="M3 7h7l2 2h9v11H3ZM3 7V4h7l2 3h7v2"/>';
+        open.prepend(openIcon);
+        footer.append(open,actions);
         card.append(footer);
         $("materialList").append(card);
       }
@@ -682,7 +651,7 @@
         const [turma, dados] = await Promise.all([
           api(base),
           Promise.all(($("materialStatus").value === "todos" ? ["", "?status=arquivado"] :
-            [$("materialStatus").value === "arquivado" ? "?status=arquivado" : $("materialStatus").value === "pendente" ? "?status=pendente" : ""])
+            [$("materialStatus").value === "arquivado" ? "?status=arquivado" : $("materialStatus").value === "pendente" ? "?status=pendente" : "?status=aprovado"])
             .map(query => api(base + "/biblioteca" + query)))
         ]);
 
@@ -713,6 +682,6 @@
   </script>
 <script type="module" src="../public/js/components/professor-padrao.js?v=2"></script>
 <script type="module" src="../public/js/components/professor-perfil-vinculo.js?v=2"></script>
-<script defer src="../public/js/components/professor-biblioteca-orbital.js?v=2"></script>
+<script defer src="../public/js/components/professor-biblioteca-catalogo.js?v=1"></script>
 </body>
 </html>

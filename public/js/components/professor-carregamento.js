@@ -7,8 +7,8 @@
   layer.append(logo,orbit,message);document.body.append(layer);
   let done=false,finishing=false;
   let scenery=Promise.resolve();
-  if(document.body.dataset.page==='room'){
-    const image=new Image();image.src='../public/assets/imagens/professor/sala-amanhecer.png';
+  if(document.body.dataset.page==='room'||document.body.classList.contains('catalog-library')){
+    const image=new Image();image.src=document.body.classList.contains('catalog-library')?'../public/assets/imagens/professor/biblioteca-observatorio-v1.png':'../public/assets/imagens/professor/sala-amanhecer.png';
     scenery=Promise.race([image.decode().catch(()=>{}),new Promise(resolve=>setTimeout(resolve,6000))]);
   }
   const observer=new MutationObserver(check);
