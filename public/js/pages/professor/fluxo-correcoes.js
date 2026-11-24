@@ -32,15 +32,17 @@
     const filter = create("div", "correction-filter");
     const trigger = create("button", "correction-filter-trigger");
     trigger.type = "button";
+    trigger.setAttribute("aria-haspopup", "menu");
     trigger.append(icon("filter"));
     trigger.setAttribute("aria-controls", "correction-status-options");
     const options = create("div", "correction-filter-options");
     options.id = "correction-status-options";
-    options.setAttribute("role", "group");
+    options.setAttribute("role", "menu");
     options.setAttribute("aria-label", "Situação da entrega");
     const choices = Array.from(select.options, option => {
       const choice = create("button", "", option.textContent);
       choice.type = "button";
+      choice.setAttribute("role", "menuitemradio");
       choice.onclick = () => {
         select.value = option.value;
         select.dispatchEvent(new Event("change", { bubbles: true }));
@@ -59,6 +61,7 @@
       trigger.title = label;
       for (const { choice, value } of choices) {
         choice.setAttribute("aria-pressed", String(select.value === value));
+        choice.setAttribute("aria-checked", String(select.value === value));
       }
     }
 
@@ -68,14 +71,16 @@
     filter.addEventListener("pointerleave", () => {
       if (!options.contains(document.activeElement)) setOpen(false);
     });
-    trigger.onclick = event => {
-      const mouseClick = event.detail > 0 && event.pointerType === "mouse";
-      setOpen(mouseClick || options.hidden);
-    };
+    trigger.onclick = () => setOpen(options.hidden);
     filter.addEventListener("focusout", event => {
       if (!filter.contains(event.relatedTarget)) setOpen(false);
     });
     filter.addEventListener("keydown", event => {
+      if(['ArrowDown','ArrowUp','Home','End'].includes(event.key)){
+        event.preventDefault();setOpen(true);const items=choices.map(item=>item.choice),index=items.indexOf(document.activeElement);
+        const next=event.key==='Home'?0:event.key==='End'?items.length-1:index<0?(event.key==='ArrowUp'?items.length-1:0):(index+(event.key==='ArrowDown'?1:-1)+items.length)%items.length;
+        items[next]?.focus();return;
+      }
       if (event.key !== "Escape" || options.hidden) return;
       setOpen(false);
       trigger.focus();

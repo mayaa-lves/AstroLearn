@@ -28,12 +28,15 @@
       call(base(s) + "/pauta"),
       call(base(s) + "/entregas"),
     ]);
-    return {
+    const result = {
       ...d,
       missoes: (d.missoes || []).map(normalize),
       pauta: p,
       entregas: (e.entregas || []).map(enriched),
     };
+    window.TeacherData.viewRoom = result;
+    window.dispatchEvent(new CustomEvent('astrolearn:teacher-room-loaded', {detail: result}));
+    return result;
   }
   async function payload(s, b, existing) {
     const d = await call(base(s));
@@ -134,13 +137,16 @@
       call(base(s) + "/equipes/" + part(t) + "/membros/" + part(a), "DELETE"),
     async delivery(e) {
       const d = await call("/api/professor/entregas/" + part(e));
-      return {
+      const result = {
         ...enriched(d.progresso),
         anexos: (d.anexos || []).map((await atividades).normalizarAnexo),
         sala_id: d.sala_id,
         equipe: d.equipe,
         membros: d.membros,
       };
+      window.TeacherData.viewDelivery = result;
+      window.dispatchEvent(new CustomEvent('astrolearn:teacher-delivery-loaded', {detail: result}));
+      return result;
     },
     correct: (e, nota, feedback) =>
       call("/api/professor/entregas/" + part(e) + "/corrigir", "POST", {

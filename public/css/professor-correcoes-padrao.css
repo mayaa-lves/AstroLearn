@@ -1,0 +1,99 @@
+/* Correções, entrega e histórico: mesmo ritmo dos demais painéis docentes. */
+body.corrections-polished .teacher-top,body.corrections-polished .page-heading>.eyebrow,body.corrections-polished #modeNote{display:none!important}
+body.corrections-polished #main{padding-top:30px}
+body.corrections-polished #breadcrumbs{min-height:20px;margin:0 175px 24px 0;padding:0;font-size:12px;line-height:1.5;gap:14px}
+body.corrections-polished .page-heading{margin:0 0 24px;padding:0;border:0}
+body.corrections-polished #pageTitle{font-size:clamp(28px,2.8vw,38px);line-height:1.2;letter-spacing:-.8px;margin:0 0 10px;overflow-wrap:anywhere}
+body.corrections-polished #pageSubtitle{font-size:14px;line-height:1.55;color:#80618f;margin:0}
+body.corrections-polished #pageActions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:20px 0 0;overflow:visible}
+body.corrections-polished #pageActions>select{box-sizing:border-box;width:auto;min-width:195px;max-width:100%;height:44px;min-height:44px;margin:0;padding:10px 34px 10px 13px;border:1px solid #d5bee3;border-radius:12px;background:#fffcfa;color:#68497d;font-size:13px}
+body.corrections-polished #error:empty,body.corrections-polished #status:empty{display:none}
+body.corrections-polished #status{font-size:12px;margin:0 0 14px}
+body.corrections-polished #main>footer{font-size:10px;margin-top:26px;padding:0;background:none}
+body.corrections-polished #content .panel{min-width:0;border:1px solid #e2d1eb;border-radius:18px;background:#fffcfaed;box-shadow:0 3px 12px #57336708}
+body.corrections-polished #content .panel h2{font-size:20px;line-height:1.35;margin:0 0 14px}
+/* Fila de entregas: busca e filtro alinhados, com menu fora da rolagem da tabela. */
+body.corrections-polished[data-page=corrections] #content>.panel{padding:22px;overflow:visible}
+body.corrections-polished[data-page=corrections] .filters{display:flex;align-items:center;flex-wrap:nowrap;gap:12px;margin:0 0 20px;padding:0;overflow:visible}
+body.corrections-polished .correction-search{display:flex;align-items:center;gap:10px;flex:1;min-width:0;min-height:44px;padding:0 13px;border:1px solid #d6c0e1;border-radius:12px;background:#fffdfa}
+body.corrections-polished .correction-search:focus-within{border-color:#aa72c8;box-shadow:0 0 0 3px #b787d217}
+body.corrections-polished .correction-search>svg{width:19px;height:19px;flex:0 0 19px;fill:none;stroke:#815399;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+body.corrections-polished[data-page=corrections] .filters .correction-search input{box-sizing:border-box;min-width:0;width:100%;height:42px;margin:0;padding:10px 0;border:0;background:transparent;border-radius:10px;color:#624173;font-size:14px;box-shadow:none;outline:none}
+body.corrections-polished .correction-filter{position:relative;z-index:30;flex:0 0 auto}
+body.corrections-polished .correction-filter-trigger{box-sizing:border-box;width:44px;height:44px;min-width:44px;min-height:44px;padding:10px;border:1px solid #d5bee3;background:#fbf5ff}
+body.corrections-polished .correction-filter-options{top:calc(100% + 7px);min-width:210px;max-width:calc(100vw - 36px);padding:7px;border-radius:13px;background:#fffcfa}
+body.corrections-polished .correction-filter-options::before{content:'';position:absolute;inset:-9px 0 auto;height:10px}
+body.corrections-polished .correction-filter-options button{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:38px;padding:10px 12px;font-size:13px;line-height:1.45}
+body.corrections-polished .correction-filter-options button[aria-checked=true]::after{content:'✓';color:#813bb8}
+body.corrections-polished[data-page=corrections] table th{padding:10px 12px;font-size:11px;letter-spacing:.25px}
+body.corrections-polished[data-page=corrections] table td{padding:13px 12px;font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+body.corrections-polished .correction-state{font-size:11px;line-height:1.4;padding:4px 9px;white-space:nowrap}
+body.corrections-polished[data-page=corrections] table td:last-child{text-align:right}
+body.corrections-polished[data-page=corrections] table td:last-child a{display:inline-flex;align-items:center;min-height:34px;padding:6px 0;font-size:12px;white-space:nowrap;color:#7c3ca6}
+body.corrections-polished .table-wrap{min-width:0;max-width:100%;overflow-x:auto}
+/* Entrega aberta: trabalho e devolutiva com a mesma densidade. */
+body.corrections-polished[data-page=review] .review-grid{gap:18px;align-items:start}
+body.corrections-polished[data-page=review] .review-grid .panel{padding:20px}
+body.corrections-polished[data-page=review] .review-grid .stack{gap:18px}
+body.corrections-polished[data-page=review] .review-grid .document-copy{font-size:14px;line-height:1.65;overflow-wrap:anywhere;white-space:pre-wrap}
+body.corrections-polished[data-page=review] .review-meta{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;margin:0 0 15px}
+body.corrections-polished[data-page=review] .review-meta .badge{font-size:11px;padding:4px 9px;margin:0}
+body.corrections-polished[data-page=review] .review-meta .small-label{font-size:11px;color:#8b6e97}
+body.corrections-polished .correction-history-link{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:40px;padding:8px 12px;border:1px solid #dac5e6;border-radius:11px;background:#fffcfa;color:#79538c;text-decoration:none;font-size:13px}
+body.corrections-polished .correction-history-link svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+body.corrections-polished .correction-history-link:hover{background:#f4eaf9}
+body.corrections-polished[data-page=review] .review-evaluation>p{font-size:13px;line-height:1.55;margin:0 0 18px;color:#8a6e98}
+body.corrections-polished #reviewForm{display:grid;gap:16px;margin:0}
+body.corrections-polished .correction-field{display:grid;gap:7px;min-width:0}
+body.corrections-polished #reviewForm label{margin:0;font-size:13px;line-height:1.5;color:#6c4c7e}
+body.corrections-polished #reviewForm :is(input,textarea){box-sizing:border-box;margin:0;padding:11px 12px;border:1px solid #d8c5e3;border-radius:11px;background:#fffdfa;color:#4e2c61;font-size:14px;line-height:1.45}
+body.corrections-polished #reviewForm input[type=number]{width:125px;max-width:100%;min-height:44px;font-size:18px}
+body.corrections-polished #reviewForm textarea{width:100%;height:160px;min-height:130px;resize:vertical}
+body.corrections-polished #reviewForm p.hint{font-size:12px;line-height:1.5;margin:0;color:#8b6e97}
+body.corrections-polished #reviewForm p.hint:empty,body.corrections-polished #reviewForm .error-panel:empty{display:none}
+body.corrections-polished #reviewForm button[type=submit]{display:inline-flex;align-items:center;justify-content:center;gap:8px;justify-self:end;width:auto;max-width:100%;min-height:42px;margin:0;padding:10px 15px;border-radius:11px;font-size:13px}
+body.corrections-polished #reviewForm button[type=submit] svg{width:18px;height:18px;flex:0 0 18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+body.corrections-polished .review-evaluation>.button-row{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:10px;margin-top:18px}
+body.corrections-polished .review-evaluation>.button-row a{min-height:40px;padding:10px 13px;font-size:12px;border-radius:11px}
+body.corrections-polished[data-page=review] .orientation{margin-top:18px;padding-top:15px;border-top:1px solid #e8daef}
+body.corrections-polished[data-page=review] .orientation summary{font-size:12px;line-height:1.5;color:#815b96;cursor:pointer}
+body.corrections-polished[data-page=review] .review-file-list{display:grid;gap:9px;margin-top:16px}
+body.corrections-polished[data-page=review] .review-file{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:11px 12px;border:1px solid #e4d5eb;border-radius:12px;background:#f9f2fc;min-width:0}
+body.corrections-polished[data-page=review] .review-file>div:first-child{flex:1;min-width:0}
+body.corrections-polished[data-page=review] .review-file strong{display:block;font-size:13px;line-height:1.5;overflow-wrap:anywhere}
+body.corrections-polished[data-page=review] .review-file small{display:block;font-size:11px;line-height:1.5;color:#957c9f;margin-top:3px}
+body.corrections-polished .review-file-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-left:auto}
+body.corrections-polished[data-page=review] .correction-file-action{min-width:40px;min-height:40px;padding:0 9px;border-color:#d9c4e6;background:#fffcfa}
+body.corrections-polished[data-page=review] .correction-file-action[aria-pressed=true]{background:#eee0f7;border-color:#b58ace}
+body.corrections-polished[data-page=review] .file-preview{margin-top:14px;min-width:0;max-width:100%;padding:0}
+body.corrections-polished[data-page=review] .file-preview>img{display:block;max-width:100%;max-height:320px;margin:10px auto 0;border:1px solid #e7d9ed;border-radius:12px;object-fit:contain;background:#fffafc}
+body.corrections-polished[data-page=review] .file-preview>iframe{width:100%;max-width:100%;height:clamp(300px,50vh,500px);border:1px solid #e3d1ed;border-radius:12px;margin-top:10px;background:#fff}
+/* Histórico: preserva gráfico, expansão da devolutiva e aurora animada. */
+body.corrections-polished[data-page=student] .stats{gap:14px;margin-bottom:16px}
+body.corrections-polished[data-page=student] .stat{padding:14px 18px;border:1px solid #e2d1eb;border-radius:16px;background:#fffcfaed}
+body.corrections-polished[data-page=student] .stat>span{font-size:11px;line-height:1.5}
+body.corrections-polished[data-page=student] .stat>strong{font-size:25px;margin-top:7px;line-height:1.2}
+body.corrections-polished[data-page=student] .panel{padding:19px}
+body.corrections-polished[data-page=student] .two-columns{gap:16px}
+body.corrections-polished[data-page=student] .chart svg{max-height:160px}
+body.corrections-polished[data-page=student] .history-situation-track{height:20px;margin:22px 0 14px;border-radius:7px}
+body.corrections-polished[data-page=student] .history-situation .bar-row{font-size:11px;line-height:1.5;margin:4px 10px 0 0}
+body.corrections-polished[data-page=student] .history-activities-panel{margin-top:18px!important}
+body.corrections-polished[data-page=student] .history-activities th{font-size:11px;letter-spacing:.25px;padding:10px}
+body.corrections-polished[data-page=student] .history-activities td{font-size:13px;line-height:1.55;padding:12px 10px;vertical-align:top}
+body.corrections-polished[data-page=student] .history-activities td:last-child{text-align:right}
+body.corrections-polished[data-page=student] .history-activities td:last-child a{display:inline-flex;align-items:center;min-height:34px;font-size:12px;white-space:nowrap;color:#7d3ba8}
+body.corrections-polished[data-page=student] .history-feedback-toggle{font-size:11px;min-height:30px;padding:4px 8px;border-radius:8px;margin-top:7px}
+/* Janelas de ajuda seguem o acabamento de Biblioteca, Atividades e Equipes. */
+body.corrections-polished #actionDialog{box-sizing:border-box;width:min(640px,calc(100vw - 32px));max-height:calc(100dvh - 40px);padding:30px;border:1px solid #ddc9e8;border-radius:22px;background:#fffcfa;color:#4e2c61;font:14px/1.6 Astro,Arial,sans-serif;box-shadow:0 25px 85px #37134733;overflow:auto}
+body.corrections-polished #actionDialog::backdrop{background:#38224355;backdrop-filter:blur(5px)}
+body.corrections-polished #actionDialog #closeDialog{position:absolute;top:14px;right:14px;display:grid;place-items:center;width:34px;height:34px;min-height:34px;border:1px solid #e4d3ec;border-radius:50%;padding:0;background:#fffaf8;color:#80598f;font-size:25px;line-height:1}
+body.corrections-polished #dialogTitle{font-size:25px;line-height:1.3;margin:0 38px 20px 0;letter-spacing:-.35px;overflow-wrap:anywhere}
+body.corrections-polished #dialogContent{padding-top:18px;border-top:1px solid #e8daef}
+body.corrections-polished #dialogContent p{font-size:14px;line-height:1.65;overflow-wrap:anywhere}
+body.corrections-polished #dialogError:empty{display:none}
+body.corrections-polished #dialogError{font-size:13px;line-height:1.5;color:#ae4057;margin-top:16px}
+body.corrections-polished :is(input,textarea,select,button,a,summary):focus-visible{outline:3px solid #b787d2;outline-offset:3px}
+@media(max-width:800px){body.corrections-polished #main{padding-top:80px}body.corrections-polished #breadcrumbs{margin-right:0;margin-bottom:22px}body.corrections-polished #pageTitle{font-size:30px}body.corrections-polished #pageSubtitle{font-size:13px}body.corrections-polished #pageActions{margin-top:18px}body.corrections-polished[data-page=corrections] #content>.panel{padding:17px}body.corrections-polished[data-page=corrections] .filters{gap:9px;margin-bottom:16px}body.corrections-polished .correction-search{padding:0 10px;gap:8px}body.corrections-polished[data-page=corrections] .filters .correction-search input{font-size:13px}body.corrections-polished[data-page=corrections] table{min-width:580px}body.corrections-polished[data-page=review] .review-grid .panel,body.corrections-polished[data-page=student] .panel{padding:17px}body.corrections-polished #actionDialog{padding:25px 20px}body.corrections-polished #dialogTitle{font-size:23px}}
+@media(max-width:550px){body.corrections-polished[data-page=student] .stats{grid-template-columns:1fr;gap:10px}body.corrections-polished[data-page=student] .stat{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:13px 16px}body.corrections-polished[data-page=student] .stat>strong{margin:0}body.corrections-polished .review-file-controls{gap:7px}body.corrections-polished .correction-history-link{font-size:12px}}
+@media(pointer:coarse){body.corrections-polished[data-page=review] .correction-file-action{min-height:44px}body.corrections-polished[data-page=review] .correction-file-action span{max-width:9em;opacity:1;margin-left:7px}}

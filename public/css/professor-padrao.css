@@ -101,3 +101,20 @@ html.astro-professor body.astro-nav-ready.collapsed .sidebar .teacher-footer-ref
 html.astro-professor body.astro-nav-ready.collapsed .sidebar .teacher-footer-exit{padding:8px 4px!important}
 @media(max-width:800px){html.astro-professor body.astro-nav-ready .sidebar .teacher-footer-with-refresh{display:none}#teacherTools #teacherNoticePanel{max-height:calc(100dvh - 90px);padding:16px;width:min(420px,calc(100vw - 32px))}}
 @media(forced-colors:active){#teacherTools article.teacher-notice-card{border:1px solid CanvasText}}
+
+/* Mesmo painel de conta aprovado na trilha do aluno. */
+#teacherTools #teacherProfilePanel{box-sizing:border-box;width:320px;max-width:calc(100vw - 36px);padding:16px;border:1px solid #fff;border-radius:22px;background:#fffaf4f7;backdrop-filter:blur(20px);box-shadow:0 12px 40px #39254524;color:#302047;overflow:visible}
+#teacherTools #teacherProfilePanel>header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:15px;background:none;padding:0;border:0}
+#teacherTools #teacherProfilePanel>header h2{font-size:10px;letter-spacing:.1em;color:#725a80;font-weight:400}
+#teacherTools #teacherProfilePanel .teacher-close{display:grid;place-items:center;box-sizing:border-box;width:30px;height:30px;min-height:30px;border:0;border-radius:50%;font-size:23px!important;line-height:1;color:#684478;background:#eee1f3;padding:0!important}
+#teacherTools #teacherProfilePanel .teacher-person{gap:13px;padding-bottom:16px;border-bottom:1px solid #e5d7e7;margin-bottom:7px}
+#teacherTools #teacherProfilePanel .teacher-person-avatar{box-sizing:border-box;width:52px;height:52px;flex:0 0 52px;border:1px solid #fff;background:linear-gradient(140deg,#e5d1fb,#cdb2e8);font-size:24px}
+#teacherTools #teacherProfilePanel .teacher-person strong{font-size:16px;line-height:1.25;margin:0 0 5px;color:#302047;letter-spacing:-.02em}
+#teacherTools #teacherProfilePanel .teacher-person p{font-size:12px;line-height:1.4;margin:0 0 5px;color:#685071}
+#teacherTools #teacherProfilePanel .teacher-person small{font-size:11px;color:#7b6088}
+#teacherTools #teacherProfilePanel a.teacher-account-link{box-sizing:border-box;display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;padding:12px 9px!important;border:0!important;border-radius:10px;background:transparent;font-size:13px;color:#5e3094;line-height:1.4}
+#teacherTools #teacherProfilePanel a.teacher-account-link:hover{background:#eee0fa!important}
+#teacherTools #teacherProfilePanel .teacher-account-logout{box-sizing:border-box;display:block;width:100%;margin-top:10px;padding:11px;font-size:13px;border-radius:11px;border:1px solid #dfcee5;background:transparent;color:#684674;text-align:center}
+#teacherTools #teacherProfilePanel .teacher-account-logout:hover{background:#f1e4ef}
+#teacherTools #teacherProfilePanel :is(a,button):focus-visible{outline:3px solid #a66ac7;outline-offset:2px}
+@media(max-width:800px){#teacherTools #teacherProfilePanel{max-height:calc(100dvh - 90px);overflow-y:auto}}

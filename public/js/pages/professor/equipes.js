@@ -45,6 +45,10 @@
     const button = [...actions.querySelectorAll("button")].find(
       item => item.textContent.trim() === "+ Criar equipe"
     );
+    if (!actions.querySelector('.teams-room-back')) {
+      const params=new URLSearchParams(location.search);
+      if(params.get('sala')){const back=document.createElement('a'),url=new URL('turma.html',location.href);url.searchParams.set('sala',params.get('sala'));if(params.get('periodo'))url.searchParams.set('periodo',params.get('periodo'));back.href=url.href;back.className='secondary teams-room-back';back.textContent='Voltar à sala';actions.append(back);}
+    }
     if (!button) return;
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute("viewBox", "0 0 24 24");
@@ -120,6 +124,7 @@
   }
 
   let currentTeam;
+  let lastManagement;
   const loadTeam = data.team.bind(data);
   data.team = async (sala, id) => {
     const detail = await loadTeam(sala, id);
@@ -236,12 +241,17 @@
     const body = dialogContent.firstElementChild;
     if (!body || decoratedDialogs.has(body)) return;
     decoratedDialogs.add(body);
+    for(const label of body.querySelectorAll('label[for]')){
+      const input=document.getElementById(label.htmlFor);
+      if(!input||label.closest('.team-dialog-field')||label.nextElementSibling!==input)continue;
+      const field=make('div','','team-dialog-field');label.before(field);field.append(label,input);
+    }
     const name = body.querySelector("#field-team-name");
     const student = body.querySelector("#field-team-student");
     dialogPatch.hidden = !(name || student);
     dialogCount.hidden = !student;
     if (name) {
-      applyPatch(dialogPatch, colors.size);
+      document.getElementById("actionDialog").style.setProperty("--team-hue",applyPatch(dialogPatch, colors.size));
       document.getElementById("dialogTitle").textContent = "Criar equipe";
       name.placeholder = "Ex.: Órbita Lunar";
       const submit = body.querySelector('button[type="submit"]');
@@ -252,10 +262,20 @@
       footer.append(cancel, submit);
       body.append(footer);
     }
-    if (!student) return;
+    if (!student) {
+      const confirm=[...body.querySelectorAll('button')].find(button=>button.textContent.trim()==='Confirmar remoção');
+      if(confirm&&lastManagement){
+        const previous=lastManagement;dialogPatch.hidden=false;dialogCount.hidden=false;dialogCount.textContent=previous.count;
+        document.getElementById('actionDialog').style.setProperty('--team-hue',applyPatch(dialogPatch,colors.get(previous.id)??0));
+        const row=make('div','','team-dialog-actions');const cancel=make('button','Voltar à equipe','secondary');cancel.type='button';
+        cancel.onclick=()=>{if(document.getElementById('closeDialog').disabled)return;document.getElementById('dialogTitle').textContent=previous.title;dialogContent.replaceChildren(previous.body);dialogPatch.hidden=false;dialogCount.hidden=false;dialogCount.textContent=previous.count;const target=previous.body.querySelector('.member button,select,.team-delete-button');target?.focus();};
+        row.append(cancel,confirm);body.append(row);confirm.classList.add('team-remove-confirm');
+      }
+      return;
+    }
 
     const { id, count } = currentTeam;
-    applyPatch(dialogPatch, colors.get(id) ?? 0);
+    document.getElementById("actionDialog").style.setProperty("--team-hue",applyPatch(dialogPatch, colors.get(id) ?? 0));
     dialogCount.textContent = count + " de " + capacity + " integrantes";
     const summary = body.firstElementChild;
     const planning = body.querySelector(".panel");
@@ -295,6 +315,7 @@
     planning.children[1].remove();
     planning.append(groups);
     addDeleteAction(body, id);
+    lastManagement={body,id,title:document.getElementById('dialogTitle').textContent,count:dialogCount.textContent};
   }
 
   for (const [element, update] of [

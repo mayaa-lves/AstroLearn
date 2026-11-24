@@ -1,0 +1,87 @@
+/* Composição aprovada para fila e mesa de correção. */
+body.mesa-correction-page{background:#fcf7f5!important;isolation:isolate}
+body.mesa-correction-page::before{content:'';position:absolute!important;inset:0 0 auto!important;height:215px;z-index:-1!important;background:linear-gradient(#fcf7f500,#fcf7f5 95%),url('../assets/imagens/professor/correcoes/horizonte.webp') center 35%/cover no-repeat!important;pointer-events:none}
+body.mesa-correction-page::after{display:none!important}
+body.mesa-correction-page #main{padding-top:38px}
+body.mesa-correction-page #breadcrumbs{margin-bottom:22px}
+body.mesa-correction-page .page-heading{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:5px 18px;margin-bottom:22px}
+body.mesa-correction-page #pageTitle{grid-column:1;grid-row:1;font-size:clamp(28px,2.65vw,38px);margin:0}
+body.mesa-correction-page #pageSubtitle{display:block;grid-column:1;grid-row:2;margin:0;font-size:14px}
+body.mesa-correction-page #pageActions{grid-column:2;grid-row:1/3;justify-content:flex-end;align-self:center;margin:0}
+body.mesa-correction-page #pageActions a.teacher-return>.teacher-return-label{max-width:220px!important;opacity:1!important;margin-left:8px!important}
+body.mesa-correction-page #pageActions a.teacher-return{min-height:40px!important;padding:8px 11px!important;font-size:12px!important}
+.mesa-student-avatar{display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;border-radius:50%;border:1px solid #f8f0fc;background:#ebddf5;color:#7c449e;font-size:12px;font-weight:600;overflow:hidden}
+.mesa-student-avatar.has-chosen-avatar{background-image:url('../assets/avatares/ets-perfil.png');background-size:400% 200%;background-position:var(--student-avatar-position);background-repeat:no-repeat;background-color:#eadcf3}
+.mesa-table-person{display:flex;align-items:center;gap:11px;min-width:0}.mesa-student-name{min-width:0;overflow-wrap:anywhere}
+body.mesa-correction-page .mesa-list-toolbar{display:flex;gap:12px;align-items:center;flex-wrap:nowrap;margin:22px 0!important;padding:0}
+body.mesa-correction-page .mesa-list-toolbar .correction-search{flex:1;min-width:0;background:#fffafbe8}
+body.mesa-correction-page .mesa-semester{box-sizing:border-box;width:auto;min-width:190px;max-width:100%;height:44px;margin:0;padding:10px 32px 10px 12px;border:1px solid #d5c0e0;border-radius:12px;background:#fffafbe8;color:#6c4680;font-size:13px}
+body.mesa-correction-page[data-page=corrections] #content>.mesa-list-panel{padding:0;overflow:visible;border:1px solid #dfc8e9;border-radius:16px;background:#fffcfae8;box-shadow:none}
+.mesa-list-panel>h2{position:absolute!important;width:1px!important;height:1px!important;margin:-1px!important;padding:0!important;overflow:hidden!important;clip-path:inset(50%);white-space:nowrap;border:0}
+body.mesa-correction-page .mesa-list-panel th{padding:14px 16px!important;font-size:12px!important;letter-spacing:0}
+body.mesa-correction-page .mesa-list-panel td{padding:11px 16px!important;font-size:13px!important}
+body.mesa-correction-page .mesa-list-panel tr:last-child td{border-bottom:0}
+.mesa-list-count{font-size:12px;color:#8b7197;margin:12px 0 0}
+/* Uma faixa de identidade com dados reais, sem cards estatísticos extras. */
+.mesa-identity{display:flex;align-items:center;gap:15px;padding:13px 17px;margin:0 0 18px;border:1px solid #d9bce8;border-radius:16px;background:#fffcfae6;min-width:0}
+.mesa-identity>.mesa-student-avatar{width:46px;height:46px;flex-basis:46px;font-size:17px}
+.mesa-identity-name{display:grid;gap:4px;min-width:0;flex:1 1 250px}
+.mesa-identity-name strong{font-size:17px;line-height:1.35;color:#42164f;overflow-wrap:anywhere}
+.mesa-identity-name>span{font-size:13px;line-height:1.5;color:#7c568e;overflow-wrap:anywhere}
+body.mesa-correction-page .mesa-identity .review-meta{display:flex;align-items:center;flex-wrap:wrap;gap:12px 22px;flex:1 1 320px;margin:0!important;padding:0 18px;border-left:1px solid #e6d4ee}
+body.mesa-correction-page .mesa-identity .small-label{font-size:12px;line-height:1.5;color:#765381}
+body.mesa-correction-page .mesa-history-link{flex:0 0 auto;border:0;border-left:1px solid #e6d4ee;border-radius:0;background:none;padding:8px 0 8px 18px;color:#74319e;font-weight:600;font-size:12px}
+body.mesa-correction-page[data-page=review] .review-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(300px,1fr);gap:18px;align-items:start}
+body.mesa-correction-page[data-page=review] .review-grid>.stack{display:block;min-width:0}
+body.mesa-correction-page[data-page=review] .mesa-work{padding:20px!important;border-radius:17px!important;background:#fffcfaed!important;box-shadow:none!important}
+.mesa-work>h2{display:flex;align-items:center;gap:10px}.mesa-work>h2 svg{width:21px;height:21px;flex:0 0 21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.mesa-work>.document-copy{font-size:14px;line-height:1.65;margin:0 0 15px}
+body.mesa-correction-page .mesa-work>.orientation{border:0;margin:15px 0;padding:10px 13px;border-radius:10px;background:#f3eaf8}
+body.mesa-correction-page .mesa-work>.orientation summary{font-size:13px;color:#784b8e}
+.mesa-attachments{margin-top:16px;min-width:0}
+body.mesa-correction-page .mesa-attachments .review-file-list{margin:0;gap:8px}
+body.mesa-correction-page .mesa-attachments .review-file{padding:9px 11px;background:#faf5fc;border-color:#e5d7ed;border-radius:11px;gap:10px}
+body.mesa-correction-page .mesa-attachments .review-file-controls{flex-wrap:wrap;width:auto;gap:8px}
+body.mesa-correction-page .mesa-has-preview>div:first-child{display:none}
+body.mesa-correction-page .mesa-has-preview .review-file-controls{width:100%;margin:0;justify-content:space-between}
+body.mesa-correction-page .mesa-attachment-tab{flex:0 1 auto;min-width:0!important;justify-content:flex-start;max-width:calc(100% - 50px);padding:7px 10px!important;border-radius:9px!important;background:#f2e7fa!important}
+body.mesa-correction-page .mesa-attachment-tab[aria-pressed=true]{background:#ead5f8!important;border-color:#be91da!important}
+body.mesa-correction-page .mesa-attachment-tab span{max-width:none!important;opacity:1!important;margin-left:8px!important;white-space:normal!important;overflow-wrap:anywhere;font-size:12px}
+.mesa-preview-tools{display:flex;justify-content:flex-end;margin:7px 0}
+.mesa-fullscreen{display:grid;place-items:center;width:34px;height:34px;min-height:34px;border:1px solid #dbc4e7;border-radius:9px;background:#fffafc;color:#784c8e;padding:7px;cursor:pointer}
+.mesa-fullscreen svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+body.mesa-correction-page[data-page=review] .mesa-attachments .file-preview{padding:12px;border-radius:12px;background:#eeebf1;border:1px solid #e4dce9;margin:0;min-width:0}
+body.mesa-correction-page[data-page=review] .mesa-attachments .file-preview:empty{display:none}
+body.mesa-correction-page .file-preview>.small-label{font-size:11px;margin:0 0 8px;overflow-wrap:anywhere;color:#8d7599}
+body.mesa-correction-page[data-page=review] .mesa-attachments .file-preview>img{display:block;margin:0 auto;max-height:580px;max-width:100%;border:0;border-radius:3px;box-shadow:0 2px 7px #4e3c581c;background:white;object-fit:contain}
+body.mesa-correction-page[data-page=review] .mesa-attachments .file-preview>iframe{display:block;width:100%;height:570px;max-width:100%;margin:0;border:0;border-radius:4px;background:white}
+body.mesa-correction-page .file-preview:fullscreen{box-sizing:border-box;padding:24px!important;overflow:auto;background:#efebf3!important}
+body.mesa-correction-page .file-preview:fullscreen>img{max-height:calc(100dvh - 80px)!important;max-width:100%}
+body.mesa-correction-page .file-preview:fullscreen>iframe{height:calc(100dvh - 80px)!important}
+body.mesa-correction-page .mesa-attachments .file-preview>.hint{font-size:11px;line-height:1.5;color:#8b7396;margin:10px 0 0}
+/* A nota e o comentário continuam ligados ao formulário original de correção. */
+.mesa-feedback-stack{display:grid;gap:14px;min-width:0;position:sticky;top:22px}
+body.mesa-correction-page[data-page=review] .mesa-feedback-stack .review-evaluation{position:static;padding:0!important;border:1px solid #d9bfe6;border-radius:17px;overflow:hidden;background:#fffcfaed;box-shadow:none}
+.mesa-feedback-heading{display:grid;grid-template-columns:25px minmax(0,1fr);align-items:center;gap:3px 10px;padding:18px;background:linear-gradient(110deg,#eee1f7,#f5ecfa);border-bottom:1px solid #e8d9ef}
+.mesa-feedback-heading>svg{grid-column:1;grid-row:1/3;align-self:start;width:25px;height:25px;fill:none;stroke:#713a8d;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+body.mesa-correction-page .mesa-feedback-heading h2{grid-column:2;font-size:21px!important;margin:0!important;line-height:1.35}
+.mesa-feedback-heading>p{grid-column:2;margin:0;font-size:12px;line-height:1.5;color:#825a93}
+body.mesa-correction-page #reviewForm{gap:18px;padding:18px}
+body.mesa-correction-page #reviewForm input[type=number]{width:130px;min-height:44px;font-size:18px}
+body.mesa-correction-page #reviewForm textarea{height:200px;min-height:160px;background:#fffdfc}
+body.mesa-correction-page #reviewForm .correction-field{gap:8px}
+body.mesa-correction-page #reviewForm .correction-field label{font-size:13px;font-weight:600}
+body.mesa-correction-page #reviewForm>.hint{font-size:11px;line-height:1.5}
+body.mesa-correction-page #reviewForm>.hint:first-of-type{text-align:right;margin-top:-12px}
+body.mesa-correction-page #reviewForm button[type=submit]{min-height:42px;padding:11px 16px}
+body.mesa-correction-page .review-evaluation>.button-row{padding:0 18px 18px;margin:0}
+.mesa-feedback-help{padding:14px 16px!important;margin:0!important;border:1px solid #dfc9ea!important;border-radius:14px;background:#fffaf8eb;color:#745080}
+.mesa-feedback-help summary{font-size:13px;cursor:pointer;font-weight:600;line-height:1.5}
+.mesa-feedback-help>.hint{font-size:12px;line-height:1.6;margin-top:12px}
+@media(min-width:1500px){.mesa-identity-name strong{font-size:19px}.mesa-feedback-heading{padding:20px}body.mesa-correction-page #reviewForm{padding:20px}body.mesa-correction-page #reviewForm textarea{height:230px}}
+@media(max-width:1100px){body.mesa-correction-page .mesa-identity{flex-wrap:wrap;gap:12px}.mesa-identity-name{flex-basis:200px}body.mesa-correction-page .mesa-identity .review-meta{padding:0;border:0;flex-basis:100%;order:3}body.mesa-correction-page .mesa-history-link{margin-left:auto}body.mesa-correction-page[data-page=review] .review-grid{grid-template-columns:minmax(0,1.3fr) minmax(290px,1fr);gap:15px}body.mesa-correction-page .mesa-list-toolbar{gap:10px}.mesa-semester{min-width:175px!important}}
+@media(max-width:900px){body.mesa-correction-page[data-page=review] .review-grid{grid-template-columns:1fr}.mesa-feedback-stack{position:static}.mesa-feedback-heading{padding:17px}body.mesa-correction-page .mesa-attachments .file-preview>iframe{height:480px}}
+@media(max-width:800px){body.mesa-correction-page #main{padding-top:80px}body.mesa-correction-page .page-heading{grid-template-columns:1fr;gap:8px}body.mesa-correction-page #pageActions{grid-column:1;grid-row:3;justify-self:end;width:100%;margin-top:4px}body.mesa-correction-page .mesa-list-toolbar{flex-wrap:wrap}body.mesa-correction-page .mesa-list-toolbar .correction-search{flex:1 1 180px}body.mesa-correction-page .mesa-list-toolbar .mesa-semester{flex:1 1 100%;width:100%}.mesa-identity{padding:13px}.mesa-identity-name{flex-basis:calc(100% - 64px)}body.mesa-correction-page .mesa-history-link{border:0;padding:0;min-height:34px;margin-left:0}body.mesa-correction-page .mesa-identity .review-meta{order:0}.mesa-identity>.mesa-student-avatar{width:40px;height:40px;flex-basis:40px}body.mesa-correction-page .mesa-work{padding:16px!important}body.mesa-correction-page .mesa-list-panel td,body.mesa-correction-page .mesa-list-panel th{padding:11px 12px!important}body.mesa-correction-page #reviewForm textarea{height:180px}}
+@media(prefers-reduced-motion:reduce){.mesa-correction-page .mesa-feedback-stack{scroll-behavior:auto}}
+
+.mesa-grade-value{display:flex;align-items:center;flex-wrap:wrap;gap:9px;font-size:14px;color:#684577}.mesa-grade-value>small{font-size:11px;color:#967ca2;margin-left:8px}

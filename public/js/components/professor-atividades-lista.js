@@ -12,18 +12,18 @@
   let filter=actions.querySelector('.activity-filter');
   if(state&&!filter){
    filter=document.createElement('div');filter.className='activity-filter';
-   const trigger=document.createElement('button');trigger.type='button';trigger.className='activity-filter-trigger';trigger.innerHTML=icon('M3 5h18l-7 8v6l-4 2v-8Z');trigger.setAttribute('aria-expanded','false');trigger.setAttribute('aria-controls','activityFilterOptions');
-   const popup=document.createElement('div');popup.id='activityFilterOptions';popup.className='activity-filter-options';popup.hidden=true;popup.setAttribute('role','group');popup.setAttribute('aria-label','Situação da atividade');
+   const trigger=document.createElement('button');trigger.type='button';trigger.className='activity-filter-trigger';trigger.innerHTML=icon('M3 5h18l-7 8v6l-4 2v-8Z');trigger.setAttribute('aria-haspopup','menu');trigger.setAttribute('aria-expanded','false');trigger.setAttribute('aria-controls','activityFilterOptions');
+   const popup=document.createElement('div');popup.id='activityFilterOptions';popup.className='activity-filter-options';popup.hidden=true;popup.setAttribute('role','menu');popup.setAttribute('aria-label','Situação da atividade');
    function open(value){popup.hidden=!value;trigger.setAttribute('aria-expanded',String(value));}
-   function sync(){for(const b of popup.querySelectorAll('button'))b.setAttribute('aria-pressed',String(b.dataset.value===state.value));const label=state.options[state.selectedIndex]?.textContent||'Todas as atividades';trigger.setAttribute('aria-label','Filtrar atividades: '+label);trigger.dataset.filtered=String(!!state.value);}
-   for(const option of state.options){const b=document.createElement('button');b.type='button';b.textContent=option.textContent;b.dataset.value=option.value;b.onclick=()=>{state.value=option.value;state.dispatchEvent(new Event('change',{bubbles:true}));sync();open(false);trigger.focus();};popup.append(b);}
+   function sync(){for(const b of popup.querySelectorAll('button')){b.setAttribute('aria-pressed',String(b.dataset.value===state.value));b.setAttribute('aria-checked',String(b.dataset.value===state.value));}const label=state.options[state.selectedIndex]?.textContent||'Todas as atividades';trigger.setAttribute('aria-label','Filtrar atividades: '+label);trigger.dataset.filtered=String(!!state.value);}
+   for(const option of state.options){const b=document.createElement('button');b.type='button';b.textContent=option.textContent;b.dataset.value=option.value;b.setAttribute('role','menuitemradio');b.onclick=()=>{state.value=option.value;state.dispatchEvent(new Event('change',{bubbles:true}));sync();open(false);trigger.focus();};popup.append(b);}
    state.before(filter);state.hidden=true;filter.append(trigger,popup,state);sync();state.addEventListener('change',sync);
-   trigger.onclick=()=>open(true);
+   trigger.onclick=()=>open(popup.hidden);
    trigger.onkeydown=event=>{if(event.key==='ArrowDown'){event.preventDefault();open(true);popup.querySelector('button')?.focus();}};
    filter.addEventListener('pointerenter',event=>{if(event.pointerType==='mouse')open(true);});
    filter.addEventListener('pointerleave',()=>{if(!filter.contains(document.activeElement))open(false);});
    filter.addEventListener('focusout',()=>{queueMicrotask(()=>{if(!filter.contains(document.activeElement))open(false);});});
-   filter.addEventListener('keydown',event=>{if(event.key==='Escape'){event.preventDefault();open(false);trigger.focus();}});
+   filter.addEventListener('keydown',event=>{if(['ArrowDown','ArrowUp','Home','End'].includes(event.key)&&popup.contains(event.target)){event.preventDefault();const items=[...popup.querySelectorAll('button')],index=items.indexOf(document.activeElement);items[event.key==='Home'?0:event.key==='End'?items.length-1:(index+(event.key==='ArrowDown'?1:-1)+items.length)%items.length]?.focus();}if(event.key==='Escape'){event.preventDefault();open(false);trigger.focus();}});
    // One document handler, with no retained references to replaced filters.
   }
   const semester=[...actions.querySelectorAll('select')].find(s=>s!==state);

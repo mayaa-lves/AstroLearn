@@ -1,3 +1,4 @@
+import "./professor-conta-preferencias.js?v=1";
 import "./professor-gestao.js?v=2";
 import "./professor-voltar.js?v=1";
 import {pendenciaAviso,categoriaAviso} from './professor-avisos-utils.js?v=2';
@@ -21,7 +22,7 @@ function iniciar(){
  labels(document.body);
  const labelObserver=new MutationObserver(records=>{for(const record of records){if(record.type==='characterData')labels(record.target);else for(const node of record.addedNodes)labels(node);}});
  labelObserver.observe(document.body,{subtree:true,childList:true,characterData:true});
- const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('../../css/professor-padrao.css?v=2',import.meta.url).href;document.head.append(css);
+ const css=document.createElement('link');css.rel='stylesheet';css.href=new URL('../../css/professor-padrao.css?v=3',import.meta.url).href;document.head.append(css);
  const make=(tag,text='',className='')=>{const el=document.createElement(tag);el.textContent=text;el.className=className;return el;};
  const refreshIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5M6 7a7 7 0 0 1 12-1l2 3M4 15l2 3a7 7 0 0 0 12-1"/></svg>';
  const tools=make('div','','');tools.id='teacherTools';tools.setAttribute('aria-label','Navegação e conta do professor');
@@ -33,20 +34,26 @@ function iniciar(){
  const user=obterSessao()?.usuario||{};
  const profile=make('button',(user.nome||'Professor').trim().charAt(0).toUpperCase(),'teacher-circle teacher-profile');profile.type='button';profile.title='Perfil';profile.setAttribute('aria-label','Perfil e configurações');
  function panel(id,title,trigger){const el=make('section','','teacher-panel');el.id=id;el.hidden=true;el.setAttribute('role','dialog');el.setAttribute('aria-labelledby',id+'Title');const header=make('header');const h=make('h2',title);h.id=id+'Title';const close=make('button','×','teacher-close');close.type='button';close.setAttribute('aria-label','Fechar '+title.toLowerCase());header.append(h,close);el.append(header);trigger.setAttribute('aria-expanded','false');trigger.setAttribute('aria-controls',id);trigger.setAttribute('aria-haspopup','dialog');close.onclick=()=>{open(el,false);trigger.focus();};trigger.onclick=()=>{open(el,el.hidden);if(!el.hidden)close.focus();};return el;}
- const notices=panel('teacherNoticePanel','Notificações',bell),account=panel('teacherProfilePanel','Sua conta',profile);
- function open(el,value){for(const [p,t]of [[notices,bell],[account,profile]]){p.hidden=!(p===el&&value);t.setAttribute('aria-expanded',String(!p.hidden));}if(value&&el===notices){failedAutoRead.clear();load();scheduleVisibleRead();}}
+ const notices=panel('teacherNoticePanel','Notificações',bell),account=panel('teacherProfilePanel','Minha conta',profile);
+ let accountPinned=false,accountTimer=0;
+ function open(el,value){for(const [p,t]of [[notices,bell],[account,profile]]){p.hidden=!(p===el&&value);t.setAttribute('aria-expanded',String(!p.hidden));}if(account.hidden){accountPinned=false;clearTimeout(accountTimer);}if(value&&el===notices){failedAutoRead.clear();load();scheduleVisibleRead();}}
  tools.append(home,bell,profile,notices,account);document.body.append(tools);
  document.addEventListener('pointerdown',e=>{if(!tools.contains(e.target))open(notices,false);});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&(!notices.hidden||!account.hidden)){const trigger=notices.hidden?profile:bell;open(notices,false);trigger.focus();}});
  tools.addEventListener('focusout',()=>{setTimeout(()=>{if(!tools.contains(document.activeElement))open(notices,false);},0);});
  const person=make('div','','teacher-person');const avatar=make('span',profile.textContent,'teacher-person-avatar');avatar.setAttribute('aria-hidden','true');const identity=make('div');identity.append(make('strong',user.nome||'Professor'),make('p',user.email||''),make('small','Perfil de professor'));person.append(avatar,identity);account.append(person);
- const preferences=make('button','Preferências →','teacher-account-link');preferences.type='button';preferences.setAttribute('aria-expanded','false');preferences.setAttribute('aria-controls','teacherPreferences');account.append(preferences);
- const settings=make('section','','teacher-preferences');settings.id='teacherPreferences';settings.hidden=true;settings.append(make('h3','Preferências'));account.append(settings);preferences.onclick=()=>{settings.hidden=!settings.hidden;preferences.setAttribute('aria-expanded',String(!settings.hidden));};
- const soundLabel=make('label','','teacher-setting'),sound=make('input');sound.type='checkbox';sound.id='teacherSound';soundLabel.append(sound,document.createTextNode('Som das notificações'));settings.append(soundLabel);
- const soundStatus=make('p','','teacher-status');soundStatus.setAttribute('role','status');settings.append(soundStatus);
- const key='astrolearn-som-notificacoes';const syncSound=()=>{try{sound.checked=localStorage.getItem(key)!=='off';}catch{sound.checked=true;}};syncSound();
- sound.onchange=()=>{try{localStorage.setItem(key,sound.checked?'on':'off');soundStatus.textContent='Preferência salva neste navegador.';}catch{soundStatus.textContent='Não foi possível salvar a preferência.';syncSound();}};
- window.addEventListener('storage',e=>{if(e.key===key)syncSound();});
+ const profileLink=make('a','','teacher-account-link');profileLink.href='perfil.html';profileLink.append(make('span','Ver meu perfil'),make('span','→'));profileLink.lastChild.setAttribute('aria-hidden','true');
+ const preferencesLink=make('a','','teacher-account-link');preferencesLink.href='perfil.html#preferencesPanel';preferencesLink.append(make('span','Preferências e acessibilidade'),make('span','→'));preferencesLink.lastChild.setAttribute('aria-hidden','true');
+ const logout=make('button','Sair da conta','teacher-account-logout');logout.type='button';logout.onclick=encerrar;account.append(profileLink,preferencesLink,logout);
+ identity.querySelector('small').textContent='Professor · AstroLearn';
+ function openAccount(){clearTimeout(accountTimer);open(account,true);}
+ function leaveAccount(){clearTimeout(accountTimer);accountTimer=setTimeout(()=>{if(!accountPinned&&!profile.matches(':hover')&&!account.matches(':hover')&&!account.contains(document.activeElement)&&document.activeElement!==profile)open(account,false);},220);}
+ for(const target of [profile,account]){
+  target.addEventListener('pointerenter',event=>{if(event.pointerType!=='touch')openAccount();});
+  target.addEventListener('pointerleave',leaveAccount);
+  target.addEventListener('focusout',()=>setTimeout(()=>{if(!account.contains(document.activeElement)&&document.activeElement!==profile)open(account,false);},0));
+ }
+ profile.onclick=event=>{if(!account.hidden&&accountPinned)open(account,false);else{openAccount();accountPinned=true;if(event.detail===0)profileLink.focus();}};
  const actions=make('div','','teacher-actions');let filter='all';const all=make('button','Todas'),unread=make('button','Não lidas'),refresh=make('button','Atualizar'),markAll=make('button','Marcar carregadas como lidas');
  for(const b of [all,unread,refresh,markAll])b.type='button';all.setAttribute('aria-pressed','true');unread.setAttribute('aria-pressed','false');actions.classList.add('teacher-filters');actions.append(all,unread);refresh.innerHTML=refreshIcon;refresh.className='teacher-icon-action';refresh.setAttribute('aria-label','Atualizar notificações');refresh.title='Atualizar notificações';const panelHeader=notices.querySelector('header');const headerActions=make('div','','teacher-header-actions');headerActions.append(refresh,panelHeader.querySelector('.teacher-close'));panelHeader.append(headerActions);markAll.className='teacher-mark-all';
  const status=make('p','Carregando avisos…','teacher-status');status.setAttribute('role','status');const feed=make('div','','teacher-feed');const full=make('a','Ver todos os avisos →');full.href='notificacoes.html'+(new URLSearchParams(location.search).get('sala')?'?sala='+encodeURIComponent(new URLSearchParams(location.search).get('sala')):'');const summary=make('div','','teacher-notice-summary');summary.append(status,markAll);const bottom=make('footer','','teacher-notice-footer');bottom.append(full);notices.append(actions,summary,feed,bottom);

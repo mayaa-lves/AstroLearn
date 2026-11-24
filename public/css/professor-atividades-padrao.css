@@ -1,0 +1,98 @@
+/* Ajustes de densidade exclusivos da listagem, detalhe e editor de atividades. */
+body.activities-polished .teacher-top,body.activities-polished #modeNote,body.activities-polished .page-heading>.eyebrow{display:none!important}
+body.activities-polished #main{padding-top:30px}
+body.activities-polished #breadcrumbs{min-height:20px;margin:0 175px 24px 0;font-size:12px;gap:14px;line-height:1.5}
+body.activities-polished .page-heading{margin:0 0 24px;padding:0;border:0}
+body.activities-polished #pageActions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:20px 0 0;overflow:visible}
+body.activities-polished #pageTitle{font-size:clamp(28px,2.8vw,38px);line-height:1.2;letter-spacing:-.8px;overflow-wrap:anywhere}
+body.activities-polished #pageSubtitle{font-size:14px;line-height:1.55;margin:8px 0 0;color:#80618f}
+body.activities-polished #status:empty,body.activities-polished #error:empty{display:none}
+body.activities-polished #status{font-size:12px;margin:0 0 14px}
+body.activities-polished #main>footer{font-size:10px;margin-top:26px;padding:0;background:none}
+/* Listagem: controles na mesma linha e cartões com espaçamento regular. */
+body.teacher-activities-page.activities-polished #content>.list{gap:18px;grid-template-columns:repeat(3,minmax(0,1fr))}
+body.teacher-activities-page.activities-polished #content .list-card[data-activity-state]{min-height:166px;padding:10px 15px 12px;gap:5px 12px}
+body.teacher-activities-page.activities-polished .list-card h2{font-size:19px;line-height:1.3;margin:9px 0 7px}
+body.teacher-activities-page.activities-polished .list-card p{font-size:12px;line-height:1.5}
+body.teacher-activities-page.activities-polished .list-card .badge{margin-bottom:0}
+body.teacher-activities-page.activities-polished #pageActions :is(.activity-create,.activity-filter-trigger){height:44px;min-height:44px}
+body.teacher-activities-page.activities-polished .activity-filter{z-index:30}
+body.teacher-activities-page.activities-polished .activity-filter-options{top:calc(100% + 7px);padding:7px;border-radius:13px;max-width:calc(100vw - 36px)}
+body.teacher-activities-page.activities-polished .activity-filter-options::before{content:'';position:absolute;inset:-9px 0 auto;height:10px}
+body.teacher-activities-page.activities-polished .activity-filter-options button{display:flex;justify-content:space-between;gap:14px;min-height:38px;padding:10px 12px;font-size:13px}
+body.teacher-activities-page.activities-polished .activity-filter-options button[aria-checked=true]::after{content:'✓';color:#813bb8}
+/* Detalhe: mantém a cratera, o anel animado e a ordem dos atalhos. */
+body.activities-polished[data-page=activity] #breadcrumbs::before{display:none}
+body.activities-polished[data-page=activity] .detail-briefing #pageTitle{font-size:clamp(28px,3.12vw,49px);line-height:1.1}
+body.activities-polished[data-page=activity] .detail-briefing #pageSubtitle{font-size:clamp(13px,1vw,17px);margin:0;line-height:1.55}
+body.activities-polished[data-page=activity] .detail-panels{gap:18px;align-items:start}
+body.activities-polished[data-page=activity] .detail-panels>.panel{padding:20px;border-radius:18px;min-width:0}
+body.activities-polished[data-page=activity] .detail-panels h2{font-size:19px;line-height:1.35;margin:0 0 12px}
+body.activities-polished[data-page=activity] .detail-panels h3{font-size:15px;line-height:1.4}
+body.activities-polished[data-page=activity] .detail-requirement{margin:16px 0 12px;padding:13px 15px}
+body.activities-polished[data-page=activity] .detail-upload{display:grid;gap:12px;margin-top:18px}
+body.activities-polished[data-page=activity] .detail-upload>label{margin:0;font-size:13px}
+body.activities-polished[data-page=activity] .detail-file-field{min-height:96px;margin:0;padding:14px;gap:7px}
+body.activities-polished[data-page=activity] .detail-upload button[type=submit]{justify-self:end;width:max-content;max-width:100%;min-height:42px;padding:10px 16px}
+/* Editor: labels junto aos campos e ações com largura definida pelo texto. */
+body.activities-polished[data-page=create]{background:#fbf5f3!important;isolation:isolate}
+body.activities-polished[data-page=create]::before{content:'';position:fixed!important;inset:0!important;z-index:-1!important;pointer-events:none;background:linear-gradient(transparent 5%,#fbf5f3 68%),url('../assets/imagens/professor/atividades-eclipse.webp') center top/cover no-repeat!important}
+body.activities-polished[data-page=create] .editor-grid{grid-template-columns:minmax(0,1.9fr) minmax(250px,.85fr);gap:20px;align-items:start}
+body.activities-polished[data-page=create] .editor-grid>.panel{padding:22px;border:1px solid #ddc9e8;border-radius:19px;background:#fffcfaed;box-shadow:0 3px 12px #57336708;min-width:0}
+body.activities-polished[data-page=create] .editor-grid>.panel>h2{font-size:21px;margin:0 0 20px;line-height:1.35}
+body.activities-polished[data-page=create] #missionForm{display:grid;gap:18px}
+body.activities-polished[data-page=create] .activity-field{display:grid;gap:7px;min-width:0;align-content:start}
+body.activities-polished[data-page=create] #missionForm label{margin:0;font-size:13px;line-height:1.5}
+body.activities-polished[data-page=create] #missionForm :is(input:not([type=file]),select,textarea){box-sizing:border-box;width:100%;min-width:0;margin:0;padding:11px 12px;border:1px solid #d8c5e3;border-radius:11px;background:#fffdfa;font-size:14px;line-height:1.45}
+body.activities-polished[data-page=create] #missionForm :is(input,select){min-height:43px}
+body.activities-polished[data-page=create] #missionForm textarea{resize:vertical;min-height:100px}
+body.activities-polished[data-page=create] #missionForm textarea[name=mission-description]{height:146px}
+body.activities-polished[data-page=create] #missionForm textarea[name=mission-deliverable]{height:104px}
+body.activities-polished[data-page=create] .form-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:0}
+body.activities-polished[data-page=create] #missionForm>.hint{font-size:12px;line-height:1.55;margin:-9px 0 0}
+body.activities-polished[data-page=create] #missionForm>.text-button{margin:-10px 0 0;justify-self:start;padding:4px 0;font-size:12px}
+body.activities-polished[data-page=create] .orientation{margin:0;padding:13px 15px;border:1px solid #e6d8ee;border-radius:12px;background:#f9f2fc}
+body.activities-polished[data-page=create] .orientation summary{font-size:13px;cursor:pointer;color:#704a86}
+body.activities-polished[data-page=create] .orientation .form-row{margin-top:16px}
+body.activities-polished[data-page=create] .orientation .hint{font-size:12px;line-height:1.5;margin:12px 0 0}
+body.activities-polished[data-page=create] .editor-materials{display:grid;gap:13px;margin:0;padding-top:20px;border-top:1px solid #e7d9ee}
+body.activities-polished[data-page=create] .editor-materials>h2{font-size:18px;margin:0}
+body.activities-polished[data-page=create] .editor-materials>.hint{font-size:12px;line-height:1.5;margin:0}
+body.activities-polished[data-page=create] .activity-upload-zone{position:relative;display:flex;align-items:center;gap:14px;min-height:92px;padding:16px;border:1px dashed #bd94d3;border-radius:13px;background:#f7f0fb;color:#754792;box-sizing:border-box}
+body.activities-polished[data-page=create] .activity-upload-zone:is(:hover,:focus-within,.is-dragging){border-color:#9551ba;background:#f1e5f8}
+body.activities-polished[data-page=create] .activity-upload-zone:focus-within{outline:3px solid #b989d3;outline-offset:3px}
+body.activities-polished[data-page=create] .activity-upload-zone>svg{display:block;width:28px;height:28px;flex:0 0 28px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+body.activities-polished[data-page=create] .activity-upload-zone>div{display:grid;gap:5px;min-width:0;overflow-wrap:anywhere}
+body.activities-polished[data-page=create] .activity-upload-zone strong{font-size:13px;line-height:1.45}
+body.activities-polished[data-page=create] .activity-upload-name{font-size:12px;line-height:1.4;color:#90719e}
+body.activities-polished[data-page=create] .activity-upload-zone input[type=file]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;margin:0}
+body.activities-polished[data-page=create] .editor-materials .files-list{margin:0;padding:0;list-style:none;display:grid;gap:7px}
+body.activities-polished[data-page=create] .files-list li{display:flex;align-items:center;flex-wrap:wrap;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid #e5d6ed;border-radius:10px;background:#fbf6fd;font-size:12px;overflow-wrap:anywhere}
+body.activities-polished[data-page=create] .editor-actions{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:10px;margin:0;padding-top:18px;border-top:1px solid #e7d9ee}
+body.activities-polished[data-page=create] .editor-actions button{display:inline-flex;align-items:center;justify-content:center;gap:7px;flex:0 1 auto;width:auto;min-width:0;min-height:42px;padding:10px 13px;font-size:12px;border-radius:11px}
+body.activities-polished .editor-actions svg,body.activities-polished .activity-dialog-actions svg{width:17px;height:17px;flex:0 0 17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+body.activities-polished[data-page=create] #missionForm>:is(.file-note,.error-panel):empty{display:none}
+body.activities-polished[data-page=create] .editor-summary{top:24px}
+body.activities-polished[data-page=create] .editor-summary h3{font-size:21px;line-height:1.4;margin:16px 0}
+body.activities-polished[data-page=create] .editor-summary>p,body.activities-polished[data-page=create] .editor-summary .hint{font-size:12px;line-height:1.6}
+body.activities-polished[data-page=create] .editor-summary-lines{padding:9px 0;margin-bottom:10px}
+body.activities-polished[data-page=create] .editor-summary-lines p{margin:8px 0}
+/* Publicação e ajuda: mesmo acabamento das janelas da biblioteca. */
+body.activities-polished #actionDialog{box-sizing:border-box;width:min(640px,calc(100vw - 32px));max-height:calc(100dvh - 40px);padding:30px;border:1px solid #ddc9e8;border-radius:22px;background:#fffcfa;color:#4e2c61;font:14px/1.6 Astro,Arial,sans-serif;box-shadow:0 25px 85px #37134733;overflow:auto}
+body.activities-polished #actionDialog::backdrop{background:#38224355;backdrop-filter:blur(5px)}
+body.activities-polished #actionDialog #closeDialog{position:absolute;right:14px;top:14px;display:grid;place-items:center;width:34px;height:34px;border:1px solid #e6d7ed;border-radius:50%;padding:0;background:#fffaf8;color:#80598f;font-size:25px;line-height:1}
+body.activities-polished #dialogTitle{font-size:25px;line-height:1.3;letter-spacing:-.35px;margin:0 38px 20px 0;overflow-wrap:anywhere}
+body.activities-polished #dialogContent{padding-top:18px;border-top:1px solid #e8daef}
+body.activities-polished #dialogContent p{font-size:14px;line-height:1.65;overflow-wrap:anywhere}
+body.activities-polished #dialogContent h3{font-size:17px;line-height:1.4;margin:18px 0 8px;overflow-wrap:anywhere}
+body.activities-polished #dialogContent .document-copy{white-space:pre-wrap}
+body.activities-polished .activity-dialog-actions{display:flex;justify-content:flex-end;align-items:center;flex-wrap:wrap;gap:10px;margin-top:22px;padding-top:18px;border-top:1px solid #e8daef}
+body.activities-polished .activity-dialog-actions button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;margin:0!important;padding:10px 15px;border-radius:11px;width:auto;font-size:13px}
+body.activities-polished #dialogError:empty{display:none}
+body.activities-polished #dialogError{font-size:13px;line-height:1.5;margin:15px 0 0;color:#ac3e57}
+body.activities-polished :is(input,select,textarea,button,a,summary):focus-visible{outline:3px solid #b787d2;outline-offset:3px}
+@media(max-width:1150px){body.teacher-activities-page.activities-polished #content>.list{grid-template-columns:repeat(2,minmax(0,1fr))}body.activities-polished[data-page=create] .editor-grid{grid-template-columns:minmax(0,1.6fr) minmax(240px,.85fr);gap:16px}body.activities-polished[data-page=create] .editor-grid>.panel{padding:18px}}
+@media(max-width:950px){body.activities-polished[data-page=create] .editor-grid{grid-template-columns:1fr}body.activities-polished[data-page=create] .editor-summary{position:static}body.activities-polished[data-page=create] .editor-summary-lines{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}}
+@media(max-width:800px){body.activities-polished #main{padding-top:80px}body.activities-polished #breadcrumbs{margin-right:0;margin-bottom:22px}body.activities-polished #pageActions{gap:9px;margin-top:18px}body.activities-polished .page-heading{margin-bottom:20px}body.activities-polished #pageTitle{font-size:30px}body.activities-polished #pageSubtitle{font-size:13px}body.activities-polished[data-page=activity] .detail-panels{grid-template-columns:1fr}body.activities-polished #actionDialog{padding:25px 20px}body.activities-polished #dialogTitle{font-size:23px}}
+@media(max-width:650px){body.teacher-activities-page.activities-polished #content>.list{grid-template-columns:1fr;gap:16px}body.activities-polished[data-page=create] .form-row{grid-template-columns:1fr;gap:16px}body.activities-polished[data-page=create] .editor-actions button{flex:1 1 160px}body.activities-polished[data-page=create] .editor-summary-lines{grid-template-columns:1fr}body.activities-polished[data-page=create] .activity-upload-zone{padding:14px;gap:11px}.activities-polished .activity-dialog-actions button{flex:1 1 auto}}
+@media(prefers-reduced-motion:reduce){body.activities-polished .activity-upload-zone{transition:none}}

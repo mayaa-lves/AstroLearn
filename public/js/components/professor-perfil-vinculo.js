@@ -4,7 +4,7 @@ if(location.pathname.includes('/professor/')){
  const session=sessaoObrigatoria('professor');
  const css=document.createElement('style');css.textContent=`
  .sidebar{scrollbar-width:thin;scrollbar-color:#ad8fc7 #f6effa}.sidebar::-webkit-scrollbar{width:6px}.sidebar::-webkit-scrollbar-thumb{background:#ad8fc7;border-radius:8px}
- #teacherTools .teacher-profile.has-teacher-avatar{background-image:var(--teacher-avatar-sheet);background-size:400% 200%;background-position:var(--teacher-avatar-position);background-repeat:no-repeat;color:transparent}
+ #teacherTools .teacher-profile.has-teacher-avatar,#teacherTools #teacherProfilePanel .teacher-person-avatar.has-teacher-avatar{background-image:var(--teacher-avatar-sheet);background-size:400% 200%;background-position:var(--teacher-avatar-position);background-repeat:no-repeat;color:transparent}
  body.profile-page .profile-heading{padding-right:150px}body.profile-page .home-fallback{display:none}
  @media(max-width:800px){body.profile-page .profile-heading{padding-top:70px;padding-right:0}}
  `;document.head.append(css);
@@ -12,9 +12,11 @@ if(location.pathname.includes('/professor/')){
  function sync(){
   const button=document.querySelector('#teacherTools .teacher-profile');
   if(button){
-   button.onclick=()=>{location.assign('perfil.html');};button.title='Meu perfil';button.setAttribute('aria-label','Abrir meu perfil');button.removeAttribute('aria-haspopup');button.removeAttribute('aria-controls');button.removeAttribute('aria-expanded');
+   button.title='Minha conta';button.setAttribute('aria-label','Abrir opções da minha conta');
    if(selected!==null){button.classList.add('has-teacher-avatar');button.style.setProperty('--teacher-avatar-sheet',`url("${new URL('../../assets/avatares/ets-perfil.png',import.meta.url).href}")`);button.style.setProperty('--teacher-avatar-position',`${selected%4*100/3}% ${selected<4?0:100}%`);}
   }
+  const preview=document.querySelector('#teacherProfilePanel .teacher-person-avatar');
+  if(preview&&selected!==null){preview.classList.add('has-teacher-avatar');preview.style.setProperty('--teacher-avatar-sheet',`url("${new URL('../../assets/avatares/ets-perfil.png',import.meta.url).href}")`);preview.style.setProperty('--teacher-avatar-position',`${selected%4*100/3}% ${selected<4?0:100}%`);if(preview.textContent)preview.textContent='';}
   // A navegação pertence exclusivamente a menu-professor-perfil.js.
 
  }
