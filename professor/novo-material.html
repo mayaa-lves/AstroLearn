@@ -1,7 +1,13 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
+    <meta charset="utf-8">
+    <style>html.astro-teacher-loading{background:#fcf6f2}html.astro-teacher-loading body{visibility:hidden}html.astro-teacher-loading #teacherLoader{visibility:visible}#teacherLoader{position:fixed;inset:0;z-index:10000;display:grid;place-content:center;justify-items:center;gap:16px;background:radial-gradient(ellipse at 75% 0,#eadcf8,transparent 65%),#fcf6f2;color:#503267;font:15px/1.5 Arial,sans-serif}#teacherLoader[hidden]{display:none}#teacherLoader img{width:72px;height:72px;object-fit:contain}#teacherLoader .loader-orbit{width:30px;height:30px;border:2px solid #e0cdeb;border-top-color:#8b3cc4;border-radius:50%;animation:teacher-loading-spin 1s linear infinite}@keyframes teacher-loading-spin{to{transform:rotate(360deg)}}@media(prefers-reduced-motion:reduce){#teacherLoader .loader-orbit{animation:none}}</style>
+    <script>document.documentElement.classList.add('astro-teacher-loading');</script>
+    <script defer src="../public/js/components/professor-carregamento.js?v=1"></script>
+    <link rel="stylesheet" href="../public/css/professor-menu-padrao.css?v=1">
+
+  
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Criar material · AstroLearn</title>
 
@@ -11,7 +17,7 @@
   <link rel="stylesheet" href="../public/css/preferencias.css">
 
   <link rel="stylesheet" href="../public/css/menu-unificado.css">
-  <script defer src="../public/js/components/menu-professor-perfil.js?v=1"></script>
+  <script defer src="../public/js/components/menu-professor-perfil.js?v=2"></script>
 <link rel="icon" type="image/png" href="../public/assets/imagens/marca/astrolearn-simbolo.png">
 <link rel="stylesheet" href="../public/css/rolagem.css" data-astro-rolagem>
 <link rel="stylesheet" href="../public/css/professor-biblioteca-orbital.css?v=1">
@@ -113,7 +119,7 @@
     </div>
 
     <section id="formPanel" class="panel" aria-labelledby="materialHeading">
-      <form id="materialForm">
+      <form id="materialForm" aria-busy="true">
         <div class="material-field">
           <label for="title">Título *</label>
           <input id="title" required maxlength="120" placeholder="Ex.: Guia de investigação">
@@ -325,6 +331,7 @@
           "Escolha uma turma na biblioteca antes de criar o material.";
 
         $("roomName").textContent = "Selecione uma turma";
+        $("materialForm").setAttribute("aria-busy", "false");
         return;
       }
 
@@ -394,6 +401,7 @@
         pronta = false;
       } finally {
         ocupado = false;
+        $("materialForm").setAttribute("aria-busy", "false");
 
         $("refresh").disabled = false;
         $("save").disabled = !pronta;
@@ -489,7 +497,7 @@
 
     carregar();
   </script>
-<script type="module" src="../public/js/components/professor-padrao.js?v=1"></script>
+<script type="module" src="../public/js/components/professor-padrao.js?v=2"></script>
 <script type="module" src="../public/js/components/professor-perfil-vinculo.js?v=2"></script>
 </body>
 </html>

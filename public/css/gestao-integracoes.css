@@ -1,0 +1,34 @@
+.integration-dialog {box-sizing:border-box;width:min(600px,calc(100vw - 28px));max-height:calc(100dvh - 28px);overflow:auto;padding:28px;border:1px solid #ddcbe9;border-radius:22px;background:#fffaf7;color:#352244;font:14px/1.5 Astro,Arial,sans-serif;}
+.integration-dialog::backdrop {background:#2d1a4655;backdrop-filter:blur(4px)}
+.integration-dialog h2 {margin:0 36px 16px 0;font-size:24px;line-height:1.25}
+.integration-close {position:absolute;right:12px;top:10px;min-height:40px;width:40px;border:0;background:transparent;font-size:27px;color:#704591;cursor:pointer}
+.integration-body,.integration-form {display:grid;gap:16px;min-width:0}
+.integration-field {display:grid;gap:7px;min-width:0;font-size:13px}
+.integration-field input,.integration-field textarea {box-sizing:border-box;width:100%;min-width:0;max-width:100%;padding:12px;border:1px solid #d7bfe6;border-radius:11px;background:#fff;color:#352244;font:inherit}
+.integration-field textarea {min-height:90px;resize:vertical}
+.integration-field input[type=file] {border-style:dashed;padding:18px;background:#f3eafa}
+.integration-dialog .primary,.integration-management .primary,.integration-invite .primary {padding:11px 16px;border:1px solid #75449d;border-radius:12px;background:#75449d;color:#fff;text-decoration:none;font:inherit;cursor:pointer}
+.integration-dialog .secondary,.integration-management .secondary,.integration-invite .secondary {padding:10px 14px;border:1px solid #d2bbdf;border-radius:12px;background:#fffaf7;color:#694384;text-decoration:none;font:inherit;cursor:pointer}
+.integration-status {white-space:pre-wrap;overflow-wrap:anywhere;margin:15px 0 0;font-size:13px;color:#624477}
+.integration-status:empty {display:none}
+.integration-actions {display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:10px;margin-top:10px}
+.integration-list-row {display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid #e4d7eb;flex-wrap:wrap}
+.integration-list-row span {min-width:0;overflow-wrap:anywhere;flex:1 1 170px}
+.integration-danger {color:#a02f49!important;border-color:#d7a5b0!important}
+.integration-danger.primary {background:#a02f49!important;color:#fff!important}
+.integration-management {margin-block:20px;padding:22px;background:#fffaf7e8;border:1px solid #e5d9eb;border-radius:20px}
+.integration-management h2 {font-size:19px;margin:0 0 14px}
+.integration-management .integration-actions {justify-content:flex-start}
+.integration-room-delete {font:inherit;font-size:11px;padding:8px 10px;border:1px solid #dfbdc9;border-radius:10px;color:#973c54;background:#fff9f7;cursor:pointer;margin-left:auto;min-height:36px}
+.integration-suggest {margin-top:16px;border-radius:14px;padding:11px 17px;min-height:44px;width:max-content;max-width:100%}
+.material {position:relative}
+.material-approval {position:absolute;z-index:2;left:10px;top:10px;font-size:11px;padding:6px 9px;border-radius:10px;background:#ffdfaa;color:#765026;max-width:calc(100% - 20px)}
+.book-approve {color:#3e743e!important;border-color:#a6c8a1!important;background:#eff8e8!important}
+.book-approve svg {width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2}
+.integration-invite {box-sizing:border-box;margin:8vh auto!important;padding:30px!important;max-width:620px;width:calc(100% - 30px)!important;border:1px solid #ddc9e8;border-radius:22px;background:#fffaf7e8}
+.integration-invite #inviteContent {display:flex;flex-wrap:wrap;gap:12px}
+.integration-invite p {flex-basis:100%;overflow-wrap:anywhere}
+html[data-astro-tema=pixel] :is(.integration-dialog,.integration-management,.integration-field input,.integration-field textarea,.integration-suggest,.material-approval) {border-radius:3px}
+.integration-dialog :is(a,button,input,textarea):focus-visible,.integration-management button:focus-visible {outline:3px solid #72459d;outline-offset:3px}
+.integration-dialog button:disabled {opacity:.6;cursor:wait}
+@media(max-width:500px){.integration-dialog{padding:22px 18px}.integration-actions button{max-width:100%}.integration-management{padding:18px}}

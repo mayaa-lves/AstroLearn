@@ -1,0 +1,81 @@
+/* Uma posição e um acabamento para os retornos docentes existentes. */
+body .teacher-return-row {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 10px !important;
+  width: 100%;
+  min-width: 0;
+}
+body .teacher-return-row > a.teacher-return,
+body .teacher-return-header > a.teacher-return {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  flex: 0 1 auto !important;
+  box-sizing: border-box !important;
+  width: max-content !important;
+  min-width: 44px !important;
+  min-height: 44px !important;
+  height: auto !important;
+  max-width: 100% !important;
+  margin-inline-start: auto !important;
+  padding: 10px !important;
+  border: 1px solid #d5b9e3 !important;
+  border-radius: 999px !important;
+  background: #fffaf8 !important;
+  color: #724397 !important;
+  box-shadow: 0 2px 7px #59316a0a !important;
+  text-decoration: none !important;
+  font: 400 13px/1.35 Astro, Arial, sans-serif !important;
+  transform: none !important;
+  overflow: hidden !important;
+}
+body a.teacher-return > svg {
+  display: block !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 1.7 !important;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: 0 0 22px !important;
+  width: 22px !important;
+  height: 22px !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  stroke-width: 1.7 !important;
+  stroke-linecap: round !important;
+  stroke-linejoin: round !important;
+}
+body a.teacher-return > .teacher-return-label {
+  display: block !important;
+  width: auto !important;
+  max-width: 0 !important;
+  min-width: 0;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  white-space: nowrap !important;
+  transition: max-width .22s ease, opacity .18s ease, margin .22s ease;
+}
+body a.teacher-return:is(:hover, :focus-visible) { background: #f1e5f8 !important; }
+body a.teacher-return:is(:hover, :focus-visible) > .teacher-return-label {
+  max-width: 260px !important;
+  margin-inline-start: 9px !important;
+  opacity: 1 !important;
+}
+body a.teacher-return:focus-visible { outline: 3px solid #724397 !important; outline-offset: 3px !important; }
+body .teacher-return-header { position: relative; padding-inline-end: 60px; }
+body .teacher-return-header > a.teacher-return { position: absolute !important; inset: 0 0 auto auto !important; }
+body.astro-high-contrast a.teacher-return { background: #fff !important; color: #321746 !important; border-color: #321746 !important; }
+@media (hover: none), (pointer: coarse) {
+  body a.teacher-return > .teacher-return-label { max-width: 260px !important; margin-inline-start: 8px !important; opacity: 1 !important; white-space: normal !important; }
+  body .teacher-return-header { padding-inline-end: 0; }
+  body .teacher-return-header > a.teacher-return { position: static !important; display: flex !important; margin-block: 14px 0 !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body a.teacher-return > .teacher-return-label { transition: none !important; }
+}
+body.astro-motion-off a.teacher-return > .teacher-return-label { transition: none !important; }

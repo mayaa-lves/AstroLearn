@@ -1,0 +1,26 @@
+/* Teacher navigation: one route per area; contextual actions stay in the page. */
+html.astro-professor .teacher-footer-refresh,html.astro-professor [data-teacher-refresh]{display:none!important}
+@media(min-width:801px){
+ html.astro-professor body.astro-nav-ready.collapsed{--astro-nav-width:88px}
+ html.astro-professor body.astro-nav-ready.collapsed .sidebar .astro-nav-link{flex-direction:column!important;justify-content:center!important;gap:5px!important;height:66px!important;min-height:66px!important;padding:7px 2px!important;margin:0 5px!important;border-radius:16px!important}
+ html.astro-professor body.astro-nav-ready.collapsed .sidebar .astro-nav-link .label{display:block!important;font-size:11px!important;line-height:1.2!important}
+ html.astro-professor body.astro-nav-ready .sidebar .astro-nav-footer{display:flex!important;flex-direction:column!important;gap:2px!important;border-top:1px solid #e2d1e9!important;padding-top:8px!important}
+ html.astro-professor body.astro-nav-ready.collapsed .sidebar .astro-nav-footer .astro-nav-link{width:auto!important;height:60px!important;min-height:60px!important}
+ html.astro-professor body.astro-nav-ready .sidebar #mainNav{gap:1px!important}
+ html.astro-professor body.astro-nav-ready .sidebar{animation:none!important}
+}
+@media(max-height:820px) and (min-width:801px){
+ html.astro-professor body.astro-nav-ready.collapsed .sidebar .astro-nav-link{height:51px!important;min-height:51px!important;gap:3px!important}
+ html.astro-professor body.astro-nav-ready.collapsed .sidebar .astro-nav-footer .astro-nav-link{height:46px!important;min-height:46px!important}
+ html.astro-professor body.astro-nav-ready .sidebar .astro-nav-brand{margin-bottom:14px!important}
+}
+html.astro-professor .integration-dialog{padding:32px;border-radius:24px;background:linear-gradient(150deg,#fffdfb,#fcf7ff);box-shadow:0 24px 90px #3a1a4830}
+html.astro-professor .integration-dialog h2{padding-bottom:18px;border-bottom:1px solid #e5d6ed;margin-bottom:22px;color:#3b174e}
+html.astro-professor .integration-dialog .integration-body{gap:20px}
+html.astro-professor .integration-dialog .integration-actions{justify-content:flex-end;gap:10px;flex-wrap:wrap}
+html.astro-professor .integration-dialog .integration-field{gap:9px}
+html.astro-professor .integration-dialog .integration-list-row{padding:14px;border:1px solid #e6d9ee;border-radius:14px;background:#fffafc;gap:16px}
+html.astro-professor .integration-dialog :is(input,textarea):focus{outline:2px solid #b784d9;outline-offset:2px}
+html.astro-professor .integration-room-delete{display:inline-grid!important;place-items:center;width:34px;min-width:34px;height:34px;padding:7px!important;margin:0!important;border:1px solid #e9cbd7!important;border-radius:50%!important;background:#fffaf8!important;color:#a44d64!important}
+.integration-room-delete svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:550px){html.astro-professor .integration-dialog{padding:24px 20px}html.astro-professor .integration-dialog .integration-list-row{flex-wrap:wrap}}

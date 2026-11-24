@@ -251,12 +251,12 @@ function roomLineChart(series) {
  const details=c('details');details.append(c('summary','Ver atividades e valores'),S(['Atividade','Média'],series.map(item=>[item.label,b(f(item.value))])));panel.append(details);return panel;
 }
 function T() {
- w('Sua turma, de perto.','');document.title=n.sala.nome+' · AstroLearn';
+ w(n.sala.nome,'');a('breadcrumbs').lastElementChild.textContent='Sala';document.title=n.sala.nome+' · AstroLearn';
  document.getElementById('roomIdentity')?.remove();const identity=c('div','','room-identity-strip');identity.id='roomIdentity';
  const copy=async()=>{const code=n.sala.codigo_acesso;if(!code)return;try{await navigator.clipboard.writeText(code);a('status').textContent='Código copiado.';}catch{a('status').textContent='Código da turma: '+code;}};
  const copyButton=g('',copy,'room-copy');
  copyButton.innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 5V4H4v12h1"/></svg>';copyButton.setAttribute('aria-label','Copiar código da turma');
- identity.append(c('span',n.sala.nome,'room-name-tag'),u(c('span','','room-code-chip'),c('span',n.sala.codigo_acesso||'—'),copyButton));a('pageTitle').after(identity);
+ identity.append(u(c('span','','room-code-chip'),c('span',n.sala.codigo_acesso||'—'),copyButton));a('pageTitle').append(identity);
  a('pageActions').append(v('+ Criar atividade','atividade/nova/',{sala:i},'primary'),v('Revisar entregas','correcoes/',{sala:i}),v('Organizar equipes','equipes/',{sala:i}));
  if(!a('pageActions').querySelector('select')){const semester=c('select');semester.setAttribute('aria-label','Filtrar por semestre');q(semester,'Todos os semestres','');a('pageActions').append(semester);}
  const grid=c('div','','room-workspace'),students=c('section','','panel room-students');students.id='alunos';
@@ -267,14 +267,15 @@ function T() {
  function drawStudents(){const term=input.value.trim().toLocaleLowerCase('pt-BR');search.classList.toggle('has-value',!!term);const filtered=n.alunos.filter(person=>person.nome.toLocaleLowerCase('pt-BR').includes(term));const published=new Set(P(n).map(m=>m.id));
  const table=S(['Nome','Média','Entregas',''],filtered.map(person=>{const grade=n.pauta.pauta_data.find(row=>row.aluno.id===person.id);const value=f(grade?.media_missoes??grade?.media);const count=new Set(n.entregas.filter(item=>(item.aluno_id||item.perfis?.id)===person.id&&published.has(item.missao_id)).map(item=>item.missao_id)).size;
  const portrait=c('span',person.nome.trim().split(/\s+/).slice(0,2).map(part=>part[0]).join(''),'room-portrait'),idx=ids.indexOf(person.avatar_id);if(idx>=0){portrait.textContent='';portrait.classList.add('has-avatar');portrait.style.backgroundPosition=`${idx%4*100/3}% ${idx<4?0:100}%`;}portrait.setAttribute('aria-hidden','true');
- const text=c('span','','room-student-name');text.append(c('strong',person.nome),c('small','Ver acompanhamento'));const name=v('','aluno/',{sala:i,aluno:person.id},'room-student-link');name.append(portrait,text);
- const avg=c('div','','room-grade');avg.append(c('strong',b(value)));const track=c('span','','room-grade-track'),fill=c('span');fill.style.width=(value===null?0:Math.max(0,Math.min(10,value))*10)+'%';track.setAttribute('aria-hidden','true');track.append(fill);avg.append(track);
- const arrow=v('›','aluno/',{sala:i,aluno:person.id},'room-student-arrow');arrow.setAttribute('aria-label','Ver acompanhamento de '+person.nome);return[name,avg,`${count}/${published.size}`,arrow];}));list.replaceChildren(table);if(!filtered.length)list.append(c('p',term?'Nenhum aluno encontrado.':'Esta turma ainda não tem alunos. Compartilhe o código para convidar.','room-empty'));}
- input.oninput=drawStudents;input.onkeydown=event=>{if(event.key==='Escape'){input.value='';drawStudents();toggle.focus();}};drawStudents();
- const invite=g('+ Convidar alunos',()=>{const wrap=c('div');wrap.append(c('p','Compartilhe este código com seus alunos. No perfil de aluno, eles devem escolher entrar em uma turma.'),c('strong',n.sala.codigo_acesso||'—','room-invite-code'),g('Copiar código',copy,'primary'));C('Convidar alunos',wrap);},'room-invite');students.append(invite);
+ const text=c('span','','room-student-name');text.append(c('strong',person.nome));const name=v('','aluno/',{sala:i,aluno:person.id},'room-student-link');name.append(portrait,text);
+ const avg=c('div','','room-grade');avg.append(c('strong',b(value)));const track=c('span','','room-grade-track'),fill=c('span');fill.style.width=(value===null?0:Math.max(0,Math.min(10,value))*10)+'%';track.setAttribute('aria-hidden','true');track.append(fill);if(value!==null)avg.append(track);
+ const arrow=g('⋮',null,'room-student-more');arrow.dataset.studentId=person.id;arrow.dataset.studentName=person.nome;arrow.setAttribute('aria-label','Opções de '+person.nome);arrow.setAttribute('aria-haspopup','menu');return[name,avg,`${count}/${published.size}`,arrow];}));list.replaceChildren(table);if(!filtered.length)list.append(c('p',term?'Nenhum aluno encontrado.':'Esta turma ainda não tem alunos. Compartilhe o código para convidar.','room-empty'));}
+ input.oninput=drawStudents;input.onkeydown=event=>{if(event.key==='Escape'){input.value='';drawStudents();search.focus();}};drawStudents();
+ const invite=g('',null,'room-invite room-icon');invite.dataset.roomOperation='invite';invite.setAttribute('aria-label','Convidar alunos');invite.title='Convidar alunos';invite.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7" r="4"/><path d="M2 21v-3a7 7 0 0 1 14 0v3M19 6v8m-4-4h8"/></svg>';const tools=c('div','','room-student-tools');search.replaceChild(document.createElementNS('http://www.w3.org/2000/svg','svg'),toggle);const searchIcon=search.firstChild;searchIcon.setAttribute('viewBox','0 0 24 24');searchIcon.setAttribute('aria-hidden','true');searchIcon.innerHTML='<circle cx="10" cy="10" r="6"/><path d="m15 15 5 5"/>';search.tabIndex=0;search.setAttribute('role','search');search.addEventListener('click',()=>input.focus());search.addEventListener('keydown',event=>{if(event.key==='Enter')input.focus();});tools.append(search,invite);header.append(tools);students.append(c('p','Selecione um aluno para acompanhar as entregas.','room-student-hint'));
+ const trash=g('',null,'room-delete room-icon');trash.dataset.roomOperation='delete-room';trash.setAttribute('aria-label','Excluir turma');trash.title='Excluir turma';trash.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7m4-7v7"/></svg>';a('pageActions').append(trash);
  const side=c('aside','','room-side'),pending=R(n).pending,review=c('section','','room-review');review.append(c('span','✓','room-review-icon'),u(c('div'),c('h2',pending?`${pending} ${pending===1?'entrega para revisar':'entregas para revisar'}`:'Correções em dia'),c('p',pending?'Acompanhe o próximo passo da turma.':'As entregas corrigidas estão disponíveis para consulta.'),v(pending?'Revisar entrega →':'Ver entregas →','correcoes/',{sala:i},'room-review-link')));
  side.append(review,roomLineChart($(n)));grid.append(students,side);a('content').append(grid);
- const manage=c('details','','room-semester-manage');manage.append(c('summary','Organizar semestres'),g('+ Criar semestre',()=>z('Criar semestre','Nome do semestre',async name=>{await e.createPeriod(i,name);a('actionDialog').close();await G();}),'text-button'));a('content').append(manage);
+
 }
 
 function O() {
@@ -601,7 +602,7 @@ async function G() {
       if (s !== l) return;
       D();
       (function () {
-        if (!["room", "student", "activities", "teams", "corrections"].includes(o) || !n.periodos.length) return;
+        if (!["room", "student", "activities", "teams", "corrections"].includes(o) || (!n.periodos.length && o!=="room")) return;
         const e = t.get("periodo") || "", i = c("select");
         i.setAttribute("aria-label", "Filtrar por período"), q(i, "Todos os períodos", ""), n.periodos.forEach(e => q(i, e.nome, e.id)), i.value = e;
         i.onchange = () => { i.value ? t.set("periodo", i.value) : t.delete("periodo"), history.replaceState(null, "", location.pathname + "?" + t), G() };

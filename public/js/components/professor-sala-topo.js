@@ -22,7 +22,8 @@
    }
    ordered.push(link);
   }
-  const select=actions.querySelector('select');if(select){select.setAttribute('aria-label','Filtrar por semestre');const all=[...select.options].find(option=>option.value==='');if(all&&all.textContent!=='Todos os semestres')all.textContent='Todos os semestres';ordered.push(select);}
+  const select=actions.querySelector('select');if(select){select.setAttribute('aria-label','Filtrar por semestre');const all=[...select.options].find(option=>option.value==='');if(all&&all.textContent!=='Todos os semestres')all.textContent='Todos os semestres';ordered.push(select.closest('.room-semester-control')||select);}
+  const trash=actions.querySelector('.room-delete');if(trash)ordered.push(trash);
   ordered.forEach((node,index)=>{if(actions.children[index]!==node)actions.insertBefore(node,actions.children[index]||null);});
  }
  function schedule(){if(!scheduled){scheduled=true;queueMicrotask(render);}}

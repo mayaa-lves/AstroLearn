@@ -1,3 +1,5 @@
+import "./professor-gestao.js?v=2";
+import "./professor-voltar.js?v=1";
 import {pendenciaAviso,categoriaAviso} from './professor-avisos-utils.js?v=2';
 /* Cabeçalho e navegação exclusivos do professor. Não modifica os componentes do aluno. */
 import {obterSessao} from '../services/autenticacao.js';
@@ -80,9 +82,8 @@ function iniciar(){
  let exit=sidebar.querySelector('#exit,#logout')||make('a');exit.href='../auth/login.html';exit.id=exit.id||'exit';const label=exit.querySelector('.label');if(label)label.textContent='Sair';else exit.textContent='Sair';exit.setAttribute('aria-label','Sair');
  if(help.parentElement!==footer)footer.append(help);if(exit.parentElement!==footer)footer.append(exit);
  const pageRefresh=document.querySelector('.teacher-top #refresh');
- if(pageRefresh){pageRefresh.innerHTML=refreshIcon+'<span class="teacher-refresh-label">Atualizar</span>'; pageRefresh.type='button';pageRefresh.className='teacher-footer-refresh';pageRefresh.setAttribute('aria-label','Atualizar página');pageRefresh.title='Atualizar página';exit.classList.add('teacher-footer-exit');footer.classList.add('teacher-footer-with-refresh');footer.insertBefore(pageRefresh,exit);
- document.addEventListener('click',e=>{if(!e.target.closest('.astro-nav-more'))return;const mobile=document.querySelector('#menu-mobile-dialog nav');if(!mobile||mobile.querySelector('[data-teacher-refresh]'))return;const button=make('button','Atualizar página','astro-nav-dialog-link');button.type='button';button.dataset.teacherRefresh='';button.onclick=()=>{document.getElementById('menu-mobile-dialog').close();pageRefresh.click();};mobile.append(button);});
- }
+ if(pageRefresh){pageRefresh.hidden=true;pageRefresh.setAttribute('aria-hidden','true');}
+
 
  // Links de logout existentes são interceptados pelo fluxo de sessão; fallback para páginas sem ele.
  const sharedSession=!!document.querySelector('script[src*="components/sessao.js"]');

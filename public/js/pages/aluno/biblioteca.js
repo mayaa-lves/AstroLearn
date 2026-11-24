@@ -1,3 +1,4 @@
+import "./biblioteca-sugestoes.js?v=1";
 import { sessaoObrigatoria } from '../../services/conexao.js';
 import { biblioteca } from '../../services/aluno.js';
 
@@ -222,6 +223,8 @@ function render() {
 
   for (const material of filtered) {
     const card = element('article', '', 'material');
+    if (material.status === 'pendente') card.append(element('span', 'Aguardando aprovação', 'material-approval'));
+
 
     const visual = element(
       'div',

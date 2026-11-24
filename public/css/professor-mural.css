@@ -110,3 +110,24 @@ body.teacher-room-wall:before{background:linear-gradient(180deg,#fff4f36b 0%,#ff
 .teacher-room-wall .room-search-toggle:focus-visible{outline:none;box-shadow:none}
 .teacher-room-wall .room-search-toggle{flex-shrink:0;border-radius:50%}
 .teacher-room-wall .room-search:is(:hover,:focus-within,.is-open,.has-value) #roomSearch{padding:8px 16px 8px 4px}
+
+/* Busca, contador e criação usam agora a mesma linha e o mesmo eixo vertical. */
+.teacher-room-wall #pageActions:empty { display: none; }
+.teacher-room-wall #roomToolbar {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: 12px 20px; width: 100%; min-width: 0;
+}
+.teacher-room-wall #roomToolbar .room-search { max-width: 100%; min-width: 44px; }
+.teacher-room-wall #roomToolbar > .teacher-create-room {
+  flex: 0 0 auto; margin-inline-start: auto; align-self: center;
+  font-weight: 400; font-size: 14px; min-height: 44px;
+  padding: 10px 20px; border-radius: 14px; border: 1px solid #8b51bb;
+  background: linear-gradient(135deg,#8648bc,#9358c4);
+  box-shadow: 0 3px 9px #6b3a8c20; color: #fff;
+}
+.teacher-room-wall #roomToolbar > .teacher-create-room:hover {
+  background: #8040b5; box-shadow: 0 4px 11px #6b3a8c2b; filter: none;
+}
+@media(max-width: 600px) {
+  .teacher-room-wall #roomToolbar { gap: 12px; }
+}

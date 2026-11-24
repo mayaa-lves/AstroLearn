@@ -1,0 +1,56 @@
+/* Approved composition: compact identity, contextual controls and aligned cards. */
+body.room-approved-page::before{background-size:100% auto!important;background-position:center top!important;mask-image:linear-gradient(#000 0%,#000 36%,transparent 94%);-webkit-mask-image:linear-gradient(#000 0%,#000 36%,transparent 94%)}
+body.room-approved-page.astro-nav-ready #main,body.room-approved-page #main{margin-left:calc(var(--astro-nav-width,88px) + clamp(60px,6.4vw,100px))!important;width:calc(100% - var(--astro-nav-width,88px) - clamp(60px,6.4vw,100px) - 32px)!important;padding-top:clamp(45px,6vw,90px)!important}
+body.room-approved-page #breadcrumbs{margin-bottom:34px;gap:20px}
+body.room-approved-page #pageTitle{display:flex;align-items:center;flex-wrap:wrap;gap:22px;font-size:clamp(32px,3.7vw,52px);margin:0;letter-spacing:-1.3px}
+body.room-approved-page .room-identity-strip{display:inline-flex;gap:0;font-weight:400;letter-spacing:0}
+body.room-approved-page .room-code-chip{gap:16px;padding:7px 13px;font-size:15px;min-height:40px;box-sizing:border-box;background:#fffaf6b8}
+body.room-approved-page #pageActions{display:flex;align-items:center;gap:16px;margin-top:36px;flex-wrap:wrap;overflow:visible}
+body.room-approved-page .page-heading{margin-bottom:34px}
+body.room-approved-page #pageActions .room-quick-action{height:46px;min-width:46px;border-color:#a769d0;background:#fffcf6ba;box-shadow:0 3px 12px #65338608}
+body.room-approved-page #pageActions .room-quick-action[data-room-action=create]{padding:0 16px;border-radius:14px;box-shadow:0 5px 12px #6428a624;font-weight:600}
+body.room-approved-page #pageActions .room-quick-action[data-room-action=create] .room-action-label{max-width:180px;margin-left:9px;opacity:1;font-size:14px}
+.room-semester-control{position:relative;min-width:245px;margin-left:auto;z-index:20;font-size:14px}
+.room-semester-control>select[hidden]{display:none!important}
+.room-semester-trigger{display:flex;align-items:center;justify-content:space-between;gap:28px;width:100%;min-height:46px;border:1px solid #cdb1df;border-radius:14px;padding:10px 16px;background:#fffaf7e8;font:inherit;color:#48215d;cursor:pointer}
+.room-semester-trigger::after{content:'';width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);margin-top:-4px}
+.room-semester-menu{position:absolute;inset:calc(100% + 6px) 0 auto;box-sizing:border-box;border:1px solid #e0cce9;padding:7px;border-radius:14px;background:#fffafcf7;box-shadow:0 7px 18px #4f2b6330;max-height:330px;overflow-y:auto;backdrop-filter:blur(15px)}
+.room-semester-menu[hidden]{display:none!important}
+.room-semester-menu button{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;border:0;border-radius:9px;background:none;color:#4b255e;padding:10px 12px;text-align:left;font:inherit;cursor:pointer}
+.room-semester-menu button[aria-checked=true]{background:#eee0f8;font-weight:600}
+.room-semester-menu button[aria-checked=true]::after{content:'✓';color:#8b26e0}
+.room-semester-menu button:is(:hover,:focus-visible){background:#f1e7f8}
+.room-semester-menu .room-semester-create{color:#851dd9;border-top:1px solid #e6d7ed;border-radius:0;margin-top:5px;padding-top:13px;font-weight:600}
+.room-semester-menu .room-semester-manage-action{font-size:12px;color:#805d98}
+.room-icon{display:inline-grid;place-items:center;width:44px;height:44px;min-height:44px;border:1px solid #d6bbe6;border-radius:13px;background:#fffaf7cf;color:#7845a0;cursor:pointer;box-sizing:border-box;padding:10px}
+.room-icon svg,.room-student-search>svg{display:block;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.room-icon:hover{background:#f0e2f8}
+.room-delete{margin:0;color:#8234bc}
+body.room-approved-page .room-workspace{grid-template-columns:minmax(0,1.82fr) minmax(290px,1fr);gap:20px}
+body.room-approved-page .room-students,body.room-approved-page .room-rhythm{background:#fffcfae8;border-color:#d1ace6;border-radius:22px;padding:24px}
+body.room-approved-page .room-students{min-height:420px}
+.room-students-header{margin-bottom:23px;min-height:44px}
+.room-students-title{gap:16px}.room-students-title h2{font-size:26px;color:#3c1552}.room-students-title>span{font-size:14px}
+.room-student-tools{display:flex;align-items:center;gap:12px;margin-left:auto}
+.room-student-search{border-radius:13px;min-height:42px;padding:0 10px;color:#754395;cursor:text;box-sizing:border-box}
+.room-student-search>svg{flex-shrink:0}
+body.room-approved-page .room-invite{align-self:auto;margin:0;background:linear-gradient(145deg,#a43ae8,#7924bf);color:#fff;border-color:#a353d1;box-shadow:0 3px 8px #7924bf22}
+.room-invite:hover{filter:brightness(1.06)}
+body.room-approved-page .room-student-list th{font-size:14px;padding:8px 0 14px;color:#856097}
+body.room-approved-page .room-student-list td{padding:15px 8px 15px 0;height:44px;font-size:16px}
+.room-student-name strong{font-size:15px}.room-student-link{text-decoration:underline;text-underline-offset:2px}
+.room-grade{max-width:150px;gap:7px}.room-grade strong{font-size:19px}.room-grade-track{height:8px}.room-grade-track>span{background:linear-gradient(90deg,#ac60e7,#b976e6)}
+.room-student-more{border:0;background:none;font:700 26px/1 Arial,sans-serif;color:#882aca;width:32px;height:44px;padding:0;cursor:pointer;border-radius:9px}
+.room-student-more:hover{background:#f0e3f7}
+.room-student-hint{margin:18px 0 0;color:#88679c;font-size:12px;font-style:italic}
+.room-student-popup{position:fixed;z-index:70;max-width:calc(100vw - 24px);width:220px;border:1px solid #dbc5e8;border-radius:13px;padding:6px;background:#fffafc;box-shadow:0 7px 22px #3b1c5528}
+.room-student-popup :is(a,button){box-sizing:border-box;display:block;width:100%;text-align:left;border:0;border-radius:8px;background:none;padding:11px;color:#61367b;font:13px/1.4 Astro,Arial,sans-serif;cursor:pointer;text-decoration:none}
+.room-student-popup :is(a,button):hover{background:#f0e5f7}.room-student-popup .integration-danger{color:#b23b55}
+.room-side{gap:16px}.room-review{min-height:120px;border-radius:20px;padding:20px;gap:14px}.room-review h2{font-size:18px}.room-review p{margin-bottom:12px}.room-review-icon{width:30px;flex-basis:30px;height:38px;font-size:24px}
+body.room-approved-page .room-rhythm{padding:21px;display:flex;flex-direction:column;justify-content:flex-start}.room-rhythm h2{font-size:24px}.room-rhythm>p{margin-bottom:18px}.room-chart-scroll{margin-top:auto}.room-rhythm details{margin-top:10px}.room-rhythm svg{max-height:290px}
+body.room-approved-page #main>footer{background:none;margin-top:22px;opacity:.6}
+@media(min-width:1500px){body.room-approved-page .room-students{min-height:495px}body.room-approved-page .room-student-list td{height:52px}.room-portrait{width:52px;height:52px;flex-basis:52px}.room-student-name strong{font-size:17px}.room-students-title h2{font-size:28px}.room-review{min-height:125px}.room-rhythm h2{font-size:27px}}
+@media(max-width:1100px){body.room-approved-page .room-workspace{grid-template-columns:minmax(0,1.6fr) minmax(275px,1fr);gap:16px}body.room-approved-page .room-students{padding:18px}.room-students-title{gap:8px}.room-students-title h2{font-size:22px}.room-students-title>span{font-size:12px}.room-student-tools{gap:7px}.room-student-search:is(:hover,:focus-within,.has-value) input{width:95px}.room-student-name strong{font-size:14px}.room-semester-control{min-width:220px}.room-portrait{width:36px;height:36px;flex-basis:36px}}
+@media(max-width:950px){body.room-approved-page .room-workspace{grid-template-columns:1fr}.room-side{display:grid;grid-template-columns:1fr 1.3fr}.room-review{align-self:start}.room-students{min-height:0!important}.room-rhythm svg{max-height:240px}}
+@media(max-width:800px){body.room-approved-page.astro-nav-ready #main,body.room-approved-page #main{margin:0!important;width:100%!important;padding:84px 18px 110px!important}body.room-approved-page #breadcrumbs{margin-bottom:24px}body.room-approved-page #pageActions{gap:10px;margin-top:24px}.room-semester-control{flex:1 1 210px;min-width:0;margin-left:0}.room-side{display:flex}.room-students-header{flex-wrap:wrap;margin-bottom:14px}.room-student-tools{margin-left:auto}.room-student-search:focus-within input{width:110px}.room-student-name strong{font-size:13px}.room-portrait{display:grid;width:32px;height:32px;flex-basis:32px;font-size:13px}.room-student-link{gap:8px}.room-grade{max-width:75px}body.room-approved-page .room-student-list td{font-size:13px;padding:13px 5px 13px 0;height:auto}.room-student-list th:nth-child(2){width:20%}.room-student-list th:nth-child(3){width:18%}.room-workspace table{min-width:0!important}.room-student-more{width:26px}.room-rhythm svg{max-height:none}.room-rhythm details{margin-top:14px}}
+@media(prefers-reduced-motion:reduce){.room-approved-page *{scroll-behavior:auto!important}}

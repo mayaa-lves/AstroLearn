@@ -84,7 +84,7 @@
     const params=new URLSearchParams(location.search),room=params.get('sala');
     const items=[['home.html','Turmas']];
     if(room)items.push(['turma.html','Sala'],['atividades.html','Atividades'],['biblioteca.html','Biblioteca'],['equipes.html','Equipes'],['correcoes.html','Correções'],['perguntas.html','Perguntas'],['jogos.html','Jogos']);
-    items.push(['notificacoes.html','Notificações'],['assistente.html','Assistente'],['perfil.html','Perfil']);
+    // Notifications, profile and assistant already have dedicated controls.
     const chosen=({'perfil.html':'Perfil','home.html':'Turmas','assistente.html':'Assistente','jogos.html':'Jogos','turma.html':'Sala','aluno.html':'Sala','atividade.html':'Atividades','atividades.html':'Atividades','editor-atividade.html':'Atividades','biblioteca.html':'Biblioteca','novo-material.html':'Biblioteca','equipes.html':'Equipes','correcao.html':'Correções','correcoes.html':'Correções','perguntas.html':'Perguntas','notificacoes.html':'Notificações'})[location.pathname.split('/').pop()];
     const keep=[];
     for(const [file,label]of items){

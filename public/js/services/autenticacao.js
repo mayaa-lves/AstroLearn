@@ -121,6 +121,15 @@ export function destinoAposLogin() {
         throw new ErroAPI('Faça login para continuar.', 401);
     }
 
+    if (sessao.usuario.role === 'aluno') {
+        try {
+            const convite = sessionStorage.getItem('astrolearn-convite-v1');
+            if (convite && /^[A-Za-z0-9-]{1,100}$/.test(convite)) {
+                const target = new URL('../../../aluno/convite.html', import.meta.url);
+                target.searchParams.set('codigo', convite); return target.href;
+            }
+        } catch {}
+    }
     return new URL(
         `../../../${sessao.usuario.role}/home.html`,
         import.meta.url
