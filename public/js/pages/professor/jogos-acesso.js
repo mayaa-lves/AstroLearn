@@ -13,6 +13,9 @@ const badge = document.getElementById('gamesAccessBadge');
 const hint = document.getElementById('gamesAccessHint');
 const roomLink = document.getElementById('gamesRoomLink');
 roomLink.href = sala ? 'turma.html?sala=' + encodeURIComponent(sala) : 'home.html';
+const backLink = document.getElementById('gamesBackLink');
+backLink.href = roomLink.href;
+backLink.textContent = sala ? '← Voltar à sala' : '← Voltar às turmas';
 
 function controls() {
   check.disabled = busy || !ready;

@@ -1,5 +1,5 @@
 import { api } from '../services/conexao.js';
-import './professor-sala-controles.js?v=1';
+import './professor-sala-controles.js?v=2';
 import { consultarTurma,consultarConvite,excluirTurma,excluirSemestre,removerAluno,adicionarAluno,linkConvite } from '../services/gestao-turma.js';
 import { node,button,field,dialog,confirmDelete } from './gestao-ui.js';
 if(location.pathname.includes('/professor/')){

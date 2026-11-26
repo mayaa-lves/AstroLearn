@@ -274,3 +274,57 @@ body[data-page="games"] #accessMessage {
 .astro-high-contrast .games-access {
   background: #fff;
 }
+
+/* Acabamento compacto. Mantém o cenário, o controle e as órbitas aprovados. */
+body[data-page="games"] .page-heading h1 {
+  font-size: clamp(28px, 2.7vw, 38px);
+  line-height: 1.2;
+  margin-bottom: 8px;
+  letter-spacing: -.8px;
+}
+body[data-page="games"] .page-heading > p { font-size: 14px; }
+body[data-page="games"] .page-heading { margin-bottom: 14px; }
+body[data-page="games"] .games-navigation { margin: 0 0 16px; min-height: 44px; }
+body[data-page="games"] .games-workspace { gap: 24px; }
+body[data-page="games"] .games-access {
+  padding: 24px;
+  border: 1px solid #ddcbe5;
+  border-radius: 18px;
+  background: #fffaf8;
+  box-shadow: 0 4px 16px #45215308;
+}
+body[data-page="games"] .games-access-heading { gap: 10px 14px; margin-bottom: 20px; }
+body[data-page="games"] .games-access-heading h2 { font-size: 20px; line-height: 1.35; }
+body[data-page="games"] .games-access-badge { font-size: 11px; white-space: nowrap; }
+body[data-page="games"] #accessForm { display: block; margin: 0; min-width: 0; }
+body[data-page="games"] .games-toggle { margin: 0; font-size: 14px; }
+body[data-page="games"] #gamesAccessHint { font-size: 13px; line-height: 1.6; }
+body[data-page="games"] #accessMessage { min-height: 1.5em; line-height: 1.5; }
+body[data-page="games"] .games-actions { gap: 10px; padding-top: 16px; margin-top: 18px; }
+body[data-page="games"] #saveAccess { min-height: 44px; padding: 10px 16px; font-size: 13px; }
+body[data-page="games"] .games-refresh:disabled { opacity: .55; cursor: wait; }
+body[data-page="games"] .games-controller-stage { height: 320px; max-width: 420px; }
+body[data-page="games"] .games-controller-hover { height: 260px; }
+body[data-page="games"] .games-plinth { height: 100px; }
+body[data-page="games"] :is(button,a,input):focus-visible { outline: 3px solid #a167bf; outline-offset: 3px; }
+@container (min-width: 820px) {
+  body[data-page="games"] .games-workspace {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    min-height: 320px;
+  }
+}
+@media (max-width: 800px) {
+  body[data-page="games"] #main { padding-top: 80px; }
+  body[data-page="games"] .breadcrumbs { padding-inline-end: 0; }
+}
+@media (max-width: 550px) {
+  body[data-page="games"] .games-access { padding: 20px 18px; }
+  body[data-page="games"] .games-access-heading h2 { font-size: 18px; }
+  body[data-page="games"] .games-toggle { gap: 11px; }
+  body[data-page="games"] .games-controller-stage { height: 265px; max-width: 340px; }
+  body[data-page="games"] .games-controller-hover { height: 220px; }
+  body[data-page="games"] .games-plinth { height: 85px; }
+}
+body.astro-motion-off[data-page="games"] #gamesController { animation: none; }
+body.astro-motion-off[data-page="games"] :is(.games-controller-hover,.games-switch,.games-switch::before,.games-refresh span) { transition: none; }
+body.astro-motion-off[data-page="games"] .games-controller-hover:hover { transform: none; }

@@ -1,0 +1,134 @@
+{
+  "turma": [
+    {
+      "original": "02-criar-turma-original.mp4",
+      "inicio_original": 0,
+      "fim_original": 3,
+      "inicio_editado": 0
+    },
+    {
+      "original": "02-criar-turma-original.mp4",
+      "inicio_original": 4,
+      "fim_original": 16,
+      "inicio_editado": 3
+    },
+    {
+      "original": "02-criar-turma-original.mp4",
+      "inicio_original": 27,
+      "fim_original": 35,
+      "inicio_editado": 15
+    }
+  ],
+  "semestre": [
+    {
+      "original": "04-menu-semestres-original.mp4",
+      "inicio_original": 1.8,
+      "fim_original": 5.3,
+      "inicio_editado": 0
+    },
+    {
+      "original": "05-criar-semestre-e-atividade-original.mp4",
+      "inicio_original": 5,
+      "fim_original": 11,
+      "inicio_editado": 3.5
+    },
+    {
+      "original": "05-criar-semestre-e-atividade-original.mp4",
+      "inicio_original": 14.8,
+      "fim_original": 16.2,
+      "inicio_editado": 9.5
+    }
+  ],
+  "convite": [
+    {
+      "original": "03-convidar-aluno-original.mp4",
+      "inicio_original": 8,
+      "fim_original": 10.5,
+      "inicio_editado": 0
+    },
+    {
+      "original": "03-convidar-aluno-original.mp4",
+      "inicio_original": 12,
+      "fim_original": 18,
+      "inicio_editado": 2.5
+    }
+  ],
+  "atividade": [
+    {
+      "original": "05-criar-semestre-e-atividade-original.mp4",
+      "inicio_original": 24,
+      "fim_original": 29,
+      "inicio_editado": 0
+    },
+    {
+      "original": "05-criar-semestre-e-atividade-original.mp4",
+      "inicio_original": 47,
+      "fim_original": 55,
+      "inicio_editado": 5
+    },
+    {
+      "original": "05-criar-semestre-e-atividade-original.mp4",
+      "inicio_original": 74,
+      "fim_original": 82,
+      "inicio_editado": 13
+    },
+    {
+      "original": "05-criar-semestre-e-atividade-original.mp4",
+      "inicio_original": 86,
+      "fim_original": 92,
+      "inicio_editado": 21
+    }
+  ],
+  "biblioteca": [
+    {
+      "original": "06-biblioteca-criar-material-original.mp4",
+      "inicio_original": 0,
+      "fim_original": 4.2,
+      "inicio_editado": 0
+    },
+    {
+      "original": "06-biblioteca-criar-material-original.mp4",
+      "inicio_original": 12,
+      "fim_original": 18,
+      "inicio_editado": 4.2
+    },
+    {
+      "original": "06-biblioteca-criar-material-original.mp4",
+      "inicio_original": 27,
+      "fim_original": 33,
+      "inicio_editado": 10.2
+    },
+    {
+      "original": "07-biblioteca-anexo-e-salvar-original.mp4",
+      "inicio_original": 0,
+      "fim_original": 8,
+      "inicio_editado": 16.2
+    },
+    {
+      "original": "07-biblioteca-anexo-e-salvar-original.mp4",
+      "inicio_original": 17.5,
+      "fim_original": 21.1,
+      "inicio_editado": 24.2
+    }
+  ],
+  "equipe": [
+    {
+      "original": "08-criar-equipe-e-adicionar-membros-original.mp4",
+      "inicio_original": 0,
+      "fim_original": 9,
+      "inicio_editado": 0
+    },
+    {
+      "original": "08-criar-equipe-e-adicionar-membros-original.mp4",
+      "inicio_original": 15,
+      "fim_original": 21,
+      "inicio_editado": 9
+    },
+    {
+      "original": "08-criar-equipe-e-adicionar-membros-original.mp4",
+      "inicio_original": 23,
+      "fim_original": 30.8,
+      "inicio_editado": 15
+    }
+  ]
+}

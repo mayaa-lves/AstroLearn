@@ -156,7 +156,18 @@
     notifications: async () => {const d=await (await comunicacao).notificacoes(); return {...d,notificacoes:(d.notificacoes || []).map(n=>({...n,tipo:n.tipo==="duvida"?"pergunta":n.tipo,entrega_id:n.progresso_id}))};},
     readNotifications: async ids => (await comunicacao).lerNotificacoes(ids),
     simulateDelivery: () => blocked("A simulação de entrega"),
-    questions: async s => ((await call(base(s)+"/perguntas")).perguntas || []).map(p => ({...p, perfis: {nome:p.aluno_nome}, missoes: {titulo:p.titulo_missao}, respondida_em:p.respondido_em})),
+    questions: async (s) => {
+      const { perguntas } = await call(base(s) + "/perguntas");
+      return (perguntas || []).map((question) => ({
+        ...question,
+        perfis: {
+          ...question.perfis,
+          nome: question.perfis?.nome || question.aluno_nome,
+          avatar_id: question.perfis?.avatar_id ?? question.aluno_avatar_id ?? question.avatar_id,
+        },
+        missoes: { ...question.missoes, titulo: question.missoes?.titulo || question.titulo_missao },
+      }));
+    },
     studentQuestions: () => blocked("As perguntas ao professor"),
     ask: () => blocked("As perguntas ao professor"),
     answer: (id,resposta) => call("/api/professor/perguntas/"+part(id)+"/responder","PATCH",{resposta}),

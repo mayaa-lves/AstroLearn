@@ -1,0 +1,39 @@
+/* A expansão pertence ao botão, não a um balão solto. Sem alterar cores ou ações. */
+html.astro-professor body .astro-expand-action{
+ display:inline-flex!important;align-items:center!important;justify-content:center!important;
+ flex:0 1 auto!important;gap:0!important;box-sizing:border-box!important;
+ width:auto!important;min-width:40px!important;max-width:100%!important;
+ height:auto!important;min-height:40px!important;padding:9px!important;
+ overflow:hidden!important;text-decoration:none;vertical-align:middle;
+}
+html.astro-professor body .astro-expand-action>svg{
+ display:block!important;flex:0 0 20px!important;width:20px!important;height:20px!important;min-width:20px!important;
+}
+html.astro-professor body .astro-expand-action>.astro-action-label{
+ display:block!important;position:static!important;float:none!important;
+ width:auto!important;min-width:0!important;max-width:0!important;
+ height:auto!important;margin:0!important;padding:0!important;overflow:hidden!important;
+ opacity:0!important;visibility:visible!important;white-space:nowrap!important;
+ font:inherit!important;font-size:12px!important;line-height:1.4!important;letter-spacing:normal!important;
+ transition:max-width .24s ease,margin-inline-start .24s ease,opacity .18s ease;
+}
+html.astro-professor body .astro-expand-action:is(:hover,:focus-visible)>.astro-action-label{
+ max-width:250px!important;margin-inline-start:8px!important;opacity:1!important;
+}
+html.astro-professor body .astro-expand-action:focus-visible{outline:3px solid #9963bc!important;outline-offset:3px!important}
+/* O badge do sino sai do limite do botão; só o rótulo precisa ser recortado. */
+html.astro-professor #teacherTools>.astro-expand-action{border-radius:999px!important;overflow:visible!important}
+html.astro-professor body .astro-expand-action[data-tooltip]::after{content:none!important}
+html.astro-professor body :is(.material-actions,.review-file-controls,.room-card-footer){flex-wrap:wrap;gap:6px}
+html.astro-professor body .room-student-tools{flex-wrap:wrap}
+/* Dispositivos híbridos com mouse também recebem o efeito, mesmo com tela touch. */
+@media(any-hover:hover){
+ html.astro-professor body a.teacher-return:not(:hover):not(:focus-visible)>.teacher-return-label{max-width:0!important;margin-inline-start:0!important;opacity:0!important;white-space:nowrap!important}
+}
+/* Sem hover, o nome fica visível: a primeira interação continua executando a ação. */
+@media(any-hover:none){
+ html.astro-professor body .astro-expand-action>.astro-action-label{max-width:250px!important;margin-inline-start:8px!important;opacity:1!important;white-space:normal!important}
+ html.astro-professor body .astro-expand-action{min-height:44px!important}
+}
+@media(prefers-reduced-motion:reduce){html.astro-professor body .astro-expand-action>.astro-action-label{transition:none!important}}
+html.astro-professor body.astro-motion-off .astro-expand-action>.astro-action-label{transition:none!important}

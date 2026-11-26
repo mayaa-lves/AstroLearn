@@ -9,7 +9,7 @@
 
     
     <meta content="width=device-width,initial-scale=1" name="viewport" />
-    <title>Perguntas · AstroLearn</title>
+    <title>Perguntas da turma · AstroLearn</title>
     <meta
       content="Turmas, atividades e acompanhamento dos alunos no AstroLearn."
       name="description"
@@ -19,12 +19,15 @@
     <link href="../public/css/menu-professor.css" rel="stylesheet" />
     <link href="../public/css/preferencias.css" rel="stylesheet" />
     <link rel="stylesheet" href="../public/css/menu-unificado.css">
-  <script defer src="../public/js/components/menu-professor-perfil.js?v=2"></script>
+  <script defer src="../public/js/components/menu-professor-perfil.js?v=4"></script>
 <link rel="icon" type="image/png" href="../public/assets/imagens/marca/astrolearn-simbolo.png">
 <link rel="stylesheet" href="../public/css/rolagem.css" data-astro-rolagem>
-  <link rel="stylesheet" href="../public/css/professor-perguntas.css?v=3">
+  <link rel="stylesheet" href="../public/css/professor-perguntas.css?v=20261124-compact-2">
+<link rel="preload" as="image" href="../public/assets/imagens/professor/perguntas-cenario-aprovado.png">
+<link rel="stylesheet" href="../public/css/professor-acabamento.css?v=1">
+<script defer src="../public/js/components/professor-acabamento.js?v=1"></script>
 </head>
-  <body data-page="questions">
+  <body data-page="questions" class="teacher-finish">
     <a class="skip" href="#main">Pular para o conteúdo</a>
     <aside class="sidebar">
       <a class="brand" href="home.html" id="brandHome"
@@ -88,8 +91,8 @@
       ></nav>
       <section class="page-heading">
         <p class="eyebrow">ENSINAR É ABRIR NOVOS MUNDOS</p>
-        <h1 id="pageTitle" tabindex="-1">Suas turmas.</h1>
-        <p id="pageSubtitle">Cada sala, uma nova expedição.</p>
+        <h1 id="pageTitle" tabindex="-1">Perguntas da turma</h1>
+        <p id="pageSubtitle">Converse com os alunos e acompanhe as respostas.</p>
         <div class="page-actions" id="pageActions"></div>
       </section>
       <p class="mode-note" id="modeNote"></p>
@@ -98,7 +101,13 @@
       <div aria-busy="true" id="content">
         <p class="empty">Preparando sua estação…</p>
       </div>
-      <footer>AstroLearn · Uma descoberta de cada vez.</footer>
+      <footer class="questions-page-footer">
+        <a href="home.html">
+          <img src="../public/assets/imagens/marca/astrolearn-simbolo.png" alt="" />
+          AstroLearn
+        </a>
+        <span>Uma descoberta de cada vez.</span>
+      </footer>
     </main>
     <dialog aria-labelledby="dialogTitle" id="actionDialog">
       <button aria-label="Fechar" class="close" id="closeDialog">×</button>
@@ -106,16 +115,15 @@
       <div id="dialogContent"></div>
       <p id="dialogError" role="alert"></p>
     </dialog>
-    <script src="../public/js/components/professor-dados.js"></script>
-    <script src="../public/js/pages/professor/perguntas.js?v=2"></script>
-    <script src="../public/js/components/professor-paginas.js"></script>
+    <script src="../public/js/components/professor-dados.js?v=20261124-questions-2"></script>
+    <script src="../public/js/components/professor-paginas.js?v=20261124-questions-2"></script>
     <script src="../public/js/components/assistente-professor.js?v=1"></script>
 <script src="../public/js/components/preferencias.js"></script>
     
     
 
   <script type="module" src="../public/js/components/sessao.js"></script>
-<script type="module" src="../public/js/components/professor-padrao.js?v=3"></script>
+<script type="module" src="../public/js/components/professor-padrao.js?v=9"></script>
 <script type="module" src="../public/js/components/professor-perfil-vinculo.js?v=3"></script>
 </body>
 </html>

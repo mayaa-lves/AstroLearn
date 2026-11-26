@@ -1,0 +1,140 @@
+/* O tutorial ocupa a tela de vidro. Só a demonstração recebe uma moldura. */
+body.astro-tutorial-open{overflow:hidden!important}
+body.astro-tutorial-open>:not(.astro-tutorial),body.astro-tutorial-open>:not(.astro-tutorial) *{animation-play-state:paused!important}
+html body dialog.astro-tutorial{
+ position:fixed!important;inset:0!important;width:100%!important;max-width:none!important;
+ height:100dvh!important;max-height:100dvh!important;box-sizing:border-box!important;
+ margin:0!important;padding:0!important;border:0!important;border-radius:0!important;
+ overflow:auto!important;overscroll-behavior:contain;
+ background:linear-gradient(125deg,#63457726,#6c45891a 55%,#4f325922)!important;
+ color:#fff9ff!important;box-shadow:none!important;backdrop-filter:none;
+ font:14px/1.55 Astro,Arial,sans-serif!important;color-scheme:dark;
+}
+html body dialog.astro-tutorial:not([open]){display:none!important}
+.astro-tutorial::backdrop{background:#291438a3;backdrop-filter:blur(8px) saturate(.85)}
+.astro-tutorial *{box-sizing:border-box}
+.astro-tutorial .tut-inner{max-width:1600px;min-height:100dvh;margin:0 auto;padding:26px 38px 18px;display:flex;flex-direction:column}
+.astro-tutorial .tut-heading{position:relative;display:block!important;width:100%;min-height:0!important;padding:0 45px;margin:0 0 25px;text-align:center;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;backdrop-filter:none!important;filter:none!important}
+.astro-tutorial .tut-heading::before,.astro-tutorial .tut-heading::after{content:none!important}
+.astro-tutorial .tut-heading>:is(p,h1){position:static!important;float:none!important;display:block;flex:none}
+.astro-tutorial .tut-eyebrow{margin:0 0 10px;color:#e4ceef;font-size:11px;font-weight:700;letter-spacing:1.6px}
+.astro-tutorial h1{margin:0 0 9px;font-size:clamp(27px,3.15vw,43px);font-weight:700;line-height:1.2;letter-spacing:-1px;color:#fffaff;text-wrap:balance;outline:none}
+.astro-tutorial .tut-description{max-width:850px;margin:0 auto;font-size:15px;line-height:1.55;color:#f0e1f6;text-wrap:balance}
+.astro-tutorial button{font:inherit;color:inherit;cursor:pointer;touch-action:manipulation}
+.astro-tutorial .tut-close{position:absolute;right:0;top:0;width:42px;height:42px;border:1px solid #f2e1ff38;border-radius:50%;padding:0;background:#ffffff08;font:32px/1 Arial,sans-serif;color:#fff5ff}
+.astro-tutorial .tut-close:hover{background:#ffffff1c}
+.astro-tutorial .tut-content{flex:1;display:grid;align-content:center;min-width:0}
+.astro-tutorial .tut-welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:12px 0 30px}
+.astro-tutorial .tut-welcome .tut-mascot{width:clamp(210px,34dvh,340px);position:relative;inset:auto}
+.astro-tutorial .tut-welcome-actions{display:grid;justify-items:center;gap:12px}
+.astro-tutorial .tut-button{display:inline-flex;justify-content:center;align-items:center;min-height:46px;max-width:100%;padding:11px 25px;border:1px solid #f0dcff9c;border-radius:999px;background:#e5ceff0c;font-weight:700;font-size:14px;white-space:normal;text-decoration:none}
+.astro-tutorial .tut-button:hover{background:#f4e7ff20}
+.astro-tutorial :is(.tut-start,.tut-next){border-color:#c58beaaa;background:linear-gradient(120deg,#a44ade,#7733ac);box-shadow:0 5px 24px #200d3e35;color:#fff}
+.astro-tutorial :is(.tut-start,.tut-next):hover{background:linear-gradient(120deg,#b15ae9,#8641b8)}
+.astro-tutorial .tut-start{min-width:220px;font-size:17px;padding:13px 28px}
+.astro-tutorial .tut-skip{border:0;background:none;padding:6px 12px;font-size:12px;color:#f0def8;text-decoration:underline;text-underline-offset:4px;justify-self:center}
+.astro-tutorial .tut-replay-note{margin:0;font-size:11px;color:#ddc8e7;text-align:center}
+.astro-tutorial .tut-stage{position:relative;display:grid;grid-template-columns:minmax(170px,1fr) minmax(0,3.4fr) minmax(180px,1fr);align-items:center;gap:28px;min-width:0;padding:12px 0 16px}
+.astro-tutorial .tut-notes{z-index:2;display:grid;gap:24px;min-width:0}
+.astro-tutorial .tut-notes-left{align-self:start;margin-top:12px;padding-bottom:140px}
+.astro-tutorial .tut-callout{display:flex;align-items:start;gap:9px;width:100%;border:1px solid transparent;border-radius:14px;padding:10px 5px;background:transparent;text-align:left;opacity:.72;transition:opacity .2s,background .2s}
+.astro-tutorial .tut-callout:is(:hover,:focus-visible,.is-current){opacity:1;background:#e9d6ff0b}
+.astro-tutorial .tut-number{display:grid;place-items:center;flex:0 0 27px;width:27px;height:27px;border-radius:50%;background:#e6c7f7;color:#452059;font-size:15px;font-weight:700}
+.astro-tutorial .tut-note-copy{display:grid;gap:7px;min-width:0;overflow-wrap:anywhere}
+.astro-tutorial .tut-note-copy strong{font-size:clamp(15px,1.4vw,19px);line-height:1.3;font-weight:700;color:#fff6ff}
+.astro-tutorial .tut-note-copy>span{font-size:13px;line-height:1.6;color:#f1e4f7}
+.astro-tutorial .tut-figure{position:relative;z-index:1;margin:0;min-width:0;width:100%;max-width:min(100%,max(520px,calc(177dvh - 690px)));justify-self:center}
+.astro-tutorial .tut-screen{position:relative;width:100%;aspect-ratio:140/79;border:2px solid #dfb2f4d9;border-radius:17px;overflow:hidden;background:#37213f;box-shadow:0 16px 42px #180a2b4d}
+.astro-tutorial .tut-screen>:is(img,video){position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;margin:0;border:0;border-radius:0}
+.astro-tutorial .tut-screen video{z-index:1}
+.astro-tutorial .tut-media-controls{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:9px;margin-top:12px;font-size:11px;color:#f1e2f9}
+.astro-tutorial .tut-media-button{min-height:32px;padding:5px 10px;border:1px solid #dbc0ee66;border-radius:999px;background:#ead3fa08;font-size:11px;line-height:1.4}
+.astro-tutorial .tut-media-button:hover{background:#f1dcff22}
+.astro-tutorial .tut-media-button:disabled{opacity:.4;cursor:default}
+.astro-tutorial .tut-media-status{max-width:100%;text-align:center;font-size:10px;line-height:1.5}
+.astro-tutorial .tut-media-hint{max-width:660px;margin:10px auto 0;text-align:center;color:#e4cfed;font-size:11px;line-height:1.6;text-wrap:pretty}
+.astro-tutorial .tut-mascot{position:absolute;left:0;bottom:0;width:clamp(100px,12vw,175px);pointer-events:auto;z-index:2;transform-origin:bottom center;transition:transform .3s}
+.astro-tutorial .tut-mascot:hover{transform:rotate(-4deg) translateY(-4px)}
+.astro-tutorial .tut-mascot img{display:block;width:100%;height:auto;object-fit:contain}
+.astro-tutorial .tut-arrows{position:absolute;inset:0;z-index:3;width:100%;height:100%;overflow:visible;pointer-events:none;color:#efc7ff}
+.astro-tutorial .tut-curve{fill:none;stroke:#f0caff;stroke-width:2;stroke-linecap:round;filter:drop-shadow(0 1px 2px #32104b)}
+.astro-tutorial .tut-target{fill:#e9c7ff;stroke:#744091;stroke-width:1.5}
+.astro-tutorial .tut-target-number{fill:#432254;font:bold 12px Arial,sans-serif}
+.astro-tutorial .tut-footer{display:grid!important;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px 24px;width:min(900px,100%);margin:16px auto 0;padding:0 0 max(0px,env(safe-area-inset-bottom));background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;backdrop-filter:none!important}
+.astro-tutorial .tut-back{justify-self:start;color:#fff4ff}.astro-tutorial .tut-next{justify-self:end}
+.astro-tutorial .tut-progress{display:grid;justify-items:center;gap:5px;text-align:center}
+.astro-tutorial .tut-count{font-size:11px;color:#f2e5fa}
+.astro-tutorial .tut-dots{display:flex;gap:2px;align-items:center;justify-content:center}
+.astro-tutorial .tut-dot{display:grid;place-items:center;width:22px;height:26px;padding:0;border:0;background:none}
+.astro-tutorial .tut-dot::before{content:'';width:8px;height:8px;border-radius:50%;background:#d6bfe16b;transition:transform .18s}
+.astro-tutorial .tut-dot[aria-current=step]::before{background:#e5b5ff;transform:scale(1.35)}
+.astro-tutorial .tut-footer>.tut-skip,.astro-tutorial .tut-demo-note{grid-column:1/-1}
+.astro-tutorial .tut-demo-note{margin:0;text-align:center;font-size:10px;color:#dfcce8;line-height:1.5}
+.astro-tutorial button:focus-visible{outline:3px solid #f0d4ff;outline-offset:4px}
+.astro-tutorial [hidden]{display:none!important}
+.astro-tutorial[data-scene=welcome] .tut-heading,.astro-tutorial[data-scene=end] .tut-heading{margin-top:clamp(12px,5dvh,60px)}
+.astro-tutorial[data-scene=welcome] h1{font-size:clamp(42px,6vw,72px)}
+.astro-tutorial[data-scene=end] h1{font-size:clamp(32px,4vw,52px)}
+.astro-tutorial.tut-is-zoomed .tut-stage{grid-template-columns:1fr;padding-bottom:0}
+.astro-tutorial.tut-is-zoomed .tut-figure{max-width:min(1100px,100%)}
+.astro-tutorial.tut-is-zoomed :is(.tut-notes,.tut-stage>.tut-mascot,.tut-arrows){display:none}
+html[data-astro-tema=pixel] .astro-tutorial :is(.tut-screen,.tut-callout,.tut-button,.tut-media-button){border-radius:4px}
+html[data-astro-tema=pixel] .astro-tutorial .tut-mascot img{image-rendering:pixelated}
+@media(min-width:1051px) and (max-height:740px){
+ .astro-tutorial .tut-inner{padding-block:18px 12px}.astro-tutorial .tut-heading{margin-bottom:12px}.astro-tutorial h1{font-size:29px}.astro-tutorial .tut-description{font-size:13px}
+ .astro-tutorial .tut-stage{grid-template-columns:minmax(180px,1fr) minmax(0,2.7fr) minmax(180px,1fr);padding-bottom:12px;gap:20px}
+ .astro-tutorial .tut-note-copy strong{font-size:15px}.astro-tutorial .tut-note-copy>span{font-size:12px}.astro-tutorial .tut-footer{margin-top:8px;gap:6px 24px}
+}
+@media(max-width:1050px){
+ .astro-tutorial .tut-inner{padding:22px 25px 18px}.astro-tutorial .tut-heading{padding-inline:30px;margin-bottom:20px}
+ .astro-tutorial .tut-stage{grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;padding:0}
+ .astro-tutorial .tut-figure{grid-column:1/-1;grid-row:1;max-width:760px}
+ .astro-tutorial .tut-notes-left{grid-column:1;grid-row:2;padding:0;margin:0}
+ .astro-tutorial .tut-notes-right{display:contents}.astro-tutorial .tut-notes-right>.tut-callout{grid-row:2;align-self:start}
+ .astro-tutorial .tut-callout{opacity:1;padding:8px 4px;gap:8px}.astro-tutorial .tut-note-copy strong{font-size:15px}.astro-tutorial .tut-note-copy>span{font-size:12px}
+ .astro-tutorial .tut-stage>.tut-mascot{position:static;inset:auto;width:85px;grid-column:1/-1;justify-self:center}.astro-tutorial .tut-footer{margin-top:22px}
+ .astro-tutorial.tut-is-zoomed .tut-figure{max-width:100%}
+}
+@media(max-width:600px){
+ .astro-tutorial .tut-inner{padding:18px 16px 20px;min-height:100dvh}.astro-tutorial .tut-heading{padding:36px 0 0;text-align:left;margin-bottom:18px}.astro-tutorial .tut-close{top:-4px;right:-2px}
+ .astro-tutorial .tut-eyebrow{font-size:10px;letter-spacing:1.1px}.astro-tutorial h1{font-size:27px;letter-spacing:-.5px}.astro-tutorial .tut-description{font-size:13px}
+ .astro-tutorial .tut-stage{display:flex;flex-direction:column;align-items:stretch;gap:9px}.astro-tutorial .tut-figure{order:0}.astro-tutorial .tut-notes-left{order:1}.astro-tutorial .tut-notes-right{display:grid;grid-template-columns:minmax(0,1fr);gap:9px;order:2}
+ .astro-tutorial .tut-notes-right>.tut-callout{grid-row:auto;grid-column:1}
+ .astro-tutorial .tut-callout{padding:9px 4px;gap:10px;opacity:1}.astro-tutorial .tut-note-copy{gap:4px}.astro-tutorial .tut-note-copy strong{font-size:15px}.astro-tutorial .tut-note-copy>span{font-size:13px;line-height:1.55}
+ .astro-tutorial .tut-stage>.tut-mascot{order:3;align-self:center}
+ .astro-tutorial .tut-media-controls{gap:7px}.astro-tutorial .tut-media-button{min-height:40px;padding:8px 10px}.astro-tutorial .tut-media-status{flex:1 1 100%}
+ .astro-tutorial .tut-screen{border-radius:11px}.astro-tutorial .tut-footer{position:sticky;bottom:0;z-index:5;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px;padding:10px 8px max(8px,env(safe-area-inset-bottom));background:#31213fef!important;backdrop-filter:blur(12px)!important}.astro-tutorial .tut-progress{grid-column:1/-1;grid-row:1}.astro-tutorial .tut-back{grid-row:2}.astro-tutorial .tut-next{grid-row:2}
+ .astro-tutorial .tut-button{min-height:44px;padding:10px 17px;font-size:13px}.astro-tutorial .tut-dot{width:30px;height:32px}
+ .astro-tutorial[data-scene=welcome] .tut-heading,.astro-tutorial[data-scene=end] .tut-heading{margin-top:0;text-align:center}.astro-tutorial[data-scene=welcome] h1{font-size:42px}
+ .astro-tutorial .tut-welcome .tut-mascot{width:240px}.astro-tutorial .tut-start{min-width:210px;font-size:16px}
+}
+@media(prefers-reduced-motion:reduce){.astro-tutorial *{animation:none!important;transition:none!important}}
+body.astro-motion-off .astro-tutorial *{animation:none!important;transition:none!important}
+body.astro-high-contrast .astro-tutorial{background:#30203dec!important;backdrop-filter:none}
+body.astro-high-contrast .astro-tutorial :is(.tut-note-copy>span,.tut-description,.tut-media-hint,.tut-demo-note){color:#fff}
+/* Poses próprias dos quatro mascotes; o recorte do atlas mantém as transparências. */
+.astro-tutorial .tut-mascot-sprite{display:block;width:100%;aspect-ratio:1;background-repeat:no-repeat;background-size:400% 200%;transform-origin:center;animation:tut-mascot-drift 6s ease-in-out infinite}
+.astro-tutorial .tut-mascot-playful .tut-mascot-sprite{animation:tut-mascot-wiggle .75s ease-in-out infinite}
+.astro-tutorial .tut-stage>.tut-mascot-top-left{top:-165px;bottom:auto;left:-8px;right:auto;width:170px}
+.astro-tutorial .tut-stage>.tut-mascot-top-right{top:-165px;bottom:auto;right:56px;left:auto;width:170px}
+.astro-tutorial .tut-stage>.tut-mascot-bottom-left{left:18px;right:auto;bottom:0;width:210px}
+.astro-tutorial .tut-stage>.tut-mascot-bottom-right{right:18px;left:auto;bottom:0;width:210px}
+.astro-tutorial .tut-layout-flipped>.tut-notes-left{grid-column:3;grid-row:1}
+.astro-tutorial .tut-layout-flipped>.tut-figure{grid-column:2;grid-row:1}
+.astro-tutorial .tut-layout-flipped>.tut-notes-right{grid-column:1;grid-row:1}
+html[data-astro-tema=pixel] .astro-tutorial .tut-mascot-sprite,html[data-visual-style=pixel] .astro-tutorial .tut-mascot-sprite{image-rendering:pixelated}
+@keyframes tut-mascot-drift{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-4px) rotate(1deg)}}
+@keyframes tut-mascot-wiggle{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-6px) rotate(4deg)}}
+@media(min-width:1051px) and (max-height:740px){
+ .astro-tutorial .tut-stage>.tut-mascot-top-left,.astro-tutorial .tut-stage>.tut-mascot-top-right{top:-112px;width:120px}
+}
+@media(max-width:1050px){
+ .astro-tutorial .tut-stage>.tut-mascot{position:static!important;inset:auto!important;width:145px;grid-column:1/-1;grid-row:3;justify-self:center;align-self:center}
+ .astro-tutorial .tut-stage>.tut-mascot[data-mascot-place$=left]{justify-self:start;align-self:flex-start;margin-left:8px}
+ .astro-tutorial .tut-stage>.tut-mascot[data-mascot-place$=right]{justify-self:end;align-self:flex-end;margin-right:8px}
+ .astro-tutorial .tut-layout-flipped>.tut-figure{grid-column:1/-1;grid-row:1}
+ .astro-tutorial .tut-layout-flipped>.tut-notes-left{grid-column:1;grid-row:2}
+ .astro-tutorial .tut-layout-flipped>.tut-notes-right{grid-column:auto;grid-row:auto}
+}
+@media(prefers-reduced-motion:reduce){.astro-tutorial .tut-mascot-sprite{animation:none!important}}
+body.astro-motion-off .astro-tutorial .tut-mascot-sprite{animation:none!important}

@@ -18,7 +18,19 @@ const server = http.createServer((req, res) => {
       file = path.join(file, 'index.html'); stat = fs.statSync(file);
     }
     if (!stat.isFile()) return fail(res, 404, 'Arquivo não encontrado.');
-    res.writeHead(200, {'Content-Type':mime[path.extname(file).toLowerCase()] || 'application/octet-stream','Content-Length':stat.size,'Cache-Control':'no-store'});
+    const headers={'Content-Type':mime[path.extname(file).toLowerCase()] || 'application/octet-stream','Content-Length':stat.size,'Cache-Control':'no-store','Accept-Ranges':'bytes'};
+    // Vídeos precisam de intervalos HTTP para rever um trecho sem reiniciar o arquivo.
+    if(req.method==='GET'&&req.headers.range){
+      const range=/^bytes=(\d*)-(\d*)$/.exec(req.headers.range);
+      const invalid=()=>{res.writeHead(416,{'Content-Range':`bytes */${stat.size}`});res.end();};
+      if(!range||(!range[1]&&!range[2]))return invalid();
+      let start=range[1]?Number(range[1]):Math.max(0,stat.size-Number(range[2]));
+      let end=range[1]&&range[2]?Math.min(Number(range[2]),stat.size-1):stat.size-1;
+      if(!Number.isSafeInteger(start)||!Number.isSafeInteger(end)||start>end||start>=stat.size||(!range[1]&&Number(range[2])===0))return invalid();
+      headers['Content-Length']=end-start+1;headers['Content-Range']=`bytes ${start}-${end}/${stat.size}`;
+      res.writeHead(206,headers);fs.createReadStream(file,{start,end}).on('error',()=>res.destroy()).pipe(res);return;
+    }
+    res.writeHead(200, headers);
     if (req.method === 'HEAD') return res.end();
     fs.createReadStream(file).on('error', () => res.destroy()).pipe(res);
   } catch (e) {

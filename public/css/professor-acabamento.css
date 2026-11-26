@@ -1,0 +1,132 @@
+/* Acabamento compartilhado, exclusivo das páginas docentes. Cenários e regras preservados. */
+body.teacher-finish{--finish-ink:#43204f;--finish-muted:#86689a;--finish-purple:#8245bc;--finish-line:#e0cee9;--finish-surface:#fffcfa}
+html.astro-professor body.teacher-finish #main{box-sizing:border-box;min-width:0;max-width:none!important;width:calc(100% - var(--astro-nav-width,88px) - 82px)!important;margin:0 32px 0 calc(var(--astro-nav-width,88px) + 50px)!important;padding:28px 0 30px!important;container-type:inline-size;container-name:teacher-content}
+html.astro-professor body.teacher-finish #main>:is(.breadcrumbs,#breadcrumbs){display:flex;align-items:center;flex-wrap:wrap;gap:10px;min-height:20px;margin:0 180px 22px 0!important;font-size:12px;line-height:1.5}
+html.astro-professor body.teacher-finish #main>:is(.page-heading,.quiz-heading,.profile-heading,.sparky-header){min-height:0!important;height:auto;margin-bottom:22px!important;padding-top:0!important;padding-bottom:0!important;border-bottom:0;background:none;box-shadow:none}
+html.astro-professor body.teacher-finish #main>:is(.profile-heading,.sparky-header){display:block!important;padding-right:165px!important}
+html.astro-professor body.teacher-finish #main>:is(.page-heading,.quiz-heading,.profile-heading,.sparky-header) h1{font-size:clamp(28px,2.8vw,38px)!important;line-height:1.2!important;letter-spacing:-.8px;margin:0 0 9px!important;overflow-wrap:anywhere}
+html.astro-professor body.teacher-finish #main>:is(.page-heading,.quiz-heading,.profile-heading,.sparky-header)>p:not(.eyebrow){position:static;float:none;text-align:left;max-width:850px;font-size:14px!important;line-height:1.6;margin:0}
+body.teacher-finish :is(#error,#status,#dialogError,#dialogContent .error-panel):empty{display:none}
+body.teacher-finish :is(#error,#status){font-size:13px;line-height:1.6;margin:0 0 15px;overflow-wrap:anywhere}
+html.astro-professor body.teacher-finish #main>:is(#pageActions,.page-actions){align-items:center;gap:10px;max-width:100%;margin-bottom:18px}
+body.teacher-finish #pageActions{gap:10px;align-items:center}
+body.teacher-finish #pageActions :is(select,a,button){max-width:100%}
+/* Ícones, imagens e rótulos ao passar o mouse mantêm as dimensões próprias. */
+html.astro-professor body.teacher-finish #main :is(.primary,.secondary):not(.teacher-return):not(.teacher-circle):not(.home-fallback){box-sizing:border-box;min-height:40px;border-radius:11px;font-size:13px;line-height:1.45;white-space:normal;overflow-wrap:anywhere}
+html.astro-professor body.teacher-finish #main :is(.primary,.secondary) svg{flex-shrink:0}
+html.astro-professor body.teacher-finish #main :is(form,.panel,.stats,.detail-panels,.review-grid,.room-workspace,.room-side,.profile-layout,.settings-column,.quiz-workspace,.quiz-editor-column,.form-row,.stack){min-width:0}
+html.astro-professor body.teacher-finish #main :is(p,h2,h3,strong,small){overflow-wrap:anywhere}
+html.astro-professor body.teacher-finish #main .panel>h2{font-size:19px;line-height:1.4;margin-top:0}
+html.astro-professor body.teacher-finish #main :is(.panel,.room-students,.room-rhythm,.library-file-card,.quiz-surface){box-sizing:border-box}
+html.astro-professor body.teacher-finish #main :is(.list,.room-grid,.team-grid,#materialList,.question-list){gap:18px}
+/* Ações dos formulários à direita, com largura ajustada ao texto. */
+body.teacher-finish :is(.editor-actions,.material-form-actions,.integration-actions,.activity-dialog-actions,.team-dialog-actions,.games-actions){display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:10px}
+body.teacher-finish :is(.editor-actions,.material-form-actions,.integration-actions,.activity-dialog-actions,.team-dialog-actions,.games-actions)>:is(button,a){width:auto;max-width:100%;min-height:40px;margin:0;font-size:13px;line-height:1.5}
+body.teacher-finish :is(#materialForm,#dialogContent,.integration-body,#reviewForm,#preferencesForm) :is(label,.material-field-label){line-height:1.5}
+body.teacher-finish :is(#materialForm .material-field,#dialogContent .field,.integration-field){gap:8px;min-width:0}
+body.teacher-finish :is(#materialForm .material-field,#dialogContent,.integration-field,#reviewForm,#preferencesForm)>:is(input:not([type=hidden]):not([type=checkbox]):not([type=radio]):not([type=file]):not([type=range]),select,textarea){box-sizing:border-box;max-width:100%;min-width:0;border-radius:11px;font-size:14px;line-height:1.5}
+body.teacher-finish :is(.integration-body,#dialogContent .form-row,#materialForm,.form-row){gap:18px}
+body.teacher-finish #dialogContent form{min-width:0}
+body.teacher-finish #dialogContent form>label{margin-bottom:7px}
+body.teacher-finish #dialogContent form>select+button,body.teacher-finish #dialogContent form>.field+button{margin-top:14px}
+body.teacher-finish :is(.material-upload-zone,.activity-upload-zone){min-width:0;gap:12px}
+body.teacher-finish :is(.material-upload-copy,.activity-upload-copy){min-width:0;overflow-wrap:anywhere}
+/* Mesmo acabamento das janelas, preservando os distintivos das equipes. */
+body.teacher-finish :is(#actionDialog,#previewDialog,#deleteDialog,.integration-dialog,.teacher-help,.quiz-help){box-sizing:border-box;max-width:calc(100vw - 32px)!important;max-height:calc(100dvh - 40px)!important;margin:auto;border:1px solid #dcc6e7!important;border-radius:20px!important;background:#fffcfa!important;color:#4e2c61;box-shadow:0 22px 75px #37134730;overflow:auto;font-family:Astro,Arial,sans-serif;font-size:14px;line-height:1.65}
+body.teacher-finish :is(#actionDialog:not(.teams-dialog),#previewDialog,#deleteDialog,.integration-dialog,.teacher-help,.quiz-help){padding:26px}
+body.teacher-finish :is(#actionDialog,#previewDialog,#deleteDialog,.integration-dialog,.teacher-help,.quiz-help)::backdrop{background:#38224355;backdrop-filter:blur(5px)}
+body.teacher-finish :is(#dialogTitle,.integration-dialog h2,#previewDialog>h2,#deleteDialog>h2,.teacher-help h2,.quiz-help h2){font-size:23px;line-height:1.3;letter-spacing:-.3px;overflow-wrap:anywhere;margin-top:0}
+body.teacher-finish :is(#actionDialog #closeDialog,.integration-close,.quiz-help-close,#previewDialog>.close,#deleteDialog>.close){display:grid;place-items:center;position:absolute;right:14px;top:14px;width:34px;height:34px;min-height:34px;margin:0;padding:0;border:1px solid #e2cfe9;border-radius:50%;background:#fffaf8;color:#80598f;font-size:23px;line-height:1}
+body.teacher-finish :is(#dialogContent,.integration-body){min-width:0}
+body.teacher-finish :is(#dialogContent,.integration-body) p{line-height:1.65;overflow-wrap:anywhere}
+body.teacher-finish .teams-dialog .team-dialog-header{gap:10px 13px;padding-right:58px}
+body.teacher-finish .teams-dialog #dialogContent form{gap:18px}
+/* Tabelas com rolagem local para preservar a largura da página. */
+body.teacher-finish :is(.finish-table-scroll,.table-wrap,.room-chart-scroll){width:100%;max-width:100%;min-width:0;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin}
+body.teacher-finish .finish-table-scroll>table{width:100%;border-collapse:collapse}
+body.teacher-finish .finish-table-scroll th,body.teacher-finish .finish-table-scroll td{vertical-align:top}
+body.teacher-finish .finish-table-scroll:focus-visible{outline:2px solid #a36dc9;outline-offset:3px;border-radius:5px}
+/* Mural: busca e criação na mesma linha. */
+body.teacher-finish.teacher-room-wall .room-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:0 0 20px}
+body.teacher-finish.teacher-room-wall .room-toolbar>#pageActions{display:flex;align-items:center;justify-content:flex-end;flex:0 0 auto;width:auto;margin:0 0 0 auto!important;grid-area:auto}
+body.teacher-finish.teacher-room-wall .room-toolbar>#pageActions>.create-room{min-height:44px}
+/* Sala mais compacta, mantendo os dados disponíveis. */
+body.teacher-finish.room-approved-page .room-students{min-height:0;padding:20px}
+body.teacher-finish.room-approved-page .room-students-header{margin-bottom:14px}
+body.teacher-finish.room-approved-page .room-students-title h2{font-size:21px}
+body.teacher-finish.room-approved-page .room-student-list td{padding:13px 8px 13px 0;font-size:13px}
+body.teacher-finish.room-approved-page .room-student-list th{font-size:12px;padding-bottom:11px}
+body.teacher-finish.room-approved-page .room-portrait{width:38px;height:38px;flex-basis:38px;font-size:15px}
+body.teacher-finish.room-approved-page .room-student-link{gap:11px}
+body.teacher-finish.room-approved-page .room-student-name strong{font-size:13px;line-height:1.45}
+body.teacher-finish.room-approved-page .room-student-name small{font-size:11px}
+body.teacher-finish.room-approved-page .room-grade strong{font-size:15px}
+body.teacher-finish.room-approved-page .room-invite{margin-top:15px;font-size:13px}
+body.teacher-finish.room-approved-page .room-review{padding:20px;gap:14px;min-height:0}
+body.teacher-finish.room-approved-page .room-rhythm h2{font-size:20px}
+/* Perfil e assistente seguem o espaçamento dos outros títulos. */
+body.teacher-finish.profile-page .profile-layout{gap:20px}
+body.teacher-finish.profile-page :is(.identity-card,.settings-card,.school-details){min-width:0}
+body.teacher-finish [data-sparky-page]{margin-top:0!important}
+/* Retornos à direita, sem deslocar os demais controles. */
+body.teacher-finish .teacher-return-row{min-width:0;max-width:100%;align-items:center}
+body.teacher-finish .teacher-return-row>.teacher-return{flex-shrink:0!important}
+body.teacher-finish .quiz-progress>.quiz-back.teacher-return-row{width:auto!important;flex:0 0 auto}
+body.teacher-finish :is(button,a,input,select,textarea,summary):focus-visible{outline:3px solid #a36dc9;outline-offset:3px}
+body.teacher-finish [hidden]{display:none!important}
+@container teacher-content (max-width:720px){
+ body.teacher-finish :is(.room-grid,.team-grid,#materialList,.question-list){grid-template-columns:1fr!important}
+ body.teacher-finish :is(.room-workspace,.review-grid,.detail-panels,.profile-layout){grid-template-columns:1fr!important}
+ body.teacher-finish .mesa-feedback-stack{position:static!important}
+ body.teacher-finish .quiz-workspace{grid-template-columns:1fr!important}
+ body.teacher-finish #materialForm,body.teacher-finish .form-row{grid-template-columns:1fr!important}
+ body.teacher-finish .ni-box{grid-template-columns:1fr!important}
+ body.teacher-finish .ni-list{max-height:330px;border-right:0;border-bottom:1px solid #e6d9ec}
+}
+@media(max-width:1100px){
+ body.teacher-finish :is(.room-workspace,.review-grid){grid-template-columns:1fr!important}
+ body.teacher-finish .mesa-feedback-stack{position:static!important}
+ body.teacher-finish .profile-layout{grid-template-columns:1fr!important}
+}
+@media(max-width:800px){
+ html.astro-professor body.teacher-finish #main{margin:0!important;width:100%!important;padding:82px 18px 110px!important}
+ html.astro-professor body.teacher-finish #main>:is(.breadcrumbs,#breadcrumbs){margin:0 0 20px!important;font-size:11px;gap:8px}
+ html.astro-professor body.teacher-finish #main>:is(.page-heading,.quiz-heading,.profile-heading,.sparky-header){padding-right:0!important;margin-bottom:20px!important}
+ html.astro-professor body.teacher-finish #main>:is(.page-heading,.quiz-heading,.profile-heading,.sparky-header) h1{font-size:29px!important}
+ html.astro-professor body.teacher-finish #main>:is(.page-heading,.quiz-heading,.profile-heading,.sparky-header)>p:not(.eyebrow){font-size:13px!important}
+ body.teacher-finish #pageActions{gap:9px;flex-wrap:wrap}
+ body.teacher-finish #pageActions>select{min-width:0;max-width:100%}
+ body.teacher-finish :is(.room-grid,.team-grid,#materialList,.question-list,.detail-panels,.review-grid,.room-workspace,.profile-layout){grid-template-columns:1fr!important;gap:16px}
+ body.teacher-finish :is(.form-row,#materialForm){grid-template-columns:1fr!important}
+ body.teacher-finish :is(#actionDialog:not(.teams-dialog),#previewDialog,#deleteDialog,.integration-dialog,.teacher-help,.quiz-help){padding:24px 20px}
+ body.teacher-finish :is(.editor-actions,.material-form-actions,.integration-actions,.activity-dialog-actions,.team-dialog-actions){gap:9px}
+ body.teacher-finish .finish-table-scroll>table{min-width:540px}
+ body.teacher-finish.room-approved-page .room-student-list table{min-width:510px}
+ body.teacher-finish .mesa-attachments .file-preview>iframe{height:min(65dvh,480px)}
+ body.teacher-finish :is(.integration-dialog,#dialogContent,#materialForm,#reviewForm,#preferencesForm) :is(input:not([type=checkbox]):not([type=radio]):not([type=file]):not([type=hidden]):not([type=range]),select,textarea){font-size:16px}
+ body.teacher-finish .quiz-progress>.quiz-back.teacher-return-row{width:auto!important;flex:0 0 44px}
+}
+@media(max-width:480px){
+ html.astro-professor body.teacher-finish #main{padding-inline:14px!important}
+ body.teacher-finish :is(.editor-actions,.material-form-actions,.integration-actions,.activity-dialog-actions,.team-dialog-actions)>:is(button,a){flex:1 1 auto}
+ body.teacher-finish.teacher-room-wall .room-toolbar{gap:10px}
+ body.teacher-finish.teacher-room-wall .room-toolbar>#pageActions{flex:1 1 100%;justify-content:flex-end}
+ body.teacher-finish.room-approved-page .room-students{padding:16px}
+}
+@media(pointer:coarse){
+ html.astro-professor body.teacher-finish #main :is(.primary,.secondary):not(.teacher-return){min-height:44px}
+ body.teacher-finish :is(.integration-close,#actionDialog #closeDialog){width:40px;height:40px;min-height:40px}
+}
+@media(prefers-reduced-motion:reduce){body.teacher-finish .finish-table-scroll{scroll-behavior:auto}}
+body.teacher-finish.astro-high-contrast{--finish-ink:#241131;--finish-muted:#51365d;--finish-line:#6f4b82}
+body.teacher-finish.teacher-room-wall .page-heading #pageActions:empty{display:none!important}
+body.teacher-finish.teacher-room-wall .room-toolbar>.teacher-create-room{margin:0 0 0 auto!important;min-height:44px;flex:0 0 auto;padding:10px 17px;font-size:13px;border-radius:12px}
+@media(max-width:480px){body.teacher-finish.teacher-room-wall .room-toolbar>.teacher-create-room{margin-left:auto!important}}
+@media(min-width:801px){
+ html.astro-professor body.teacher-finish.astro-nav-ready .sidebar #mainNav{min-height:0!important;overflow-y:auto!important;flex:1 1 auto!important}
+}
+@media(min-width:801px) and (max-height:760px){
+ html.astro-professor body.teacher-finish.astro-nav-ready.collapsed .sidebar .astro-nav-link{height:44px!important;min-height:44px!important;gap:2px!important;padding-block:4px!important}
+ html.astro-professor body.teacher-finish.astro-nav-ready.collapsed .sidebar .astro-nav-link .label{font-size:10px!important}
+ html.astro-professor body.teacher-finish.astro-nav-ready.collapsed .sidebar .astro-nav-footer .astro-nav-link{height:42px!important;min-height:42px!important}
+}

@@ -4,10 +4,12 @@
     <script>document.documentElement.classList.add('astro-teacher-loading');</script>
     <script defer src="../public/js/components/professor-carregamento.js?v=1"></script>
     <link rel="stylesheet" href="../public/css/professor-menu-padrao.css?v=1">
-<meta name="viewport" content="width=device-width,initial-scale=1"><title>Jogos da turma · AstroLearn</title><link rel="stylesheet" href="../public/css/aluno-pdf.css"><link rel="stylesheet" href="../public/css/professor.css"><link rel="stylesheet" href="../public/css/menu-professor.css"><link rel="stylesheet" href="../public/css/preferencias.css"><link rel="stylesheet" href="../public/css/menu-unificado.css"><script defer src="../public/js/components/menu-professor-perfil.js?v=2"></script><link rel="icon" type="image/png" href="../public/assets/imagens/marca/astrolearn-simbolo.png">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Jogos da turma · AstroLearn</title><link rel="stylesheet" href="../public/css/aluno-pdf.css"><link rel="stylesheet" href="../public/css/professor.css"><link rel="stylesheet" href="../public/css/menu-professor.css"><link rel="stylesheet" href="../public/css/preferencias.css"><link rel="stylesheet" href="../public/css/menu-unificado.css"><script defer src="../public/js/components/menu-professor-perfil.js?v=4"></script><link rel="icon" type="image/png" href="../public/assets/imagens/marca/astrolearn-simbolo.png">
 <link rel="stylesheet" href="../public/css/rolagem.css" data-astro-rolagem>
-<link rel="stylesheet" href="../public/css/professor-jogos.css?v=2">
-</head><body data-page="games">
+<link rel="stylesheet" href="../public/css/professor-jogos.css?v=20261124-compact-1">
+<link rel="stylesheet" href="../public/css/professor-acabamento.css?v=1">
+<script defer src="../public/js/components/professor-acabamento.js?v=1"></script>
+</head><body data-page="games" class="teacher-finish">
 <a class="skip" href="#main">Pular para o conteúdo</a>    <aside class="sidebar">
       <a class="brand" href="home.html" id="brandHome"
         ><svg aria-hidden="true" viewbox="0 0 40 40">
@@ -46,13 +48,14 @@
     <h1>Jogos da turma</h1>
     <p>Defina quando os alunos podem acessar os jogos.</p>
   </section>
+  <div class="page-actions games-navigation"><a id="gamesBackLink" class="secondary" href="home.html">← Voltar às turmas</a></div>
   <div class="games-workspace">
     <section class="panel games-access" aria-labelledby="gamesAccessTitle">
       <div class="games-access-heading">
         <h2 id="gamesAccessTitle">Acesso aos jogos</h2>
         <span id="gamesAccessBadge" class="games-access-badge" data-state="loading">Consultando</span>
       </div>
-      <form id="accessForm">
+      <form id="accessForm" aria-busy="true">
         <label class="games-toggle">
           <input id="allowGames" type="checkbox" role="switch" disabled aria-describedby="gamesAccessHint">
           <span class="games-switch" aria-hidden="true"></span>
@@ -77,7 +80,7 @@
     </figure>
   </div>
 </main><script src="../public/js/components/assistente-professor.js?v=1"></script>
-<script src="../public/js/components/preferencias.js"></script><script type="module" src="../public/js/components/sessao.js"></script><script type="module" src="../public/js/pages/professor/jogos-acesso.js?v=2"></script>
-<script defer src="../public/js/pages/professor/controle-3d.js?v=2"></script><script type="module" src="../public/js/components/professor-padrao.js?v=3"></script>
+<script src="../public/js/components/preferencias.js"></script><script type="module" src="../public/js/components/sessao.js"></script><script type="module" src="../public/js/pages/professor/jogos-acesso.js?v=20261124-compact-1"></script>
+<script defer src="../public/js/pages/professor/controle-3d.js?v=2"></script><script type="module" src="../public/js/components/professor-padrao.js?v=9"></script>
 <script type="module" src="../public/js/components/professor-perfil-vinculo.js?v=3"></script>
 </body></html>

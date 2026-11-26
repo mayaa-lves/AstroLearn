@@ -1,0 +1,68 @@
+/* Acabamento do aluno nos dois temas, sem trocar imagens ou transformar o jogo. */
+body.student-finish{--finish-student-line:#dfcbe9;--finish-student-muted:#856b95}
+body.student-finish :is(#main,.integration-invite){min-width:0;box-sizing:border-box}
+body.student-finish:not([data-student-area=home]):not([data-student-area=atividade]):not([data-student-area=quizzes]):not([data-student-area^=game-]) #main{padding-top:30px!important;padding-bottom:34px}
+body.student-finish #main>:is(.library-heading,.achievement-heading,.team-heading,.profile-heading,.shop-header,.sparky-header,.page-header){min-height:0!important;height:auto;margin-bottom:24px!important}
+body.student-finish #main>:is(.profile-heading,.shop-header,.sparky-header,.page-header){display:block;padding-top:0!important;padding-right:155px}
+body.student-finish #main>:is(.library-heading,.achievement-heading,.team-heading,.profile-heading,.shop-header,.sparky-header,.page-header) h1{font-size:clamp(28px,3vw,42px);line-height:1.2;letter-spacing:-.65px;margin:0 0 9px;overflow-wrap:anywhere}
+body.student-finish #main>:is(.library-heading,.achievement-heading,.team-heading,.profile-heading,.shop-header,.sparky-header,.page-header)>p:not(.eyebrow):not(.kicker){position:static;float:none;max-width:850px;font-size:14px;line-height:1.6;margin:0;text-align:left}
+body.student-finish :is(.profile-layout,.settings-column,.team-grid,.library-workspace,.activity-grid,.parts,.preview,.wallet,.settings-card,.tasks-card,.wall-card,.mission-card,.material-card,.achievement-card,form,.form-row){min-width:0;box-sizing:border-box}
+body.student-finish :is(.profile-layout,.team-grid,.library-workspace){gap:20px}
+body.student-finish :is(.primary,.secondary):not(.nav-item):not(.astro-nav-link):not(.skin-card):not(.step):not(.turn-button){box-sizing:border-box;max-width:100%;min-height:40px;line-height:1.45;font-size:13px;white-space:normal;overflow-wrap:anywhere}
+body.student-finish :is(.primary,.secondary) svg{flex-shrink:0}
+body.student-finish :is(.field,.form-field,.settings-field){min-width:0;gap:8px}
+body.student-finish :is(#preferencesForm,#taskForm,#ideaForm,#crewForm,#pergunta-form,#entrega-form) :is(label,.hint){line-height:1.55}
+body.student-finish :is(#preferencesForm,#taskForm,#ideaForm,#crewForm,#pergunta-form,#entrega-form) :is(input:not([type=checkbox]):not([type=radio]):not([type=file]):not([type=hidden]):not([type=range]),textarea,select){box-sizing:border-box;min-width:0;max-width:100%;font-size:14px;line-height:1.5}
+body.student-finish :is(.form-actions,.dialog-actions,.task-dialog-actions,.editor-actions,.delivery-actions){display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:10px}
+body.student-finish :is(.form-actions,.dialog-actions,.task-dialog-actions,.editor-actions,.delivery-actions)>:is(a,button){width:auto;max-width:100%;min-height:40px;margin:0}
+body.student-finish #entrega-form{min-width:0}
+body.student-finish :is(.upload-zone,.file-upload,.delivery-upload,.attachment-copy){min-width:0;overflow-wrap:anywhere}
+body.student-finish :is(.feedback,.error,.error-panel,.hint,.task-copy,.wall-copy){overflow-wrap:anywhere}
+body.student-finish :is(.feedback,.error,.error-panel):empty{display:none}
+/* Janelas usuais. Visualizador 3D, telescópio e jogos imersivos mantêm seu enquadramento. */
+body.student-finish dialog:not(.avatar-dialog):not(.telescope-dialog):not(.notification-drawer):not(#gameDialog):not(#destinationsDialog){box-sizing:border-box;max-width:calc(100vw - 32px);max-height:calc(100dvh - 36px);overflow:auto;padding:26px;border:1px solid #dcc7e6;border-radius:20px;background:#fffcf8;color:#4a285d;box-shadow:0 22px 75px #37204430;font-family:Astro,Arial,sans-serif;line-height:1.65}
+body.student-finish dialog:not(.avatar-dialog):not(.telescope-dialog):not(#gameDialog):not(#destinationsDialog)::backdrop{background:#33204366;backdrop-filter:blur(5px)}
+body.student-finish dialog:not(.avatar-dialog):not(.telescope-dialog):not(.notification-drawer):not(#gameDialog):not(#destinationsDialog)>h2{font-size:23px;line-height:1.35;margin:0 38px 18px 0;overflow-wrap:anywhere}
+body.student-finish dialog :is(p,label,small){overflow-wrap:anywhere}
+body.student-finish dialog :is(.close,.dialog-close,.close-button){box-sizing:border-box;min-width:34px;min-height:34px;padding:5px;border-radius:50%;line-height:1}
+body.student-finish .student-table-scroll{max-width:100%;min-width:0;overflow-x:auto;overscroll-behavior-inline:contain;scrollbar-width:thin}
+body.student-finish .student-table-scroll>table{width:100%;border-collapse:collapse}
+body.student-finish .student-table-scroll:focus-visible{outline:2px solid #ac76ce;outline-offset:3px;border-radius:5px}
+/* A caixa do mascote e seu controle compartilham o mesmo centro; coordenadas do sprite preservadas. */
+body.student-finish #avatarViewer .avatar-stage{margin-inline:auto;max-width:100%}
+body.student-finish #avatarViewer .rotation-control{box-sizing:border-box;width:100%;margin-inline:auto}
+body.student-finish #avatarViewer .slider-row{min-width:0;align-items:center}
+/* Painel de avisos da trilha mantém filtros acessíveis e rolagem só na lista. */
+body.student-finish #notificationPanel{max-width:calc(100vw - 28px);max-height:calc(100dvh - 28px);box-sizing:border-box}
+body.student-finish #notificationPanel .notification-heading{gap:12px;align-items:center;flex-wrap:wrap}
+body.student-finish #notificationPanel .notification-filters{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+body.student-finish #notificationPanel .notification-feed{min-height:0;overflow:auto;overscroll-behavior:contain}
+body.student-finish #notificationPanel .notification-availability{flex-wrap:wrap;gap:8px}
+body.student-finish :is(button,a,input,select,textarea,summary):focus-visible{outline:3px solid #a66ccc;outline-offset:3px}
+body.student-finish [hidden]{display:none!important}
+/* Pixel art conserva formas mais quadradas sem reduzir a legibilidade dos campos. */
+html[data-astro-tema=pixel] body.student-finish :is(.form-actions,.dialog-actions,.task-dialog-actions,.editor-actions,.delivery-actions)>:is(.primary,.secondary){border-radius:3px;box-shadow:2px 2px 0 #c6a7d8}
+html[data-astro-tema=pixel] body.student-finish dialog:not(.avatar-dialog):not(.telescope-dialog):not(.notification-drawer):not(#gameDialog):not(#destinationsDialog){border-radius:4px;box-shadow:3px 3px 0 #bfa2d0}
+html[data-astro-tema=pixel] body.student-finish .student-table-scroll:focus-visible{border-radius:0}
+/* O catálogo se adapta sem alterar a renderização do personagem da loja. */
+@media(max-width:1100px){
+ body.student-finish .profile-layout{grid-template-columns:1fr!important}
+ body.student-finish .library-workspace{grid-template-columns:1fr!important}
+ body.student-finish .team-grid{grid-template-columns:1fr!important}
+}
+@media(max-width:800px){
+ body.student-finish:not([data-student-area=home]):not([data-student-area=atividade]):not([data-student-area=quizzes]):not([data-student-area^=game-]) #main{margin:0!important;width:100%!important;padding:82px 18px 110px!important}
+ body.student-finish #main>:is(.library-heading,.achievement-heading,.team-heading,.profile-heading,.shop-header,.sparky-header,.page-header){padding-right:0!important;margin-bottom:20px!important}
+ body.student-finish #main>:is(.library-heading,.achievement-heading,.team-heading,.profile-heading,.shop-header,.sparky-header,.page-header) h1{font-size:29px;line-height:1.25}
+ body.student-finish #main>:is(.library-heading,.achievement-heading,.team-heading,.profile-heading,.shop-header,.sparky-header,.page-header)>p:not(.eyebrow):not(.kicker){font-size:13px}
+ body.student-finish :is(.form-row,.profile-layout,.team-grid,.library-workspace){grid-template-columns:1fr!important;gap:16px}
+ body.student-finish .student-table-scroll>table{min-width:480px}
+ body.student-finish dialog:not(.avatar-dialog):not(.telescope-dialog):not(.notification-drawer):not(#gameDialog):not(#destinationsDialog){padding:24px 20px}
+ body.student-finish :is(#preferencesForm,#taskForm,#ideaForm,#crewForm,#pergunta-form,#entrega-form) :is(input:not([type=checkbox]):not([type=radio]):not([type=file]):not([type=hidden]):not([type=range]),textarea,select){font-size:16px}
+ body.student-finish #notificationPanel .notification-heading h2{font-size:21px}
+ body.student-finish .integration-invite{max-width:calc(100vw - 28px);margin:70px auto 30px;padding:22px}
+}
+@media(max-width:480px){body.student-finish :is(.form-actions,.dialog-actions,.task-dialog-actions,.editor-actions,.delivery-actions)>:is(a,button){flex:1 1 auto}body.student-finish dialog:not(.avatar-dialog):not(.telescope-dialog):not(.notification-drawer):not(#gameDialog):not(#destinationsDialog){padding-inline:18px}}
+@media(pointer:coarse){body.student-finish :is(.primary,.secondary):not(.nav-item):not(.astro-nav-link):not(.skin-card):not(.step):not(.turn-button){min-height:44px}}
+@media(prefers-reduced-motion:reduce){body.student-finish .student-table-scroll{scroll-behavior:auto}}
+body.student-finish.astro-high-contrast{--finish-student-line:#6e4d80;--finish-student-muted:#513b5d}

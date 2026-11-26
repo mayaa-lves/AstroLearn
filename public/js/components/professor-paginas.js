@@ -715,56 +715,15 @@ async function G() {
           };
           m.append(h, M), a("content").append(m)
         }(s),
-        questions: () => async function (o) {
-          const r = await e.questions(i); if (o !== l) return;
-          w("Perguntar também é aprender.", "Conversas privadas dos alunos com o professor, organizadas por atividade.");
-          const s = r.filter(e => !e.resposta).length;
-          a("content").append(u(c("section", "", "stats"), x("Aguardando resposta", s), x("Respondidas", r.length - s), x("Perguntas nesta turma", r.length)));
-          a("pageActions").append(v("← Voltar à sala", "sala/", { sala: i }));
-          const p = c("div", "", "filters"), m = c("input"), g = c("select");
-          m.type = "search", m.placeholder = "Buscar aluno, atividade ou pergunta…", m.setAttribute("aria-label", "Buscar pergunta"), g.setAttribute("aria-label", "Situação da pergunta"), q(g, "Sem resposta", "pending"), q(g, "Todas", "all"), q(g, "Respondidas", "answered"), t.get("pergunta") && (g.value = "all"), p.append(m, g), a("content").append(p);
-          const h = c("div", "", "question-list"), f = c("p", "Nenhuma pergunta corresponde aos filtros.", "empty"); a("content").append(h, f);
-          const b = [];
-          for (const o of r) {
-            const i = y(o.perfis?.nome || n.alunos.find(e => e.id === o.aluno_id)?.nome || "Aluno", (o.missoes?.titulo || n.missoes.find(e => e.id === o.missao_id)?.titulo || "Atividade") + " · " + X(o.criado_em));
-            i.id = "pergunta-" + o.id, i.classList.add("question-card"), t.get("pergunta") === o.id && i.classList.add("question-highlight"), i.append(c("p", o.texto, "document-copy"));
-            const s = c("div", "", "teacher-reply"); i.append(s);
-            const d = () => { s.replaceChildren(c("strong", "Sua resposta"), c("p", o.resposta, "document-copy"), c("small", X(o.respondida_em))) };
-            if (o.resposta) d();
-            else {
-              s.hidden = !0;
-              const t = c("form"), n = _(t, "Responder ao aluno", "textarea", "reply-" + o.id);
-              n.required = !0, n.maxLength = 3e3, n.rows = 3;
-              const l = c("button", "Enviar resposta", "primary"), p = c("p", "", "error-panel");
-              l.type = "submit", p.setAttribute("role", "alert"), t.append(c("p", "A resposta fica visível somente para este aluno e o professor.", "hint"), l, p), i.append(t);
-              t.onsubmit = async i => {
-                if (i.preventDefault(), !l.disabled)
-                  if (n.value.trim()) {
-                    l.disabled = !0, p.textContent = "";
-                    try {
-                      const i = await e.answer(o.id, n.value.trim());
-                      if (!i.pergunta?.id) throw new Error("A resposta não foi confirmada.");
-                      Object.assign(o, i.pergunta), t.hidden = !0, s.hidden = !1, d(), a("status").textContent = "Resposta salva no servidor.", A();
-                      const l = a("content").querySelectorAll(".stats strong");
-                      l[0].textContent = r.filter(e => !e.resposta).length, l[1].textContent = r.filter(e => e.resposta).length
-                    } catch (i) { p.textContent = i.message, l.disabled = !1 }
-                  } else p.textContent = "Escreva uma orientação para o aluno."
-              }
-            }
-            h.append(i), b.push({ p: i, q: o })
-          }
-          function A() {
-            let e = 0;
-            const a = m.value.trim().toLowerCase();
-            b.forEach(({ p: t, q: o }) => {
-              const i = "all" === g.value || "pending" === g.value && !o.resposta || "answered" === g.value && o.resposta;
-              t.hidden = !i || !`${o.perfis?.nome || ""} ${o.missoes?.titulo || ""} ${o.texto}`.toLowerCase().includes(a), t.hidden || e++
-            });
-            f.hidden = e > 0
-          }
-          m.oninput = g.onchange = A, A();
-          t.get("pergunta") && document.getElementById("pergunta-" + t.get("pergunta"))?.scrollIntoView?.({ block: "center", behavior: "instant" })
-        }(s)
+        questions: async () => {
+          const [questions, { renderQuestions }] = await Promise.all([
+            e.questions(i),
+            import("../pages/professor/perguntas.js?v=20261124-compact-2")
+          ]);
+          if (s !== l) return;
+          w("Perguntas da turma", "Converse com os alunos e acompanhe as respostas.");
+          renderQuestions(a("content"), n, questions, v("← Voltar à sala", "sala/", { sala: i }), t.get("pergunta"));
+        }
       }[o]?.())
     }
   } catch (e) {

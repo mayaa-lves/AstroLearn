@@ -17,7 +17,12 @@ if(document.body.dataset.page==='room'){
    if(event.key==='Escape'){setOpen(false);trigger.focus();event.preventDefault();}
    if(event.key==='ArrowDown'||event.key==='ArrowUp'){event.preventDefault();setOpen(true);items[(index+(event.key==='ArrowDown'?1:-1)+items.length)%items.length]?.focus();}
   });
-  control.addEventListener('focusout',()=>{queueMicrotask(()=>{if(!control.contains(document.activeElement))setOpen(false);});});
+  // Durante focusout, activeElement pode ser o body antes de o próximo botão
+  // receber foco. Não esconda as opções entre pointerdown e click.
+  control.addEventListener('focusout',event=>{
+   if(event.relatedTarget&&control.contains(event.relatedTarget))return;
+   setTimeout(()=>{if(!control.contains(document.activeElement))setOpen(false);},0);
+  });
   select.before(control);select.hidden=true;select.tabIndex=-1;control.append(select,trigger,menu);
  }
  if(actions){new MutationObserver(enhance).observe(actions,{childList:true,subtree:true});enhance();}
