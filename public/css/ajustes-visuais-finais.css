@@ -1,0 +1,194 @@
+/* Correções por composição visual, além de conter a largura da página. */
+/* O desenho original tem mais transparência à esquerda: centro óptico do ET. */
+html:not([data-visual-style=pixel]) .faq-section #faqMascot img{transform:translateX(-5.5%)}
+.faq-section #faqMascot{justify-self:center}
+/* Quizzes do aluno: cards com largura de leitura, sem um enorme espaço vazio. */
+body.student-quizzes #sqQuizList.sq-catalog-grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr));max-width:1240px;gap:18px;align-items:stretch}
+body.student-quizzes .sq-catalog-card{grid-template-columns:64px minmax(0,1fr);gap:12px 14px;align-content:start;align-items:start;min-height:184px;padding:20px;border-radius:17px;background:#fffdfb;border-color:#decce7;box-shadow:0 4px 14px #4c205b08}
+body.student-quizzes .sq-catalog-card .sq-planet-thumb{width:64px;height:64px;border-radius:14px;box-shadow:none;background-size:440% auto}
+body.student-quizzes .sq-catalog-card:nth-child(2n) .sq-planet-thumb{background-position:55% 12%}
+body.student-quizzes .sq-catalog-card h2{font-size:19px;line-height:1.3;margin:8px 0 6px;letter-spacing:-.3px;overflow-wrap:anywhere}
+body.student-quizzes .sq-catalog-card p{font-size:12px;line-height:1.6}
+body.student-quizzes .sq-catalog-card>.sq-primary,body.student-quizzes .sq-catalog-card>.sq-secondary{grid-column:1/-1;justify-self:stretch;min-height:44px;margin-top:5px}
+body.student-quizzes .sq-catalog-card .sq-available{font-size:11px;padding:3px 9px;max-width:100%}
+html[data-astro-tema=pixel] body.student-quizzes .sq-catalog-card{border-radius:5px;box-shadow:2px 2px 0 #c8b0d5}
+html[data-astro-tema=pixel] body.student-quizzes .sq-catalog-card .sq-planet-thumb{border-radius:3px}
+/* Cartão de atividade: contorno simples e hierarquia, em vez da ficha recortada. */
+body.teacher-activities-page #content .list-card[data-activity-state]{clip-path:none!important;border:1px solid #ded0e8!important;border-radius:16px!important;background:#fffcfa!important;min-height:176px;padding:18px;grid-template-rows:auto 1fr auto;gap:12px;box-shadow:0 3px 12px #42205508}
+body.teacher-activities-page #content .list-card[data-activity-state]::before{content:none!important}
+body.teacher-activities-page #content .list-card[data-activity-state=published]{border-top:3px solid #94b99a!important}
+body.teacher-activities-page #content .list-card[data-activity-state=draft]{border-top:3px solid #b4acbc!important;background:#f9f7fa!important}
+body.teacher-activities-page .mission-heading{font-size:9px;letter-spacing:.9px;border:0;padding:0;justify-self:start;color:#8b739a}
+body.teacher-activities-page .mission-heading::before{content:none}
+body.teacher-activities-page #content .list-card h2{font-size:20px;margin:8px 0 7px}
+body.teacher-activities-page #content .list-card .mission-art{align-self:center;min-width:0;border-radius:11px}
+body.teacher-activities-page #content .list-card>a{min-height:40px;padding:10px 0 0;margin-top:2px;border-top:1px solid #eadfee}
+@media(max-width:800px){
+ /* Acesso: arte acima, formulário em superfície legível. O cenário desktop permanece. */
+ body.login-page{background:#fcf8f5;min-height:100dvh;--canvas-w:100vw;--canvas-h:250px}
+ body.login-page .login-header{position:relative;inset:auto;padding:16px 20px 0;min-height:64px;gap:10px;align-items:center}
+ body.login-page .login-header .brand img{width:144px!important;height:34px!important}
+ body.login-page .auth-appearance-actions{gap:8px}
+ body.login-page .signup-link{font-size:12px;padding:7px 10px;color:#653a8e!important;background:#fffaf7;border-color:#d6c0e2;min-height:36px}
+ body.login-page .space-background{position:absolute;inset:0 0 auto;height:250px}
+ body.login-page .scene-canvas{width:100%!important;height:250px!important;top:0!important;left:0!important;transform:none!important}
+ body.login-page .scene-image{background-size:auto 155%;background-position:72% 38%}
+ body.login-page .space-background::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#fff9f340 0%,transparent 40%,#fcf8f5 100%)}
+ body.login-page .planet-light,body.login-page .contact-shadow{display:none}
+ body.login-page .space-interactions{position:absolute;inset:0 0 auto;height:250px}
+ body.login-page .space-interactions .mascot{width:118px;left:auto!important;right:24px;top:92px!important;opacity:1;clip-path:none;filter:drop-shadow(0 6px 8px #50316620)}
+ body.login-page .space-interactions .rocket{width:44px;left:18%;top:94px}
+ body.login-page .discovery-star{display:none}
+ body.login-page .mascot-message{left:16px;top:155px;max-width:calc(100% - 165px);font-size:11px}
+ body.login-page .login-main{padding:165px 22px 24px;min-height:0}
+ body.login-page .login-content{max-width:460px;width:100%;margin:auto}
+ body.login-page .login-content h1{font-size:clamp(29px,7.8vw,38px);line-height:1.13;margin-bottom:12px}
+ body.login-page .intro{font-size:15px;line-height:1.55;margin-bottom:22px}
+ body.login-page #login-form>label{font-size:14px;margin:16px 0 8px}
+ body.login-page .input-wrap input{height:52px;font-size:16px;background:#fffdfb;border:1px solid #d9c8e0;border-radius:13px;padding-inline:44px}
+ body.login-page .primary-button{height:50px;min-height:50px;border-radius:13px;font-size:16px;box-shadow:0 4px 12px #73439d18}
+ body.login-page .form-options{font-size:13px;margin:13px 0 18px}
+ body.login-page .register-line{font-size:13px;margin-top:18px}
+ body.login-page .login-footer{position:relative;inset:auto;height:auto;min-height:0;margin:0;padding:0 22px 24px}
+ body.login-page .login-scene-controls{position:relative!important;inset:auto!important;justify-content:flex-end;gap:8px}
+ body.login-page .login-scene-controls #pausar-movimentos{width:44px;height:44px;min-height:44px;background:#eee3f3;border:1px solid #decbe7}
+ body.login-page #authStyleToggle{width:38px!important;height:38px!important;min-height:38px!important;min-width:38px!important;padding:8px!important}
+ body.login-page #authStyleToggle [data-style-label]{display:none!important}
+ /* Cadastro: imagem baixa e cabeçalho limpo; as duas etapas usam a mesma largura. */
+ body.cadastro-page{display:flex;flex-direction:column;background:#fcf8f5;min-height:100dvh}
+ body.cadastro-page .cadastro-header{order:0;min-height:68px;padding:16px 20px!important;gap:12px;align-items:center;flex-wrap:nowrap}
+ body.cadastro-page .cadastro-header .marca::before{content:none}
+ body.cadastro-page .cadastro-header .marca img{width:144px!important;height:34px!important}
+ body.cadastro-page .cadastro-header .already-account{font-size:12px;white-space:nowrap;min-height:40px;display:flex;align-items:center}
+ body.cadastro-page .cenario{position:relative;inset:auto;order:1;width:100%;height:160px;flex:none}
+ body.cadastro-page .cenario-canvas{width:570px;height:320px;top:45%;left:54%;transform:translate(-50%,-50%)}
+ body.cadastro-page .cenario::after{background:linear-gradient(180deg,#fcf8f500 60%,#fcf8f5)}
+ body.cadastro-page main#conteudo{order:2;width:100%;padding:14px 22px 24px!important;min-height:0;flex:none}
+ body.cadastro-page .cadastro-conteudo{width:100%;max-width:460px;margin:auto}
+ body.cadastro-page .cadastro-progress{margin-bottom:22px;font-size:11px;gap:8px}
+ body.cadastro-page :is(#perfilTitulo,#dadosTitulo){font-size:clamp(29px,8vw,37px);line-height:1.12}
+ body.cadastro-page .role-options{gap:12px}
+ body.cadastro-page .role-card{border-radius:14px;min-height:78px;background:#fffdfa;border-color:#dfcfe7;padding:16px}
+ body.cadastro-page #cadastro-form :is(input,select){font-size:16px;min-height:48px;border-radius:12px;background:#fffdfb}
+ body.cadastro-page .cadastro-footer{order:3;padding:8px 22px;font-size:11px}
+ body.cadastro-page .cadastro-controles{order:4;position:relative;inset:auto;padding:10px 22px 24px}
+ /* Buscas e semestres em linhas separadas, sem truncar todo o campo de busca. */
+ body.corrections-polished[data-page=corrections] #content .filters{display:grid!important;grid-template-columns:minmax(0,1fr) 44px;gap:10px!important}
+ body.corrections-polished[data-page=corrections] .filters .correction-search{grid-column:1/-1;width:100%;min-width:0}
+ body.corrections-polished[data-page=corrections] .filters>.correction-filter{grid-column:2;grid-row:2;justify-self:end}
+ body.corrections-polished[data-page=corrections] .filters>select{grid-column:1;grid-row:2;width:100%;min-width:0!important;max-width:none}
+ body.corrections-polished .correction-filter-options{left:auto!important;right:0!important;width:min(240px,calc(100vw - 48px));min-width:0!important}
+ body.teacher-activities-page #pageActions{display:grid!important;grid-template-columns:44px 44px minmax(0,1fr);gap:10px!important}
+ body.teacher-activities-page #pageActions>select{grid-column:1/-1;width:100%!important;min-width:0!important;order:2}
+ body.teacher-activities-page #pageActions>.teacher-return-row{justify-self:end;grid-column:3;grid-row:1}
+ body.catalog-library .orbital-toolbar{display:grid!important;grid-template-columns:44px minmax(0,1fr) 44px;gap:12px!important}
+ body.catalog-library .orbital-toolbar>.library-search{grid-column:1/-1;grid-row:1;min-width:0;width:100%}
+ body.catalog-library .orbital-toolbar>.orbital-create{grid-column:1;grid-row:2}
+ body.catalog-library .orbital-toolbar>.library-filter{grid-column:3;grid-row:2;justify-self:end}
+ body.catalog-library .orbital-toolbar>#count{grid-column:2;grid-row:2;justify-self:start;margin:0}
+ /* Resumo individual: número inteiro em uma linha, rótulo em cima. */
+ body.teacher-finish[data-page=student] #content .stats{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px}
+ body.teacher-finish[data-page=student] #content .stat{display:flex!important;flex-direction:column!important;align-items:flex-start!important;justify-content:space-between;gap:10px!important;min-width:0;padding:16px!important;min-height:102px;box-sizing:border-box}
+ html.astro-professor body.teacher-finish[data-page=student] #main .stat strong{font-size:26px!important;line-height:1.15!important;letter-spacing:-.5px;margin:0;white-space:nowrap!important;word-break:normal!important;overflow-wrap:normal!important;width:auto!important;min-width:max-content}
+ body.teacher-finish[data-page=student] .stat span{font-size:11px;line-height:1.4;max-width:100%}
+ /* O controle vem primeiro no celular e a configuração logo abaixo. */
+ body[data-page=games] .games-workspace{display:flex!important;flex-direction:column;gap:12px}
+ body[data-page=games] .games-controller-stage{order:-1;margin:0 auto!important;height:240px!important;width:min(100%,320px);max-width:320px}
+ body[data-page=games] .games-controller-hover{height:210px!important}
+ body[data-page=games] .games-access{width:100%;box-sizing:border-box}
+ /* Janelas de equipes compactas, conteúdo e botões sem recortes. */
+ body.teacher-finish .teams-dialog{padding:0!important;width:calc(100vw - 28px)!important;max-width:520px!important;max-height:calc(100dvh - 36px)!important}
+ body[data-page=teams] .teams-dialog .team-dialog-header{padding:18px 50px 16px 18px;gap:9px 12px;flex-wrap:wrap;align-items:center}
+ body[data-page=teams] .teams-dialog #dialogContent{padding:18px!important}
+ body[data-page=teams] .teams-dialog .member{padding:12px;gap:12px;flex-wrap:wrap}
+ body[data-page=teams] .teams-dialog .member>span{min-width:0;flex:1 1 140px;overflow-wrap:anywhere}
+ body[data-page=teams] .teams-dialog #dialogContent form:has(#field-team-student){padding:14px!important;gap:12px!important}
+ body[data-page=teams] .teams-dialog #dialogContent form button[type=submit]{width:100%!important;justify-self:stretch;min-height:44px}
+ body[data-page=teams] .teams-dialog .team-planning-grid{grid-template-columns:1fr!important}
+ body[data-page=teams] .teams-dialog .team-dialog-actions{display:grid;grid-template-columns:1fr;width:100%;gap:10px}
+ body[data-page=teams] .teams-dialog .team-dialog-actions>button{width:100%}
+ body.teacher-finish[data-page=activity] .detail-briefing{padding:22px!important;background:linear-gradient(135deg,#fffaf5,#f3eaf7)!important;min-height:0;border-radius:16px}
+ body.teacher-finish[data-page=activity] .detail-briefing #pageTitle{font-size:28px!important}
+ /* A esfera armilar é movida para depois dos filtros pelo componente local. */
+ body.library-page .armillary-station{position:relative!important;inset:auto!important;width:200px!important;height:112px;aspect-ratio:16/9;margin:14px auto 18px!important;z-index:0}
+ body.library-page .library-workspace{margin-top:20px!important}
+ body.library-page #main .library-heading{padding-right:0}
+ body.library-page .filters{position:relative;z-index:2;flex-wrap:wrap;gap:10px}
+ body.library-page .collection .section-title{align-items:flex-start;gap:10px;flex-wrap:wrap}
+ body.student-finish .shop-header{background:none!important;padding:0!important;min-height:0!important}
+ body.student-finish .shop-header::before,body.student-finish .shop-header::after{content:none!important}
+}
+@media(max-width:600px){
+ /* O percurso deixa de ser uma pilha de grandes espaços entre imagens. */
+ #como-funciona:not(.is-horizontal) .journey li{grid-template-columns:104px minmax(0,1fr);gap:12px 16px;padding:24px 0;border-top:1px solid #e6dcf2;align-items:center}
+ #como-funciona:not(.is-horizontal) .journey .journey-world{width:104px;max-width:104px;grid-column:1;grid-row:1/3;margin:0}
+ #como-funciona:not(.is-horizontal) .journey-caption,#como-funciona:not(.is-horizontal) .world-overview{display:contents}
+ #como-funciona:not(.is-horizontal) .journey .step-number{grid-column:2;grid-row:1;align-self:end;margin:0}
+ #como-funciona:not(.is-horizontal) .journey h3{grid-column:2;grid-row:2;align-self:start;font-size:clamp(23px,6.4vw,28px);margin:0!important}
+ #como-funciona:not(.is-horizontal) .journey p{grid-column:1/-1;grid-row:3;margin-top:4px}
+ #como-funciona:not(.is-horizontal) .journey-details{grid-column:1/-1;grid-row:4;justify-self:start;margin:0}
+ #como-funciona:not(.is-horizontal) .platform-preview{grid-column:1/-1;grid-row:5;max-width:100%;margin:0}
+ .faq-section #faqMascot{display:block;float:none;width:260px;max-width:100%;margin-inline:auto!important;left:auto!important;right:auto!important}
+ /* Atividade do aluno: sem o grande vão que antes separava número e título. */
+ body.activity-page .mission-banner{padding:20px!important}
+ body.activity-page .mission-banner>div:first-child{display:grid!important;grid-template-columns:minmax(0,1fr) 76px;gap:12px;align-items:center}
+ body.activity-page .mission-banner .kicker{grid-column:1;grid-row:1;max-width:100%;margin:0;min-height:72px;display:flex;align-items:center}
+ body.activity-page .mission-banner h1{grid-column:1/-1;grid-row:2;margin:0!important;font-size:27px!important;line-height:1.2}
+ body.activity-page .mission-banner #atividade-resumo{grid-column:1/-1;grid-row:3;margin:0;max-width:none}
+ body.activity-page .mission-banner .tags{grid-column:1/-1;grid-row:4;gap:8px}
+ body.activity-page .mission-banner #activityPlanet.activity-planet-current{--mission-planet-size:72px;top:18px!important;right:18px!important}
+ body.activity-page.astro-nav-ready #main{padding-bottom:8px!important}
+ body.activity-page .shell{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))!important}
+ body.activity-page .shell>footer{padding:14px 0 0;margin:0}
+ /* Correções: os mesmos dados, agora em linhas/cartões que cabem no celular. */
+ body[data-page=corrections] .table-wrap,body[data-page=corrections] .finish-table-scroll{overflow:visible!important}
+ body[data-page=corrections] table.mobile-review-table{display:block;width:100%!important;min-width:0!important;border:0!important;background:none!important}
+ body[data-page=corrections] table.mobile-review-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+ body[data-page=corrections] table.mobile-review-table tbody{display:grid;gap:12px}
+ body[data-page=corrections] table.mobile-review-table tr{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px 14px;background:#fffcfa;border:1px solid #e1d0e9;border-radius:14px;padding:16px;min-width:0}
+ body.corrections-polished[data-page=corrections] table.mobile-review-table td{display:block;border:0!important;padding:0!important;min-width:0;font-size:13px}
+ body[data-page=corrections] table.mobile-review-table td::before{content:attr(data-mobile-label);display:block;font-size:10px;line-height:1.4;color:#8a6b99;margin-bottom:5px}
+ body[data-page=corrections] table.mobile-review-table td:first-child{grid-column:1/-1;border-bottom:1px solid #eee3f2!important;padding-bottom:10px!important}
+ body[data-page=corrections] table.mobile-review-table td:first-child::before,body[data-page=corrections] table.mobile-review-table td:last-child::before{display:none}
+ body[data-page=corrections] table.mobile-review-table td:last-child{grid-column:1/-1;justify-self:stretch;display:flex;justify-content:flex-end}
+ body[data-page=corrections] table.mobile-review-table td:last-child a{display:inline-flex;align-items:center;min-height:44px;padding:8px 12px;background:#eee2f6;border-radius:10px;text-decoration:none}
+ body[data-page=corrections] table.mobile-review-table td[colspan]{grid-column:1/-1}
+}
+@media(max-width:359px){
+ body.login-page .login-header .brand img,body.cadastro-page .cadastro-header .marca img{width:124px!important}
+ body.login-page .login-header,body.cadastro-page .cadastro-header{padding-inline:16px!important;gap:8px}
+ body.login-page .login-main,body.cadastro-page main#conteudo{padding-inline:18px!important}
+ #como-funciona:not(.is-horizontal) .journey li{grid-template-columns:86px minmax(0,1fr);gap:12px}
+ #como-funciona:not(.is-horizontal) .journey .journey-world{width:86px;max-width:86px}
+}
+@media(max-width:800px){
+ html.astro-professor body.teacher-activities-page #pageActions>.activity-create{width:44px!important;height:44px!important;min-height:44px!important;max-height:44px!important;padding:10px!important;align-self:center;overflow:hidden!important}
+ html.astro-professor body.teacher-activities-page #pageActions>.activity-create span{display:none!important}
+ body.teacher-finish[data-page=student] #pageActions{display:flex!important;flex-wrap:wrap;justify-content:flex-end}
+ body.teacher-finish[data-page=student] #pageActions>select{flex:1 1 100%!important;width:100%!important;order:2}
+ body.teacher-finish[data-page=student] #pageActions>.teacher-return-row{width:auto!important;order:1}
+ /* A lista final move os filtros para fora do painel: ambos recebem a mesma grade. */
+ body.corrections-polished[data-page=corrections] .mesa-list-toolbar.filters{display:grid!important;grid-template-columns:minmax(0,1fr) 44px;flex-wrap:wrap!important}
+ body.corrections-polished[data-page=corrections] .mesa-list-toolbar.filters>.correction-search{grid-column:1/-1}
+ body.corrections-polished[data-page=corrections] .mesa-list-toolbar.filters>.mesa-semester{grid-column:1;grid-row:2;width:100%;min-width:0!important;max-width:100%}
+ body.corrections-polished[data-page=corrections] .mesa-list-toolbar.filters>.correction-filter{grid-column:2;grid-row:2;justify-self:end}
+}
+@media(max-width:800px){
+ body.login-page .input-wrap .input-symbol{left:16px!important;width:20px!important;height:20px!important}
+ body.login-page .input-wrap input{padding-left:48px!important;padding-right:48px!important}
+ body.login-page .login-scene-controls{width:100%}
+}
+@media(max-width:800px){
+ body.teacher-finish[data-page=student] #content{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ body.teacher-finish[data-page=student] #content>.stats{display:contents!important}
+ body.teacher-finish[data-page=student] #content>:not(.stats){grid-column:1/-1;min-width:0}
+ body.teacher-finish[data-page=student] #content .stat{margin:0}
+}
+@media(max-width:800px){
+ html.astro-professor body.teacher-finish #main :is(.breadcrumbs,#breadcrumbs)>a{max-width:42vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ body.student-quizzes .sq-breadcrumbs{justify-content:flex-start!important;gap:10px!important}
+}
+@media(max-width:600px){
+ body.activity-page .mission-banner>div:first-child{grid-template-rows:minmax(72px,auto) auto auto auto}
+ body.activity-page .mission-banner .kicker{min-height:0!important;height:auto;width:max-content;max-width:100%;padding:5px 8px;align-self:center;justify-self:start;border-radius:999px}
+}

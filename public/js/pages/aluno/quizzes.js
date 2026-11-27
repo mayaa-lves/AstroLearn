@@ -22,7 +22,7 @@ async function catalog(){
   const data=await listStudentQuizzes();const list=$('sqQuizList');list.replaceChildren();$('sqCount').textContent=data.quizzes.length+(data.quizzes.length===1?' quiz disponível':' quizzes disponíveis');
   for(const item of data.quizzes){
    const card=make('article','','sq-card sq-catalog-card'),copy=make('div'),art=make('div','','sq-planet-thumb');art.setAttribute('aria-hidden','true');copy.append(make('span',item.tipo==='avaliativo'?'Avaliação':'Treino','sq-available'),make('h2',item.titulo));
-   const details=[];if(Number.isInteger(item.total_questions)&&item.total_questions>0)details.push(item.total_questions+' questões');if(Number.isInteger(item.duracao_minutos)&&item.duracao_minutos>0)details.push('Até '+item.duracao_minutos+' minutos');if(details.length)copy.append(make('p',details.join(' · ')));
+   const details=[];const questionCount=item.total_questions??item.total_perguntas;if(Number.isInteger(questionCount)&&questionCount>0)details.push(questionCount+' questões');if(Number.isInteger(item.duracao_minutos)&&item.duracao_minutos>0)details.push('Até '+item.duracao_minutos+' minutos');if(details.length)copy.append(make('p',details.join(' · ')));
    card.append(art,copy,btn('Começar →',()=>openQuiz(item.id),'sq-primary'));list.append(card);
   }
   if(!data.quizzes.length)list.append(make('p',data.hasRoom?'Nenhum quiz disponível por enquanto. Assim que o professor publicar, ele aparecerá aqui.':'Entre em uma turma para receber os quizzes do seu professor.','sq-empty'));

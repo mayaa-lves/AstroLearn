@@ -53,7 +53,9 @@
       return { choice, value: option.value };
     });
 
+    let pinned=false;
     function setOpen(open) {
+      if(!open)pinned=false;
       options.hidden = !open;
       trigger.setAttribute("aria-expanded", String(open));
       const label = select.selectedOptions[0]?.textContent ?? "";
@@ -69,9 +71,9 @@
       if (event.pointerType === "mouse") setOpen(true);
     });
     filter.addEventListener("pointerleave", () => {
-      if (!options.contains(document.activeElement)) setOpen(false);
+      if (!pinned && !filter.contains(document.activeElement)) setOpen(false);
     });
-    trigger.onclick = () => setOpen(options.hidden);
+    trigger.onclick = () => {pinned=!pinned;setOpen(pinned);};
     filter.addEventListener("focusout", event => {
       if (!filter.contains(event.relatedTarget)) setOpen(false);
     });

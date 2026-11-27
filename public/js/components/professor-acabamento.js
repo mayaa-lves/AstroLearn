@@ -12,6 +12,8 @@
    if(action&&toolbar)toolbar.append(action);
   }
   for(const table of document.querySelectorAll('#main table,dialog table')){
+   if(document.body.dataset.page==='corrections'){table.classList.add('mobile-review-table');const labels=[...table.querySelectorAll('thead th')].map(h=>h.textContent.trim());for(const row of table.querySelectorAll('tbody tr'))[...row.cells].forEach((cell,index)=>cell.dataset.mobileLabel=labels[index]||'Ações');}
+
    if(table.parentElement.matches('.finish-table-scroll,.table-wrap,.room-chart-scroll')||table.closest('td,th'))continue;
    const wrapper=document.createElement('div');wrapper.className='finish-table-scroll';wrapper.tabIndex=0;
    wrapper.setAttribute('role','region');
