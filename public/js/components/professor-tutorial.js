@@ -169,7 +169,7 @@ function initTutorial(userId){
    if(help.getAttribute('aria-label')!=='Ajuda')help.setAttribute('aria-label','Ajuda');
   }
   if(!automaticPending||started||document.body.dataset.page!=='rooms'||!cssReady||document.hidden||document.readyState==='loading')return;
-  if(document.documentElement.classList.contains('astro-teacher-loading')||document.getElementById('content')?.getAttribute('aria-busy')==='true'||document.querySelector('dialog[open]'))return;
+  if(document.documentElement.classList.contains('astro-teacher-loading')||document.documentElement.classList.contains('astro-page-loading')||document.getElementById('content')?.getAttribute('aria-busy')==='true'||document.querySelector('dialog[open]'))return;
   open(saved?.status==='in_progress'?saved.slide:0);
  }
  const observer=new MutationObserver(scheduleAuto);observer.observe(document.documentElement,{attributes:true,attributeFilter:['class']});observer.observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['aria-busy','open']});

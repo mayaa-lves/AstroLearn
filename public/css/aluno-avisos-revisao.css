@@ -1,0 +1,41 @@
+/* Notificações em uma lista própria, sem herdar as colunas da trilha. */
+body.student-finish #notificationPanel{flex-direction:column;box-sizing:border-box;overflow:hidden!important;min-width:0}
+body.student-finish #notificationPanel[open]{display:flex!important}
+body.student-finish #notificationPanel .notification-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex:0 0 auto;width:100%;background:none;border:0;box-shadow:none;padding:0}
+body.student-finish #notificationPanel .notification-tools{display:flex;flex:0 0 auto;gap:7px}
+body.student-finish #notificationPanel .notification-intro{flex:0 0 auto;margin:14px 0 18px;line-height:1.6}
+body.student-finish #notificationPanel .notification-filters{display:flex!important;flex:0 0 auto;gap:7px;flex-wrap:nowrap;padding:5px}
+body.student-finish #notificationPanel .notification-filters>button{flex:1 1 0;min-width:0;min-height:40px;white-space:normal}
+body.student-finish #notificationPanel #notificationFeed{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:12px;flex:1 1 auto;min-height:0;padding:16px 2px;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain}
+body.student-finish #notificationPanel .student-notification-card{display:block!important;flex:0 0 auto;box-sizing:border-box;width:100%!important;min-width:0;max-width:100%;margin:0;padding:15px 14px;border:1px solid #e5d7ed;border-radius:14px;background:#fffdfb;overflow-wrap:anywhere}
+body.student-finish #notificationPanel .student-notification-card.is-unread{border-left:3px solid #9a6fc2;background:#f7f0fb}
+body.student-finish #notificationPanel .student-notification-meta{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:10px;line-height:1.5;color:#886c99;margin:0 0 9px}
+body.student-finish #notificationPanel .student-notification-state{padding:2px 7px;border-radius:999px;background:#ece2f2;color:#6e4886;white-space:nowrap}
+body.student-finish #notificationPanel time{white-space:nowrap;font:inherit}
+body.student-finish #notificationPanel .student-notification-card h3{display:block;font-size:15px;line-height:1.4;margin:0 0 7px;color:#49305c;letter-spacing:normal}
+body.student-finish #notificationPanel .student-notification-card p{display:block;font-size:13px;line-height:1.65;margin:0;color:#735c82}
+body.student-finish #notificationPanel .student-notification-card p:empty{display:none}
+body.student-finish #notificationPanel .student-notification-actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:13px 0 0}
+body.student-finish #notificationPanel .student-notification-actions>:is(a,button){display:inline-flex;align-items:center;justify-content:center;max-width:100%;min-height:36px;width:auto;margin:0;padding:7px 10px;border:1px solid #dbc7e6;border-radius:9px;background:#fffafc;color:#70428e;text-decoration:none;font:600 11px/1.4 Astro,Arial,sans-serif;cursor:pointer;white-space:normal}
+body.student-finish #notificationPanel .student-notification-actions>:is(a,button):hover{background:#eee1f6}
+body.student-finish #notificationPanel .notification-availability{flex:0 0 auto;background:none;box-shadow:none;padding-top:12px}
+body.student-finish #notifications{position:relative;overflow:visible!important}
+body.student-finish #notifications .student-notification-count{position:absolute;top:-5px;right:-5px;display:grid;place-items:center;box-sizing:border-box;min-width:20px;height:20px;width:auto;padding:0 4px;border:2px solid #fffaf7;border-radius:999px;background:#8246b8;color:#fff;font:700 10px/1 Arial,sans-serif;z-index:2}
+body.student-finish #notifications .student-notification-count[hidden]{display:none!important}
+/* Revisão compacta. IDs e formulários nativos mantidos. */
+body.student-finish #revisao-dialog.ui-dialog{box-sizing:border-box!important;width:min(560px,calc(100vw - 32px))!important;min-width:0!important;max-width:min(560px,calc(100vw - 32px))!important;height:fit-content!important;min-height:0!important;max-height:calc(100dvh - 40px)!important;inset:0!important;margin:auto!important;overflow:auto!important;padding:28px!important;border:1px solid #ddc9e7!important;border-radius:20px!important;background:#fffcf9!important;box-shadow:0 20px 70px #34213c35!important;color:#50325f}
+body.student-finish #revisao-dialog .activity-eyebrow{font-size:10px;letter-spacing:1.1px;margin:0 42px 9px 0;color:#9476a5}
+body.student-finish #revisao-dialog h2{font-size:24px;line-height:1.3;margin:0 38px 20px 0}
+body.student-finish #revisao-dialog h3{font-size:13px;line-height:1.5;margin:17px 0 7px}
+body.student-finish #revisao-dialog .review-text{max-height:180px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;line-height:1.6;margin:0;padding:12px 14px;border:1px solid #eadfed;border-radius:11px;background:#f9f3fc}
+body.student-finish #revisao-dialog ul{margin:0;padding-left:20px;font-size:13px;line-height:1.7;overflow-wrap:anywhere}
+body.student-finish #revisao-dialog .preview-note{margin:18px 0 10px;padding:0;border:0;border-radius:0;box-shadow:none;background:none;font-size:12px;line-height:1.6;color:#856c91}
+body.student-finish #revisao-dialog #demoSubmissionStatus{margin:8px 0 16px;font-size:12px;line-height:1.6;color:#6d567b;overflow-wrap:anywhere}
+body.student-finish #revisao-dialog #demoSubmissionStatus:empty{display:none}
+body.student-finish #revisao-dialog .student-review-actions{display:flex;justify-content:flex-end;align-items:center;flex-wrap:wrap;gap:10px;margin-top:20px}
+body.student-finish #revisao-dialog .student-review-actions>form{display:contents}
+body.student-finish #revisao-dialog .student-review-actions .ui-button{width:auto;max-width:100%;min-height:44px;margin:0;padding:11px 16px;font-size:13px;line-height:1.4;white-space:normal}
+body.student-finish #revisao-dialog .student-review-actions .ui-button--secondary{border:1px solid #d6bfdf;background:#fffaf8;color:#79528f}
+body.student-finish #revisao-dialog .ui-close{right:13px;top:13px;width:38px;height:38px;padding:0;font-size:24px}
+html[data-astro-tema=pixel] body.student-finish :is(#revisao-dialog.ui-dialog,#notificationPanel,.student-notification-card,.student-notification-actions>a,.student-notification-actions>button){border-radius:4px!important}
+@media(max-width:480px){body.student-finish #revisao-dialog.ui-dialog{padding:24px 20px!important}body.student-finish #revisao-dialog .student-review-actions .ui-button{flex:1 1 auto}body.student-finish #notificationPanel .student-notification-actions>:is(a,button){min-height:40px}}

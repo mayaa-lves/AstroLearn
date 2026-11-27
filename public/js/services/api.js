@@ -1,4 +1,13 @@
 import { CONFIG } from '../config.js';
+let requestSequence=0;
+function avisarCarregamento(phase,id,path,metodo){
+  if(typeof window!=='undefined'){
+    // A consulta pode começar antes de o script deferido montar o carregador.
+    const active=window.__astroLoadingRequests||(window.__astroLoadingRequests=new Map());
+    if(phase==='start')active.set(id,{path,metodo});else active.delete(id);
+    window.dispatchEvent(new CustomEvent('astrolearn:request',{detail:{phase,id,path,metodo}}));
+  }
+}
 
 export class ErroAPI extends Error {
   constructor(mensagem, status = 0) {
@@ -48,6 +57,8 @@ export async function solicitar(caminho, {
 
   sinal?.addEventListener('abort', cancelar, { once: true });
 
+  const requestId=++requestSequence;
+  avisarCarregamento('start',requestId,url.pathname,metodo);
   try {
     const resposta = await fetch(url.href, {
       method: metodo,
@@ -119,5 +130,6 @@ export async function solicitar(caminho, {
   } finally {
     clearTimeout(timer);
     sinal?.removeEventListener('abort', cancelar);
+    avisarCarregamento('end',requestId,url.pathname,metodo);
   }
 }

@@ -33,7 +33,7 @@ answer.placeholder = 'Escreva sua resposta conforme a orientação do professor�
 text('revisao-titulo', 'Confira sua entrega');
 text('demoSubmissionStatus', '');
 confirm.textContent = 'Confirmar e enviar';
-review.querySelector('.preview-note').textContent = 'Ao confirmar, seu trabalho será enviado à turma pelo servidor.';
+review.querySelector('.preview-note').textContent = 'Confira sua resposta e os arquivos. Ao confirmar, a entrega será enviada ao professor.';
 
 function reason() {
   if (preview) return 'Prévia do professor: somente leitura, sem entrega.';
