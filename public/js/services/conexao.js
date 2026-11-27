@@ -12,10 +12,10 @@ export function sessaoObrigatoria(role) {
   }
   return s;
 }
-export async function api(path, metodo = "GET", dados) {
+export async function api(path, metodo = "GET", dados, opcoes = {}) {
   const s = sessaoObrigatoria();
   try {
-    return await solicitar(path, { metodo, dados, token: s.token });
+    return await solicitar(path, { ...opcoes, metodo, dados, token: s.token });
   } catch (e) {
     if (e.status === 401)
       location.replace(new URL("../../../auth/login.html", import.meta.url));

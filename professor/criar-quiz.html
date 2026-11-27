@@ -1,0 +1,58 @@
+<!doctype html><html lang="pt-BR"><head>
+    <meta charset="utf-8">
+    
+    
+    
+    <link rel="stylesheet" href="../public/css/professor-menu-padrao.css?v=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Criar quiz · AstroLearn</title><link rel="stylesheet" href="../public/css/aluno-pdf.css"><link rel="stylesheet" href="../public/css/professor.css"><link rel="stylesheet" href="../public/css/menu-professor.css"><link rel="stylesheet" href="../public/css/preferencias.css"><link rel="stylesheet" href="../public/css/menu-unificado.css"><script defer src="../public/js/components/menu-professor-perfil.js?v=5"></script><link rel="icon" type="image/png" href="../public/assets/imagens/marca/astrolearn-simbolo.png">
+<link rel="stylesheet" href="../public/css/rolagem.css" data-astro-rolagem>
+<link rel="stylesheet" href="../public/css/professor-quizzes.css?v=integracao-1">
+<link rel="stylesheet" href="../public/css/professor-acabamento.css?v=1">
+<script defer src="../public/js/components/professor-acabamento.js?v=1"></script>
+
+<style data-astro-startup>html.astro-page-loading{background:#fcf8f5}html.astro-page-loading body{visibility:hidden}html.astro-page-loading #astroPageLoader{visibility:visible}</style>
+<script data-astro-startup>document.documentElement.classList.add('astro-page-loading');setTimeout(function(){document.documentElement.classList.remove('astro-page-loading','astro-teacher-loading');var layer=document.getElementById('astroPageLoader');if(layer)layer.remove();},8000);</script>
+<link rel="stylesheet" href="../public/css/carregamento.css?v=2" data-astro-startup>
+<script defer src="../public/js/components/carregamento.js?v=2" data-astro-startup></script>
+<link rel="stylesheet" href="../public/css/responsividade.css?v=1">
+</head><body data-page="quiz-builder" class="teacher-finish"><a class="skip" href="#main">Pular para o conteúdo</a>    <aside class="sidebar">
+      <a class="brand" href="home.html" id="brandHome"
+        ><svg aria-hidden="true" viewbox="0 0 40 40">
+          <circle cx="20" cy="20" r="9"></circle>
+          <ellipse
+            cx="20"
+            cy="20"
+            rx="18"
+            ry="6"
+            transform="rotate(-28 20 20)"
+          ></ellipse></svg
+        >Astro<span>Learn</span></a
+      ><button
+        aria-controls="mainNav"
+        aria-expanded="true"
+        aria-label="Recolher menu"
+        id="menuToggle"
+      >
+        ‹‹
+      </button>
+      <nav aria-label="Menu do professor" id="mainNav"></nav>
+      <div class="side-bottom">
+        <button class="text-button" id="help">
+          ? <span class="label">Ajuda</span></button
+        ><a href="../auth/login.html" id="exit"
+          >← <span class="label">Voltar ao login</span></a
+        >
+      </div>
+    </aside>
+<main id="main" tabindex="-1"><nav class="breadcrumbs" aria-label="Caminho"><a href="home.html">Turmas</a><span>/</span><a id="quizRoom">Minha turma</a><span>/</span><a id="quizCatalogCrumb">Quizzes</a><span>/ Criar quiz</span></nav>
+<header class="quiz-heading"><h1>Criar quiz</h1><p>Crie questões com IA ou manualmente e revise antes de publicar.</p></header>
+<div class="quiz-progress"><nav aria-label="Etapas do quiz"><button data-step="0"><b>1</b> Questões</button><i></i><button data-step="1"><b>2</b> Configurações</button><i></i><button data-step="2"><b>3</b> Revisar e publicar</button></nav><div class="page-actions quiz-back"><a id="quizBack" class="secondary" href="home.html">← Voltar às turmas</a></div></div>
+<p id="quizMessage" role="status" aria-live="polite"></p><p id="quizError" role="alert"></p>
+<div id="content" aria-busy="true">
+<section class="quiz-meta" aria-label="Identificação do quiz"><div><label class="sr-only" for="quizTitle">Título do quiz</label><input id="quizTitle" maxlength="180" placeholder="Dê um título ao quiz"><label class="sr-only" for="quizDescription">Descrição</label><textarea id="quizDescription" rows="1" maxlength="2000" placeholder="Adicione uma orientação para os alunos"></textarea></div><div class="quiz-meta-chips"><span id="draftState">Rascunho local</span><label><span class="sr-only">Semestre</span><select id="quizPeriod"><option value="">Sem semestre</option></select></label></div></section>
+<section id="editorPanel" class="quiz-workspace" hidden><aside class="quiz-outline" aria-label="Lista de questões"><h2>Questões <span id="questionCount">0</span></h2><div id="questionList"></div><button id="addQuestion" class="quiz-add">＋ Adicionar questão</button><button id="openGenerator" class="quiz-link">✧ Gerar com IA</button></aside><div class="quiz-editor-column"><section id="preparePanel" class="quiz-surface"><div class="quiz-source-tabs"><button id="aiTab" aria-pressed="true">✧ Gerar com IA</button><button id="manualTab" aria-pressed="false">＋ Criar manualmente</button><button id="resumeEditor" hidden>Voltar às questões →</button></div><form id="generateForm"><h2>O que sua turma está estudando?</h2><label>Tema ou conteúdo<textarea id="aiTheme" rows="3" maxlength="3000" required placeholder="Ex.: Sistema Solar, movimentos da Terra e características dos planetas"></textarea></label><div class="quiz-fields"><label>Ano ou etapa<input id="aiYear" maxlength="100" placeholder="Ex.: 6º ano"></label><label>Dificuldade<select id="aiDifficulty"><option value="facil">Fácil</option><option value="medio" selected>Intermediária</option><option value="dificil">Difícil</option></select></label><label>Quantidade de questões<input id="aiQuantity" type="number" min="1" max="20" value="5" required></label></div><label>Orientações para a IA <small>(opcional)</small><input id="aiInstructions" maxlength="1200" placeholder="Ex.: use situações do cotidiano e linguagem simples"></label><div class="quiz-generate-footer"><p>Você poderá editar tudo antes de publicar.</p><button class="quiz-primary" id="generateButton" type="submit">✧ Gerar questões</button></div></form></section>
+<div id="questionEditor" class="quiz-surface"></div></div></section>
+<section id="settingsPanel" class="quiz-surface" hidden><h2>Configurações</h2><p class="quiz-muted">Escolha a finalidade. Treinos ficam fora da média. Avaliações compõem a média conforme os pesos do semestre.</p><div class="quiz-fields"><label>Finalidade<select id="quizType"><option value="treino">Treino</option><option value="avaliacao">Avaliação</option></select></label><label>Tempo de realização <small>(opcional)</small><input id="quizDuration" type="number" min="1" max="1440" placeholder="Sem limite · em minutos"></label></div><div class="quiz-fields"><label>Peso da avaliação<input id="quizWeight" type="number" min="0.01" step="0.01" value="1"></label><label>Disponível a partir de <small>(opcional)</small><input id="quizOpens" type="datetime-local"></label><label>Prazo para começar <small>(opcional)</small><input id="quizCloses" type="datetime-local"></label></div><label class="quiz-check"><input type="checkbox" id="quizExit"> Encerrar a tentativa ao sair da guia</label><p class="quiz-muted">Ao ocultar esta página durante a tentativa, o servidor encerra a prova com as respostas já salvas. Avise os alunos antes de começar.</p><div class="quiz-note">A revisão de acertos e erros acontece após a finalização. Treinos permitem novas tentativas. Avaliações permitem uma tentativa; uma nova depende da autorização do professor.</div></section>
+<section id="reviewPanel" class="quiz-surface" hidden><h2>Revisar e publicar</h2><div id="reviewContent"></div><label class="quiz-check"><input type="checkbox" id="reviewConfirmed"> Revisei os enunciados, alternativas e gabaritos.</label><p class="quiz-note">Ao publicar, o quiz aparecerá para os alunos da turma. Confira o semestre e a finalidade antes de confirmar.</p></section>
+</div><footer class="quiz-footer"><span id="stepLabel">Etapa 1 de 3</span><div><button id="previousStep" class="quiz-secondary" hidden>Anterior</button><button id="exportDraft" class="quiz-secondary">Exportar rascunho</button><button id="saveDraft" class="quiz-secondary">Salvar rascunho</button><button id="nextStep" class="quiz-primary">Continuar →</button><button id="publishQuiz" class="quiz-primary" hidden disabled>Publicar quiz</button></div></footer></main>
+<script src="../public/js/components/preferencias.js?v=chat-walk-3"></script><script src="../public/js/components/menu-unificado.js?v=quiz-catalogo-1"></script><script type="module" src="../public/js/components/professor-padrao.js?v=13"></script><script type="module" src="../public/js/components/professor-perfil-vinculo.js?v=3"></script><script type="module" src="../public/js/pages/professor/quizzes.js?v=catalogo-3"></script><script src="../public/js/components/assistente-professor.js?v=chat-walk-3"></script></body></html>

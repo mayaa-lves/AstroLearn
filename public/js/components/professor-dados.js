@@ -25,7 +25,7 @@
   async function room(s) {
     const [d, p, e] = await Promise.all([
       call(base(s)),
-      call(base(s) + "/pauta"),
+      call(base(s) + "/pauta" + (new URLSearchParams(location.search).get('periodo')?'?periodo_id='+encodeURIComponent(new URLSearchParams(location.search).get('periodo')):'')),
       call(base(s) + "/entregas"),
     ]);
     const result = {

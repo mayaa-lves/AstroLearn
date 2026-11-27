@@ -2,6 +2,7 @@
 export function expandirAcoes(root=document) {
  const known='.room-quick-action,.activity-create,.detail-shortcut,.team-delete-button,.integration-room-delete,.room-delete,.room-invite,.correction-file-action,.mesa-fullscreen,.activity-filter-trigger,.correction-filter-trigger,.questions-filter-trigger,.library-filter-trigger,.material-actions a,.material-actions button';
  for(const control of root.querySelectorAll('main a,main button,main summary,dialog .material-actions a,dialog .material-actions button,#teacherTools>a.teacher-circle,#teacherTools>button.teacher-circle:not(.teacher-profile)')){
+  if(control.matches('.qc-icon,.qc-filter-trigger,.room-copy,.room-search-toggle,.room-student-search button,.activity-filter-trigger,.correction-filter-trigger,.questions-filter-trigger,.library-filter-trigger')){control.classList.remove('astro-expand-action');control.querySelectorAll(':scope > .astro-action-label').forEach(label=>label.remove());continue;}
   if(control.matches('.mesa-attachment-tab')){control.classList.remove('astro-expand-action');control.querySelector('.astro-action-label')?.classList.remove('astro-action-label');continue;}
   if(control.closest('.sidebar')||control.matches('.teacher-return,[type="submit"],.close,[aria-label^="Fechar"]'))continue;
   const glyph=control.querySelector(':scope > svg');if(!glyph)continue;

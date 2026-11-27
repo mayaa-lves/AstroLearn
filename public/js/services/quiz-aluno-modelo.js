@@ -11,7 +11,7 @@ export function normalizeStudentQuiz(data){
   if(options.some(option=>!option.trim()))throw Error(`A questão ${i+1} está sem alternativas.`);
   return {id:row.id,text:row.question,options};
  });
- return {id:data.quiz.id,roomId:text(data.quiz.sala_id),title:text(data.quiz.titulo)||'Quiz da turma',description:text(data.quiz.descricao),type:text(data.quiz.tipo),duration:data.quiz.duracao_minutos??null,exitPolicy:data.quiz.encerrar_ao_sair_da_guia===true,version:String(data.quiz.versao??data.quiz.updated_at??''),questions,completed:data.ja_respondido===true,result:data.progresso??null,review:data.revisao};
+ return {id:data.quiz.id,roomId:text(data.quiz.sala_id),title:text(data.quiz.titulo)||'Quiz da turma',description:text(data.quiz.descricao),type:data.quiz.tipo==='avaliativo'?'avaliacao':text(data.quiz.tipo),duration:data.quiz.duracao_minutos??null,exitPolicy:data.quiz.encerrar_ao_sair_guia===true,version:String(data.quiz.versao??data.quiz.updated_at??''),questions,completed:data.ja_respondido===true,result:data.progresso??null,review:data.revisao};
 }
 export function requiresAttemptServer(quiz){return quiz.type==='avaliacao'||quiz.duration!==null||quiz.exitPolicy;}
 export function safeAnswers(questions,raw){

@@ -18,7 +18,7 @@ export class ErroAPI extends Error {
 }
 
 export async function solicitar(caminho, {
-  metodo = 'GET', dados, token, sinal,
+  metodo = 'GET', dados, token, sinal, tempoLimiteMs,
 } = {}) {
   const url = new URL(caminho, CONFIG.apiBaseUrl);
 
@@ -51,7 +51,7 @@ export async function solicitar(caminho, {
   const timer = setTimeout(() => {
     expirou = true;
     controle.abort();
-  }, CONFIG.tempoLimiteMs);
+  }, Number.isFinite(tempoLimiteMs)&&tempoLimiteMs>=1000&&tempoLimiteMs<=60000?tempoLimiteMs:CONFIG.tempoLimiteMs);
 
   if (sinal?.aborted) cancelar();
 

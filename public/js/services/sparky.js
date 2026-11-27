@@ -23,14 +23,14 @@ export async function createSparky({status,message,busy}) {
  let pending=null,timer=null,expired=new Set(),disposed=false,welcome=false;
  const finish=()=>{clearTimeout(timer);timer=null;pending=null;busy(false);};
  const relevant=data=>!disposed && !expired.has(data?.request_id) && (!data?.request_id || !pending || data.request_id===pending);
- socket.on('connect',()=>status('Sparky conectado',true));
+ socket.on('connect',()=>status('Sparky conectado',true,'connected'));
  socket.on('status_conexao',data=>{if(!welcome){message(data?.mensagem_inicial||'Olá! Sou o Sparky. O que vamos investigar?');welcome=true;}});
  socket.on('nova_mensagem',data=>{if(!relevant(data))return;finish();message(typeof data?.texto==='string'&&data.texto.trim()?data.texto:'A resposta veio vazia. Tente reformular sua pergunta.');});
  socket.on('erro',data=>{if(!relevant(data))return;finish();message(typeof data?.erro==='string'?data.erro:'Não foi possível responder. Tente novamente.','system');});
- socket.on('disconnect',()=>{if(pending){expired.add(pending);message('A conexão caiu; sua pergunta não será reenviada automaticamente.','system');}finish();status('Conexão interrompida. Reconecte para continuar.',false);});
- socket.on('connect_error',()=>{finish();status('Sparky indisponível. Tente reconectar em alguns instantes.',false);});
+ socket.on('disconnect',()=>{if(pending){expired.add(pending);message('A conexão caiu; sua pergunta não será reenviada automaticamente.','system');}finish();status('Conexão interrompida. Reconecte para continuar.',false,'offline');});
+ socket.on('connect_error',()=>{finish();status('Sparky indisponível. Tente reconectar em alguns instantes.',false,'error');});
  socket.on('conversa_resetada',()=>{finish();message('Nova conversa iniciada.');});
- socket.connect();status('Conectando ao Sparky… O servidor pode levar até um minuto para despertar.',false);
+ socket.connect();status('Conectando ao Sparky… O servidor pode levar até um minuto para despertar.',false,'connecting');
  return {
   send(text){
    if(disposed||!socket.connected||pending)return false;

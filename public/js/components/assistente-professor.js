@@ -3,6 +3,7 @@
  if(document.querySelector('astro-assistente'))return;
  const base=new URL('.',document.currentScript.src);
  const style=document.createElement('style');style.textContent='[data-sparky-page]{max-width:none!important;width:100%}#helper,.quiet-companion,#chatToggle,#chatPanel{display:none!important}';document.head.append(style);
+ const walking=import(new URL('./chat-espera-animada.js?v=2',base));
  const formatting=import(new URL('./chat-formatacao.js',base));
  const interactions=import(new URL('./sparky-interacoes-perfil.js?v=perfil-1',base));
  const pixel = false;
@@ -35,23 +36,24 @@ form button::after {
 .log{scrollbar-width:thin;scrollbar-color:#ac8fc3 #f5eff8}.log::-webkit-scrollbar{width:7px}.log::-webkit-scrollbar-track{background:#f5eff8}.log::-webkit-scrollbar-thumb{background:#ac8fc3;border-radius:10px;border:2px solid #f5eff8}
 </style><section class="panel" id="sparkyPanel" role="${inline?'region':'dialog'}" aria-label="Conversa com Sparky" ${inline?'':'hidden inert'}><header><div><strong>Sparky · Seu copiloto</strong><small>Assistente de aprendizagem com IA</small></div><button type="button" class="close" aria-label="Fechar assistente" ${inline?'hidden':''}>×</button></header><div class="connection"><span role="status">Abra a conversa para conectar.</span><button type="button" class="retry">Conectar</button></div><div class="log" role="log" aria-live="polite" aria-label="Mensagens"><p>Vamos investigar juntos? Posso ajudar a entender conceitos e pensar em caminhos para sua atividade.</p></div><p class="waiting" role="status" hidden>Sparky está pensando…</p><p class="notice">A IA pode errar. Confira as informações antes de utilizá-las em aula. Não envie senhas ou dados pessoais. Mensagens são enviadas ao serviço Sparky.</p><form><label class="sr" for="sparkyInput">Sua pergunta ao Sparky</label><textarea id="sparkyInput" rows="2" maxlength="1500" placeholder="O que vamos descobrir?" required></textarea><button type="submit" aria-label="Enviar pergunta" disabled>→</button></form></section><button class="bubble" aria-label="Abrir Sparky" aria-controls="sparkyPanel" aria-expanded="false" ${inline?'hidden':''}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 3h16v14h-6l-4 4v-4H4Z"/><path d="M8 8h1m3 0h1m3 0h1M8 12h8"/></svg><span class="tip">Converse com o Sparky</span></button>`;
    const panel=root.querySelector('.panel'),button=root.querySelector('.bubble'),input=root.querySelector('textarea'),send=root.querySelector('form button'),retry=root.querySelector('.retry'),status=root.querySelector('.connection span'),log=root.querySelector('.log'),waiting=root.querySelector('.waiting');
-   let client=null,connected=false,processing=false,loading=false,disposed=false,companion=null,profileCompanion=null;
-   const controls=()=>{send.disabled=!connected||processing;input.readOnly=processing;retry.disabled=loading;waiting.hidden=!processing;companion?.status({connected,processing,loading});};
+   let client=null,connected=false,processing=false,loading=false,connecting=false,disposed=false,companion=null,profileCompanion=null;
+   let chatWalker=null;
+   const controls=()=>{send.disabled=!connected||processing;input.readOnly=processing;retry.disabled=loading;waiting.hidden=!processing;chatWalker?.status({connected,loading,connecting,open:!panel.hidden});companion?.status({connected,processing,loading});};
    const message=(text,kind='bot')=>{const p=document.createElement('p');const value=String(text).slice(0,30000);p.textContent=value;p.className=kind;if(kind==='bot')formatting.then(({formatarMensagem})=>p.replaceChildren(formatarMensagem(value))).catch(()=>{});log.append(p);while(log.children.length>60)log.firstElementChild.remove();log.scrollTop=log.scrollHeight;if(kind!=='user')companion?.received(kind);};
-   const connect=async()=>{if(loading||disposed)return;loading=true;connected=false;client?.dispose();client=null;controls();status.textContent='Carregando Sparky…';
-    try{const {createSparky}=await import(new URL('../services/sparky.js',base));if(disposed)return;
-     client=await createSparky({status:(text,online)=>{status.textContent=text;connected=online;retry.textContent=online?'Reconectar':'Tentar novamente';controls();},message,busy:value=>{processing=value;controls();}});
+   const connect=async()=>{if(loading||disposed)return;loading=true;connecting=true;connected=false;client?.dispose();client=null;controls();status.textContent='Carregando Sparky…';
+    try{const {createSparky}=await import(new URL('../services/sparky.js?v=chat-walk-3',base));if(disposed)return;
+     client=await createSparky({status:(text,online,phase)=>{status.textContent=text;connected=online;connecting=phase==='connecting';retry.textContent=online?'Reconectar':'Tentar novamente';controls();},message,busy:value=>{processing=value;controls();}});
      if(disposed)client.dispose();
-    }catch(error){status.textContent=error.message;connected=false;}finally{loading=false;controls();}
+    }catch(error){status.textContent=error.message;connected=false;connecting=false;}finally{loading=false;controls();}
    };
-   const toggle=open=>{panel.hidden=!open;panel.inert=!open;button.setAttribute('aria-expanded',String(open));if(open){input.focus();if(!client&&!loading)connect();}else button.focus();};
+   const toggle=open=>{panel.hidden=!open;panel.inert=!open;controls();button.setAttribute('aria-expanded',String(open));if(open){input.focus();if(!client&&!loading)connect();}else button.focus();};
    button.onclick=()=>toggle(panel.hidden);root.querySelector('.close').onclick=()=>toggle(false);retry.onclick=connect;
    root.addEventListener('keydown',event=>{if(event.key==='Escape'&&!inline&&!panel.hidden){event.preventDefault();event.stopPropagation();toggle(false);}});
    root.querySelector('form').onsubmit=event=>{event.preventDefault();const text=input.value.trim();if(!connected||processing||!text)return;if(client?.send(text)){message(text,'user');input.value='';}};
-   const stop=()=>{disposed=true;companion?.pause();profileCompanion?.pause();client?.dispose();client=null;connected=false;processing=false;};
-   const resume=event=>{if(event.persisted){disposed=false;profileCompanion?.resume();companion?.resume();status.textContent='Conversa pausada. Reconecte para continuar.';controls();if(!panel.hidden)connect();}};
+   const stop=()=>{disposed=true;chatWalker?.pause();companion?.pause();profileCompanion?.pause();client?.dispose();client=null;connected=false;processing=false;};
+   const resume=event=>{if(event.persisted){disposed=false;chatWalker?.resume();profileCompanion?.resume();companion?.resume();status.textContent='Conversa pausada. Reconecte para continuar.';controls();if(!panel.hidden)connect();}};
    window.addEventListener('pagehide',stop);window.addEventListener('pageshow',resume);
-   this.cleanup=()=>{stop();profileCompanion?.dispose();companion?.dispose();window.removeEventListener('pagehide',stop);window.removeEventListener('pageshow',resume);};
+   this.cleanup=()=>{stop();chatWalker?.dispose();profileCompanion?.dispose();companion?.dispose();window.removeEventListener('pagehide',stop);window.removeEventListener('pageshow',resume);};
    interactions.then(({iniciarInteracoes})=>{
     if(disposed)return;
     const art = '../../assets/imagens/aluno/assistente/';
@@ -83,6 +85,7 @@ form button::after {
     }
     controls();
    });
+   walking.then(({mountChatWait})=>{if(!disposed){chatWalker=mountChatWait(root);controls();}}).catch(()=>{});
    if(inline)connect();
   }
   disconnectedCallback(){this.cleanup?.();}

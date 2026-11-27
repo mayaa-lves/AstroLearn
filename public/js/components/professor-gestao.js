@@ -68,7 +68,7 @@ if(location.pathname.includes('/professor/')){
   function decorate(){for(const card of document.querySelectorAll('.room-card[data-room-id]')){
    if(card.querySelector('.integration-room-delete'))continue;
    const remove=button('',()=>deleteRoom(card.dataset.roomId),'integration-room-delete');remove.title='Excluir turma';remove.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7m4-7v7"/></svg>';remove.setAttribute('aria-label','Excluir turma '+(card.querySelector('h2')?.textContent||''));
-   const footer=card.querySelector('.room-card-footer');if(footer)footer.append(remove);
+   const footer=card.querySelector('.room-card-footer');if(footer){let actions=footer.querySelector('.room-card-actions');if(!actions){actions=document.createElement('div');actions.className='room-card-actions';const enter=footer.querySelector('.room-enter');if(enter)actions.append(enter);footer.append(actions);}actions.append(remove);};
   }}
   new MutationObserver(decorate).observe(document.getElementById('content'),{childList:true,subtree:true});decorate();
  }

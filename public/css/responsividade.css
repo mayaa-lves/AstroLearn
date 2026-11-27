@@ -1,0 +1,151 @@
+/* Adaptação das telas existentes. Desktop e artes dos dois temas preservados.
+   Nenhuma regra de notas, publicação, autenticação ou persistência é alterada. */
+:root{--astro-touch:44px;--astro-safe-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-bottom:110px}
+body :is(main,#content,.app,.page-actions,.form-row){min-width:0}
+body :is(input,select,textarea){box-sizing:border-box}
+body :is(dialog,[role=dialog]){overscroll-behavior:contain}
+body :is(.finish-table-scroll,.student-table-scroll,.table-wrap,.room-chart-scroll){-webkit-overflow-scrolling:touch;scrollbar-gutter:stable}
+@media(max-width:1100px){
+ body.teacher-finish :is(.quiz-meta,.quiz-question-header,.quiz-generate-footer){flex-wrap:wrap}
+ body.teacher-finish .quiz-meta>div:first-child{flex:1 1 100%}
+ body.teacher-finish .quiz-meta-chips{width:100%;justify-content:flex-end}
+ body.teacher-finish .quiz-question-header h2{flex:1 1 130px}
+ body.teacher-finish .quiz-icon-actions{flex-wrap:wrap;max-width:100%;margin-left:auto}
+ body.teacher-finish :is(.quiz-fields,.quiz-settings-grid){grid-template-columns:repeat(2,minmax(0,1fr))}
+ body.teacher-finish :is(.qc-toolbar,.library-toolbar,.questions-toolbar){flex-wrap:wrap;min-width:0}
+ body.teacher-finish :is(.qc-card,.question-card,.library-file-card,.activity-card){min-width:0}
+ body.teacher-finish .qc-toolbar select{min-width:0;max-width:100%}
+ body.student-finish :is(.settings-column,.shop-workspace,.library-workspace,.profile-layout)>*{min-width:0}
+}
+@media(max-width:800px){
+ /* A barra inferior e os atalhos reservam espaço real; a página continua rolável. */
+ body.astro-nav-ready{padding-bottom:env(safe-area-inset-bottom,0px)}
+ body.astro-nav-ready .sidebar[data-astro-unified]{bottom:calc(10px + env(safe-area-inset-bottom,0px))!important;left:max(10px,env(safe-area-inset-left,0px))!important;right:max(10px,env(safe-area-inset-right,0px))!important}
+ body.astro-nav-ready #main{padding-bottom:calc(120px + env(safe-area-inset-bottom,0px))!important}
+ body.astro-nav-ready :is(input,select,textarea,button,a,summary){scroll-margin-block:90px 130px}
+ html.astro-professor #teacherTools{right:max(14px,env(safe-area-inset-right,0px));top:max(14px,env(safe-area-inset-top,0px));gap:8px}
+ html.astro-professor #teacherTools>.teacher-circle{min-width:44px!important;width:44px!important;height:44px!important;min-height:44px!important;padding:10px!important;flex:0 0 44px!important}
+ html.astro-professor #teacherTools>.astro-expand-action>.astro-action-label{display:none!important;max-width:0!important;margin:0!important}
+ #teacherTools .teacher-panel{position:fixed!important;top:74px!important;right:14px!important;width:calc(100vw - 28px)!important;max-width:420px!important;max-height:calc(100dvh - 174px - env(safe-area-inset-bottom,0px))!important;padding:18px!important}
+ body :is(.breadcrumbs,#breadcrumbs){justify-content:flex-start!important;gap:6px 8px!important;line-height:1.5;overflow-wrap:anywhere}
+ body :is(.breadcrumbs,#breadcrumbs)>*{min-width:0;max-width:100%}
+ body :is(.breadcrumbs,#breadcrumbs)>a{flex:0 1 auto}
+ body.teacher-finish #main>:is(.breadcrumbs,#breadcrumbs){margin-right:0!important}
+ body.teacher-finish #main>.teacher-top{min-height:0!important;padding:0!important;margin:0 0 12px!important}
+ body.teacher-finish :is(#pageActions,.page-actions,.room-actions,.library-toolbar,.questions-toolbar,.qc-toolbar){max-width:100%;gap:10px;align-items:center}
+ body.teacher-finish :is(.page-actions,#pageActions)>:is(select,.period-select){flex:1 1 180px;min-width:0!important;max-width:100%!important}
+ body.teacher-finish :is(.material-search,.questions-search,.correction-search){min-width:0!important;max-width:100%;flex:1 1 220px}
+ body.teacher-finish :is(.material-search,.questions-search,.correction-search) input{min-width:0!important;width:100%;font-size:16px!important}
+ body.teacher-finish :is(.room-card,.question-card,.activity-card,.library-file-card){max-width:100%;overflow-wrap:anywhere}
+ body.teacher-finish :is(.room-card-actions,.material-actions,.question-card-footer){flex-wrap:wrap;gap:8px}
+ body.teacher-finish :is(.room-students-header,.room-student-tools){align-items:center;gap:10px}
+ body.teacher-finish .room-student-tools{margin-left:auto}
+ body.teacher-finish :is(.stats,.detail-stats,.student-stats){grid-template-columns:repeat(auto-fit,minmax(min(145px,100%),1fr))!important}
+ body.teacher-finish :is(.detail-panels,.quiz-fields){grid-template-columns:1fr!important}
+ /* Editor: identidade acima das configurações, ações nunca comprimem o título. */
+ body[data-page=quiz-builder] .quiz-meta{display:grid!important;grid-template-columns:minmax(0,1fr);gap:16px!important}
+ body[data-page=quiz-builder] .quiz-meta>div{width:100%;min-width:0}
+ body[data-page=quiz-builder] .quiz-meta-chips{justify-content:space-between;gap:8px}
+ body[data-page=quiz-builder] .quiz-meta-chips>label{flex:1 1 160px;min-width:0}
+ body[data-page=quiz-builder] .quiz-meta-chips select{max-width:none!important}
+ body[data-page=quiz-builder] .quiz-progress{gap:8px!important}
+ body[data-page=quiz-builder] .quiz-progress>nav{flex:1 1 auto!important;max-width:100%!important;gap:4px!important}
+ body[data-page=quiz-builder] .quiz-progress nav button{flex:1 1 0;min-width:0;white-space:normal!important;font-size:11px!important;line-height:1.3;padding:8px 4px!important;min-height:64px;gap:5px!important;flex-direction:column}
+ body[data-page=quiz-builder] .quiz-progress nav i{display:none}
+ body[data-page=quiz-builder] .quiz-question-header{align-items:center;gap:12px;flex-wrap:wrap}
+ body[data-page=quiz-builder] .quiz-question-header h2{flex:1 1 100%;font-size:20px!important}
+ body[data-page=quiz-builder] .quiz-icon-actions{margin-left:0;flex-wrap:wrap;gap:8px}
+ html.astro-professor body[data-page=quiz-builder] .quiz-icon-actions .astro-expand-action{width:44px!important;min-width:44px!important;min-height:44px!important;padding:10px!important}
+ html.astro-professor body[data-page=quiz-builder] .quiz-icon-actions .astro-action-label{display:none!important}
+ body[data-page=quiz-builder] :is(.quiz-format,.quiz-enunciado){margin-block:12px!important}
+ body[data-page=quiz-builder] .quiz-option{padding:8px 10px!important;gap:8px!important}
+ body[data-page=quiz-builder] .quiz-option input[type=text]{font-size:16px!important;min-width:0}
+ body[data-page=quiz-builder] .quiz-footer{position:static!important;align-items:stretch;gap:12px;flex-direction:column}
+ body[data-page=quiz-builder] .quiz-footer>div{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+ body[data-page=quiz-builder] .quiz-footer button{min-height:44px;font-size:12px;flex:1 1 130px}
+ /* Janelas usam a altura visível, inclusive com teclado, sem perder ações. */
+ body :is(dialog,.integration-dialog):not(.astro-tutorial){box-sizing:border-box;max-width:calc(100vw - 24px)!important;max-height:calc(100dvh - 32px - env(safe-area-inset-bottom,0px))!important;overflow:auto;overscroll-behavior:contain}
+ body :is(.dialog-actions,.integration-actions,.form-actions,.editor-actions,.material-form-actions,.delivery-actions,.team-dialog-actions){flex-wrap:wrap;gap:10px}
+ body :is(.dialog-actions,.integration-actions,.form-actions,.editor-actions,.material-form-actions,.delivery-actions)>:is(button,a){max-width:100%;min-height:44px;white-space:normal}
+ body :is(#main,dialog) :is(input:not([type=radio]):not([type=checkbox]):not([type=range]):not([type=color]),select,textarea){font-size:16px}
+ body :is(.review-file,.attachment-row){min-width:0;flex-wrap:wrap;gap:10px}
+ body :is(.review-file,.attachment-row)>:first-child{min-width:0;overflow-wrap:anywhere;flex:1 1 150px}
+ body :is(.review-file-controls,.file-actions){margin-left:auto}
+ body.student-finish :is(.library-toolbar,.team-toolbar,.shop-toolbar,.profile-actions){flex-wrap:wrap;gap:10px;min-width:0}
+ body.student-finish :is(.sq-card,.library-card,.team-card,.achievement-card){min-width:0;max-width:100%;overflow-wrap:anywhere}
+ body.student-finish :is(.sq-question,.sq-result,.sq-intro){min-width:0;max-width:100%;box-sizing:border-box}
+ body.student-finish :is(.sq-actions,.sq-navigation,.sq-intro-meta){flex-wrap:wrap;gap:10px}
+ body.student-finish :is(#gameFrame,.biolab-frame){width:100%;max-width:100%;height:min(70dvh,680px);border:0}
+ body.student-finish .biolab-bar{flex-wrap:wrap;gap:12px}
+ body.student-finish .biolab-bar>div{min-width:0;flex:1 1 180px}
+ body.student-finish .biolab-bar h1{overflow-wrap:anywhere;font-size:clamp(24px,6vw,32px)}
+}
+@media(max-width:480px){
+ body.teacher-finish :is(.qc-toolbar,.library-toolbar,.questions-toolbar){gap:10px}
+ body.teacher-finish .qc-search{flex:1 1 100%!important;order:0}
+ body.teacher-finish .qc-toolbar>.qc-create{order:1;flex:1 1 auto}
+ body.teacher-finish .qc-toolbar>details{order:2}
+ body.teacher-finish .qc-toolbar>select{order:3;flex:1 1 100%!important}
+ body.teacher-finish .qc-card-footer{flex-wrap:wrap;gap:12px}
+ body.teacher-finish .qc-card-controls{margin-left:auto}
+ body.teacher-finish .quiz-meta-chips>label{flex-basis:100%}
+ body.teacher-finish.teacher-room-wall #roomToolbar{display:grid!important;grid-template-columns:minmax(0,1fr) auto;gap:12px}
+ body.teacher-finish.teacher-room-wall #roomToolbar .room-search{grid-column:1/-1;width:100%!important}
+ body.teacher-finish.teacher-room-wall #roomToolbar #roomSearch{max-width:100%!important;width:100%!important;opacity:1!important;padding:8px 12px 8px 4px!important}
+ body.teacher-finish.teacher-room-wall #roomToolbar .room-count{min-width:0;margin:0}
+ body.teacher-finish.teacher-room-wall #roomToolbar>.teacher-create-room{margin:0!important;font-size:12px;padding:10px 12px}
+ body.teacher-finish :is(.room-students-title,.room-students-header){flex-wrap:wrap}
+ body.teacher-finish .room-student-tools{width:100%;justify-content:flex-end}
+ body :is(dialog,.integration-dialog):not(.astro-tutorial){padding-inline:16px!important}
+ body :is(.quiz-help,.integration-dialog) h2{padding-right:30px;overflow-wrap:anywhere}
+ body.student-finish .shop-layout{gap:18px}
+}
+@media(any-pointer:coarse){
+ body :is(.astro-nav-dialog-link,.teacher-close,.teacher-icon-action,.material-filter-trigger,.correction-filter-trigger,.activity-filter-trigger,.questions-filter-trigger,.qc-filter-trigger,.qc-icon,.room-copy,.room-student-more){min-width:44px!important;min-height:44px!important}
+ body :is(button,summary,a,input,select,textarea){touch-action:manipulation}
+ body :is(.finish-table-scroll,.student-table-scroll,.table-wrap){touch-action:pan-x pan-y}
+ body :is(input[type=checkbox],input[type=radio]){min-width:20px;min-height:20px}
+}
+@media(max-width:800px) and (max-height:500px){
+ body.astro-nav-ready .sidebar[data-astro-unified]{height:58px!important;padding:3px!important}
+ body.astro-nav-ready .sidebar .astro-nav-link{height:50px!important;min-height:50px!important}
+ #teacherTools .teacher-panel{top:65px!important;max-height:calc(100dvh - 145px)!important}
+}
+/* O número de colunas acompanha a largura útil, não apenas a do aparelho. */
+@container teacher-content (min-width:680px) and (max-width:1000px){
+ body.teacher-finish #content :is(.room-grid,.team-grid,.question-list),body.teacher-finish #content#materialList,body.teacher-finish #content #materialList,body.teacher-finish.teacher-activities-page #content>.list{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:800px){
+ body.teacher-finish .qc-toolbar{display:flex!important;flex-wrap:wrap}
+ body.teacher-finish .qc-toolbar .qc-search{flex:1 1 220px}
+ body.teacher-finish .qc-toolbar #quizCatalogPeriod{flex:0 1 200px;min-width:0;width:auto}
+ body.teacher-finish .library-file-footer .material-actions :is(button,a){min-width:44px!important;min-height:44px!important;width:44px!important;height:44px!important}
+ body.teacher-finish .library-file-footer{flex-wrap:wrap;gap:10px!important}
+ body.teacher-finish .library-file-footer .material-actions{margin-left:auto;flex-wrap:wrap}
+ body.teacher-finish .qc-more-menu{max-width:calc(100vw - 48px)}
+ body.teacher-finish :is(.library-filter-menu,.activity-filter-menu,.correction-filter-menu,.questions-filter-menu){box-sizing:border-box;max-width:calc(100vw - 32px);max-height:50dvh;overflow-y:auto}
+}
+@media(max-width:480px){
+ body.teacher-finish .qc-toolbar .qc-search{flex:1 1 100%}
+ body.teacher-finish .qc-toolbar #quizCatalogPeriod{flex:1 1 100%}
+}
+@media(max-width:600px){
+ /* A atividade tem cabeçalho próprio: o retorno nunca disputa a mesma linha
+    com o caminho da página, e o planeta não espreme o enunciado. */
+ body.activity-page .topbar{display:flex;flex-direction:column;align-items:stretch;gap:12px;margin-bottom:18px}
+ body.activity-page .topbar>nav{max-width:100%;flex-wrap:wrap;gap:8px}
+ body.activity-page .activity-tools{align-self:flex-end;max-width:100%;min-width:0;gap:8px}
+ body.activity-page #activityHome{min-width:0;min-height:44px;white-space:normal;line-height:1.4;max-width:calc(100vw - 96px)}
+ body.activity-page .activity-account-toggle{flex:0 0 44px;width:44px;height:44px}
+ body.activity-page .activity-account-panel{position:fixed;top:110px;right:12px;max-width:calc(100vw - 24px);max-height:calc(100dvh - 220px);overflow:auto}
+ body.activity-page .mission-banner{padding:24px 20px!important;min-height:0}
+ body.activity-page .mission-banner>div:first-child{width:100%!important;max-width:100%!important;min-width:0}
+ body.activity-page .mission-banner .kicker{max-width:calc(100% - 90px)}
+ body.activity-page .mission-banner h1{max-width:100%!important;margin-top:72px!important;font-size:28px!important;line-height:1.25;word-break:normal;overflow-wrap:break-word}
+ body.activity-page .mission-banner #activityPlanet.activity-planet-current{--mission-planet-size:80px;top:16px!important;right:16px!important}
+}
+@media(max-width:800px){
+ body.teacher-finish :is(.library-filter-options,.activity-filter-options,.correction-filter-options,.questions-filter-options){box-sizing:border-box;max-width:calc(100vw - 32px);max-height:50dvh;overflow-y:auto}
+ body.teacher-finish :is(.library-filter-options,.activity-filter-options,.correction-filter-options,.questions-filter-options) button{min-height:44px}
+}

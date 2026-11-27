@@ -261,10 +261,7 @@ export function renderQuestions(content, room, questions, backLink, selectedQues
   searchLabel.append(icon("M16.5 16.5 21 21M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"), search);
 
   let filter = "all";
-  const filterControl = createFilter(value => {
-    filter = value;
-    updateList();
-  });
+  const filterControl = createFilter(value => {filter=value;updateList();});
   const back = make("div", "", "questions-back page-actions");
   back.append(backLink);
   filters.append(searchLabel, filterControl, back);
@@ -292,7 +289,7 @@ export function renderQuestions(content, room, questions, backLink, selectedQues
     }
     count.textContent = visible + (visible === 1 ? " pergunta" : " perguntas");
     empty.hidden = visible > 0;
-    empty.textContent = rows.length ? "Nenhuma pergunta corresponde aos filtros." : "A turma ainda não enviou perguntas.";
+    empty.textContent = rows.length ? "Nenhuma pergunta corresponde à busca." : "A turma ainda não enviou perguntas.";
   }
 
   search.addEventListener("input", updateList);

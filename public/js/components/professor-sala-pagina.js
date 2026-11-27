@@ -265,7 +265,7 @@ function T() {
  const list=c('div','','room-student-list');students.append(list);
  const ids=['lilas-astronauta','verde-cientista','azul-artista','turquesa-leitor','lilas-engenheiro','verde-astronauta','azul-explorador','turquesa-astronauta'];
  function drawStudents(){const term=input.value.trim().toLocaleLowerCase('pt-BR');search.classList.toggle('has-value',!!term);const filtered=n.alunos.filter(person=>person.nome.toLocaleLowerCase('pt-BR').includes(term));const published=new Set(P(n).map(m=>m.id));
- const table=S(['Nome','Média','Entregas',''],filtered.map(person=>{const grade=n.pauta.pauta_data.find(row=>row.aluno.id===person.id);const value=f(grade?.media_missoes??grade?.media);const count=new Set(n.entregas.filter(item=>(item.aluno_id||item.perfis?.id)===person.id&&published.has(item.missao_id)).map(item=>item.missao_id)).size;
+ const table=S(['Nome','Média','Entregas',''],filtered.map(person=>{const grade=n.pauta.pauta_data.find(row=>row.aluno.id===person.id);const value=f(grade&&'media' in grade?grade.media:grade?.media_missoes);const count=new Set(n.entregas.filter(item=>(item.aluno_id||item.perfis?.id)===person.id&&published.has(item.missao_id)).map(item=>item.missao_id)).size;
  const portrait=c('span',person.nome.trim().split(/\s+/).slice(0,2).map(part=>part[0]).join(''),'room-portrait'),idx=ids.indexOf(person.avatar_id);if(idx>=0){portrait.textContent='';portrait.classList.add('has-avatar');portrait.style.backgroundPosition=`${idx%4*100/3}% ${idx<4?0:100}%`;}portrait.setAttribute('aria-hidden','true');
  const text=c('span','','room-student-name');text.append(c('strong',person.nome));const name=v('','aluno/',{sala:i,aluno:person.id},'room-student-link');name.append(portrait,text);
  const avg=c('div','','room-grade');avg.append(c('strong',b(value)));const track=c('span','','room-grade-track'),fill=c('span');fill.style.width=(value===null?0:Math.max(0,Math.min(10,value))*10)+'%';track.setAttribute('aria-hidden','true');track.append(fill);if(value!==null)avg.append(track);
@@ -613,12 +613,9 @@ async function G() {
         n.missoes = n.missoes.filter(a => a.periodo_id === e);
         const s = new Set(n.missoes.map(e => e.id));
         n.entregas = n.entregas.filter(e => s.has(e.missao_id)), n.equipes = n.equipes.filter(a => a.periodo_id === e);
-        n.pauta = {
-          ...n.pauta, pauta_data: n.pauta.pauta_data.map(e => {
-            let a = 0, t = 0;
-            return n.missoes.forEach(o => { const i = f(e.notas?.[o.id]); if (null !== i) { const e = Number(o.peso_nota) || 1; a += i * e, t += e } }), { ...e, media_missoes: t ? a / t : null, media: t ? a / t : null }
-          })
-        }
+        // Médias oficiais (atividades + avaliações) são calculadas pelo backend,
+        // já consultado com periodo_id. Não substituir por uma média local de missões.
+
       })();
       await ({
         room: T,

@@ -1,22 +1,58 @@
-#astroPageLoader{position:fixed;inset:0;z-index:10000;box-sizing:border-box;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at 85% 10%,#e6d6f2 0,transparent 55%),radial-gradient(ellipse at 5% 90%,#fae4d8 0,transparent 55%),#fcf8f5;color:#59356e;font:14px/1.6 Astro,Arial,sans-serif}
-#astroPageLoader .loading-center{display:grid;justify-items:center;align-content:center;gap:16px;max-width:min(440px,calc(100vw - 90px));padding:25px;text-align:center;z-index:1}
-#astroPageLoader .loading-center img{display:block;width:54px;height:54px;object-fit:contain;margin:0}
-#astroPageLoader .loading-center p{font:600 16px/1.6 Astro,Arial,sans-serif;margin:0;overflow-wrap:anywhere;color:#59356e}
-#astroPageLoader .loading-dots{display:flex;gap:7px}
-#astroPageLoader .loading-dots i{width:6px;height:6px;border-radius:50%;background:#9b69c0;animation:astro-loading-dot 1.4s ease-in-out infinite}
-#astroPageLoader .loading-dots i:nth-child(2){animation-delay:.2s}#astroPageLoader .loading-dots i:nth-child(3){animation-delay:.4s}
-#astroPageLoader button{font:600 12px/1.5 Astro,Arial,sans-serif;padding:10px 15px;border:1px solid #ccb0df;border-radius:999px;background:#fffaf7;color:#77518e;cursor:pointer}
-#astroPageLoader button[hidden]{display:none}#astroPageLoader button:focus-visible{outline:3px solid #8752ac;outline-offset:4px}
-#astroPageLoader .loading-peek{position:absolute;width:clamp(180px,23vw,255px);aspect-ratio:1;pointer-events:none}
-#astroPageLoader .loading-peek-sprite{width:100%;height:100%;background-size:400% 200%;background-repeat:no-repeat;animation:astro-loading-peek 4s ease-in-out infinite}
-#astroPageLoader .loading-peek[data-corner="0"]{top:0;left:20px;transform:translateY(-43%)}
-#astroPageLoader .loading-peek[data-corner="1"]{top:0;right:20px;transform:translateY(-43%)}
-#astroPageLoader .loading-peek[data-corner="2"]{bottom:0;left:20px;transform:translateY(42%)}
-#astroPageLoader .loading-peek[data-corner="3"]{bottom:0;right:20px;transform:translateY(42%)}
-@keyframes astro-loading-dot{0%,100%{opacity:.4;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
-@keyframes astro-loading-peek{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
+/* Uma pequena janela espacial. Só transform/opacity nas animações contínuas. */
+#astroPageLoader{position:fixed;inset:0;z-index:10000;isolation:isolate;box-sizing:border-box;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at 78% 12%,#d9c6f0 0,transparent 58%),radial-gradient(ellipse at 12% 92%,#f5d9c8 0,transparent 58%),linear-gradient(135deg,#f6eefb,#fdf7f0 60%,#efe8fa);color:#59356e;font:14px/1.6 Astro,Arial,sans-serif;animation:loading-scene-enter .2s ease-out}
+#astroPageLoader [hidden]{display:none!important}
+#astroPageLoader .loading-sky{position:absolute;inset:-2%;pointer-events:none;z-index:-1;animation:loading-sky-drift 22s ease-in-out infinite alternate}
+#astroPageLoader .loading-sky>i{position:absolute;left:var(--x);top:var(--y);width:var(--size);height:var(--size);border-radius:50%;background:#9f78be;box-shadow:0 0 8px #a36cd1;animation:loading-twinkle 3s var(--delay) ease-in-out infinite alternate}
+#astroPageLoader .loading-comet{position:absolute;left:75%;top:12%;width:100px;height:1px;background:linear-gradient(90deg,transparent,#fff);transform:rotate(-35deg);animation:loading-comet 5s ease-out infinite;opacity:0}
+#astroPageLoader .loading-window-frame{position:absolute;inset:18px;border:1px solid #ffffffa6;border-radius:35px;pointer-events:none;box-shadow:inset 0 0 45px #ffffff25}
+#astroPageLoader .loading-center{display:grid;justify-items:center;gap:12px;width:min(460px,calc(100vw - 38px));padding:15px;text-align:center;z-index:1;box-sizing:border-box}
+#astroPageLoader .loading-orbit-scene{position:relative;width:360px;max-width:100%;aspect-ratio:4/3;margin-bottom:12px}
+#astroPageLoader .loading-logo{position:absolute;left:50%;top:50%;width:68px;height:68px;object-fit:contain;margin:0;transform:translate(-50%,-50%);filter:drop-shadow(0 8px 13px #7e51a22b);animation:loading-logo-float 3s ease-in-out infinite}
+#astroPageLoader .loading-core-glow{position:absolute;inset:24% 30%;border-radius:50%;background:radial-gradient(#cfa7f055,transparent 70%);animation:loading-core-pulse 3s ease-in-out infinite}
+#astroPageLoader .loading-orbit-ring{position:absolute;left:19%;right:19%;top:17%;bottom:17%;border:1px solid #b493d64d;border-radius:50%;transform:rotate(-20deg);animation:loading-ring-spin 12s linear infinite}
+#astroPageLoader .loading-orbit-ring:nth-child(2){inset:25% 12%;border-color:#cfa5b95c;animation-direction:reverse;animation-duration:17s}
+#astroPageLoader .loading-orbit-ring>i{position:absolute;left:13%;top:9%;width:11px;height:11px;border-radius:50%;background:linear-gradient(135deg,#f7cd8d,#c08bca);box-shadow:0 0 12px #c39bc155}
+#astroPageLoader .loading-orbit-ring:nth-child(2)>i{width:7px;height:7px;background:#8d77c5}
+#astroPageLoader .loading-constellation{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+#astroPageLoader .loading-constellation path{fill:none;stroke:#b89bc9;stroke-width:1;stroke-dasharray:3 7;opacity:.65;transition:stroke .3s,opacity .3s}
+#astroPageLoader .is-complete .loading-constellation path{stroke:#a266ce;stroke-dasharray:none;opacity:1}
+#astroPageLoader button{font:600 12px/1.5 Astro,Arial,sans-serif;cursor:pointer;-webkit-tap-highlight-color:transparent}
+#astroPageLoader button:focus-visible{outline:3px solid #8752ac;outline-offset:5px}
+#astroPageLoader .loading-star{position:absolute;display:grid;place-items:center;box-sizing:border-box;transform:translate(-50%,-50%);width:44px;height:44px;min-width:44px;padding:0;margin:0;border:0;border-radius:50%;background:#fff9;color:#ad83ce;font:30px/1 Arial,sans-serif;box-shadow:0 0 22px #fff7;transition:color .2s,background .2s,box-shadow .2s}
+#astroPageLoader .loading-star>span{display:block;animation:loading-star-bob 3s var(--star-delay) ease-in-out infinite;pointer-events:none}
+#astroPageLoader .loading-star:hover{background:#fff;color:#9060ba;box-shadow:0 0 0 6px #ffffff55,0 0 28px #caa4ef55}
+#astroPageLoader .loading-star[aria-pressed=true]{background:#fff5e7;color:#d69838;box-shadow:0 0 0 5px #f4d8ab30,0 0 24px #edca7c66}
+#astroPageLoader .loading-message{font:600 17px/1.5 Astro,Arial,sans-serif;letter-spacing:-.2px;margin:0;color:#59356e;overflow-wrap:anywhere}
+#astroPageLoader .loading-activity{position:relative;display:block;width:110px;height:3px;border-radius:4px;background:#d9c7e655;overflow:hidden;margin:1px 0 3px}
+#astroPageLoader .loading-activity>i{display:block;width:40%;height:100%;border-radius:4px;background:linear-gradient(90deg,#b086d2,#d6a4ba);animation:loading-sweep 1.5s ease-in-out infinite}
+#astroPageLoader .loading-game-hint{font:12px/1.5 Astro,Arial,sans-serif;color:#92779f;margin:0}
+#astroPageLoader .loading-game-score{font:10px/1.5 Astro,Arial,sans-serif;color:#a28caf;min-height:15px}
+#astroPageLoader .loading-continue{padding:9px 16px;margin-top:5px;border:1px solid #ccb0df;border-radius:999px;background:#fffaf7bd;color:#77518e}
+#astroPageLoader .loading-continue:hover{background:#fffaf7}
+#astroPageLoader .loading-peek{position:absolute;display:block;width:clamp(190px,23vw,285px);aspect-ratio:1;height:auto;min-height:0;padding:0;margin:0;border:0;background:transparent;z-index:2;cursor:pointer;transition:opacity .18s,scale .18s;isolation:isolate}
+#astroPageLoader .loading-peek-sprite{display:block;width:100%;height:100%;background-size:400% 200%;background-repeat:no-repeat;transform-origin:50% 60%;animation:loading-mascot-sway 2.7s ease-in-out infinite;filter:drop-shadow(0 5px 13px #6c3b8c18)}
+#astroPageLoader .loading-peek:hover .loading-peek-sprite{animation:loading-mascot-greeting .7s ease-in-out infinite alternate}
+#astroPageLoader .loading-peek.is-hiding{opacity:0;scale:.88;pointer-events:none}
+#astroPageLoader .loading-peek[data-corner="0"]{top:0;left:22px;translate:0 -40%}
+#astroPageLoader .loading-peek[data-corner="1"]{top:0;right:22px;translate:0 -40%}
+#astroPageLoader .loading-peek[data-corner="2"]{bottom:0;left:22px;translate:0 37%}
+#astroPageLoader .loading-peek[data-corner="3"]{bottom:0;right:22px;translate:0 37%}
+#astroPageLoader .loading-spark{position:absolute;display:block;width:5px;height:5px;border-radius:50%;background:#cf9b53;pointer-events:none;animation:loading-spark-burst .6s ease-out forwards}
+@keyframes loading-scene-enter{from{opacity:0}to{opacity:1}}
+@keyframes loading-logo-float{0%,100%{transform:translate(-50%,-47%) rotate(-3deg)}50%{transform:translate(-50%,-57%) rotate(3deg)}}
+@keyframes loading-ring-spin{from{rotate:0deg}to{rotate:360deg}}
+@keyframes loading-core-pulse{0%,100%{scale:.9;opacity:.5}50%{scale:1.1;opacity:1}}
+@keyframes loading-star-bob{0%,100%{translate:0 0}50%{translate:0 -5px}}
+@keyframes loading-twinkle{from{opacity:.22}to{opacity:.8}}
+@keyframes loading-sky-drift{from{translate:-.6% -.4%}to{translate:.6% .4%}}
+@keyframes loading-comet{0%,65%{opacity:0;translate:0 0}70%{opacity:.8}90%,100%{opacity:0;translate:-220px 160px}}
+@keyframes loading-sweep{0%{transform:translateX(-100%)}100%{transform:translateX(350%)}}
+@keyframes loading-mascot-sway{0%,100%{transform:translate(var(--look-x,0px),var(--look-y,0px)) rotate(-5deg)}50%{transform:translate(var(--look-x,0px),calc(var(--look-y,0px) - 9px)) rotate(4deg)}}
+@keyframes loading-mascot-greeting{from{transform:translateY(-8px) rotate(-8deg) scale(1.02)}to{transform:translateY(0) rotate(8deg) scale(1.05)}}
+@keyframes loading-spark-burst{from{opacity:1;transform:translate(-50%,-50%) scale(1)}to{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(.2)}}
 html[data-astro-tema=pixel] #astroPageLoader .loading-peek-sprite{image-rendering:pixelated}
-html[data-astro-tema=pixel] #astroPageLoader button{border-radius:4px}
-@media(max-width:480px){#astroPageLoader .loading-center{max-width:calc(100vw - 35px);padding:20px}#astroPageLoader .loading-center p{font-size:14px}#astroPageLoader .loading-peek{width:185px}#astroPageLoader .loading-peek[data-corner="0"],#astroPageLoader .loading-peek[data-corner="2"]{left:0}#astroPageLoader .loading-peek[data-corner="1"],#astroPageLoader .loading-peek[data-corner="3"]{right:0}}
-@media(prefers-reduced-motion:reduce){#astroPageLoader *{animation:none!important;transition:none!important}}
-body.astro-motion-off #astroPageLoader *{animation:none!important;transition:none!important}
+html[data-astro-tema=pixel] #astroPageLoader :is(.loading-window-frame,.loading-continue,.loading-star){border-radius:4px}
+@media(max-width:600px){#astroPageLoader .loading-window-frame{inset:9px;border-radius:22px}#astroPageLoader .loading-center{width:calc(100vw - 32px);gap:10px}#astroPageLoader .loading-orbit-scene{width:290px;margin-bottom:10px}#astroPageLoader .loading-logo{width:58px;height:58px}#astroPageLoader .loading-message{font-size:14px}#astroPageLoader .loading-peek{width:190px}#astroPageLoader .loading-peek[data-corner="0"],#astroPageLoader .loading-peek[data-corner="2"]{left:-12px}#astroPageLoader .loading-peek[data-corner="1"],#astroPageLoader .loading-peek[data-corner="3"]{right:-12px}}
+@media(max-height:550px){#astroPageLoader .loading-center{gap:7px}#astroPageLoader .loading-orbit-scene{width:230px;margin:0}#astroPageLoader .loading-peek{width:165px}#astroPageLoader .loading-game-score{display:none}}
+@media(prefers-reduced-motion:reduce){#astroPageLoader,#astroPageLoader *{animation:none!important;transition:none!important}}
+body.astro-motion-off #astroPageLoader,body.astro-motion-off #astroPageLoader *{animation:none!important;transition:none!important}

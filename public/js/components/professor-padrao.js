@@ -1,7 +1,8 @@
+const polish=document.createElement('link');polish.rel='stylesheet';polish.href=new URL('../../css/professor-ajustes-finais.css?v=2',import.meta.url).href;document.head.append(polish);
 import "./professor-conta-preferencias.js?v=1";
-import "./professor-gestao.js?v=3";
+import "./professor-gestao.js?v=4";
 import "./professor-voltar.js?v=1";
-import "./professor-acoes-expansiveis.js?v=2";
+import "./professor-acoes-expansiveis.js?v=5";
 import "./professor-tutorial.js?v=4";
 import {pendenciaAviso,categoriaAviso} from './professor-avisos-utils.js?v=2';
 /* Cabeçalho e navegação exclusivos do professor. Não modifica os componentes do aluno. */

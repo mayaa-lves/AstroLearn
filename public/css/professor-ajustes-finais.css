@@ -1,0 +1,40 @@
+/* Ajustes pontuais aprovados: controles compactos, sem alterar o cenário. */
+html.astro-professor body :is(.room-copy,.room-search-toggle,.room-student-search button,.activity-filter-trigger,.correction-filter-trigger){display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:0 0 40px!important;box-sizing:border-box!important;width:40px!important;min-width:40px!important;max-width:40px!important;height:40px!important;min-height:40px!important;padding:9px!important;margin:0!important;border-radius:12px!important;gap:0!important;overflow:hidden!important}
+html.astro-professor body :is(.room-copy,.room-search-toggle,.room-student-search button,.activity-filter-trigger,.correction-filter-trigger)>.astro-action-label{display:none!important}
+html.astro-professor body :is(.room-copy,.room-search-toggle,.activity-filter-trigger,.correction-filter-trigger)>svg{width:20px!important;height:20px!important;flex:0 0 20px!important}
+html.astro-professor body .room-code{white-space:nowrap!important;flex-wrap:nowrap!important}
+html.astro-professor body .room-copy{flex-basis:32px!important;width:32px!important;min-width:32px!important;max-width:32px!important;height:32px!important;min-height:32px!important;padding:6px!important}
+html.astro-professor body .room-card-footer{justify-content:initial!important;gap:10px!important;flex-wrap:wrap!important}
+html.astro-professor body .room-state{margin:0 auto 0 0!important;flex:1 1 120px!important;font-size:11px}
+html.astro-professor body .room-card-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;margin-left:auto;flex:0 1 auto;max-width:100%}
+html.astro-professor body .room-enter{margin:0!important;white-space:nowrap;gap:7px;font-size:11px}
+html.astro-professor body .integration-room-delete.astro-expand-action{display:inline-flex!important;flex:0 0 auto!important;width:auto!important;min-width:36px!important;min-height:36px!important;height:36px!important;padding:8px!important;margin:0!important;border-radius:11px!important;background:#fff8f7!important;border:1px solid #eccbd4!important}
+html.astro-professor body .integration-room-delete .astro-action-label{max-width:0!important}
+html.astro-professor body .integration-room-delete:is(:hover,:focus-visible) .astro-action-label{max-width:95px!important}
+html.astro-professor body .room-student-tools{align-items:center!important;gap:8px!important}
+html.astro-professor body.room-approved-page .room-student-tools .room-invite{margin:0!important;height:40px!important;min-height:40px!important;padding:9px!important;border-radius:12px!important;align-self:center!important}
+html.astro-professor body .review-file{display:flex!important;align-items:center!important;gap:12px!important}
+html.astro-professor body .review-file>div:first-child:not(.review-file-controls){flex:1 1 auto!important;min-width:0!important;overflow-wrap:anywhere}
+html.astro-professor body .review-file-controls{margin-left:auto!important;display:flex!important;justify-content:flex-end!important;flex:0 0 auto!important;align-items:center!important;gap:8px!important}
+html.astro-professor body .review-file>.correction-file-action{margin-left:auto!important}
+html.astro-professor body .questions-search:focus-within{outline:2px solid #ae77cd!important;outline-offset:2px!important;box-shadow:none!important}
+html.astro-professor body .questions-search input:is(:focus,:focus-visible){outline:none!important;box-shadow:none!important;border:0!important;border-radius:0!important;background:transparent!important}
+html.astro-professor body[data-page=student] .chart svg{display:block;width:100%;height:auto;max-height:190px;overflow:visible}
+html.astro-professor body[data-page=student] .chart>.chart-data-note{display:block!important;margin:6px 0 12px;font-size:12px;line-height:1.5;color:#88699a}
+html.astro-professor body .chart-grade-label{fill:#75488e;font-size:12px;font-weight:600}
+@media(max-width:600px){html.astro-professor body .room-card-actions{gap:8px}html.astro-professor body .room-card-footer{gap:8px!important}html.astro-professor body .review-file{flex-wrap:wrap!important}html.astro-professor body .review-file-controls{max-width:100%;flex-wrap:wrap}}
+/* O rótulo da lixeira cresce dentro da mesma linha, sem afastar Abrir turma. */
+html.astro-professor body .room-card-footer{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;min-height:48px!important}
+html.astro-professor body .room-state{margin:0!important;min-width:0!important}
+html.astro-professor body .integration-room-delete.astro-expand-action:is(:hover,:focus-visible){width:125px!important;min-width:125px!important}
+html.astro-professor body .integration-room-delete:is(:hover,:focus-visible) .astro-action-label{max-width:110px!important;flex-shrink:0!important}
+/* Biblioteca e Perguntas: o ícone fica fixo; o menu continua abrindo normalmente. */
+html.astro-professor body :is(.library-filter-trigger,.questions-filter-trigger){display:inline-flex!important;align-items:center!important;justify-content:center!important;box-sizing:border-box!important;flex:0 0 44px!important;width:44px!important;min-width:44px!important;max-width:44px!important;height:44px!important;min-height:44px!important;padding:10px!important;gap:0!important;border-radius:12px!important;overflow:hidden!important}
+html.astro-professor body :is(.library-filter-trigger,.questions-filter-trigger)>.astro-action-label{display:none!important}
+html.astro-professor body :is(.library-filter-trigger,.questions-filter-trigger)>svg{display:block!important;width:22px!important;height:22px!important;flex:0 0 22px!important}
+html.astro-professor body #createMaterial.astro-expand-action{display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:0 0 auto!important;width:auto!important;min-width:44px!important;height:44px!important;min-height:44px!important;padding:11px!important;border-radius:12px!important;gap:0!important;transform:none!important}
+html.astro-professor body #createMaterial>.astro-action-label{position:static!important;inset:auto!important;width:auto!important;min-width:0!important;height:auto!important;max-width:0!important;margin:0!important;padding:0!important;border:0!important;background:none!important;box-shadow:none!important;color:inherit!important;visibility:visible!important;opacity:0!important;font:600 12px/1.4 Astro,Arial,sans-serif!important;white-space:nowrap!important;pointer-events:none;overflow:hidden!important;transition:max-width .2s ease,margin-inline-start .2s ease,opacity .15s!important}
+html.astro-professor body #createMaterial:is(:hover,:focus-visible)>.astro-action-label{max-width:115px!important;margin-inline-start:8px!important;opacity:1!important}
+@media(prefers-reduced-motion:reduce){html.astro-professor body #createMaterial>.astro-action-label{transition:none!important}}
+
+html.astro-professor body #createMaterial[hidden]{display:none!important}

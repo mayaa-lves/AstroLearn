@@ -146,7 +146,7 @@
 })();
 
 /* Um único assistente compacto em todas as páginas internas. */
-(() => {const source=document.currentScript?.src;if(!source||! /\/(aluno|professor)\//.test(location.pathname))return;const script=document.createElement('script');script.src=new URL('./assistente-flutuante.js',source).href;script.defer=true;document.head.append(script);})();
+(() => {const source=document.currentScript?.src;if(!source||! /\/(aluno|professor)\//.test(location.pathname))return;const script=document.createElement('script');script.src=new URL('./assistente-flutuante.js?v=chat-walk-3',source).href;script.defer=true;document.head.append(script);})();
 
 /* Topo consistente nas áreas internas, sem substituir o cabeçalho da trilha. */
 (()=>{const source=document.currentScript?.src;if(!source||document.querySelector('script[data-astro-account]'))return;const script=document.createElement('script');script.type='module';script.dataset.astroAccount='';script.src=new URL('./cabecalho-conta.js',source).href;document.head.append(script);})();

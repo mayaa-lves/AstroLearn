@@ -141,8 +141,12 @@ function M(e, a, t = "Escala de 0 a 10. Atividades sem nota permanecem sem ponto
   const r = (e, a) => { const t = document.createElementNS(i, e); return Object.entries(a).forEach(([e, a]) => t.setAttribute(e, a)), t };
   [0, 5, 10].forEach(e => { const a = 175 - 15 * e; n.append(r("line", { x1: 38, x2: 595, y1: a, y2: a, class: "grid" })); const t = r("text", { x: 15, y: a + 4 }); t.textContent = e, n.append(t) });
   let s = null;
-  a.forEach((e, t) => { const o = a.length < 2 ? 315 : 48 + 535 * t / (a.length - 1), i = f(e.value); if (null != i) { const a = 175 - 15 * Math.max(0, Math.min(10, i)); s && n.append(r("line", { x1: s.x, y1: s.y, x2: o, y2: a, class: "trend" })); const t = r("circle", { cx: o, cy: a, r: 5 }), d = r("title", {}); d.textContent = `${e.label}: ${b(i)}`, t.append(d), n.append(t), s = { x: o, y: a } } else s = null; const d = r("text", { x: o, y: 199, "text-anchor": "middle" }); d.textContent = t + 1, n.append(d) });
+  a.forEach((e, t) => { const o = a.length < 2 ? 315 : 48 + 535 * t / (a.length - 1), i = f(e.value); if (null != i) { const a = 175 - 15 * Math.max(0, Math.min(10, i)); s && n.append(r("line", { x1: s.x, y1: s.y, x2: o, y2: a, class: "trend" })); const t = r("circle", { cx: o, cy: a, r: 5 }), d = r("title", {}); d.textContent = `${e.label}: ${b(i)}`, t.append(d), n.append(t), n.append(Object.assign(r("text",{x:o,y:a-12,"text-anchor":"middle",class:"chart-grade-label"}),{textContent:b(i)})), s = { x: o, y: a } } else s = null; const d = r("text", { x: o, y: 199, "text-anchor": "middle" }); d.textContent = t + 1, n.append(d) });
+  const rated=a.filter(item=>f(item.value)!==null);
   o.append(n);
+  if(document.body.dataset.page==='student'){
+    const hint=c('p',rated.length===0?'Ainda não há notas registradas.':rated.length===1?'Há apenas uma atividade com nota. As demais permanecem sem ponto.':`${rated.length} de ${a.length} atividades têm nota registrada.`,'chart-data-note');o.append(hint);
+  }
   const d = c("details");
   return d.append(c("summary", "Ver atividades e valores"), S(["Atividade", "Nota"], a.map(e => [e.label, b(f(e.value))]))), o.append(d), a.some(e => null != f(e.value)) || o.append(c("p", "Ainda não há notas registradas para este gráfico.", "chart-caption")), o
 }
@@ -267,6 +271,10 @@ function O() {
   w(o.nome, "Acompanhamento individual: atividades, notas e retorno do professor.");
   const r = n.pauta.pauta_data.find(a => a.aluno.id === e), s = n.entregas.filter(a => (a.aluno_id || a.perfis?.id) === e), d = s.filter(e => "corrigido" === e.status);
   a("content").append(u(c("section", "", "stats"), x("Média das atividades", b(f(r?.media_missoes ?? r?.media))), x("Entregas registradas", `${s.length}/${P(n).length}`), x("Atividades corrigidas", d.length)));
+  const quizStats=c('section','','stats quiz-grade-stats');
+  quizStats.append(x('Média geral',b(f(r?.media))+(r?.media_provisoria?' · provisória':'')),x('Média das avaliações',b(f(r?.media_quizzes))),x('Desempenho em treinos',b(f(r?.media_treinos))));a('content').append(quizStats);
+  const exams=[...(n.pauta.quizzes||[]),...(n.pauta.quizzes_treino||[])];
+  if(exams.length){const quizHistory=y('Quizzes e avaliações','Treinos ficam fora da média. Avaliações pendentes não recebem zero automaticamente.');quizHistory.append(S(['Quiz','Finalidade','Nota'],exams.map(q=>[q.titulo,q.tipo==='treino'?'Treino':'Avaliação',b(f(q.tipo==='treino'?r?.treino_notas?.[q.id]:r?.quiz_notas?.[q.id]))])));a('content').append(quizHistory);}
   const l = P(n).map(e => ({ label: (n.periodos.find(a => a.id === e.periodo_id)?.nome || "Período") + " · " + e.titulo, value: f(r?.notas?.[e.id]) })), p = c("div", "", "two-columns");
   p.append(M("Notas por atividade", l), N("Situação individual", [{ label: "Corrigidas", value: d.length, percent: d.length / (P(n).length || 1) * 100 }, { label: "A corrigir", value: s.filter(e => "entregue" === e.status).length, percent: s.filter(e => "entregue" === e.status).length / (P(n).length || 1) * 100 }, { label: "Sem entrega", value: Math.max(0, P(n).length - s.length), percent: Math.max(0, P(n).length - s.length) / (P(n).length || 1) * 100 }], "Atividades sem avaliação não entram na média."));
   a("content").append(p);
@@ -596,12 +604,9 @@ async function G() {
         n.missoes = n.missoes.filter(a => a.periodo_id === e);
         const s = new Set(n.missoes.map(e => e.id));
         n.entregas = n.entregas.filter(e => s.has(e.missao_id)), n.equipes = n.equipes.filter(a => a.periodo_id === e);
-        n.pauta = {
-          ...n.pauta, pauta_data: n.pauta.pauta_data.map(e => {
-            let a = 0, t = 0;
-            return n.missoes.forEach(o => { const i = f(e.notas?.[o.id]); if (null !== i) { const e = Number(o.peso_nota) || 1; a += i * e, t += e } }), { ...e, media_missoes: t ? a / t : null, media: t ? a / t : null }
-          })
-        }
+        // Médias oficiais (atividades + avaliações) são calculadas pelo backend,
+        // já consultado com periodo_id. Não substituir por uma média local de missões.
+
       })();
       await ({
         room: T,
@@ -687,16 +692,19 @@ async function G() {
           T.type = "submit", O.setAttribute("role", "alert");
           R.append(c("p", s.equipe_id ? "A mesma nota e devolutiva serão lançadas para os integrantes desta entrega em equipe." : "A nota e a devolutiva serão enviadas ao aluno.", "hint"), T, O);
           P.oninput = $.oninput = () => {
-            J = !0, L.textContent = $.value.length + " / 3.000 caracteres";
+            J = !0, T.disabled=!1, T.textContent=s.status==="corrigido"?"Salvar alterações":"Salvar correção", L.textContent = $.value.length + " / 3.000 caracteres";
             try { sessionStorage.setItem(D, JSON.stringify({ nota: P.value, feedback: $.value })), z.textContent = "Rascunho salvo nesta aba." } catch { z.textContent = "Alterações mantidas somente nesta visita." }
           };
           const B = c("details", "", "orientation");
           B.append(c("summary", "Como escrever uma boa devolutiva"), c("p", "Reconheça uma escolha acertada, explique uma melhoria concreta e proponha um próximo passo. Exemplo: “Você manteve a água igual nas duas plantas. Agora registre a altura diariamente para comparar os resultados.”", "hint"));
           M.append(R, B);
           const U = () => {
-            P.disabled = $.disabled = T.disabled = !0, T.textContent = "Correção registrada", J = !1, z.textContent = "Nota e devolutiva registradas.";
+            P.disabled = $.disabled = T.disabled = !1, T.textContent = "Salvar alterações", J = !1, z.textContent = "Correção registrada. Você pode ajustar a nota e a devolutiva.";
+            s.status="corrigido"; s.nota=f(P.value); s.comentario_professor=$.value.trim();
+            const badge=x.querySelector(".badge");if(badge){badge.textContent="Correção registrada";badge.className="badge green";}
+            M.querySelector(".review-next-actions")?.remove();
             try { sessionStorage.removeItem(D) } catch { }
-            const e = n.entregas.find(e => "entregue" === e.status && e.id !== r.id), a = c("div", "", "button-row");
+            const e = n.entregas.find(e => "entregue" === e.status && e.id !== r.id), a = c("div", "", "button-row review-next-actions");
             e && a.append(v("Próxima entrega →", "correcao/", { sala: i, entrega: e.id }, "primary")), a.append(v("Voltar à fila", "correcoes/", { sala: i })), M.append(a)
           };
           "corrigido" === s.status && U();
@@ -704,21 +712,21 @@ async function G() {
             if (t.preventDefault(), T.disabled) return;
             const o = f(P.value);
             if (null === o || o < 0 || o > 10) return O.textContent = "Informe uma nota entre 0 e 10.", void P.focus();
-            T.disabled = !0, a("refresh").disabled = !0, O.textContent = "";
+            T.disabled = P.disabled = $.disabled = !0, a("refresh").disabled = !0, O.textContent = "";
             try {
               await e.correct(r.id, o, $.value.trim()), U(), a("status").textContent = "Correção salva no servidor.", window.dispatchEvent(new window.Event("astro-notifications-refresh"))
             } catch (t) {
               let i = !1;
               try { const a = await e.delivery(r.id); i = "corrigido" === a.status && f(a.nota) === o && (a.comentario_professor || "") === $.value.trim() } catch { }
               i ? (U(), a("status").textContent = "Consulta concluída: esta correção já está registrada.") : (O.textContent = t.message, T.disabled = !1)
-            } finally { a("refresh").disabled = !1 }
+            } finally { P.disabled = $.disabled = !1; a("refresh").disabled = !1 }
           };
           m.append(h, M), a("content").append(m)
         }(s),
         questions: async () => {
           const [questions, { renderQuestions }] = await Promise.all([
             e.questions(i),
-            import("../pages/professor/perguntas.js?v=20261124-compact-2")
+            import("../pages/professor/perguntas.js?v=20261127-filtro-3")
           ]);
           if (s !== l) return;
           w("Perguntas da turma", "Converse com os alunos e acompanhe as respostas.");

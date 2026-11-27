@@ -86,7 +86,7 @@
     const items=[['home.html','Turmas']];
     if(room)items.push(['turma.html','Sala'],['atividades.html','Atividades'],['biblioteca.html','Biblioteca'],['equipes.html','Equipes'],['correcoes.html','Correções'],['perguntas.html','Perguntas'],['quizzes.html','Quizzes'],['jogos.html','Jogos']);
     // Notifications, profile and assistant already have dedicated controls.
-    const chosen=({'perfil.html':'Perfil','quizzes.html':'Quizzes','home.html':'Turmas','assistente.html':'Assistente','jogos.html':'Jogos','turma.html':'Sala','aluno.html':'Sala','atividade.html':'Atividades','atividades.html':'Atividades','editor-atividade.html':'Atividades','biblioteca.html':'Biblioteca','novo-material.html':'Biblioteca','equipes.html':'Equipes','correcao.html':'Correções','correcoes.html':'Correções','perguntas.html':'Perguntas','notificacoes.html':'Notificações'})[location.pathname.split('/').pop()];
+    const chosen=({'perfil.html':'Perfil','quizzes.html':'Quizzes','criar-quiz.html':'Quizzes','home.html':'Turmas','assistente.html':'Assistente','jogos.html':'Jogos','turma.html':'Sala','aluno.html':'Sala','atividade.html':'Atividades','atividades.html':'Atividades','editor-atividade.html':'Atividades','biblioteca.html':'Biblioteca','novo-material.html':'Biblioteca','equipes.html':'Equipes','correcao.html':'Correções','correcoes.html':'Correções','perguntas.html':'Perguntas','notificacoes.html':'Notificações'})[location.pathname.split('/').pop()];
     const keep=[];
     for(const [file,label]of items){
       let a=[...nav.querySelectorAll('a')].find(a=>labelOf(a)===label);
@@ -113,7 +113,7 @@
     let name='';const file=location.pathname.split('/').pop();
     if(location.pathname.includes('/aluno/jogos/'))name='Jogos';
     else if(file==='home.html')name='Minha trilha';
-    else name=({'quizzes.html':'Quizzes','assistente.html':'Assistente','biblioteca.html':'Biblioteca','conquistas.html':'Conquistas','loja.html':'Loja','equipe.html':'Minha equipe','perfil.html':'Perfil','configuracoes.html':'Perfil','atividade.html':'Minha trilha'})[file]||'';
+    else name=({'quizzes.html':'Quizzes','criar-quiz.html':'Quizzes','assistente.html':'Assistente','biblioteca.html':'Biblioteca','conquistas.html':'Conquistas','loja.html':'Loja','equipe.html':'Minha equipe','perfil.html':'Perfil','configuracoes.html':'Perfil','atividade.html':'Minha trilha'})[file]||'';
     all.forEach(a=>{const yes=labelOf(a)===name;a.classList.toggle('active',yes);if(yes)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
     return all.find(a=>labelOf(a)===name)||null;
   }
